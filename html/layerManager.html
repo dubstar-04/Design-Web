@@ -1,23 +1,32 @@
 <div id="LayerManager" class="LayerManager">
+    <div class="Design-header">
+        <span class="Design-closeButton" onclick="closeLayerManager()">&times;</span>
+        <h3>Layers</h3>
+    </div>
     <div id="LayerManagerContent" class="LayerManager-content">
-        <div class="Design-header">
-            <span class="Design-closeButton" onclick="closeLayerManager()">&times;</span>
-            <h3>Layers</h3>
-        </div>
         <div class="LayerManager-body">
 
             <ul id="LayerManagerList" class="LayerManagerList">
                 <!-- Dynamically add layer list -->
             </ul>
+            <!-- <button class="button bottom">New Layer</button> t -->
         </div>
     </div>
 </div>
 
 <script>
-    function showLayerManager() {
+    function showHideLayerManager() {
 
-        document.getElementById("LayerManager").style.width = "300px";
-        loadLayers();
+        var LM = document.getElementById("LayerManager");
+
+        if (LM.style.width > "0px") {
+            closeLayerManager();
+        } else {
+            LM.style.width = "300px";
+            loadLayers();
+        }
+
+
     }
 
     /* Set the width of the side navigation to 0 */
@@ -70,9 +79,6 @@
                 document.getElementById(layerName + "linetypeStatus").innerHTML = layers[layer].lineType;
                 document.getElementById(layerName + "lineweightStatus").innerHTML = layers[layer].lineWeight;
 
-                //document.getElementById('deleteLayerBtn').onclick = function(){console.log("Delete Layer")};
-
-
             }
         }
     }
@@ -82,16 +88,23 @@
         var elemIDstate = document.getElementById(elemID + "Details").style.display;
         console.log(elemID, elemIDstate)
 
+        //hide any expanded sections
+        
+        var divs = document.querySelectorAll("[id]");
+        for (var i = 0, len = divs.length; i < len; i++) {
+            var div = divs[i];
+            if (div.id.indexOf("Details") > -1) {
+                div.style.height = "0px";
+                div.style.display = "none";
+            }
+        }
+
         if (elemIDstate !== "block") {
             document.getElementById(elemID + "Details").style.display = "block";
             document.getElementById(elemID + "Details").style.height = "260px";
             showlayerDetails(elemID)
-            console.log("Show Details")
-        } else {
-            document.getElementById(elemID + "Details").style.height = "0px";
-            document.getElementById(elemID + "Details").style.display = "none";
-            console.log("Hide Details")
-        }
+            //console.log("Show Details")
+        } 
     }
 
     function handleMouse(e, elem, layerID, layerIndex) {

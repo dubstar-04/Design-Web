@@ -1,9 +1,10 @@
 .button {
     background-color: var(--active-colour);
 	display: inline-block;
-	height: 100%;
+	height: 30px;
 	width: 100%;
 	margin: var(--margin-size);
+    padding: var(--padding);
     border: none;
 	border-radius:10px;
 	color: var(--text-colour);
@@ -13,6 +14,8 @@
 }
 
 .delete_button{background-color: var(--alert-colour);}
+
+.bottom{position:absolute; bottom:0;}
 
 .button:hover {
 background-color: var(--hover-colour);
