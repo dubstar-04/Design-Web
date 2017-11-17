@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+    
+<body>
+    <title>Design</title>
+    <link rel="stylesheet" href="css/design.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/toggle.css">
+    <link rel="stylesheet" href="css/tickbox.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/layerManager.css">
+    <link rel="stylesheet" href="css/contextmenu.css">
+    <link rel="stylesheet" href="css/popover.css">
+
+    <link rel="import" href="html/layerManager.html">
+    <link rel="import" href="html/settings.html">
+    <link rel="import" href="html/contextmenu.html">
+    <link rel="import" href="html/popover.html">
+
+    <!-- <body> -->
+
+
+    <div role="main">
+        <!--<canvas id="myCanvas" width="600" height="400" style="border:1px solid #c3c3c3;">-->
+        <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+    </div>
+
+
+    <div class="toolbar">
+        <button class="designicon" , onclick="showSettings()"><img src="icons/design.svg"></button>
+        <button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button>
+        <button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button>
+        <span class="separator"></span>
+        <button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>
+        <span class="separator"></span>
+        <button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>
+        <button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button>
+
+        <span class="separator"></span>
+        <button class="tool" , onclick="showLayerManager()"><img src="icons/layers.svg"></button>
+
+
+    </div>
+
+</body>
+
+<footer>
+    <canvasbottom id="foot">
+        <input id="cmdLine" type="text" id="cmdLine">
+        <!--<button class="popup" , onclick="showPopup()" id="myPopup"><img src="icons/erase.svg"></button> -->
+        <label id="coordLabel">label</label>
+    </canvasbottom>
+</footer>
+
+
+<script>
+    // store a list of loaded commands - this is also created in scene.js //FIX
+    var commands = [];
+    var coordinatesLabel = document.getElementById('coordLabel')
+    var cmd_Line = document.getElementById('cmdLine')
+    var cnvs = document.getElementById('designCanvas');
+    cnvs.style.cursor = "crosshair";
+
+</script>
+
+<!--Load all the design libs-->
+<script type="text/javascript" src="js/entities/geometryUtils.js"></script>
+
+<script type="text/javascript" src="js/entities/line.js"></script>
+<script type="text/javascript" src="js/entities/polyline.js"></script>
+<script type="text/javascript" src="js/entities/circle.js"></script>
+<script type="text/javascript" src="js/entities/arc.js"></script>
+<script type="text/javascript" src="js/entities/rectangle.js"></script>
+<script type="text/javascript" src="js/entities/ellipse.js"></script>
+<script type="text/javascript" src="js/entities/spline.js"></script>
+<!--<script type="text/javascript" src="js/entities/text.js"></script>-->
+
+<script type="text/javascript" src="js/entities/point.js"></script>
+<script type="text/javascript" src="js/entities/layer.js"></script>
+
+<script type="text/javascript" src="js/tools/move.js"></script>
+<script type="text/javascript" src="js/tools/copy.js"></script>
+<script type="text/javascript" src="js/tools/rotate.js"></script>
+<script type="text/javascript" src="js/tools/erase.js"></script>
+<script type="text/javascript" src="js/tools/distance.js"></script>
+
+<script type="text/javascript" src="js/tools/extend.js"></script>
+<script type="text/javascript" src="js/tools/trim.js"></script>
+
+<script type="text/javascript" src="js/lib/canvas.js"></script>
+<script type="text/javascript" src="js/lib/mouse.js"></script>
+<script type="text/javascript" src="js/lib/scene.js"></script>
+<script type="text/javascript" src="js/lib/commandLine.js"></script>
+<script type="text/javascript" src="js/lib/fileio.js"></script>
+<script type="text/javascript" src="js/lib/dxf.js"></script>
+<script type="text/javascript" src="js/lib/FileSaver.min.js"></script>
+
+
+<script type="text/javascript" src="js/lib/design-engine.js"></script>
+<script type="text/javascript" src="js/lib/colours.js"></script>
+<script type="text/javascript" src="js/lib/intersect.js"></script>
+
+
+
+<script>
+    var mouse = new Mouse();
+    var canvas = new Canvas(cnvs);
+    var commandLine = new CommandLine(cmd_Line);
+
+    addStandardLayers(); //TO DO: Where should start up scripts go?
+
+    cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
+    cnvs.addEventListener('mouseup', canvas.mouseup, false);
+    cnvs.addEventListener('dblclick', canvas.dblclick, false);
+    cnvs.addEventListener('contextmenu', function(){canvas_contextmenu()}, false);
+    //cnvs.addEventListener('wheel', canvas.wheel, false);
+    cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
+    cnvs.addEventListener('mousewheel', canvas.wheel, false);
+    cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
+    cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
+    window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
+    window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
+    window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
+    window.addEventListener('resize', function(){closePopover()}, false);
+
+
+    function canvas_contextmenu() {
+
+        var listItems = ["Enter", "Mid Between 2 Points","Snap Settings"];
+        popover_showList(listItems);
+    }
+
+</script>
+
+</html>

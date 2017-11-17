@@ -1,0 +1,196 @@
+:root {
+	
+	/*
+	This section holds the variables for the design of the css. 
+	variables can be recalled using var(--var-name);
+	*/
+	
+  --mainbg-color: #06c;     /* Green */
+  --accent-color: #006;     /* Blue */
+  --border-colour: #888888; /* Dark Grey */
+  --shadow-colour: #d3d3d3; /* Grey */
+  --titletext-colour: white;
+  --text-colour: #000000;   /* Black */
+  
+  /* status */
+  --active-colour: #38B44A; 	/* Green */
+  --alert-colour: #f44336; 		/* Red */
+  --passive-colour: #008CBA; 	/* Blue */
+  --inactive-colour: #8a8a8a;	/* Dark Grey */
+  --hover-colour: #dddddd;		/* Grey */
+    
+    /* dialog */
+  --header-colour: #38B44A;
+  --bg-colour: #fefefe;
+  
+  /* Text Size */
+  --xs-text: 10px;
+  --small-text: 12px;
+  --medium-text: 16px;
+  --large-text: 22px;
+  --xl-text: 30px;
+  
+  --margin-size: 5px;
+  
+}   
+
+/* Fonts */
+
+h1 {
+    font-size: var(--xl-text);
+	font-family: Tahoma, Verdana;
+}
+
+h2 {
+    font-size: var(--large-text);
+	font-family: Tahoma, Verdana;
+}
+
+h3 {
+    font-size: var(--medium-text);
+	font-family: Tahoma, Verdana;
+}
+
+p {
+    font-size: var(--small-text);
+	font-family: Tahoma, Verdana;
+}    
+
+
+	   html,
+        body {
+            background: #fff;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden
+        }
+		     
+        canvas {
+            position: absolute;
+        }
+        
+        canvasbottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin: 0;
+            padding: 0.5em 5em;
+            background: rgba(240, 240, 240, 0.7)
+        }
+        
+        #head {
+            top: 0;
+            border-bottom: 1px solid #999;
+        }
+        
+        #foot {
+            bottom: 0;
+            font-size: 85%;
+            border-top: 1px solid #999;
+            overflow: hidden;
+        }
+        
+        #cmdLine {
+            float: left;
+            width: 25%
+        }
+        
+        #coordLabel {
+            float: right;
+        }
+        
+        .toolbar {
+            position: absolute;
+            height: 50px;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            background-color: #f0f0f0;
+            box-shadow: 0px 2px 2px #888888;
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .designicon,
+        .tool {
+            height: 50px;
+            width: 50px;
+            vertical-align: middle;
+            border: none;
+            background-color: Transparent;
+            outline: none;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            margin: 0px;
+            float: left;
+        }
+        
+        .tool img {
+            height: 50%;
+        }
+        
+        .designicon img {
+            height: 100%;
+        }
+        
+        .toolbar button:hover {
+            background-color: var(--hover-colour);
+        }
+        
+        .active {
+            background-color: #4CAF50;
+        }
+        
+        .separator {
+            content: '';
+            display: inline-block;
+            background: #888;
+            margin: 0px 4px;
+            height: 100%;
+            width: 1px;
+            vertical-align: middle;
+            float: left;
+        }
+        
+
+/*Standard components used in teh design ui*/
+
+.Design-header {
+    padding: 2px 16px;
+    background-color: var(--active-colour);
+    color: white;
+}
+
+.Design-closeButton {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.Design-closeButton:hover,
+.Design-closeButton:focus {
+    color: var(--hover-colour);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.Design-shape {
+	height: 30px;
+	width: 30px;
+	border: 1px solid var(--border-colour);
+    border-radius:100%;
+	margin: 7.5px;   
+}
+
+.Design-shape:hover {
+    height: 28px;
+    width: 28px;
+    border: 2px solid var(--border-colour);
+}
+
+
+

@@ -1,0 +1,22 @@
+.button {
+    background-color: var(--active-colour);
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+	margin: var(--margin-size);
+    border: none;
+	border-radius:10px;
+	color: var(--text-colour);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--small-text);
+}
+
+.delete_button{background-color: var(--alert-colour);}
+
+.button:hover {
+background-color: var(--hover-colour);
+}
+
+
+

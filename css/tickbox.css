@@ -1,0 +1,39 @@
+.tickbox {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+
+.tickbox input {display:none;}
+
+.tkbtn {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--inactive-colour);
+  border-radius: 100%;
+}
+
+.tkbtn:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+input:checked + .tkbtn {
+background-color: var(--active-colour);
+}
+
+input:hover + .tkbtn {
+background-color: var(--hover-colour);
+}
+

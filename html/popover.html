@@ -1,0 +1,110 @@
+<div id="PopoverWindow" class="Popover">
+    <div id="Popover-body" class="Popover-body">
+    </div>
+</div>
+
+
+<script>
+    function popover_setContent(content) {
+        var popover = document.getElementById("Popover-body")
+        popover.innerHTML = content;
+        showPopover();
+    }
+
+    function popover_appendContent(content) {
+        popover_clearContent();
+        var popover = document.getElementById("Popover-body");
+        popover.appendChild(content);
+        showPopover();
+    }
+
+    function popover_showList(listItems) {
+    var popover_list = document.createElement("ui");
+        popover_list.className = "Popover-list";
+        popover_list.id = "Popover-list";
+
+        for (var i = 0; i < listItems.length; i++) {
+
+            var listItem = document.createElement("li");
+            listItem.appendChild(document.createTextNode(listItems[i]))
+            listItem.onmousedown = function(e) {
+                console.log(listItem[i], " clicked")
+            };
+
+            popover_list.appendChild(listItem);
+        }
+
+        popover_appendContent(popover_list)
+    }
+
+    function popover_clearContent() {
+        var popover = document.getElementById("Popover-body")
+        popover.innerHTML = '';
+    }
+
+    function showPopover(ev) {
+        document.getElementById('PopoverWindow').style.display = "block";
+        positionPopover(ev);
+    }
+
+    function closePopover() {
+        document.getElementById('PopoverWindow').style.display = "none";
+    }
+
+    function positionPopover(ev) {
+        var clickCoords = getPosition(ev);
+        var clickCoordsX = clickCoords.x;
+        var clickCoordsY = clickCoords.y;
+        var popover = document.getElementById('Popover-body');
+
+        popoverWidth = popover.offsetWidth + 4;
+        popoverHeight = popover.offsetHeight + 4;
+
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+
+        if ((windowWidth - clickCoordsX) < popoverWidth) {
+            popover.style.left = windowWidth - popoverWidth + "px";
+        } else {
+            popover.style.left = clickCoordsX - (popoverWidth / 2) + "px";
+        }
+
+        if ((windowHeight - clickCoordsY) < popoverHeight) {
+            popover.style.top = windowHeight - popoverHeight - 10 + "px";
+        } else {
+            popover.style.top = clickCoordsY + 10 + "px";
+        }
+    }
+
+    function getPosition(ev) {
+        var posx = 0;
+        var posy = 0;
+
+        if (!e) var e = window.event;
+
+        if (e.pageX || e.pageY) {
+            posx = e.pageX;
+            posy = e.pageY;
+        } else if (e.clientX || e.clientY) {
+            posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        return {
+            x: posx,
+            y: posy
+        }
+    }
+
+    // When the user clicks anywhere outside of the dialogs, close them
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('PopoverWindow')) {
+            document.getElementById('PopoverWindow').style.display = "none";
+        }
+    }
+
+    //import this document in to the Design.html Document
+    var import1 = document.currentScript.ownerDocument.querySelector("#PopoverWindow");
+    document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+
+</script>

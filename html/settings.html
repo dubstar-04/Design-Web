@@ -1,0 +1,67 @@
+
+<div id="SettingsWindow" class="Settings">
+  <div class="Settings-content">
+    <div class="Design-header">
+      <span class="Design-closeButton" onclick="closeSettings()">&times;</span>
+      <h3>Settings</h3>
+    </div>
+    <div class="Settings-body">
+	</div>
+</div>
+</div>
+
+
+    <script>
+	
+	
+	        var settings = {
+            firstRun: true,
+            canvasBackgroundColour: "#E9E9E9", //"#000000",
+            selectedItemsColour: "#00FF00",
+            snapColour: "#FF0000",
+            helperGeometryColour: "#00BFFF",
+            polarSnapColour: "#38B44A"
+
+        }
+
+        var fontSettings = {
+            font: "Ubuntu",
+            upsidedown: false,
+            backwards: false
+        }
+
+        var snapSettings = {
+            endSnap: true,
+            midSnap: true,
+            centreSnap: true,
+            nearestSnap: false,
+            quadrantSnap: false,
+            polarAngle: 45,
+            polar: true,
+            ortho: false
+        }
+
+
+function showSettings() {
+	//block context menu for layer manager
+	//var SW = document.getElementById("SettingsWindow");
+	//SW.oncontextmenu =  function(e) {e.preventDefault()};
+    document.getElementById('SettingsWindow').style.display = "block";
+}
+
+function closeSettings() {
+    document.getElementById('SettingsWindow').style.display = "none";
+}
+        
+    // When the user clicks anywhere outside of the dialogs, close them
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('SettingsWindow')) {
+            document.getElementById('SettingsWindow').style.display = "none";
+        }
+    }
+
+//import this document in to the Design.html Document
+  var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow"); 
+  document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+
+     </script>
