@@ -4,8 +4,8 @@
 	variables can be recalled using var(--var-name);
 	*/
     --mainbg-color: #06c;
-    /* Green */
-    --accent-color: #006;
+    /* Orange */
+    --accent-color: #F78F3F;
     /* Blue */
     --border-colour: #888888;
     /* Dark Grey */
@@ -34,7 +34,6 @@
     --medium-text: 16px;
     --large-text: 22px;
     --xl-text: 30px;
-    
     /* Layout */
     --margin-size: 5px;
     --padding: 10px;
@@ -196,4 +195,17 @@ canvasbottom {
     height: 28px;
     width: 28px;
     border: 2px solid var(--border-colour);
+}
+
+.tick {
+    height: 10px;
+    width: 4px;
+    border: solid #FFFFFF;
+    border-width: 0px 3px 3px 0px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    display: block;
+    margin-top: 7px;
+    margin-left: 11.5px;
 }

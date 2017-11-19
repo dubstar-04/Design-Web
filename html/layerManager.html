@@ -37,10 +37,10 @@
     function showlayerDetails(elemID) {
 
         for (var layer = 0; layer < LM.layerCount(); layer++) {
-           // if (layers[layer].name + "-layerDetails" === elemID + "Details") {
+            // if (layers[layer].name + "-layerDetails" === elemID + "Details") {
             {
-                
-            var layer = LM.getLayerByIndex(layer);
+
+                var layer = LM.getLayerByIndex(layer);
 
                 var detailsDiv = document.getElementById(elemID + "Details")
                     //detailsDiv.innerHTML = '';
@@ -92,7 +92,7 @@
         console.log(elemID, elemIDstate)
 
         //hide any expanded sections
-        
+
         var divs = document.querySelectorAll("[id]");
         for (var i = 0, len = divs.length; i < len; i++) {
             var div = divs[i];
@@ -106,8 +106,8 @@
             document.getElementById(elemID + "Details").style.display = "block";
             document.getElementById(elemID + "Details").style.height = "260px";
             showlayerDetails(elemID)
-            //console.log("Show Details")
-        } 
+                //console.log("Show Details")
+        }
     }
 
     function handleMouse(e, elem, layerID, layerIndex) {
@@ -177,7 +177,7 @@
 
         var list = document.getElementById("LayerManagerList")
         list.innerHTML = '';
-        
+
         for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
 
             var layer = LM.getLayerByIndex(layerIndex);
@@ -191,6 +191,7 @@
             layerColour.className = "Design-shape";
             layerColour.id = layer.name
             layerColour.style.backgroundColor = layer.colour;
+
             layerColour.onmousedown = function(e) {
                 handleMouse(e, "colour", this.id, this.parentElement.getAttribute('id'))
             };
@@ -201,7 +202,6 @@
             layerNameDiv.onmousedown = function(e) {
                 handleMouse(e, "name", this.id)
             };
-
 
             var nameNode = document.createElement("p")
             var name = document.createTextNode(layer.name)
@@ -218,24 +218,41 @@
             toggle.checked = layer.on
             toggle.onclick = function() {
                 console.log("Toggle Layer " + this.id + ": " + this.checked)
-                //for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                    if (layer.name + "-toggle" === this.id) {
-                        layer.on = this.checked;
-                        canvas.requestPaint();
-                  //  }
+                    //for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                if (layer.name + "-toggle" === this.id) {
+                    layer.on = this.checked;
+                    canvas.requestPaint();
+                    //  }
                 }
             }
+
+            var tick = document.createElement("div");
+            tick.className = "tick";
 
             var layerDetailsDiv = document.createElement("div");
             layerDetailsDiv.className = "layerManagerListItemDetails"
             layerDetailsDiv.id = layer.name + "-layerDetails"
-                //layerDetailsDiv.style.display = 'none';
 
             var sliderSpan = document.createElement("span");
             sliderSpan.className = "slider";
 
             li.appendChild(ListItemDiv)
             ListItemDiv.appendChild(layerColour);
+
+            if (layer.name === LM.getCLayer()) {
+                
+                nameNode.style.fontWeight = "bold";            
+                
+                layerColourRGB = hexToRgb(layer.colour)
+                
+                if ((layerColourRGB.r*0.299 + layerColourRGB.g*0.587 + layerColourRGB.b*0.114) > 186){
+                   tick.style.borderColor = "#000000"
+                } else{
+                   tick.style.borderColor = "#ffffff" 
+                }            
+
+                layerColour.appendChild(tick);
+            }
 
             ListItemDiv.appendChild(layerNameDiv);
             nameNode.appendChild(name);
@@ -253,6 +270,21 @@
 
         }
     }
+    
+    function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
 
     //import this document in to the Design.html Document
     var import1 = document.currentScript.ownerDocument.querySelector("#LayerManager");
