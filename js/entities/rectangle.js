@@ -63,23 +63,15 @@ Rectangle.prototype.prompt = function(num) {
 
 Rectangle.prototype.draw = function(ctx, scale) {
 
-    var colour = this.colour;
-
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-
-            if(this.colour === "BYLAYER"){
-                colour = layers[i].colour
-            }
-
-            break;
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
+    var colour = this.colour;
+    
+    if (this.colour === "BYLAYER") {
+        colour = LM.getLayerByName(this.layer).colour
+    }
 
     ctx.strokeStyle = colour;
     ctx.RectangleWidth = this.RectangleWidth/scale;
@@ -204,13 +196,8 @@ Rectangle.prototype.midPoint = function(x,x1,y,y1) {
 
 Rectangle.prototype.snaps = function(mousePoint, delta){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var snaps = [];
@@ -304,13 +291,8 @@ Rectangle.prototype.extremes = function(){
 
 Rectangle.prototype.within = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     // determin if this entities is within a the window specified by selection_extremes

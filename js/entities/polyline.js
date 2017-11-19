@@ -50,25 +50,14 @@ Polyline.prototype.prompt = function(num) {
 
 Polyline.prototype.draw = function(ctx, scale) {
 
-    //console.log(this.colour)
+    if (!LM.layerVisible(this.layer)) {
+        return
+    }
 
     var colour = this.colour;
-	//console.log(colour)
-
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-
-            if(this.colour === "BYLAYER"){
-                colour = layers[i].colour
-				//console.log(colour)
-            }
-
-            break;
-        }
+    
+    if (this.colour === "BYLAYER") {
+        colour = LM.getLayerByName(this.layer).colour
     }
 
     ctx.strokeStyle = colour;
@@ -184,13 +173,8 @@ Polyline.prototype.midPoint = function(x,x1,y,y1) {
 
 Polyline.prototype.snaps = function(mousePoint, delta){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var snaps = [];
@@ -284,13 +268,8 @@ Polyline.prototype.extremes = function(){
 
 Polyline.prototype.within = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     // determin if this entity is within a the window specified by selection_extremes

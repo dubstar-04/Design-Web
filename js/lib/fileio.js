@@ -158,7 +158,7 @@ function openFile(data) {
 			dxf.processData();
 		}
 		
-		checkLayers();
+		LM.checkLayers();
 		canvas.requestPaint();
 		//return items
 }

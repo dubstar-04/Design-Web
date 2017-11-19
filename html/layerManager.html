@@ -36,13 +36,16 @@
 
     function showlayerDetails(elemID) {
 
-        for (var layer = 0; layer < layers.length; layer++) {
-            if (layers[layer].name + "-layerDetails" === elemID + "Details") {
+        for (var layer = 0; layer < LM.layerCount(); layer++) {
+           // if (layers[layer].name + "-layerDetails" === elemID + "Details") {
+            {
+                
+            var layer = LM.getLayerByIndex(layer);
 
                 var detailsDiv = document.getElementById(elemID + "Details")
                     //detailsDiv.innerHTML = '';
 
-                var layerName = layers[layer].name
+                var layerName = layer.name
 
                 detailsDiv.innerHTML = ' \
 		<div class="LayerManagerListItem"> \
@@ -73,11 +76,11 @@
 		</div> \
 		';
 
-                document.getElementById(layerName + "frozenStatus").checked = layers[layer].frozen;
-                document.getElementById(layerName + "lockedStatus").checked = layers[layer].locked;
-                document.getElementById(layerName + "plottingStatus").checked = layers[layer].plotting;
-                document.getElementById(layerName + "linetypeStatus").innerHTML = layers[layer].lineType;
-                document.getElementById(layerName + "lineweightStatus").innerHTML = layers[layer].lineWeight;
+                document.getElementById(layerName + "frozenStatus").checked = layer.frozen;
+                document.getElementById(layerName + "lockedStatus").checked = layer.locked;
+                document.getElementById(layerName + "plottingStatus").checked = layer.plotting;
+                document.getElementById(layerName + "linetypeStatus").innerHTML = layer.lineType;
+                document.getElementById(layerName + "lineweightStatus").innerHTML = layer.lineWeight;
 
             }
         }
@@ -132,8 +135,8 @@
                         ACIColour.style.backgroundColor = getHexColour(colours[i]);
                         ACIColour.id = getHexColour(colours[i]);
                         ACIColour.onmousedown = function(e) {
-                            layers[layerIndex].colour = this.id;
-                            console.log(this.id, " colour clicked " + layerIndex);
+                            LM.layers[layerIndex].colour = this.id;
+                            //console.log(this.id, " colour clicked " + layerIndex);
                             loadLayers();
                             closePopover()
                             canvas.requestPaint()
@@ -174,33 +177,34 @@
 
         var list = document.getElementById("LayerManagerList")
         list.innerHTML = '';
+        
+        for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
 
-        for (var layer = 0; layer < layers.length; layer++) {
-
+            var layer = LM.getLayerByIndex(layerIndex);
             var li = document.createElement("li");
 
             var ListItemDiv = document.createElement("div");
             ListItemDiv.className = "LayerManagerListItem";
-            ListItemDiv.id = layer;
+            ListItemDiv.id = layerIndex;
 
             var layerColour = document.createElement("div");
             layerColour.className = "Design-shape";
-            layerColour.id = layers[layer].name
-            layerColour.style.backgroundColor = layers[layer].colour;
+            layerColour.id = layer.name
+            layerColour.style.backgroundColor = layer.colour;
             layerColour.onmousedown = function(e) {
                 handleMouse(e, "colour", this.id, this.parentElement.getAttribute('id'))
             };
 
             var layerNameDiv = document.createElement("div");
             layerNameDiv.className = "layerManagerLayerName"
-            layerNameDiv.id = layers[layer].name + "-layer"
+            layerNameDiv.id = layer.name + "-layer"
             layerNameDiv.onmousedown = function(e) {
                 handleMouse(e, "name", this.id)
             };
 
 
             var nameNode = document.createElement("p")
-            var name = document.createTextNode(layers[layer].name)
+            var name = document.createTextNode(layer.name)
 
             var layerToggleDiv = document.createElement("div");
             layerToggleDiv.className = "LayerManagerLayerToggle"
@@ -210,21 +214,21 @@
 
             var toggle = document.createElement("Input");
             toggle.type = "checkbox"
-            toggle.id = layers[layer].name + "-toggle"
-            toggle.checked = layers[layer].on
+            toggle.id = layer.name + "-toggle"
+            toggle.checked = layer.on
             toggle.onclick = function() {
                 console.log("Toggle Layer " + this.id + ": " + this.checked)
-                for (var layer = 0; layer < layers.length; layer++) {
-                    if (layers[layer].name + "-toggle" === this.id) {
-                        layers[layer].on = this.checked;
+                //for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                    if (layer.name + "-toggle" === this.id) {
+                        layer.on = this.checked;
                         canvas.requestPaint();
-                    }
+                  //  }
                 }
             }
 
             var layerDetailsDiv = document.createElement("div");
             layerDetailsDiv.className = "layerManagerListItemDetails"
-            layerDetailsDiv.id = layers[layer].name + "-layerDetails"
+            layerDetailsDiv.id = layer.name + "-layerDetails"
                 //layerDetailsDiv.style.display = 'none';
 
             var sliderSpan = document.createElement("span");

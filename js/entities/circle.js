@@ -52,21 +52,14 @@ Circle.prototype.calculateRadius = function(){
 
 Circle.prototype.draw = function(ctx, scale) {
 
+    if (!LM.layerVisible(this.layer)) {
+        return
+    }
+
     var colour = this.colour;
-
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-
-            if(this.colour === "BYLAYER"){
-                colour = layers[i].colour
-            }
-
-            break;
-        }
+    
+    if (this.colour === "BYLAYER") {
+        colour = LM.getLayerByName(this.layer).colour
     }
 
     this.calculateRadius(); //is this the most efficient way to update the radius?
@@ -186,13 +179,8 @@ Circle.prototype.prompt = function(num) {
 
 Circle.prototype.snaps = function(mousePoint, delta){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var snaps = [];
@@ -263,13 +251,8 @@ Circle.prototype.extremes = function(){
 
 Circle.prototype.within = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     // determin if this entities is within a the window specified by selection_extremes
@@ -289,13 +272,8 @@ Circle.prototype.within = function(selection_extremes){
 
 Circle.prototype.touched = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var rP1 = new Point(selection_extremes[0], selection_extremes[2]);

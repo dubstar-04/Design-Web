@@ -277,7 +277,7 @@ DXF.prototype.readLayer = function(){
             }
 
             if(name){
-                newLayer(layer)
+                LM.addLayer(layer)
             }
             return;
         case 2: // Layer name follows

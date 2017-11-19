@@ -170,26 +170,14 @@ Text.prototype.draw = function(ctx, scale) {
     var rect = this.getBoundingRect()
     console.log("text.js - text height: ", this.height, " displayed Height: ", rect.height)
 
-
-
-
-
+    if (!LM.layerVisible(this.layer)) {
+        return
+    }
 
     var colour = this.colour;
-
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-
-            if(this.colour === "BYLAYER"){
-                colour = layers[i].colour
-            }
-
-            break;
-        }
+    
+    if (this.colour === "BYLAYER") {
+        colour = LM.getLayerByName(this.layer).colour
     }
 
     ctx.strokeStyle = colour;

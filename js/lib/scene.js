@@ -1,7 +1,6 @@
 // initialise the scene variables
 //var parent = this;                                // 'window' object - store 'this' so it can be acessed from children.
 var items = new Array(); // Main array that stores all the geometry
-var layers = new Array(); // Array to store the layers
 var points = new Array(); // Temporary Array to store the input points
 var tempItems = new Array(); // Temporary Array to store items while input is being gathered
 var tempPoints = new Array(); // Temporary Array to store points while input is being gathered
@@ -11,14 +10,11 @@ var selectionAccepted = false; // Store a bool so we know when the selectionSet 
 var activeCommand = ""; // Store the name of the active command
 var promptTracker = 0;
 
-// DXF Headers
-var clayer = "0"; //currentLayer
-
 var lastCommand = new Array(); // Store the last command
 var lastCommandPosition = -1; // Store the current position on the command history
 
 var minPoints = 0; // Stores the minium number of points required for the active command
-var canvas; // Canvas to which the items should be drawn
+//var canvas; // Canvas to which the items should be drawn
 var inputPromptBox; // inputPrompt to get user input
 //var mouse = new Point();                            // store the mouse coordinates.
 //var mouse_delta = new Point(0,0);
@@ -26,15 +22,6 @@ var closestItem;
 var angle = 0; // store the angle between the last point and the mouse cusor
 var selectingActive = false; // Are we selecting on screen components?
 
-
-//function startNew(canvasObject) {
-//    console.log(" scene.js - Start New");
-//    canvas = canvasObject;
-//    //inputPromptBox = promptObject;
-//    for (var j = 0; j < commands.length; j++) {
-//        console.log(commands[j]);
-//    }
-//};
 
 function reset() {
 	console.log(" scene.js - Reset: In Reset");
@@ -90,55 +77,6 @@ function getSceneExtents() {
 	};
 }
 
-function checkLayers(){
-
-    if(!layers.length){
-        console.log("scene.js - Check Layers -> Add Standard Layers")
-        addStandardLayers();
-    }
-
-    for(var i = 0; i < items.length; i++){
-        var layer = (items[i].layer)       
-            newLayer({"name":layer})
-    }
-}
-
-function addStandardLayers() {
-	newLayer({
-		"name": "0",
-		"colour": "#00BFFF"
-	});
-	newLayer({
-		"name": "DEFPOINTS",
-		"plotting": false
-	});
-	saveRequired();
-	//Scene.clayer = "0";
-}
-
-function newLayer(layer) {
-	
-	    function layerExists(layer){
-        var i = layers.length;
-        while (i--) {
-			console.log("layerExisits:",layers[i].name)
-            if (layers[i].name === layer.name) {
-                console.log("Scene.js LayerExist: " + layer.name )
-                return true;
-            }		
-        }
-        console.log("Layer Doesnt Exist: " + layer.name )
-        return false;
-    }
-	
-	console.log(" scene.js - scene.newlayer - New Layer Added:" + layer.name)
-	var newLayer = new Layer(layer);
-	if(!layerExists(layer)){
-	layers.push(newLayer);
-	saveRequired();
-	}
-}
-
 function saveRequired() {
 	saved = false; //Changes have occured. A save may be required.
 }
@@ -150,7 +88,7 @@ function addToScene(type, data, end, index) {
 		data = {
 			points: points,
 			colour: colour,
-			layer: clayer
+			layer: LM.getCLayer()
 		};
 	}
 

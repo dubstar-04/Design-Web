@@ -70,23 +70,16 @@ Arc.prototype.direction = function(){
 
 Arc.prototype.draw = function(ctx, scale) {
 
-    var colour = this.colour;
-
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-
-            if(this.colour === "BYLAYER"){
-                colour = layers[i].colour
-            }
-
-            break;
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
+    var colour = this.colour;
+    
+    if (this.colour === "BYLAYER") {
+        colour = LM.getLayerByName(this.layer).colour
+    }
+    
     ctx.strokeStyle = colour;
     ctx.lineWidth = this.lineWidth/scale;
     ctx.beginPath()
