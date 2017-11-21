@@ -112,7 +112,7 @@
 
     function handleMouse(e, elem, layerID, layerIndex) {
         e.preventDefault();
-        console.log("Show/Hide: ", layerID);
+        //console.log("Show/Hide: ", layerID);
 
         switch (e.button) {
 
@@ -136,7 +136,7 @@
                         ACIColour.id = getHexColour(colours[i]);
                         ACIColour.onmousedown = function(e) {
                             LM.layers[layerIndex].colour = this.id;
-                            //console.log(this.id, " colour clicked " + layerIndex);
+                            console.log(this.id, " colour clicked " + layerIndex);
                             loadLayers();
                             closePopover()
                             canvas.requestPaint()
@@ -155,9 +155,28 @@
 
             case 2:
                 //console.log("right");
-                var listItems = ["Rename", "Delete"];
+                var listItems = [{
+                    name: "Rename",
+                    action: function() {
+                        console.log("Rename clicked")
+                    }}, 
+                {
+                    name: "Delete",
+                    action: function() {
+                        console.log("Delete clicked")
+                    }
+                }];
                 if (LM.getCLayer() + "-layer" !== layerID) {
-                    listItems.push("Set Current")
+                    listItems.push({
+                        name: "Set Current",
+                        action: function() {
+                            console.log("Set Current clicked layer:", layerIndex)
+                            LM.setCLayer(LM.getLayerByIndex(layerIndex).name);
+                            closePopover();
+                            loadLayers();
+                            
+                        }
+                    })
                 }
                 popover_showList(listItems);
                 break
@@ -203,7 +222,7 @@
             layerNameDiv.className = "layerManagerLayerName"
             layerNameDiv.id = layer.name + "-layer"
             layerNameDiv.onmousedown = function(e) {
-                handleMouse(e, "name", this.id)
+                handleMouse(e, "name", this.id, this.parentElement.getAttribute('id'))
             };
 
             var nameNode = document.createElement("p")

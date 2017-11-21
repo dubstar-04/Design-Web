@@ -23,13 +23,11 @@
         popover_list.className = "Popover-list";
         popover_list.id = "Popover-list";
 
-        for (var i = 0; i < listItems.length; i++) {
-
+        for (var i = 0; i < listItems.length; i++) { 
             var listItem = document.createElement("li");
-            listItem.appendChild(document.createTextNode(listItems[i]))
-            listItem.onmousedown = function(e) {
-                console.log(listItem[i], " clicked")
-            };
+            listItem.appendChild(document.createTextNode(listItems[i].name))
+            listItem.onmousedown = listItems[i].action;
+            
 
             popover_list.appendChild(listItem);
         }
