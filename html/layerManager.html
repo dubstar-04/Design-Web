@@ -156,7 +156,7 @@
             case 2:
                 //console.log("right");
                 var listItems = ["Rename", "Delete"];
-                if (LM.getCLayer() + "-layer" !== layerID){
+                if (LM.getCLayer() + "-layer" !== layerID) {
                     listItems.push("Set Current")
                 }
                 popover_showList(listItems);
@@ -220,13 +220,11 @@
             toggle.id = layer.name + "-toggle"
             toggle.checked = layer.on
             toggle.onclick = function() {
-                console.log("Toggle Layer " + this.id + ": " + this.checked)
-                    //for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                if (layer.name + "-toggle" === this.id) {
-                    layer.on = this.checked;
-                    canvas.requestPaint();
-                    //  }
-                }
+                //console.log("Toggle Layer " + this.id + ": " + this.checked)
+                var index = this.parentElement.parentElement.parentElement.getAttribute('id')
+                LM.getLayerByIndex(index).on = this.checked;
+                canvas.requestPaint();
+
             }
 
             var tick = document.createElement("div");
@@ -243,16 +241,16 @@
             ListItemDiv.appendChild(layerColour);
 
             if (layer.name === LM.getCLayer()) {
-                
-                nameNode.style.fontWeight = "bold";            
-                
+
+                nameNode.style.fontWeight = "bold";
+
                 layerColourRGB = hexToRgb(layer.colour)
-                
-                if ((layerColourRGB.r*0.299 + layerColourRGB.g*0.587 + layerColourRGB.b*0.114) > 186){
-                   tick.style.borderColor = "#000000"
-                } else{
-                   tick.style.borderColor = "#ffffff" 
-                }            
+
+                if ((layerColourRGB.r * 0.299 + layerColourRGB.g * 0.587 + layerColourRGB.b * 0.114) > 186) {
+                    tick.style.borderColor = "#000000"
+                } else {
+                    tick.style.borderColor = "#ffffff"
+                }
 
                 layerColour.appendChild(tick);
             }
@@ -273,21 +271,21 @@
 
         }
     }
-    
-    function hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
 
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
+    function hexToRgb(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
 
     //import this document in to the Design.html Document
     var import1 = document.currentScript.ownerDocument.querySelector("#LayerManager");
