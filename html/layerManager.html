@@ -28,12 +28,12 @@
             loadLayers();
         }
     }
-    
-    function addNewLayer(){
-        
+
+    function addNewLayer() {
+
         LM.newLayer()
         loadLayers();
-        
+
     }
 
     /* Set the width of the side navigation to 0 */
@@ -170,7 +170,10 @@
                 }, {
                     name: "Delete",
                     action: function() {
-                        console.log("Delete clicked")
+                        LM.deleteLayer(layerIndex);
+                        closePopover();
+                        loadLayers();
+                        canvas.requestPaint();
                     }
                 }];
                 if (LM.getCLayer() + "-layer" !== layerID) {

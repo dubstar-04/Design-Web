@@ -20,18 +20,16 @@ LayerManager.prototype.newLayer = function () {
     var layStr = "New Layer";
     for (var i = 0; i < this.layerCount(); i++) {
         if (this.layers[i].name.includes(layStr)) {
-            
             count = count + 1;
-
         }
     }
-    
-    if(count > 0){
-       layStr = layStr + " " + count;
+    if (count > 0) {
+        layStr = layStr + " " + count;
     }
-    
-        this.addLayer({"name": layStr});
 
+    this.addLayer({
+        "name": layStr
+    });
 }
 
 LayerManager.prototype.addLayer = function (layer) {
@@ -43,8 +41,40 @@ LayerManager.prototype.addLayer = function (layer) {
     }
 }
 
-LayerManager.prototype.deleteLayer = function () {
+LayerManager.prototype.deleteLayer = function (layerIndex) {
 
+    var layerToDelete = this.getLayerByIndex(layerIndex).name;
+    
+    if(layerToDelete.toUpperCase() === "DEFPOINTS"){
+        console.log("Warning: DEFPOINTS layer cannot be deleted")
+        return;
+    }
+    
+  /*
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].layer === layerToDelete) {
+            count++
+        }
+    }
+    */
+
+    var selectionSet = [];
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].layer === layerToDelete) {
+            selectionSet.push(i)
+        }
+    }
+    
+    console.log(selectionSet.length, " Item(s) to be deleted from ", layerToDelete );
+
+    selectionSet.sort();
+    for (var j = 0; j < selectionSet.length; j++) {
+        items.splice((selectionSet[j] - j), 1)
+    }
+    
+    //Delete The Layer
+    this.layers.splice(layerIndex,1);
 }
 
 LayerManager.prototype.getCLayer = function () {
