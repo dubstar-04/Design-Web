@@ -14,6 +14,26 @@ LayerManager.prototype.layerCount = function () {
     return this.layers.length;
 }
 
+LayerManager.prototype.newLayer = function () {
+
+    var count = 0;
+    var layStr = "New Layer";
+    for (var i = 0; i < this.layerCount(); i++) {
+        if (this.layers[i].name.includes(layStr)) {
+            
+            count = count + 1;
+
+        }
+    }
+    
+    if(count > 0){
+       layStr = layStr + " " + count;
+    }
+    
+        this.addLayer({"name": layStr});
+
+}
+
 LayerManager.prototype.addLayer = function (layer) {
     console.log(" layermanager.js - addlayer() - New Layer Added:" + layer.name)
     var newLayer = new Layer(layer);
@@ -50,7 +70,7 @@ LayerManager.prototype.layerExists = function (layer) {
 
 LayerManager.prototype.checkLayers = function () {
 
-    if (!layers.length) {
+    if (!this.layerCount()) {
         console.log("layermanager.js - Check Layers -> Add Standard Layers")
         this.addStandardLayers();
     }

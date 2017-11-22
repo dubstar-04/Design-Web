@@ -1,7 +1,10 @@
 <div id="LayerManager" class="LayerManager">
     <div class="Design-header">
-        <span class="Design-closeButton" onclick="closeLayerManager()">&times;</span>
-        <h3>Layers</h3>
+        <div class="Design-header-icon" , onclick="closeLayerManager()"><img src="icons/close.svg"></div>
+        <div class="Design-header-title">
+            <h3>Layers</h3>
+        </div>
+        <div class="Design-header-icon" , onclick="addNewLayer()"><img src="icons/add.svg"></div>
     </div>
     <div id="LayerManagerContent" class="LayerManager-content">
         <div class="LayerManager-body">
@@ -9,7 +12,6 @@
             <ul id="LayerManagerList" class="LayerManagerList">
                 <!-- Dynamically add layer list -->
             </ul>
-            <!-- <button class="button bottom">New Layer</button> t -->
         </div>
     </div>
 </div>
@@ -25,8 +27,13 @@
             LM.style.width = "300px";
             loadLayers();
         }
-
-
+    }
+    
+    function addNewLayer(){
+        
+        LM.newLayer()
+        loadLayers();
+        
     }
 
     /* Set the width of the side navigation to 0 */
@@ -159,8 +166,8 @@
                     name: "Rename",
                     action: function() {
                         console.log("Rename clicked")
-                    }}, 
-                {
+                    }
+                }, {
                     name: "Delete",
                     action: function() {
                         console.log("Delete clicked")
@@ -174,7 +181,7 @@
                             LM.setCLayer(LM.getLayerByIndex(layerIndex).name);
                             closePopover();
                             loadLayers();
-                            
+
                         }
                     })
                 }

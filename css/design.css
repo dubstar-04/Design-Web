@@ -161,26 +161,46 @@ canvasbottom {
 }
 
 
-/*Standard components used in teh design ui*/
+/*Standard components used in the design ui*/
 
 .Design-header {
-    padding: 2px 16px;
+    /*padding: 2px 16px;*/
     background-color: var(--active-colour);
     color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
 }
 
-.Design-closeButton {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+
+.Design-header-title {
+    flex: 1;
+    /*margin-left: 10px;*/
+    margin-right: 20px;
+    min-width: 10px;
 }
 
-.Design-closeButton:hover,
-.Design-closeButton:focus {
-    color: var(--hover-colour);
-    text-decoration: none;
-    cursor: pointer;
+.Design-header-title  h3 {
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: fade;
+  }
+
+.Design-header-icon {
+    height: 15px;
+    width: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.Design-header-icon img {
+    height: 100%;
+}
+
+.Design-header-icon:hover {
+    /*background-color: var(--hover-colour);*/
+    opacity: 0.5;
 }
 
 .Design-shape {
