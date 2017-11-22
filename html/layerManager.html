@@ -237,6 +237,18 @@
 
             var nameNode = document.createElement("p")
             var name = document.createTextNode(layer.name)
+            
+            /*
+            var renameLayerDiv = document.createElement("div");
+            renameLayerDiv.style.display = "none";
+            
+            var rename = document.createElement("Input");
+            rename.type = "text"
+            rename.id = layer.name + "-rename"
+            
+            var submit = document.createElement("Input");
+            submit.type = "submit"
+            */
 
             var layerToggleDiv = document.createElement("div");
             layerToggleDiv.className = "LayerManagerLayerToggle"
@@ -287,6 +299,12 @@
             ListItemDiv.appendChild(layerNameDiv);
             nameNode.appendChild(name);
             layerNameDiv.appendChild(nameNode);
+            
+            /*
+            renameLayerDiv.appendChild(rename);
+            renameLayerDiv.appendChild(submit);
+            ListItemDiv.appendChild(renameLayerDiv);
+            */
 
             ListItemDiv.appendChild(layerToggleDiv);
             layerToggleDiv.appendChild(toggleLabel)

@@ -227,6 +227,8 @@ Canvas.prototype.centreInScene = function(xmin, xmax, ymin, ymax){
 		console.log("Extents: ", xmin, xmax, ymin, ymax)
         var centerX = ((xmin + ((xmax - xmin)/2))) + this.panX/this.scale;
         var centerY = ((ymin + ((ymax - ymin)/2))) + (this.panY+this.offset)/this.scale;
+    
+    console.log(this.panX, this.panY, this.scale)
 		
 		console.log("Center: ", centerX, centerY, (this.panY+this.offset)/this.scale)
 

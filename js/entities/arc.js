@@ -171,13 +171,8 @@ Arc.prototype.prompt = function(num) {
 
 Arc.prototype.snaps = function(mousePoint, delta){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var snaps = [];
@@ -274,13 +269,8 @@ Arc.prototype.extremes = function(){
 
 Arc.prototype.within = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     // determin if this entities is within a the window specified by selection_extremes
@@ -300,13 +290,8 @@ Arc.prototype.within = function(selection_extremes){
 
 Arc.prototype.touched = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     var rP1 = new Point(selection_extremes[0], selection_extremes[2]);
