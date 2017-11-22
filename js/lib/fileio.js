@@ -34,7 +34,7 @@ function savedxf() {
 			"\n0",
 			"\n$CLAYER",
 			"\n8",
-			"\n" + clayer,
+			"\n" + LM.getCLayer(),
 			"\n9",
 			"\nENDSEC",
 			"\n0",
@@ -51,10 +51,10 @@ function savedxf() {
 			"\n2",
 			"\nLAYER",
 			"\n70",
-			"\n" + layers.length)
+			"\n" + LM.layerCount())
 
-		for (var i = 0; i < layers.length; i++) {
-			data = data.concat("\n", layers[i].dxf())
+		for (var i = 0; i < LM.layerCount(); i++) {
+			data = data.concat("\n", LM.getLayerByIndex(i).dxf())
 		}
 
 		var extents = getSceneExtents() //Scene.canvas.getExtents();
