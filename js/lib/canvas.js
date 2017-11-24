@@ -82,8 +82,8 @@ Canvas.prototype.mousedown = function (ev) {
             break;
         case 2: //right button
             //console.log("right click")
-            var data = true;
-            sceneControl("RightClick", data);
+            //var data = true;
+            //sceneControl("RightClick", data);
             break;
             //default:
             //    default code block

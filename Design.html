@@ -57,11 +57,11 @@
 </body>
 
 <!--<footer>-->
-    <canvasbottom id="foot">
-        <input id="cmdLine" type="text">
-        <!--<button class="popup" , onclick="showPopup()" id="myPopup"><img src="icons/erase.svg"></button> -->
-        <label id="coordLabel">label</label>
-    </canvasbottom>
+<canvasbottom id="foot">
+    <input id="cmdLine" type="text">
+    <!--<button class="popup" , onclick="showPopup()" id="myPopup"><img src="icons/erase.svg"></button> -->
+    <label id="coordLabel">label</label>
+</canvasbottom>
 <!--</footer>-->
 
 
@@ -134,25 +134,29 @@
     cnvs.addEventListener('mousewheel', canvas.wheel, false);
     cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
     cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
-    window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
+    window.addEventListener('contextmenu', function(e) {
+        e.preventDefault()
+    }, false);
     //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
-    window.addEventListener('resize', function(){closePopover()}, false);
+    window.addEventListener('resize', function() {
+        closePopover()
+    }, false);
 
 
     function canvas_contextmenu() {
 
         var listItems = [{
-            name: "Enter"
+            name: "Enter", action: function(){reset(); closePopover();}
         }, {
-            name: "Mid Between 2 Points"
+            name: "Mid Between 2 Points", action: function(){closePopover();}
         }, {
-            name: "Snap Settings"
+            name: "Snap Settings", action: function(){closePopover();}
         }];
         popover_showList(listItems);
     }
-    
-        var lastDownTarget, canvas;
+
+    var lastDownTarget, canvas;
     window.onload = function() {
         document.addEventListener('mousedown', function(event) {
             lastDownTarget = event.target;
@@ -162,6 +166,12 @@
         document.addEventListener('keydown', function(event) {
             if (lastDownTarget == cnvs) {
                 commandLine.handleKeys(event);
+
+                var charCode = (event.charCode) ? event.charCode : event.keyCode;
+                //if escape is pressed hide any popovers
+                if (charCode === 27) {
+                    closePopover();
+                }
             }
         }, false);
     }
