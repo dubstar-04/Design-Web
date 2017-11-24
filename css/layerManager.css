@@ -14,7 +14,7 @@
 
 .LayerManager-content {
     position: relative;
-    background-color: var(--bg-colour);
+    background-color: var(--dialog-bg-colour);
     margin: 0;
     padding: 0;
     border: 1px solid var(--border-colour);
@@ -26,7 +26,8 @@
 
 .LayerManagerList {
 	list-style-type:none;
-	padding-left:0;
+    margin: 0;
+    padding: 0;
 	width: 100%;
 
 }
@@ -38,6 +39,10 @@
 	justify-content: flex-start;
 	align-items: center;
     /*border-bottom: 0.25px solid var(--border-colour);*/
+}
+
+.LayerManagerListItem:hover {
+    background:  var(--dialog-hover-colour);
 }
 
 .layerManagerListItemDetails {

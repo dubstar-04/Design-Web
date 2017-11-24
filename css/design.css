@@ -4,30 +4,22 @@
 	variables can be recalled using var(--var-name);
 	*/
     --mainbg-color: #06c;
-    /* Orange */
     --accent-color: #F78F3F;
-    /* Blue */
-    --border-colour: #888888;
-    /* Dark Grey */
-    --shadow-colour: #d3d3d3;
-    /* Grey */
-    --titletext-colour: white;
-    --text-colour: #000000;
-    /* Black */
-    /* status */
+    --border-colour: #d3d3d3;
+    --shadow-colour: #888888;
     --active-colour: #38B44A;
-    /* Green */
     --alert-colour: #f44336;
-    /* Red */
     --passive-colour: #008CBA;
-    /* Blue */
     --inactive-colour: #8a8a8a;
-    /* Dark Grey */
-    --hover-colour: #dddddd;
-    /* Grey */
-    /* dialog */
-    --header-colour: #38B44A;
-    --bg-colour: #fefefe;
+    /* toolbar */
+    --toolbar-hover-colour: #dddddd;
+    /* dialog / popover */
+    --dialog-header-colour: #38B44A;
+    --dialog-bg-colour: #fefefe;
+    --dialog-hover-colour: #f7f7f7;
+    /* Text */
+    --titletext-colour: #ffffff;
+    --text-colour: #000000;
     /* Text Size */
     --xs-text: 10px;
     --small-text: 12px;
@@ -114,7 +106,7 @@ canvasbottom {
     left: 0px;
     right: 0px;
     background-color: #f0f0f0;
-    box-shadow: 0px 2px 2px #888888;
+    box-shadow: 0px 2px 2px var(--shadow-colour);
     padding: 0px;
     margin: 0px;
 }
@@ -165,14 +157,13 @@ canvasbottom {
 
 .Design-header {
     /*padding: 2px 16px;*/
-    background-color: var(--active-colour);
+    background-color: var(--dialog-header-colour);
     color: white;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
 }
-
 
 .Design-header-title {
     flex: 1;
@@ -181,11 +172,11 @@ canvasbottom {
     min-width: 10px;
 }
 
-.Design-header-title  h3 {
+.Design-header-title h3 {
     white-space: nowrap;
     overflow: hidden;
-	text-overflow: fade;
-  }
+    text-overflow: fade;
+}
 
 .Design-header-icon {
     height: 15px;
