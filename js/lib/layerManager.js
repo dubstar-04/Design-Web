@@ -162,8 +162,6 @@ LayerManager.prototype.getLayerByIndex = function (layerIndex) {
 LayerManager.prototype.renameLayer = function (layerIndex, newName) {
 
     if (this.getLayerByIndex(layerIndex).name.toUpperCase() !== "DEFPOINTS") {
-                
-        console.log("uppercase name:", (this.getLayerByIndex(layerIndex).name).toUpperCase())
         
         if (this.getLayerByIndex(layerIndex).name === this.getCLayer()) {
             this.setCLayer(newName);

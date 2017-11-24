@@ -53,7 +53,6 @@
 
 .Popover-list {
     list-style: none;
-    display: -webkit-box;
     display: flex;
     flex-direction: column;
     align-items: stretch;
