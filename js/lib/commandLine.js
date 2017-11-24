@@ -5,7 +5,6 @@ function CommandLine(cmd_Line) {
     this.cmdLine = cmd_Line;
     this.prompt = "Command:";
     this.command = "";
-
     this.update();
 
 }
@@ -70,13 +69,16 @@ CommandLine.prototype.handleKeys = function (e) {
         case 46: // Delete
             break;
         default:
+            this.command = this.command + String.fromCharCode(charCode);
+            this.update();
+            break;
 
     }
 }
 
 CommandLine.prototype.backPressed = function (event) {
     if (this.cmdLine.value.length === this.prompt.length) {
-        event.preventDefault();
+       event.preventDefault();
     }
 }
 
@@ -111,12 +113,13 @@ CommandLine.prototype.previousCommand = function (direction) {
 CommandLine.prototype.enterPressed = function (event) {
     event.preventDefault();
     //console.log(" UI_Scene.js - Return Pressed")
+    
     if (this.cmdLine.value.length > this.prompt.length) {
         //get the inputprompt and remove the prompt text
         var inputCommand = this.cmdLine.value.slice(this.prompt.length)
         console.log("[CommandLine.enterPressed] - Command:", inputCommand)
         var data = [inputCommand]
-            //console.log(data[0])
+        //console.log(data[0])
         sceneControl("Enter", data);
     } else {
         var data = ["reset-repeat"];

@@ -44,19 +44,19 @@ LayerManager.prototype.addLayer = function (layer) {
 LayerManager.prototype.deleteLayer = function (layerIndex) {
 
     var layerToDelete = this.getLayerByIndex(layerIndex).name;
-    
-    if(layerToDelete.toUpperCase() === "DEFPOINTS"){
+
+    if (layerToDelete.toUpperCase() === "DEFPOINTS") {
         console.log("Warning: DEFPOINTS layer cannot be deleted")
         return;
     }
-    
-  /*
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].layer === layerToDelete) {
-            count++
-        }
-    }
-    */
+
+    /*
+      for (var i = 0; i < items.length; i++) {
+          if (items[i].layer === layerToDelete) {
+              count++
+          }
+      }
+      */
 
     var selectionSet = [];
 
@@ -65,16 +65,16 @@ LayerManager.prototype.deleteLayer = function (layerIndex) {
             selectionSet.push(i)
         }
     }
-    
-    console.log(selectionSet.length, " Item(s) to be deleted from ", layerToDelete );
+
+    console.log(selectionSet.length, " Item(s) to be deleted from ", layerToDelete);
 
     selectionSet.sort();
     for (var j = 0; j < selectionSet.length; j++) {
         items.splice((selectionSet[j] - j), 1)
     }
-    
+
     //Delete The Layer
-    this.layers.splice(layerIndex,1);
+    this.layers.splice(layerIndex, 1);
 }
 
 LayerManager.prototype.getCLayer = function () {
@@ -156,4 +156,21 @@ LayerManager.prototype.getLayerByName = function (layerName) {
 LayerManager.prototype.getLayerByIndex = function (layerIndex) {
 
     return this.layers[layerIndex];
+}
+
+
+LayerManager.prototype.renameLayer = function (layerIndex, newName) {
+
+    if (this.getLayerByIndex(layerIndex).name.toUpperCase() !== "DEFPOINTS") {
+                
+        console.log("uppercase name:", (this.getLayerByIndex(layerIndex).name).toUpperCase())
+        
+        if (this.getLayerByIndex(layerIndex).name === this.getCLayer()) {
+            this.setCLayer(newName);
+            console.log("[Layernamanger.renameLayer] - set new Clayer name")
+        }
+        
+        this.layers[layerIndex].name = newName;
+    }
+
 }

@@ -57,10 +57,14 @@
 }
 
 .layerManagerLayerName {
+    background-color: transparent;
 	flex: 1;
 	margin-left: 10px;
 	margin-right: 20px;
 	min-width: 10px;
+    outline: none;
+    border: 0px;
+    padding: 5px;
 }
 
 .layerManagerLayerName  p {

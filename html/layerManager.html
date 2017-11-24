@@ -147,6 +147,7 @@
                             loadLayers();
                             closePopover()
                             canvas.requestPaint()
+
                         };
 
                         popover_table.appendChild(ACIColour);
@@ -165,7 +166,16 @@
                 var listItems = [{
                     name: "Rename",
                     action: function() {
-                        console.log("Rename clicked")
+                        console.log("Rename layer:", LM.getLayerByIndex(layerIndex).name);
+                        closePopover();
+                        var edit = document.getElementById(layerID)
+                        var style = getComputedStyle(document.body);
+                        var colour = style.getPropertyValue('--active-colour');
+                        edit.style.outline = colour + " solid 1px"
+                            // set the focus on the text edit. timer needed as a hack
+                        window.setTimeout(function() {
+                            edit.focus();
+                        }, 0);
                     }
                 }, {
                     name: "Delete",
@@ -228,27 +238,50 @@
                 handleMouse(e, "colour", this.id, this.parentElement.getAttribute('id'))
             };
 
-            var layerNameDiv = document.createElement("div");
+            //var layerNameDiv = document.createElement("div");
+
+            var layerNameDiv = document.createElement("Input");
             layerNameDiv.className = "layerManagerLayerName"
+            layerNameDiv.type = "text"
+            layerNameDiv.value = layer.name;
             layerNameDiv.id = layer.name + "-layer"
             layerNameDiv.onmousedown = function(e) {
                 handleMouse(e, "name", this.id, this.parentElement.getAttribute('id'))
             };
+            layerNameDiv.onkeydown = function(e) {
+                var charCode = (e.charCode) ? e.charCode : e.keyCode;
+                //if enter or escape is pressed, save the layername
+                if (charCode === 13 || charCode === 27) {
+                    this.style.outline = "none"
+                    this.blur()
+                }
+            };
 
-            var nameNode = document.createElement("p")
-            var name = document.createTextNode(layer.name)
-            
+            layerNameDiv.onblur = function() {
+                if(this.value){
+                this.style.outline = "none"
+                var layerIndex = this.parentElement.getAttribute('id');
+                console.log("this value:", this.value)
+                LM.renameLayer(layerIndex, this.value)
+                }
+                
+                loadLayers();
+            }
+
+            //var nameNode = document.createElement("p")
+            //var name = document.createTextNode(layer.name)
+
             /*
-            var renameLayerDiv = document.createElement("div");
-            renameLayerDiv.style.display = "none";
+                var renameLayerDiv = document.createElement("div");
+                renameLayerDiv.style.display = "none";
             
-            var rename = document.createElement("Input");
-            rename.type = "text"
-            rename.id = layer.name + "-rename"
+                var rename = document.createElement("Input");
+                rename.type = "text"
+                rename.id = layer.name + "-rename"
             
-            var submit = document.createElement("Input");
-            submit.type = "submit"
-            */
+                var submit = document.createElement("Input");
+                submit.type = "submit"
+                */
 
             var layerToggleDiv = document.createElement("div");
             layerToggleDiv.className = "LayerManagerLayerToggle"
@@ -283,7 +316,7 @@
 
             if (layer.name === LM.getCLayer()) {
 
-                nameNode.style.fontWeight = "bold";
+                layerNameDiv.style.fontWeight = "bold";
 
                 layerColourRGB = hexToRgb(layer.colour)
 
@@ -297,9 +330,9 @@
             }
 
             ListItemDiv.appendChild(layerNameDiv);
-            nameNode.appendChild(name);
-            layerNameDiv.appendChild(nameNode);
-            
+            //nameNode.appendChild(name);
+            //layerNameDiv.appendChild(nameNode);
+
             /*
             renameLayerDiv.appendChild(rename);
             renameLayerDiv.appendChild(submit);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <html>
-    
+
 <body>
     <title>Design</title>
     <link rel="stylesheet" href="css/design.css">
@@ -101,7 +101,7 @@
 
 <script type="text/javascript" src="js/lib/canvas.js"></script>
 <script type="text/javascript" src="js/lib/mouse.js"></script>
-<script type="text/javascript" src="js/lib/layerManager.js"></script>    
+<script type="text/javascript" src="js/lib/layerManager.js"></script>
 <script type="text/javascript" src="js/lib/scene.js"></script>
 <script type="text/javascript" src="js/lib/commandLine.js"></script>
 <script type="text/javascript" src="js/lib/fileio.js"></script>
@@ -126,22 +126,44 @@
     cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
     cnvs.addEventListener('mouseup', canvas.mouseup, false);
     cnvs.addEventListener('dblclick', canvas.dblclick, false);
-    cnvs.addEventListener('contextmenu', function(){canvas_contextmenu()}, false);
+    cnvs.addEventListener('contextmenu', function() {
+        canvas_contextmenu()
+    }, false);
     //cnvs.addEventListener('wheel', canvas.wheel, false);
     cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
     cnvs.addEventListener('mousewheel', canvas.wheel, false);
     cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
     cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
     window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
-    window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
+    //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
     window.addEventListener('resize', function(){closePopover()}, false);
 
 
     function canvas_contextmenu() {
 
-        var listItems = ["Enter", "Mid Between 2 Points","Snap Settings"];
+        var listItems = [{
+            name: "Enter"
+        }, {
+            name: "Mid Between 2 Points"
+        }, {
+            name: "Snap Settings"
+        }];
         popover_showList(listItems);
+    }
+    
+        var lastDownTarget, canvas;
+    window.onload = function() {
+        document.addEventListener('mousedown', function(event) {
+            lastDownTarget = event.target;
+            //alert('mousedown');
+        }, false);
+
+        document.addEventListener('keydown', function(event) {
+            if (lastDownTarget == cnvs) {
+                commandLine.handleKeys(event);
+            }
+        }, false);
     }
 
 </script>
