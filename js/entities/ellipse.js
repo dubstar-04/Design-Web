@@ -310,13 +310,8 @@ Ellipse.prototype.within = function(selection_extremes){
 
 Ellipse.prototype.touched = function(selection_extremes){
 
-    for(var i = 0; i < layers.length; i++){
-        if(layers[i].name === this.layer){
-
-            if(!layers[i].on || layers[i].frozen){
-                return
-            }
-        }
+    if (!LM.layerVisible(this.layer)) {
+        return
     }
 
     //Extreme of the selection rectangle
