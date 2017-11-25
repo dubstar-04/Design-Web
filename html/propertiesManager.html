@@ -1,0 +1,147 @@
+<div id="PropertiesManager" class="Design-sidebar">
+    <div class="Design-header">
+        <div class="Design-header-icon" , onclick="closePropertiesManager()"><img src="icons/close.svg"></div>
+        <div class="Design-header-title">
+            <h3>Properties</h3>
+        </div>
+    </div>
+    <div id="PropertiesManagerContent" class="Design-sidebar-content">
+        <div id="PropertiesManagerPlaceHolder" class="Design-placeholder-text">
+            <p>Nothing Selected</p>
+        </div>
+        <ul id="PropertiesManagerList" class="Design-sidebar-list">
+            <!-- Dynamically add layer list -->
+        </ul>
+    </div>
+</div>
+
+<script>
+    function showHidePropertiesManager() {
+
+        var PM = document.getElementById("PropertiesManager");
+
+        if (PM.style.width > "0px") {
+            closePropertiesManager();
+        } else {
+            closeLayerManager();
+            PM.style.width = "300px";
+        }
+    }
+
+    /* Set the width of the side navigation to 0 */
+    function closePropertiesManager() {
+        document.getElementById("PropertiesManager").style.width = "0";
+    }
+
+    function getProperties() {
+
+        console.log(document.getElementById("PropertiesManager").style.width)
+        if (document.getElementById("PropertiesManager").style.width > "0px") {
+            console.log("[PropertiesManager] - getProperties()")
+            if (selectionSet.length) {
+                document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
+                console.log("[PropertiesManager] - getProperties() items", selectionSet)
+                loadPropertyList(getItemType())
+            } else {
+                clearPropertiesList()
+                document.getElementById("PropertiesManagerPlaceHolder").style.display = "block";
+            }
+        }
+    }
+
+    function getItemType() {
+
+        //Loop through the items and get a list of item types.
+        var itemTypes = [];
+
+        if (selectionSet.length > 0) {
+            for (var i = 0; i < selectionSet.length; i++) {
+
+                var itemType = items[selectionSet[i]].type;
+                //console.log(scene.items[scene.selectionSet[i]].type);
+
+                if (itemTypes.indexOf(itemType, 0) === -1) {
+                    itemTypes.push(itemType)
+                        //console.log("ItemTypes: " + itemTypes.length)
+                }
+            }
+
+            if (itemTypes.length > 1) {
+                itemTypes.unshift("All")
+            }
+        }
+        
+        return itemTypes
+    }
+
+    function getItemProperties(itemType) {
+
+        //Loop through the items and get a list of common properties.
+
+        itemPropertiesList.clear();
+
+        console.log("Properties - Item Type: " + itemType)
+
+        var propertiesList = [];
+
+        if (scene.selectionSet.length > 0) {
+            selected = true;
+            for (var i = 0; i < scene.selectionSet.length; i++) {
+                var properties = scene.items[scene.selectionSet[i]].properties()
+
+                for (var prop in properties) {
+                    console.log("Property: " + prop)
+                        // if (properties.hasOwnProperty(prop)) {
+                    if (propertiesList.indexOf(prop, 0) === -1) {
+                        propertiesList.push(prop)
+                            //console.log("Property: " + propertiesList.length)
+                    }
+                    // }
+                }
+
+
+            }
+
+            itemPropertiesList.append(propertiesList);
+
+        } else {
+            selected = false;
+        }
+    }
+
+    function clearPropertiesList() {
+        var list = document.getElementById("PropertiesManagerList")
+        list.innerHTML = '';
+    }
+
+    function loadPropertyList(itemList) {
+        var list = document.getElementById("PropertiesManagerList")
+        clearPropertiesList()
+
+        for (var item = 0; item < itemList.length; item++) {
+
+            var li = document.createElement("li");
+
+            var ListItemDiv = document.createElement("div");
+            ListItemDiv.className = "Design-sidebar-listitem";
+            ListItemDiv.id = item;
+
+            //var nameNode = document.createElement("p")
+            var type = document.createTextNode(itemList[item])
+
+
+            ListItemDiv.appendChild(type);
+
+            li.appendChild(ListItemDiv)
+            list.appendChild(li);
+
+        }
+    }
+
+
+    //import this document in to the Design.html Document
+    var import1 = document.currentScript.ownerDocument.querySelector("#PropertiesManager");
+
+    document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+
+</script>

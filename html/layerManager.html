@@ -1,4 +1,4 @@
-<div id="LayerManager" class="LayerManager">
+<div id="LayerManager" class="Design-sidebar">
     <div class="Design-header">
         <div class="Design-header-icon" , onclick="closeLayerManager()"><img src="icons/close.svg"></div>
         <div class="Design-header-title">
@@ -6,13 +6,13 @@
         </div>
         <div class="Design-header-icon" , onclick="addNewLayer()"><img src="icons/add.svg"></div>
     </div>
-    <div id="LayerManagerContent" class="LayerManager-content">
-        <div class="LayerManager-body">
+    <div id="LayerManagerContent" class="Design-sidebar-content">
+       <!--  <div class="LayerManager-body">-->
 
-            <ul id="LayerManagerList" class="LayerManagerList">
+            <ul id="LayerManagerList" class="Design-sidebar-list">
                 <!-- Dynamically add layer list -->
             </ul>
-        </div>
+       <!-- </div> -->
     </div>
 </div>
 
@@ -55,29 +55,29 @@
                 var layerName = layer.name
 
                 detailsDiv.innerHTML = ' \
-		<div class="LayerManagerListItem"> \
+		<div class="Design-sidebar-listitem"> \
 		<div class="layerManagerLayerName"><p>Frozen</p></div> \
 		<div class="LayerManagerLayerToggle"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'frozenStatus" onclick="frozen(' + layerName + ', this.checked)"/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
-		<div class="LayerManagerListItem"> \
+		<div class="Design-sidebar-listitem"> \
 		<div class="layerManagerLayerName"><p>Locked</p></div> \
 				<div class="LayerManagerLayerToggle"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'lockedStatus" onclick=""/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
-		<div class="LayerManagerListItem"> \
+		<div class="Design-sidebar-listitem"> \
 		<div class="layerManagerLayerName"><p>Plot</p></div> \
 				<div class="LayerManagerLayerToggle"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'plottingStatus" onclick=""/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
-		<div class="LayerManagerListItem"> \
+		<div class="Design-sidebar-listitem"> \
 		<div class="layerManagerLayerName"><p>Linetype</p></div> \
 		<div class="LayerManagerLayerToggle"><p id="' + layerName + 'linetypeStatus"></p></div> \
 		</div> \
-		<div class="LayerManagerListItem"> \
+		<div class="Design-sidebar-listitem"> \
 		<div class="layerManagerLayerName"><p>Lineweight</p></div> \
 		<div class="LayerManagerLayerToggle"><p id="' + layerName + 'lineweightStatus"></p></div> \
 		</div> \
@@ -226,7 +226,7 @@
             var li = document.createElement("li");
 
             var ListItemDiv = document.createElement("div");
-            ListItemDiv.className = "LayerManagerListItem";
+            ListItemDiv.className = "Design-sidebar-listitem";
             ListItemDiv.id = layerIndex;
 
             var layerColour = document.createElement("div");
@@ -267,21 +267,6 @@
                 
                 loadLayers();
             }
-
-            //var nameNode = document.createElement("p")
-            //var name = document.createTextNode(layer.name)
-
-            /*
-                var renameLayerDiv = document.createElement("div");
-                renameLayerDiv.style.display = "none";
-            
-                var rename = document.createElement("Input");
-                rename.type = "text"
-                rename.id = layer.name + "-rename"
-            
-                var submit = document.createElement("Input");
-                submit.type = "submit"
-                */
 
             var layerToggleDiv = document.createElement("div");
             layerToggleDiv.className = "LayerManagerLayerToggle"

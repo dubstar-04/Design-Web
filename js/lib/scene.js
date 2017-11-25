@@ -31,6 +31,7 @@ function reset() {
 	tempItems = [];
 	selectedItems = [];
 	selectionSet = [];
+    selectionSetChanged();
 	selectionAccepted = false;
 	lastCommandPosition = -1;
 	//resetCommandPrompt();
@@ -45,6 +46,10 @@ function reset() {
 //    console.log("scene.js - setPrompt. Index: ", index)
 //    commandLine.value = activeCommand.type + ": " + activeCommand.prompt(Number(index))
 //}
+
+function selectionSetChanged(){
+    getProperties()
+}
 
 function centreVPORT(centre, width, height) {
 	console.log(centre.x, centre.y, width, height)
@@ -179,7 +184,7 @@ function selectClosestItem(data) {
 
 		console.log(" scene.js - Scene.js: selectClosestItem() - selected items length: " + selectedItems.length)
 		console.log(" scene.js - Scene.js: selectClosestItem() - indices for selectionSet: " + selectionSet);
-
+        selectionSetChanged();
 	} else {
 		if (data) {
 			console.log(" scene.js - Nothing Selected");
@@ -187,6 +192,7 @@ function selectClosestItem(data) {
 			// clear selection
 			selectedItems = [];
 			selectionSet = [];
+            selectionSetChanged();
 		}
 	}
 
@@ -288,6 +294,7 @@ function selecting(coordinates, SelectColour) {
 
 						selectedItems.push(copyofitem);
 						selectionSet.push(i);
+                        selectionSetChanged();
 
 					}
 				} else if (selectionSet.indexOf(i) !== -1) {
@@ -306,6 +313,7 @@ function selecting(coordinates, SelectColour) {
 
 						selectedItems.push(copyofitem);
 						selectionSet.push(i);
+                        selectionSetChanged();
 					}
 				} else if (selectionSet.indexOf(i) !== -1) {
 					//var index = selectionSet.indexOf(i);
