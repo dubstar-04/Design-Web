@@ -24,6 +24,7 @@
         if (LM.style.width > "0px") {
             closeLayerManager();
         } else {
+            closePropertiesManager();
             LM.style.width = "300px";
             loadLayers();
         }
@@ -56,30 +57,30 @@
 
                 detailsDiv.innerHTML = ' \
 		<div class="Design-sidebar-listitem"> \
-		<div class="layerManagerLayerName"><p>Frozen</p></div> \
-		<div class="LayerManagerLayerToggle"> \
+		<div class="Design-sidebar-listitem-child"><p>Frozen</p></div> \
+		<div class="Design-sidebar-listitem-child"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'frozenStatus" onclick="frozen(' + layerName + ', this.checked)"/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
 		<div class="Design-sidebar-listitem"> \
-		<div class="layerManagerLayerName"><p>Locked</p></div> \
-				<div class="LayerManagerLayerToggle"> \
+		<div class="Design-sidebar-listitem-child"><p>Locked</p></div> \
+				<div class="Design-sidebar-listitem-child"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'lockedStatus" onclick=""/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
 		<div class="Design-sidebar-listitem"> \
-		<div class="layerManagerLayerName"><p>Plot</p></div> \
-				<div class="LayerManagerLayerToggle"> \
+		<div class="Design-sidebar-listitem-child"><p>Plot</p></div> \
+				<div class="Design-sidebar-listitem-child"> \
 		<label class="tickbox"><input type="checkbox" id="' + layerName + 'plottingStatus" onclick=""/><span class="tkbtn"></span></label> \
 		</div> \
 		</div> \
 		<div class="Design-sidebar-listitem"> \
-		<div class="layerManagerLayerName"><p>Linetype</p></div> \
-		<div class="LayerManagerLayerToggle"><p id="' + layerName + 'linetypeStatus"></p></div> \
+		<div class="Design-sidebar-listitem-child"><p>Linetype</p></div> \
+		<div class="Design-sidebar-listitem-child"><p id="' + layerName + 'linetypeStatus"></p></div> \
 		</div> \
 		<div class="Design-sidebar-listitem"> \
-		<div class="layerManagerLayerName"><p>Lineweight</p></div> \
-		<div class="LayerManagerLayerToggle"><p id="' + layerName + 'lineweightStatus"></p></div> \
+		<div class="Design-sidebar-listitem-child"><p>Lineweight</p></div> \
+		<div class="Design-sidebar-listitem-child"><p id="' + layerName + 'lineweightStatus"></p></div> \
 		</div> \
 		';
 

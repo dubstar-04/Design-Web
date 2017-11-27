@@ -208,7 +208,6 @@ canvasbottom {
     width: 30px;
     border: 1px solid var(--border-colour);
     border-radius: 100%;
-    margin: 7.5px;
 }
 
 .Design-shape:hover {
@@ -267,16 +266,30 @@ canvasbottom {
     height: 50px;
     display: -webkit-flex;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between; /*flex-start;*/
     align-items: center;
     /*border-bottom: 0.25px solid var(--border-colour);*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.Design-sidebar-listitem:p {
+    font-size: var(--medium-text);
+}
+
+.Design-sidebar-listitem-child {
+ }
+
+.Design-sidebar-listitem-child:p {
+    font-size: var(--medium-text);
 }
 
 .Design-sidebar-listitem:hover {
     background: var(--dialog-hover-colour);
 }
 
-.Design-placeholder-text {
+/* Place holder for use when lists are unpopulated i.e. "Nothing Selected"*/
+.Design-placeholder-text { 
   position: relative;
   float: left;
   top: 35%;

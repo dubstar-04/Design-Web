@@ -10,7 +10,7 @@ function Rectangle(data)//startX, startY, endX, endY)
     this.limitPoints = true;
     this.helper_geometry = false; // If true a Line will be drawn between points when defining geometry
     this.points = [];
-    this.RectangleWidth = 2;         //Thickness
+    this.lineWidth = 2;         //Thickness
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0            //Transparancy
@@ -74,7 +74,7 @@ Rectangle.prototype.draw = function(ctx, scale) {
     }
 
     ctx.strokeStyle = colour;
-    ctx.RectangleWidth = this.RectangleWidth/scale;
+    ctx.lineWidth = this.lineWidth/scale;
     ctx.beginPath()
     ctx.moveTo(this.points[0].x, this.points[0].y);
     ctx.lineTo(this.points[1].x, this.points[1].y);

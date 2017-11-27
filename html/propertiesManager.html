@@ -40,7 +40,7 @@
             console.log("[PropertiesManager] - getProperties()")
             if (selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
-                console.log("[PropertiesManager] - getProperties() items", selectionSet)
+                //console.log("[PropertiesManager] - getProperties() items", selectionSet)
                 loadPropertyList(getItemType())
             } else {
                 clearPropertiesList()
@@ -70,44 +70,61 @@
                 itemTypes.unshift("All")
             }
         }
-        
+
         return itemTypes
     }
 
     function getItemProperties(itemType) {
 
         //Loop through the items and get a list of common properties.
-
-        itemPropertiesList.clear();
-
-        console.log("Properties - Item Type: " + itemType)
-
+        //console.log("Properties - Item Type: " + itemType)
         var propertiesList = [];
 
-        if (scene.selectionSet.length > 0) {
-            selected = true;
-            for (var i = 0; i < scene.selectionSet.length; i++) {
-                var properties = scene.items[scene.selectionSet[i]].properties()
-
-                for (var prop in properties) {
-                    console.log("Property: " + prop)
-                        // if (properties.hasOwnProperty(prop)) {
-                    if (propertiesList.indexOf(prop, 0) === -1) {
-                        propertiesList.push(prop)
-                            //console.log("Property: " + propertiesList.length)
+        if (selectionSet.length > 0) {
+            for (var i = 0; i < selectionSet.length; i++) {
+                //console.log("[propertiesManager.js - getItemProperties()] type:", items[selectionSet[i]].type)
+                if (items[selectionSet[i]].type === itemType) {
+                    var properties = items[selectionSet[i]]
+                    for (var prop in properties) {
+                        //console.log("Property: " + prop)
+                        if (propertiesList.indexOf(prop, 0) === -1) {
+                            if (typeof properties[prop] !== "function") {
+                                var excludeProps = ["type", "family", "minPoints", "limitPoints", "helper_geometry", "points", "alpha"];
+                                if (excludeProps.indexOf(prop) === -1) {
+                                    propertiesList.push(prop)
+                                }
+                            }
+                        }
                     }
-                    // }
                 }
-
-
             }
 
-            itemPropertiesList.append(propertiesList);
-
-        } else {
-            selected = false;
+            return propertiesList;
         }
     }
+
+
+    function getItemPropertyValue(itemType, property) {
+        //Loop through the items and get a list the property values
+        var propertiesValueList = [];
+        var propertyValue = ""
+        if (selectionSet.length > 0) {
+            for (var i = 0; i < selectionSet.length; i++) {
+                if (items[selectionSet[i]].type === itemType) {
+                    var prop = items[selectionSet[i]][property]
+                    propertiesValueList.push(prop)                                    
+                }
+            }
+        }
+        
+        console.log("[propertiesManager.getItemProperyValue()]", propertiesValueList)
+        if(propertiesValueList.every(function(prop){return prop === propertiesValueList[0]})){
+            return propertiesValueList[0]
+        }else{
+            return "varies"
+        }
+    }
+
 
     function clearPropertiesList() {
         var list = document.getElementById("PropertiesManagerList")
@@ -122,19 +139,98 @@
 
             var li = document.createElement("li");
 
+
             var ListItemDiv = document.createElement("div");
             ListItemDiv.className = "Design-sidebar-listitem";
-            ListItemDiv.id = item;
+            ListItemDiv.id = itemList[item];
+            ListItemDiv.onmousedown = function(e) {
+                showHideItemProperties(this.id)
+            };
 
             //var nameNode = document.createElement("p")
             var type = document.createTextNode(itemList[item])
+                //console.log("[propertiesManager.loadPropertyList:] ", itemList[item])
+
+            var itemPropertiesDiv = document.createElement("div");
+            itemPropertiesDiv.className = "layerManagerListItemDetails"
+            itemPropertiesDiv.id = itemList[item] + "-itemProperties"
 
 
             ListItemDiv.appendChild(type);
-
             li.appendChild(ListItemDiv)
+            li.appendChild(itemPropertiesDiv)
             list.appendChild(li);
 
+        }
+    }
+
+    function loadItemProperties(elemID) {
+        var itemType = elemID;
+        var propertiesList = getItemProperties(itemType)
+        var detailsDiv = document.getElementById(elemID + "-itemProperties")
+            //console.log(propertiesList)
+        var props = "";
+        for (var property = 0; property < propertiesList.length; property++) {
+            console.log("[propertiesManager.loadItemProperties()]: type:", itemType, " property: ", propertiesList[property])
+
+            var propValue = getItemPropertyValue(itemType, propertiesList[property])
+            
+                        props += '\
+        <div class="Design-sidebar-listitem"> \
+		<div class="Design-sidebar-listitem-child"><p>' + propertiesList[property] + '</p></div>';
+            
+            switch (propertiesList[property]){
+                    
+                case "radius":
+                    props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
+                    break;
+                case "lineWidth":
+                    props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
+                    break;
+                case "colour":
+                    props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>'
+                    break;
+                case "layer":
+                    props += '<div class="Design-sidebar-listitem-child"><select>';
+                    for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                      props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
+                    }
+                    props += '</select></div>'; 
+                    break;
+                default:
+                    props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>' 
+                    break;
+            }
+            
+
+		
+        props += '</div>';
+        }
+        detailsDiv.innerHTML = props;
+        return propertiesList.length;
+    }
+
+    function showHideItemProperties(elemID) {
+        var elem = document.getElementById(elemID + "-itemProperties")
+        var elemIDstate = elem.style.display;
+        console.log("[propertiesManager.js - showHideItemProperties()]:", elemID, elemIDstate)
+
+        //hide any expanded sections
+
+        var divs = document.querySelectorAll("[id]");
+        for (var i = 0, len = divs.length; i < len; i++) {
+            var div = divs[i];
+            if (div.id.indexOf("itemProperties") > -1) {
+                div.style.height = "0px";
+                div.style.display = "none";
+            }
+        }
+
+        if (elemIDstate !== "block") {
+            elem.style.display = "block";
+            var items = loadItemProperties(elemID);
+            var height = items * 50 //TO DO: Get height from CSS
+            elem.style.height = height.toString() + "px";
         }
     }
 

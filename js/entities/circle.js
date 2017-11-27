@@ -74,16 +74,15 @@ Circle.prototype.draw = function(ctx, scale) {
     ctx.stroke()
 }
 
-Circle.prototype.properties = function(){
+/*Circle.prototype.properties = function(){
 
     return {  //type: this.type,
         colour: this.colour,
         layer: this.layer,
         lineWidth: this.lineWidth
     }
-
-
 }
+*/
 
 Circle.prototype.svg = function(){
     //<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />

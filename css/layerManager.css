@@ -12,8 +12,7 @@
 .layerManagerLayerName {
     background-color: transparent;
 	flex: 1;
-	margin-left: 10px;
-	margin-right: 20px;
+	margin-right: 10px;
 	min-width: 10px;
     outline: none;
     border: 0px;
@@ -25,7 +24,3 @@
     overflow: hidden;
 	text-overflow: fade;
   }
-
-.LayerManagerLayerToggle {
-	margin-right:10px;
-}
