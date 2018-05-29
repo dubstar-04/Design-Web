@@ -16,8 +16,15 @@ LayerManager.prototype.layerCount = function () {
 
 LayerManager.prototype.newLayer = function () {
 
-    var count = 0;
-    var layStr = "New Layer";
+    this.addLayer({
+        "name": this.getUniqueName("New Layer")
+    });
+}
+
+LayerManager.prototype.getUniqueName = function(name){
+	
+	var count = 0;
+    var layStr = name;
     for (var i = 0; i < this.layerCount(); i++) {
         if (this.layers[i].name.includes(layStr)) {
             count = count + 1;
@@ -27,9 +34,7 @@ LayerManager.prototype.newLayer = function () {
         layStr = layStr + " " + count;
     }
 
-    this.addLayer({
-        "name": layStr
-    });
+	return layStr;
 }
 
 LayerManager.prototype.addLayer = function (layer) {
@@ -160,10 +165,12 @@ LayerManager.prototype.getLayerByIndex = function (layerIndex) {
 
 
 LayerManager.prototype.renameLayer = function (layerIndex, newName) {
+	
+	var newName = this.getUniqueName(newName)
 
     if (this.getLayerByIndex(layerIndex).name.toUpperCase() !== "DEFPOINTS") {
         
-        if (this.getLayerByIndex(layerIndex).name === this.getCLayer()) {
+        if (this.getLayerByIndex(layerIndex).name === this.getCLayer()) {	
             this.setCLayer(newName);
             console.log("[Layernamanger.renameLayer] - set new Clayer name")
         }

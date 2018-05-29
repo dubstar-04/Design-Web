@@ -3,7 +3,7 @@
 *   Intersection.js
 *
 *   Based on work Intersection.js Kevin Lindsey
-*   additions by Daniel Wood 2016
+*   additions by Daniel Wood 2016, 2017, 2018
 *****/
 
 
