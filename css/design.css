@@ -17,6 +17,8 @@
     --dialog-header-colour: #38B44A;
     --dialog-bg-colour: #fefefe;
     --dialog-hover-colour: #f7f7f7;
+    /* List  */
+    --list-bg-colour:#B3B3B3;
     /* Text */
     --titletext-colour: #ffffff;
     --text-colour: #000000;
@@ -266,7 +268,8 @@ canvasbottom {
     height: 50px;
     display: -webkit-flex;
     display: flex;
-    justify-content: space-between; /*flex-start;*/
+    justify-content: space-between;
+    /*flex-start;*/
     align-items: center;
     /*border-bottom: 0.25px solid var(--border-colour);*/
     padding-left: 10px;
@@ -275,10 +278,11 @@ canvasbottom {
 
 .Design-sidebar-listitem:p {
     font-size: var(--medium-text);
+    
 }
 
 .Design-sidebar-listitem-child {
- }
+}
 
 .Design-sidebar-listitem-child:p {
     font-size: var(--medium-text);
@@ -288,11 +292,13 @@ canvasbottom {
     background: var(--dialog-hover-colour);
 }
 
+
 /* Place holder for use when lists are unpopulated i.e. "Nothing Selected"*/
-.Design-placeholder-text { 
-  position: relative;
-  float: left;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.Design-placeholder-text {
+    position: relative;
+    float: left;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

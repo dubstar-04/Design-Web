@@ -266,7 +266,7 @@ function selecting(coordinates, SelectColour) {
 			colour: SelectColour
 		}
 
-		var tempItem = new Rectangle(data); // Create a new item, send it the tempPoints array
+		var tempItem = new FilledRectangle(data); // Create a new item, send it the tempPoints array
 		tempItems.push(tempItem) // Add it to the tempItems Array
 	} else {
 

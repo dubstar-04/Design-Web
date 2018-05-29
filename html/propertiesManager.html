@@ -181,6 +181,15 @@
             
             switch (propertiesList[property]){
                     
+                case "width":
+                    props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
+                    break;
+                case "height":
+                    props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
+                    break;
+                case "rotation":
+                    props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
+                    break;    
                 case "radius":
                     props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
                     break;
@@ -188,14 +197,34 @@
                     props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
                     break;
                 case "colour":
-                    props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>'
+                    props += '<div class="Design-sidebar-listitem-child"><select>';
+                    props +=  '<option>' + propValue + '</option>'; 
+                    for (var ACI = 0; ACI < 256; ACI++) {
+                    props +=  '<option>' + ACI + '</option>';   
+                    }
+                    props += '</select></div>'; 
                     break;
                 case "layer":
-                    props += '<div class="Design-sidebar-listitem-child"><select>';
+                    
+                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + LM.getCLayer() + '<ul class="dropdown"> '
+                           // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
+                        //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
+                        //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
+                   
+                    for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                        if(LM.getLayerByIndex(layerIndex).name !== LM.getCLayer()){
+                      props +=  '<li style="border-left-color: #38B44A">' + LM.getLayerByIndex(layerIndex).name + '</li>'; 
+                    }
+            }
+      
+                       props +=     '</ul> \
+                                    </div>'
+                   /* props += '<div class="Design-sidebar-listitem-child"><select>';
                     for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
                       props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
                     }
                     props += '</select></div>'; 
+                    */
                     break;
                 default:
                     props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>' 

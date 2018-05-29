@@ -1,0 +1,108 @@
+/*,*:after,*:before {
+    box-sizing: border-box;
+}
+*/
+
+.wrapper-dropdown-2 {
+    position: relative;
+    width: 50%;
+    /*height: 100%;*/
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+    /*margin: 0 auto;*/
+    /*padding: 10px 15px;*/
+ 
+    /* Styles */
+    background: #fff;
+    border-left: 5px solid grey;
+    cursor: pointer;
+    outline: 0.5px solid grey;
+    font-size: var(--medium-text);
+    padding-left: 5px
+}
+
+.wrapper-dropdown-2:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: grey transparent;
+}
+
+.wrapper-dropdown-2.active:after {
+    border-width: 0 6px 6px 6px;
+}
+
+.wrapper-dropdown-2 .dropdown {
+    position: absolute;
+    top: 100%;
+    /*left: -45px;
+    right: 0px;*/
+    background: white;
+    transition: all 0.3s ease-out;
+    list-style: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wrapper-dropdown-2 .dropdown li{
+    height: 25px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    border-left: 5px solid;
+    font-size: var(--medium-text);
+    padding-left: 5px;
+    /*padding: 10px;*/
+    /*transition: all 0.3s ease-out;*/
+}
+.wrapper-dropdown-2 .dropdown li:hover  {
+    color: grey;
+    background-color: darkgrey;
+}
+
+.wrapper-dropdown-2.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+ 
+/*
+.wrapper-dropdown-2 .dropdown li:nth-child(1) a { 
+    border-left-color: #00ACED;
+}
+ 
+.wrapper-dropdown-2 .dropdown li:nth-child(2) a {
+    border-left-color: #4183C4;
+}
+ 
+.wrapper-dropdown-2 .dropdown li:nth-child(3) a {
+    border-left-color: #3B5998;
+}
+ 
+.wrapper-dropdown-2 .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+*/
+ 
+/* Hover state
+ 
+.wrapper-dropdown-2 .dropdown li:hover a {
+    color: grey;
+    background-color: darkgrey;
+}
+.wrapper-dropdown-2.active:after {
+    border-width: 0 6px 6px 6px;
+}
+
+*/
+ 
+
+
