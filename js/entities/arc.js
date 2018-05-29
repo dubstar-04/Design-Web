@@ -177,7 +177,7 @@ Arc.prototype.snaps = function(mousePoint, delta){
 
     var snaps = [];
 
-    if(snapSettings.endSnap){
+    if(settings.endSnap){
         //Speed this up by generating the proper start and end points when the arc is initialised
         var start_point = new Point(this.points[0].x + (this.radius * Math.cos(this.startAngle())),
                                     this.points[0].y + (this.radius * Math.sin(this.startAngle())));
@@ -187,12 +187,12 @@ Arc.prototype.snaps = function(mousePoint, delta){
         snaps.push(start_point, end_point);
     }
 
-    if(snapSettings.centreSnap){
+    if(settings.centreSnap){
         var centre = this.points[0];
         snaps.push(centre)
     }
 
-    if (snapSettings.nearestSnap){
+    if (settings.nearestSnap){
         var closest = this.closestPoint(mousePoint)
         //var snaps = [center, start_point, end_point];
 

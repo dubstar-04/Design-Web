@@ -202,14 +202,14 @@ Rectangle.prototype.snaps = function(mousePoint, delta){
 
     var snaps = [];
 
-    if(snapSettings.endSnap){
+    if(settings.endSnap){
         // End points for each segment
         for(var i = 0; i < this.points.length; i++) {
             snaps.push(this.points[i]);
         }
     }
 
-    if(snapSettings.midSnap){
+    if(settings.midSnap){
         for(var i = 1; i < this.points.length; i++) {
 
             var start = this.points[i-1];
@@ -219,7 +219,7 @@ Rectangle.prototype.snaps = function(mousePoint, delta){
         }
     }
 
-    if (snapSettings.nearestSnap){
+    if (settings.nearestSnap){
 
         var closest = this.closestPoint(mousePoint)
 

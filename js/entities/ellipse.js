@@ -186,13 +186,13 @@ Ellipse.prototype.snaps = function(mousePoint, delta){
 
     var snaps = [];
 
-    if(snapSettings.centreSnap){
+    if(settings.centreSnap){
         var centre = new Point(this.points[0].x, this.points[0].y);
         snaps.push(centre)
     }
 
 
-    if(snapSettings.quadrantSnap){
+    if(settings.quadrantSnap){
 
         var A = this.points[0].x - this.points[1].x;
         var O = this.points[0].y - this.points[1].y;
@@ -214,7 +214,7 @@ Ellipse.prototype.snaps = function(mousePoint, delta){
         snaps.push(angle0, angle90, angle180, angle270)
     }
 
-    if(snapSettings.nearestSnap){
+    if(settings.nearestSnap){
 
         var closest = this.closestPoint(mousePoint);
 

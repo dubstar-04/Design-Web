@@ -184,12 +184,12 @@ Circle.prototype.snaps = function(mousePoint, delta){
 
     var snaps = [];
 
-    if(snapSettings.centreSnap){
+    if(settings.centreSnap){
         var centre = new Point(this.points[0].x, this.points[0].y);
         snaps.push(centre)
     }
 
-    if(snapSettings.quadrantSnap){
+    if(settings.quadrantSnap){
         var angle0 = new Point(this.points[0].x + this.radius, this.points[0].y);
         var angle90 = new Point(this.points[0].x, this.points[0].y + this.radius);
         var angle180 = new Point(this.points[0].x - this.radius, this.points[0].y);
@@ -199,7 +199,7 @@ Circle.prototype.snaps = function(mousePoint, delta){
 
     }
 
-    if(snapSettings.nearestSnap){
+    if(settings.nearestSnap){
         var closest = this.closestPoint(mousePoint)
 
         // Crude way to snap to the closest point or a node

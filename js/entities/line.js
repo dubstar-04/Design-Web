@@ -329,17 +329,17 @@ Line.prototype.snaps = function (mousePoint, delta) {
 
     var snaps = [];
 
-    if (snapSettings.endSnap) {
+    if (settings.endSnap) {
         var start = new Point(this.points[0].x, this.points[0].y);
         var end = new Point(this.points[1].x, this.points[1].y);
         snaps.push(start, end);
     }
 
-    if (snapSettings.midSnap) {
+    if (settings.midSnap) {
         snaps.push(this.midPoint())
     }
 
-    if (snapSettings.nearestSnap) {
+    if (settings.nearestSnap) {
         var closest = this.closestPoint(mousePoint, start, end)
 
         // Crude way to snap to the closest point or a node

@@ -347,7 +347,7 @@ function addHelperGeometry(type, points, colour) {
 function polarSnap(previousPoint) {
 
 	var angleDelta = 3;
-	var diff = radians2degrees(previousPoint.angle(mouse)) - (snapSettings.polarAngle * Math.round(radians2degrees(previousPoint.angle(mouse)) / snapSettings.polarAngle))
+	var diff = radians2degrees(previousPoint.angle(mouse)) - (settings.polarAngle * Math.round(radians2degrees(previousPoint.angle(mouse)) / settings.polarAngle))
 
 		if (Math.abs(diff) < angleDelta) {
 			//console.log("scene.js - polarSnap - Diff:", diff, " canvas size", canvas.canvasSize)
@@ -407,10 +407,10 @@ function writeCoordinates(label, coordinates) {
 			// generate data from the prevous point and the radius
 			// Polar snap if we are close
 
-			if (snapSettings.polar) {
+			if (settings.polar) {
 				//if polar is enabled - get the closest points
 				polarSnap(previousPoint);
-			} else if (snapSettings.ortho) {
+			} else if (settings.ortho) {
 				//if ortho is enabled - get the nearest ortho point
 				orthoSnap(previousPoint)
 			}

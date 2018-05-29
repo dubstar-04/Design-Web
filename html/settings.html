@@ -13,23 +13,20 @@
 
 
 <script>
+
+	var cookieConsent = false;
+	
     var settings = {
-        firstRun: true,
         canvasBackgroundColour: "#E9E9E9", //"#000000",
         selectedItemsColour: "#00FF00",
         snapColour: "#FF0000",
         helperGeometryColour: "#00BFFF",
-        polarSnapColour: "#38B44A"
-
-    }
-
-    var fontSettings = {
+        polarSnapColour: "#38B44A",
+		//fontSettings 
         font: "Ubuntu",
-        upsidedown: false,
-        backwards: false
-    }
-
-    var snapSettings = {
+        fontupsidedown: false,
+        fontbackwards: false,
+		//snapSettings
         endSnap: true,
         midSnap: true,
         centreSnap: true,
@@ -39,6 +36,66 @@
         polar: true,
         ortho: false
     }
+	
+	function getCookieConsent() {  
+		var cookiesAllowed = getSettings("Design")
+	
+		if(cookiesAllowed != ""){
+			cookieConsent = true;
+			loadAllSettings(settings)
+		} else {
+	
+			var ret;
+			if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accpect cookies.")) {
+				ret = true;
+				cookieConsent = true;
+				saveSetting("Design", designVersion, 365);
+			} else {
+				ret = false;
+			}
+	}
+	
+	if(ret){
+	saveAllSettings(settings)
+	}
+ }
+ 
+ function saveAllSettings (settings){
+	for (var setting in settings){
+	console.log("Setting:", setting, " value: ", settings[setting])
+	saveSetting(setting, settings[setting])
+	}
+ }
+ 
+  function loadAllSettings (settings){
+	for (var setting in settings){
+	console.log("getSetting:", setting, " value: ", getSettings(setting))
+	settings[setting] = getSettings(setting) 
+	}
+ }
+	
+	function saveSetting(name, value) {
+	    var d = new Date();
+		d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+		var expires = "expires="+d.toUTCString();
+		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	}
+	
+	function getSettings(name) {
+    var name = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 
     function showSettings() {
