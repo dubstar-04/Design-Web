@@ -48,7 +48,7 @@ function sceneControl(action, data) {
 		console.log(" scene.js - clicked: " + data)
 		selectClosestItem(data);
 	}
-
+	
 	function handleEnter(data) {
 
 		console.log(" scene.js - HandleEnter")
@@ -61,14 +61,17 @@ function sceneControl(action, data) {
 			console.log("[design-engine] handleEnter - lastCommand: ", lastCommand[0]);
 			currentCommand = lastCommand[0];
 		} else {
-			var selectedCommand = data[0].toUpperCase();
+			
+			currentCommand = getCommandFromShortcut( data[0].toUpperCase() )
+			
+/* 			var selectedCommand = data[0].toUpperCase();
 
 			for (var i = 0; i < commands.length; i++) {
 
 				if (commands[i].shortcut === selectedCommand) {
 					currentCommand = commands[i].command;
 				}
-			}
+			} */
 		}
 		console.log("Process: " + currentCommand);
 		processItem(currentCommand);
@@ -95,6 +98,33 @@ function sceneControl(action, data) {
 		//            reset()
 		//        }
 	}
+	
+	function getCommandFromShortcut( shortcut ){
+		
+		var commandFromShortcut = shortcut
+		
+		for (var i = 0; i < commands.length; i++) {
+
+			if (commands[i].shortcut === shortcut) {
+				commandFromShortcut = commands[i].command;
+			}
+		}
+		
+		return commandFromShortcut
+	}
+	
+	function isCommand(command){
+		
+		for (var i = 0; i < commands.length; i++) {
+
+			if (commands[i].command === command) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 
 	function handleLeftClickwithCommand(data) {
 		console.log(" scene.js - scene.js: handleLeftClickwithCommand")
@@ -159,6 +189,14 @@ function sceneControl(action, data) {
 	}
 
 	function handleEnterwithCommand(data) {
+		
+	console.log("scene.js - scene.js: handleEnterwithCommand - DATA 0:", data[0])	
+		
+	if( isCommand(getCommandFromShortcut( data[0]))){
+		console.log("scene.js - scene.js: handleEnterwithCommand - New Command: Reset State")
+		reset()
+		processItem(getCommandFromShortcut( data[0]))
+	}else{
 
 		if (activeCommand.family === "Tools") {
 			////////// Typed Point x,y //////////
@@ -295,7 +333,7 @@ function sceneControl(action, data) {
 
 			} else {}
 		}
-
+	  }
 	}
 
 	if (action === "LeftClick" && activeCommand.type !== undefined) {
