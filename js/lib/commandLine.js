@@ -70,6 +70,7 @@ CommandLine.prototype.handleKeys = function (e) {
 			this.deletePressed(e)
             break;
         default:
+			e.preventDefault();
             this.command = this.command + String.fromCharCode(charCode);
             this.update();
             break;
@@ -86,9 +87,15 @@ CommandLine.prototype.deletePressed = function (event) {
 }
 
 CommandLine.prototype.backPressed = function (event) {
-    if (this.cmdLine.value.length === this.prompt.length) {
+   if (this.cmdLine.value.length === this.prompt.length) {
        event.preventDefault();
-    }
+	   this.command = ""
+    }else{
+	//console.log("[CommandLine.backPressed]")
+	
+	this.command = this.command.substring(0, this.command.length-1)
+	this.update();
+	}
 }
 
 CommandLine.prototype.leftPressed = function (event) {

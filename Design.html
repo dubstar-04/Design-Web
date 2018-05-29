@@ -166,7 +166,7 @@
         }, false);
 
         document.addEventListener('keydown', function(event) {
-            if (lastDownTarget == cnvs) {
+            if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
                 commandLine.handleKeys(event);
 
                 var charCode = (event.charCode) ? event.charCode : event.keyCode;
