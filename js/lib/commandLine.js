@@ -67,6 +67,7 @@ CommandLine.prototype.handleKeys = function (e) {
             this.previousCommand("down");
             break;
         case 46: // Delete
+			this.deletePressed(e)
             break;
         default:
             this.command = this.command + String.fromCharCode(charCode);
@@ -74,6 +75,14 @@ CommandLine.prototype.handleKeys = function (e) {
             break;
 
     }
+}
+
+CommandLine.prototype.deletePressed = function (event) {
+    if (this.cmdLine.value.length === this.prompt.length) {
+       event.preventDefault();
+    }
+	sceneControl('Enter', ['E'] )
+	console.log("[CommandLine.deletePressed]")
 }
 
 CommandLine.prototype.backPressed = function (event) {
