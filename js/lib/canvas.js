@@ -204,9 +204,13 @@ Canvas.prototype.zoom = function (scale) {
 
 }
 
-Canvas.prototype.zoomExtents = function(){       
+Canvas.prototype.zoomExtents = function(){
+
+		if (items.length){
+			console.log("zoom all ")
         var extents = this.getExtents()
         this.centreInScene(extents.xmin, extents.xmax, extents.ymin, extents.ymax)
+		}
     }
 
 Canvas.prototype.getExtents = function(){
