@@ -302,3 +302,14 @@ canvasbottom {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.row {
+    display: flex;
+	justify-content: space-between;
+    /*flex-start;*/
+    align-items: center;
+}
+
+.column {
+    flex: 50%;
+}

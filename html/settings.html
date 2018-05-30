@@ -7,6 +7,122 @@
             </div>
         </div>
         <div class="Settings-body">
+		
+<div class="tab">
+  <button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
+  <button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
+  <button class="tablinks" onclick="changeTab(event, 'Text')">Text</button>
+  <button class="tablinks" onclick="changeTab(event, 'Online Accounts')">Online Accounts</button>
+  <button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
+  <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
+</div>
+
+<!-- Tab content -->
+<div id="Colour" class="tabcontent">
+  <h3>Colour</h3>
+  <p>colour settings</p>
+</div>
+
+<div id="Snaps" class="tabcontent">
+
+<div class="row">
+  <div class="column">
+  <ul> 
+
+<div id="Endsnap" class="Design-sidebar-listitem">
+<img src="icons/snap-end.svg" style="width:32px;height:32px;">
+<p>End</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('endSnap')" checked=function(){settings["endSnap"]};>
+<span class="slider"></span>
+</label>
+</div>
+
+<div id="Midsnap" class="Design-sidebar-listitem">
+<img src="icons/snap-mid.svg" style="width:32px;height:32px;">
+<p>Mid</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){settings["midSnap"]};;>
+<span class="slider"></span>
+</label>
+</div>
+
+<div id="Centresnap" class="Design-sidebar-listitem">
+<img src="icons/snap-centre.svg" style="width:32px;height:32px;">
+<p>Centre</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};;>
+<span class="slider"></span>
+</label>
+</div>
+
+<div id="Nearestsnap" class="Design-sidebar-listitem">
+<img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
+<p>Nearest</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};;>
+<span class="slider"></span>
+</label>
+</div>
+</ul>
+  </div>
+ 
+<div class="column">
+<ul> 
+
+<div id="Polar" class="Design-sidebar-listitem">
+<img src="icons/polar.svg" style="width:32px;height:32px;">
+<p>Polar</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};;>
+<span class="slider"></span>
+</label>
+</div>
+
+<div id="PolarAngle" class="Design-sidebar-listitem">
+<p>Polar Angle</p>
+<select id="polarAngle" onchange="changePolarAngle(this.value)";>
+  <option value="22.5">22.5</option>
+  <option value="45">45</option>
+  <option value="90">90</option>
+  <option value="180">180</option>
+</select>
+</div>
+
+<div id="Ortho" class="Design-sidebar-listitem">
+<img src="icons/ortho.svg" style="width:32px;height:32px;">
+<p>Ortho</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){settings["ortho"]};;>
+<span class="slider"></span>
+</label>
+</div>
+
+</ul>
+  </div>
+</div>
+</div>
+
+<div id="Text" class="tabcontent">
+  <h3>Text</h3>
+  <p>text settings</p> 
+</div>
+
+<div id="Online Accounts" class="tabcontent">
+  <h3>Online Accounts</h3>
+  <p>Online Accounts settings</p> 
+</div>
+
+<div id="Help" class="tabcontent">
+  <h3>Help</h3>
+  <p> Design Help. </p>
+</div>
+
+<div id="About" class="tabcontent">
+  <h3>About</h3>
+  <p>about design. Version: designVersion, patreon? </p>
+</div>
+		
         </div>
     </div>
 </div>
@@ -46,7 +162,7 @@
 		} else {
 	
 			var ret;
-			if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accpect cookies.")) {
+			if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accept cookies.")) {
 				ret = true;
 				cookieConsent = true;
 				saveSetting("Design", designVersion, 365);
@@ -60,10 +176,26 @@
 	}
  }
  
+ function toggleSnap(snap){
+ settings[snap] = !settings[snap]
+ saveAllSettings(settings)
+ }
+ 
+ function changePolarAngle(angle){
+ 
+ console.log("Angle:", angle)
+ settings["polarAngle"] = angle;
+  saveAllSettings(settings);
+ }
+ 
  function saveAllSettings (settings){
+ if(cookieConsent){
 	for (var setting in settings){
 	console.log("Setting:", setting, " value: ", settings[setting])
 	saveSetting(setting, settings[setting])
+	}
+	} else {
+	console.log("settings won't be saved")
 	}
  }
  
@@ -98,11 +230,31 @@
 }
 
 
+function changeTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+	
+	//set defaults
+	document.getElementById("polarAngle").value = settings["polarAngle"]
+}
+
+
+
     function showSettings() {
         //block context menu for layer manager
         //var SW = document.getElementById("SettingsWindow");
         //SW.oncontextmenu =  function(e) {e.preventDefault()};
         document.getElementById('SettingsWindow').style.display = "block";
+		document.getElementById("defaultOpen").click();
     }
 
     function closeSettings() {

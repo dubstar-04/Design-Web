@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/design.css">
     <link rel="stylesheet" href="css/settings.css">
     <link rel="stylesheet" href="css/toggle.css">
+	<link rel="stylesheet" href="css/tabs.css">
     <link rel="stylesheet" href="css/tickbox.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/layerManager.css">
@@ -154,7 +155,7 @@
         }, {
             name: "Mid Between 2 Points", action: function(){closePopover();}
         }, {
-            name: "Snap Settings", action: function(){closePopover();}
+            name: "Settings", action: function(){showSettings(); closePopover();}
         }];
         popover_showList(listItems);
     }
