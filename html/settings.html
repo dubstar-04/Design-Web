@@ -1,3 +1,4 @@
+
 <div id="SettingsWindow" class="Settings">
     <div class="Settings-content">
         <div class="Design-header">
@@ -17,10 +18,46 @@
   <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
 </div>
 
+<div id="tabcontent" class="tabcontent">
+<!-- Autoload tab content here -->
+</div>
+
+
 <!-- Tab content -->
 <div id="Colour" class="tabcontent">
-  <h3>Colour</h3>
-  <p>colour settings</p>
+
+<div class="row">
+  <div class="column">
+  <ul> 
+	<div class="Design-sidebar-listitem">
+		<div id="BackGroundColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<p>Canvas Background Colour</p>
+		<div></div>
+	</div>
+	<div class="Design-sidebar-listitem">
+		<div id="selectedItemsColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<p>Selected Items Colour</p>
+				<div></div>
+	</div>
+	<div class="Design-sidebar-listitem">
+		<div id="snapColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<p>Snap Colour</p>
+				<div></div>
+	</div>
+	<div class="Design-sidebar-listitem">
+		<div id="helperGeometryColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<p>Helper Geometry Colour</p>
+				<div></div>
+	</div>
+	<div class="Design-sidebar-listitem">
+		<div id="polarSnapColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<p>Polar Snap Colour</p>
+				<div></div>
+	</div>
+</ul>
+  </div>
+</div>
+
 </div>
 
 <div id="Snaps" class="tabcontent">
@@ -42,7 +79,7 @@
 <img src="icons/snap-mid.svg" style="width:32px;height:32px;">
 <p>Mid</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){settings["midSnap"]};;>
+<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){settings["midSnap"]};>
 <span class="slider"></span>
 </label>
 </div>
@@ -51,7 +88,7 @@
 <img src="icons/snap-centre.svg" style="width:32px;height:32px;">
 <p>Centre</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};;>
+<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};>
 <span class="slider"></span>
 </label>
 </div>
@@ -60,7 +97,7 @@
 <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
 <p>Nearest</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};;>
+<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};>
 <span class="slider"></span>
 </label>
 </div>
@@ -74,7 +111,7 @@
 <img src="icons/polar.svg" style="width:32px;height:32px;">
 <p>Polar</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};;>
+<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};>
 <span class="slider"></span>
 </label>
 </div>
@@ -93,7 +130,7 @@
 <img src="icons/ortho.svg" style="width:32px;height:32px;">
 <p>Ortho</p>
 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){settings["ortho"]};;>
+<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){settings["ortho"]};>
 <span class="slider"></span>
 </label>
 </div>
@@ -129,6 +166,11 @@
 
 
 <script>
+
+	function showcolourpicker(){
+	console.log("TO DO: Show Colour Picker")
+	}
+	
 
 	var cookieConsent = false;
 	
@@ -240,11 +282,17 @@ function changeTab(evt, tabName) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(tabName).style.display = "block";
+	
+	document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 	
 	//set defaults
 	document.getElementById("polarAngle").value = settings["polarAngle"]
+	document.getElementById("BackGroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
+	document.getElementById("selectedItemsColour").style.backgroundColor = settings["selectedItemsColour"]
+	document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
+	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
+	document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
 }
 
 
