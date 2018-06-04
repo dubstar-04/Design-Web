@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/layerManager.css">
     <link rel="stylesheet" href="css/contextmenu.css">
     <link rel="stylesheet" href="css/popover.css">
+	<link rel="stylesheet" href="css/colourpicker.css">
     <link rel="stylesheet" href="css/dropdown.css">
 
     <link rel="import" href="html/layerManager.html">
@@ -20,6 +21,7 @@
     <link rel="import" href="html/settings.html">
     <link rel="import" href="html/contextmenu.html">
     <link rel="import" href="html/popover.html">
+	<link rel="import" href="html/colourPicker.html">
     <link rel="import" href="html/dropdown.html">
 
     <div role="main">
@@ -141,8 +143,13 @@
     //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
     window.addEventListener('resize', function() {
-        closePopover()
+        hideModals()
     }, false);
+	
+	function hideModals(){
+	                    closePopover();
+					closeColourPicker();
+	}
 
 
     function canvas_contextmenu() {
@@ -171,7 +178,7 @@
                 var charCode = (event.charCode) ? event.charCode : event.keyCode;
                 //if escape is pressed hide any popovers
                 if (charCode === 27) {
-                    closePopover();
+                    hideModals()
                 }
             }
         }, false);

@@ -117,6 +117,14 @@
                 //console.log("Show Details")
         }
     }
+	
+function layerColourChange(colour, layerIndex){
+		console.log("change ", layerIndex, " to: ", colour);
+        LM.layers[layerIndex].colour = colour;
+        loadLayers();
+        //closePopover()
+        canvas.requestPaint()
+	}
 
     function handleMouse(e, elem, layerID, layerIndex) {
         e.preventDefault();
@@ -130,8 +138,10 @@
                     showHideLayerDetails(layerID)
                 }
                 if (elem === "colour") {
+				
+				showColourPicker(null, layerColourChange, layerIndex)
 
-                    var popover_table = document.createElement("div");
+ /**                var popover_table = document.createElement("div");
                     popover_table.className = "Popover-table";
                     popover_table.id = "Popover-table";
 
@@ -154,6 +164,7 @@
                         popover_table.appendChild(ACIColour);
                     }
                     popover_appendContent(popover_table)
+					**/
                 }
 
                 break;

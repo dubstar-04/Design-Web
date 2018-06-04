@@ -30,27 +30,27 @@
   <div class="column">
   <ul> 
 	<div class="Design-sidebar-listitem">
-		<div id="BackGroundColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 		<p>Canvas Background Colour</p>
 		<div></div>
 	</div>
 	<div class="Design-sidebar-listitem">
-		<div id="selectedItemsColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 		<p>Selected Items Colour</p>
 				<div></div>
 	</div>
 	<div class="Design-sidebar-listitem">
-		<div id="snapColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 		<p>Snap Colour</p>
 				<div></div>
 	</div>
 	<div class="Design-sidebar-listitem">
-		<div id="helperGeometryColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 		<p>Helper Geometry Colour</p>
 				<div></div>
 	</div>
 	<div class="Design-sidebar-listitem">
-		<div id="polarSnapColour" class="Design-shape" onclick="showcolourpicker()"></div>
+		<div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 		<p>Polar Snap Colour</p>
 				<div></div>
 	</div>
@@ -167,8 +167,17 @@
 
 <script>
 
-	function showcolourpicker(){
-	console.log("TO DO: Show Colour Picker")
+	function changeColour(caller){
+	    console.log("Caller: ", caller)
+		showColourPicker(null, settingColourChange, caller)
+	}
+	
+	function settingColourChange(colour, caller){
+	console.log("change ", caller, " to: ", colour);
+	settings[caller] = colour
+	saveAllSettings(settings)
+	setDefaultSettings()
+	canvas.requestPaint()
 	}
 	
 
@@ -286,9 +295,13 @@ function changeTab(evt, tabName) {
 	document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 	
+	setDefaultSettings();
+}
+
+function setDefaultSettings(){
 	//set defaults
 	document.getElementById("polarAngle").value = settings["polarAngle"]
-	document.getElementById("BackGroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
+	document.getElementById("canvasBackgroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
 	document.getElementById("selectedItemsColour").style.backgroundColor = settings["selectedItemsColour"]
 	document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
 	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
