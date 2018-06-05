@@ -1,21 +1,21 @@
 
 <div id="SettingsWindow" class="Settings">
-    <div class="Settings-content">
-        <div class="Design-header">
-            <div class="Design-header-icon" , onclick="closeSettings()"><img src="icons/close.svg"></div>
-            <div class="Design-header-title">
-                <h3>Settings</h3>
-            </div>
-        </div>
-        <div class="Settings-body">
-		
+<div class="Settings-content">
+<div class="Design-header">
+<div class="Design-header-icon" , onclick="closeSettings()"><img src="icons/close.svg"></div>
+<div class="Design-header-title">
+<h3>Settings</h3>
+</div>
+</div>
+<div class="Settings-body">
+
 <div class="tab">
-  <button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
-  <button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
-  <button class="tablinks" onclick="changeTab(event, 'Text')">Text</button>
-  <button class="tablinks" onclick="changeTab(event, 'Online Accounts')">Online Accounts</button>
-  <button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
-  <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
+<button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
+<button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
+<button class="tablinks" onclick="changeTab(event, 'Text')">Text</button>
+<button class="tablinks" onclick="changeTab(event, 'Online Accounts')">Online Accounts</button>
+<button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
+<button class="tablinks" onclick="changeTab(event, 'About')">About</button>
 </div>
 
 <div id="tabcontent" class="tabcontent">
@@ -27,35 +27,35 @@
 <div id="Colour" class="tabcontent">
 
 <div class="row">
-  <div class="column">
-  <ul> 
-	<div class="Design-sidebar-listitem">
-		<div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-		<p>Canvas Background Colour</p>
-		<div></div>
-	</div>
-	<div class="Design-sidebar-listitem">
-		<div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-		<p>Selected Items Colour</p>
-				<div></div>
-	</div>
-	<div class="Design-sidebar-listitem">
-		<div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-		<p>Snap Colour</p>
-				<div></div>
-	</div>
-	<div class="Design-sidebar-listitem">
-		<div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-		<p>Helper Geometry Colour</p>
-				<div></div>
-	</div>
-	<div class="Design-sidebar-listitem">
-		<div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-		<p>Polar Snap Colour</p>
-				<div></div>
-	</div>
+<div class="column">
+<ul> 
+<div class="Design-sidebar-listitem">
+<div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Canvas Background Colour</p>
+<div></div>
+</div>
+<div class="Design-sidebar-listitem">
+<div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Selected Items Colour</p>
+<div></div>
+</div>
+<div class="Design-sidebar-listitem">
+<div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Snap Colour</p>
+<div></div>
+</div>
+<div class="Design-sidebar-listitem">
+<div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Helper Geometry Colour</p>
+<div></div>
+</div>
+<div class="Design-sidebar-listitem">
+<div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Polar Snap Colour</p>
+<div></div>
+</div>
 </ul>
-  </div>
+</div>
 </div>
 
 </div>
@@ -63,8 +63,8 @@
 <div id="Snaps" class="tabcontent">
 
 <div class="row">
-  <div class="column">
-  <ul> 
+<div class="column">
+<ul> 
 
 <div id="Endsnap" class="Design-sidebar-listitem">
 <img src="icons/snap-end.svg" style="width:32px;height:32px;">
@@ -102,8 +102,8 @@
 </label>
 </div>
 </ul>
-  </div>
- 
+</div>
+
 <div class="column">
 <ul> 
 
@@ -119,10 +119,10 @@
 <div id="PolarAngle" class="Design-sidebar-listitem">
 <p>Polar Angle</p>
 <select id="polarAngle" onchange="changePolarAngle(this.value)";>
-  <option value="22.5">22.5</option>
-  <option value="45">45</option>
-  <option value="90">90</option>
-  <option value="180">180</option>
+<option value="22.5">22.5</option>
+<option value="45">45</option>
+<option value="90">90</option>
+<option value="180">180</option>
 </select>
 </div>
 
@@ -136,164 +136,174 @@
 </div>
 
 </ul>
-  </div>
+</div>
 </div>
 </div>
 
 <div id="Text" class="tabcontent">
-  <h3>Text</h3>
-  <p>text settings</p> 
+
+<div id="font" class="Design-sidebar-listitem">
+<p>Font</p>
+<select id="fontSelect" onchange="changeFont(this.value)";>
+</select>
+</div> 
+
 </div>
 
 <div id="Online Accounts" class="tabcontent">
-  <h3>Online Accounts</h3>
-  <p>Online Accounts settings</p> 
+<h3>Online Accounts</h3>
+<p>Online Accounts settings</p> 
 </div>
 
 <div id="Help" class="tabcontent">
-  <h3>Help</h3>
-  <p> Design Help. </p>
+<h3>Help</h3>
+<p> Design Help. </p>
 </div>
 
 <div id="About" class="tabcontent">
-  <h3>About</h3>
-  <p>about design. Version: designVersion, patreon? </p>
+<h3>About</h3>
+<p>about design. Version: designVersion, patreon? </p>
 </div>
-		
-        </div>
-    </div>
+
+</div>
+</div>
 </div>
 
 
 <script>
 
-	function changeColour(caller){
-	    console.log("Caller: ", caller)
-		showColourPicker(null, settingColourChange, caller)
-	}
-	
-	function settingColourChange(colour, caller){
+function changeColour(caller){
+	console.log("Caller: ", caller)
+	showColourPicker(null, settingColourChange, caller)
+}
+
+function settingColourChange(colour, caller){
 	console.log("change ", caller, " to: ", colour);
 	settings[caller] = colour
 	saveAllSettings(settings)
 	setDefaultSettings()
 	canvas.requestPaint()
-	}
-	
+}
 
-	var cookieConsent = false;
+
+var cookieConsent = false;
+
+var settings = {
+	canvasBackgroundColour: "#E9E9E9", //"#000000",
+	selectedItemsColour: "#00FF00",
+	snapColour: "#FF0000",
+	helperGeometryColour: "#00BFFF",
+	polarSnapColour: "#38B44A",
+	//fontSettings
+	font: "Ubuntu",
+	fontupsidedown: false,
+	fontbackwards: false,
+	//snapSettings
+	endSnap: true,
+	midSnap: true,
+	centreSnap: true,
+	nearestSnap: false,
+	quadrantSnap: false,
+	polarAngle: 45,
+	polar: true,
+	ortho: false
+}
+function getCookieConsent() {  
+	var cookiesAllowed = getSettings("Design")
 	
-    var settings = {
-        canvasBackgroundColour: "#E9E9E9", //"#000000",
-        selectedItemsColour: "#00FF00",
-        snapColour: "#FF0000",
-        helperGeometryColour: "#00BFFF",
-        polarSnapColour: "#38B44A",
-		//fontSettings 
-        font: "Ubuntu",
-        fontupsidedown: false,
-        fontbackwards: false,
-		//snapSettings
-        endSnap: true,
-        midSnap: true,
-        centreSnap: true,
-        nearestSnap: false,
-        quadrantSnap: false,
-        polarAngle: 45,
-        polar: true,
-        ortho: false
-    }
-	
-	function getCookieConsent() {  
-		var cookiesAllowed = getSettings("Design")
-	
-		if(cookiesAllowed != ""){
+	if(cookiesAllowed != ""){
+		cookieConsent = true;
+		loadAllSettings(settings)
+	} else {
+		
+		var ret;
+		if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accept cookies.")) {
+			ret = true;
 			cookieConsent = true;
-			loadAllSettings(settings)
+			saveSetting("Design", designVersion, 365);
 		} else {
-	
-			var ret;
-			if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accept cookies.")) {
-				ret = true;
-				cookieConsent = true;
-				saveSetting("Design", designVersion, 365);
-			} else {
-				ret = false;
-			}
+			ret = false;
+		}
 	}
 	
 	if(ret){
+		saveAllSettings(settings)
+	}
+}
+
+function toggleSnap(snap){
+	settings[snap] = !settings[snap]
 	saveAllSettings(settings)
-	}
- }
- 
- function toggleSnap(snap){
- settings[snap] = !settings[snap]
- saveAllSettings(settings)
- }
- 
- function changePolarAngle(angle){
- 
- console.log("Angle:", angle)
- settings["polarAngle"] = angle;
-  saveAllSettings(settings);
- }
- 
- function saveAllSettings (settings){
- if(cookieConsent){
-	for (var setting in settings){
-	console.log("Setting:", setting, " value: ", settings[setting])
-	saveSetting(setting, settings[setting])
-	}
+}
+
+function changePolarAngle(angle){
+
+	console.log("Angle:", angle)
+	settings["polarAngle"] = angle;
+	saveAllSettings(settings);
+}
+
+function changeFont(font){
+	console.log("Selected Font:", font)
+	settings["font"] = font;
+	saveAllSettings(settings);
+}
+
+function saveAllSettings (settings){
+	if(cookieConsent){
+		for (var setting in settings){
+			console.log("Setting:", setting, " value: ", settings[setting])
+			saveSetting(setting, settings[setting])
+		}
 	} else {
-	console.log("settings won't be saved")
+		console.log("settings won't be saved")
 	}
- }
- 
-  function loadAllSettings (settings){
+}
+
+function loadAllSettings (settings){
 	for (var setting in settings){
-	console.log("getSetting:", setting, " value: ", getSettings(setting))
-	settings[setting] = getSettings(setting) 
+		console.log("getSetting:", setting, " value: ", getSettings(setting))
+		settings[setting] = getSettings(setting) 
 	}
- }
-	
-	function saveSetting(name, value) {
-	    var d = new Date();
-		d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-		var expires = "expires="+d.toUTCString();
-		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function saveSetting(name, value) {
+	var d = new Date();
+	d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+	var expires = "expires="+d.toUTCString();
+	document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getSettings(name) {
+	var name = name + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
 	}
-	
-	function getSettings(name) {
-    var name = name + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+	return "";
 }
 
 
 function changeTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	}
 	
 	document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+	evt.currentTarget.className += " active";
 	
 	setDefaultSettings();
 }
@@ -306,31 +316,111 @@ function setDefaultSettings(){
 	document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
 	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
 	document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
+	
+	
+	getFonts();
+}
+
+
+function getFonts(){
+
+	var fontDetector = function() {
+		// a font will be compared against all the three default fonts.
+		// and if it doesn't match all 3 then that font is not available.
+		var baseFonts = ['monospace', 'sans-serif', 'serif'];
+
+		//we use m or w because these two characters take up the maximum width.
+		// And we use a LLi so that the same matching fonts can get separated
+		var testString = "mmmmmmmmmmlli";
+
+		//we test using 72px font size, we may use any size. I guess larger the better.
+		var testSize = '72px';
+
+		var h = document.getElementsByTagName("body")[0];
+
+		// create a SPAN in the document to get the width of the text we use to test
+		var s = document.createElement("span");
+		s.style.fontSize = testSize;
+		s.innerHTML = testString;
+		var defaultWidth = {};
+		var defaultHeight = {};
+		for (var index in baseFonts) {
+			//get the default width for the three base fonts
+			s.style.fontFamily = baseFonts[index];
+			h.appendChild(s);
+			defaultWidth[baseFonts[index]] = s.offsetWidth; //width for the default font
+			defaultHeight[baseFonts[index]] = s.offsetHeight; //height for the defualt font
+			h.removeChild(s);
+		}
+
+		function detect(font) {
+			var detected = false;
+			for (var index in baseFonts) {
+				s.style.fontFamily = font + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
+				h.appendChild(s);
+				var matched = (s.offsetWidth != defaultWidth[baseFonts[index]] || s.offsetHeight != defaultHeight[baseFonts[index]]);
+				h.removeChild(s);
+				detected = detected || matched;
+			}
+			return detected;
+		}
+
+		this.detect = detect;
+	};
+
+	var fonts = ["Arial","Helvetica","Times New Roman","Times","Courier New","Courier","Verdana","Georgia","Palatino","Garamond","Bookman","Comic Sans MS","Trebuchet MS","Impact"];
+	
+	//var availableFonts = [];				
+	d = new fontDetector();	
+	var fontSelector = document.getElementById('fontSelect')
+
+	//clear the drop down
+	
+	var fontSelectorLength = fontSelector.options.length
+	
+	for (i = fontSelectorLength; i >= 0; i--) {
+		console.log("Remove Font: ", fonts[i], " From Index: ", i)
+		fontSelector.remove(i);
+	}			
+
+	for(font = 0 ; font < fonts.length-1; font++){
+		if (d.detect(fonts[font])){
+			//availableFonts.push(fonts[font])
+			var fontOption = document.createElement("option");
+			fontOption.text = fonts[font]
+			fontSelector.options.add(fontOption);
+			console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
+		};		
+	}
+	
+	//set select value
+	fontSelector.value = settings["font"]
 }
 
 
 
-    function showSettings() {
-        //block context menu for layer manager
-        //var SW = document.getElementById("SettingsWindow");
-        //SW.oncontextmenu =  function(e) {e.preventDefault()};
-        document.getElementById('SettingsWindow').style.display = "block";
-		document.getElementById("defaultOpen").click();
-    }
 
-    function closeSettings() {
-        document.getElementById('SettingsWindow').style.display = "none";
-    }
+function showSettings() {
+	//block context menu for layer manager
+	//var SW = document.getElementById("SettingsWindow");
+	//SW.oncontextmenu =  function(e) {e.preventDefault()};
+	document.getElementById('SettingsWindow').style.display = "block";
+	document.getElementById("defaultOpen").click();
+}
 
-    // When the user clicks anywhere outside of the dialogs, close them
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('SettingsWindow')) {
-            document.getElementById('SettingsWindow').style.display = "none";
-        }
-    }
+function closeSettings() {
+	document.getElementById('SettingsWindow').style.display = "none";
+}
 
-    //import this document in to the Design.html Document
-    var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow");
-    document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+// When the user clicks anywhere outside of the dialogs, close them
+window.onclick = function(event) {
+	if (event.target == document.getElementById('SettingsWindow')) {
+		document.getElementById('SettingsWindow').style.display = "none";
+	}
+}
+
+//import this document in to the Design.html Document
+var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow");
+document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 
 </script>
