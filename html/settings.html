@@ -13,7 +13,7 @@
 <button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
 <button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
 <button class="tablinks" onclick="changeTab(event, 'Text')">Text</button>
-<button class="tablinks" onclick="changeTab(event, 'Online Accounts')">Online Accounts</button>
+<button class="tablinks" onclick="changeTab(event, 'Accounts')">Accounts</button>
 <button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
 <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
 </div>
@@ -52,6 +52,11 @@
 <div class="Design-sidebar-listitem">
 <div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
 <p>Polar Snap Colour</p>
+<div></div>
+</div>
+<div class="Design-sidebar-listitem">
+<div id="gridColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+<p>Grid Colour</p>
 <div></div>
 </div>
 </ul>
@@ -135,6 +140,15 @@
 </label>
 </div>
 
+<div id="Grid" class="Design-sidebar-listitem">
+<img src="icons/grid.svg" style="width:32px;height:32px;">
+<p>drawGrid</p>
+<label class="toggle">
+<input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){settings["drawGrid"]};>
+<span class="slider"></span>
+</label>
+</div>
+
 </ul>
 </div>
 </div>
@@ -150,9 +164,9 @@
 
 </div>
 
-<div id="Online Accounts" class="tabcontent">
-<h3>Online Accounts</h3>
-<p>Online Accounts settings</p> 
+<div id="Accounts" class="tabcontent">
+<h3>Accounts</h3>
+<p>Place Online Accounts settings</p> 
 </div>
 
 <div id="Help" class="tabcontent">
@@ -192,6 +206,7 @@ var settings = {
 	canvasBackgroundColour: "#E9E9E9", //"#000000",
 	selectedItemsColour: "#00FF00",
 	snapColour: "#FF0000",
+	gridColour: "#00BFFF",
 	helperGeometryColour: "#00BFFF",
 	polarSnapColour: "#38B44A",
 	//fontSettings
@@ -206,7 +221,8 @@ var settings = {
 	quadrantSnap: false,
 	polarAngle: 45,
 	polar: true,
-	ortho: false
+	ortho: false,
+	drawGrid: true
 }
 function getCookieConsent() {  
 	var cookiesAllowed = getSettings("Design")
@@ -316,6 +332,7 @@ function setDefaultSettings(){
 	document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
 	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
 	document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
+	document.getElementById("gridColour").style.backgroundColor = settings["gridColour"]
 	
 	
 	getFonts();
@@ -415,7 +432,7 @@ function closeSettings() {
 // When the user clicks anywhere outside of the dialogs, close them
 window.onclick = function(event) {
 	if (event.target == document.getElementById('SettingsWindow')) {
-		document.getElementById('SettingsWindow').style.display = "none";
+		closeSettings();
 	}
 }
 

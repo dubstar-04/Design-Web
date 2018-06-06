@@ -64,15 +64,15 @@ function centreVPORT(centre, width, height) {
 }
 
 function getSceneExtents() {
-
-	var size = canvas.canvasSize();
+	
+    var size = canvas.canvasSize();
 	var width = size.width / canvas.scale;
 	var height = size.height / canvas.scale;
-
+	
 	var xmin = -canvas.panX / canvas.scale;
 	var xmax = xmin + width;
-	var ymin = -canvas.panY / canvas.scale;
-	var ymax = ymin + height;
+	var ymax =  -canvas.panY / canvas.scale;
+	var ymin = ymax - height;
 
 	return {
 		xmin: xmin,
@@ -441,8 +441,8 @@ function writeCoordinates(label, coordinates) {
 		angle = radians2degrees(previousPoint.angle(mouse))
 			var len = distBetweenPoints(previousPoint.x, previousPoint.y, point.x, point.y);
 
-		label.innerHTML = "X: " + Math.round(mouse.x) + " Y: " + Math.round(mouse.y) + ", Len: " + Math.round(len) + ", Ang: " + Math.round(angle)
+		label.innerHTML = "X: " + mouse.x.toFixed(1) + " Y: " + mouse.y.toFixed(1) + ", Len: " + Math.round(len) + ", Ang: " + Math.round(angle)
 	} else {
-		label.innerHTML = "X: " + Math.round(mouse.x) + " Y: " + Math.round(mouse.y)
+		label.innerHTML = "X: " + mouse.x.toFixed(1) + " Y: " + mouse.y.toFixed(1)
 	}
 }
