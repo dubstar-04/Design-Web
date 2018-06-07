@@ -114,7 +114,8 @@
     // When the user clicks anywhere outside of the dialogs, close them
     window.onclick = function(event) {
         if (event.target == document.getElementById('ColourPickerWindow')) {
-            document.getElementById('ColourPickerWindow').style.display = "none";
+			console.log("Close Colour Picker")
+            closeColourPicker()
         }
     }
 

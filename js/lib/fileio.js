@@ -160,5 +160,6 @@ function openFile(data) {
 		
 		LM.checkLayers();
 		canvas.requestPaint();
+		notify("File Opened")
 		//return items
 }

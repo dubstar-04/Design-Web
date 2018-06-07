@@ -1,0 +1,47 @@
+<div id="NotifyPopup" class="Notification">
+    <div id="Notification-body" class="Notification-body">
+    </div>
+</div>
+
+
+<script>
+    function notify(content) {
+		console.log("Notification: ", content)
+        var notification = document.getElementById("Notification-body")
+        notification.innerHTML = "<p>" + content + "</p>";
+        shownotification();
+    }
+
+    function notification_appendContent(content) {
+        notification_clearContent();
+        var notification = document.getElementById("Notification-body");
+        notification.appendChild(content);
+        shownotification();
+    }
+
+    function notification_clearContent() {
+        var notification = document.getElementById("Notification-body")
+        notification.innerHTML = '';
+    }
+
+    function shownotification() {
+        document.getElementById('NotifyPopup').style.display = "block";
+		setTimeout(closenotification, 3000)
+    }
+
+    function closenotification() {
+        document.getElementById('NotifyPopup').style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the dialogs, close them
+   // window.onclick = function(event) {
+   //     if (event.target == document.getElementById('NotifyPopup')) {
+   //         document.getElementById('NotifyPopup').style.display = "none";
+   //     }
+   // }
+
+    //import this document in to the Design.html Document
+    var import1 = document.currentScript.ownerDocument.querySelector("#NotifyPopup");
+    document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+
+</script>

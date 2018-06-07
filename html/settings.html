@@ -414,9 +414,6 @@ function getFonts(){
 	fontSelector.value = settings["font"]
 }
 
-
-
-
 function showSettings() {
 	//block context menu for layer manager
 	//var SW = document.getElementById("SettingsWindow");
@@ -426,6 +423,7 @@ function showSettings() {
 }
 
 function closeSettings() {
+	console.log("Close Settings")
 	document.getElementById('SettingsWindow').style.display = "none";
 }
 

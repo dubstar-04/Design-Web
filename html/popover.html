@@ -97,10 +97,11 @@
     // When the user clicks anywhere outside of the dialogs, close them
     window.onclick = function(event) {
         if (event.target == document.getElementById('PopoverWindow')) {
+			console.log("CLOSE CLOSE CLOSE CLOSE")
             document.getElementById('PopoverWindow').style.display = "none";
         }
     }
-
+	
     //import this document in to the Design.html Document
     var import1 = document.currentScript.ownerDocument.querySelector("#PopoverWindow");
     document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
