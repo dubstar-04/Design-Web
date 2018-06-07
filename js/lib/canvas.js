@@ -6,8 +6,8 @@ function Canvas(cnvs) {
 	this.cvs = cnvs;
 	this.context = this.cvs.getContext('2d');
 	this.scale = 1.0;
-	this.minScaleFactor = 0.1;
-	this.maxScaleFactor = 200;
+	this.minScaleFactor = 0.05;
+	this.maxScaleFactor = 350;
 	this.panX = 0;
 	this.panY = 0;
 	this.alpha = 1.0;
@@ -260,7 +260,7 @@ Canvas.prototype.centreInScene = function (xmin, xmax, ymin, ymax) {
 
 	console.log("Target Scale to fit: " + targetScale + " Current Scale: " + this.scale)
 
-	var requiredScale = (targetScale / this.scale) * 0.80; //scale to 95% of the exteme coordinates
+	var requiredScale = (targetScale / this.scale) * 0.80; //scale to 80% of the exteme coordinates
 
 	console.log("Required Scale to fit: " + requiredScale)
 
@@ -294,8 +294,7 @@ Canvas.prototype.unflipY = function () {
 }
 
 Canvas.prototype.requestPaint = function () {
-	
-    //this.context.save()
+
 	this.clear()
 	this.context.fillStyle = settings.canvasBackgroundColour
 		//this.context.clearRect(0, 0 + window.innerHeight, window.innerWidth, -window.innerHeight);
@@ -314,11 +313,10 @@ Canvas.prototype.requestPaint = function () {
 		if (numOfEntities > 350) {
 			i = (numOfEntities - 350)
 		}
-	}else{
+		}else{
 		//Dont paint the grid if pan or zoom is in progress
 		//this.paintGrid();
 	}
-	
 	this.paintGrid();
 
 	//Draw the scene
@@ -333,8 +331,6 @@ Canvas.prototype.requestPaint = function () {
 	for (k; k < selectedItems.length; k++) {
 		selectedItems[k].draw(this.context, this.scale);
 	}
-	
-	//this.context.restore()
 }
 
 Canvas.prototype.clear = function () {
