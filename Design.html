@@ -35,27 +35,27 @@
 
 
     <div class="toolbar">
-        <button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button>
-        <button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button>
-        <button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button>
-        <span class="separator"></span>
-        <button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>
-        <span class="separator"></span>
-        <button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>
-        <button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button>
+        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
+        <div class="tooltip"><button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button>  <span class="tooltiptext">Open File</span></div>
+        <div class="tooltip"><button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button>  <span class="tooltiptext">Save</span></div>
+        <div class="tooltip"><span class="separator"></span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button>  <span class="tooltiptext">Line (L)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>  <span class="tooltiptext">Polyline (PL)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button>  <span class="tooltiptext">Circle (C)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button>  <span class="tooltiptext">Arc (A)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button>  <span class="tooltiptext">Rectangle (REC)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>
+        <div class="tooltip"><span class="separator"></span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button>  <span class="tooltiptext">Move (M)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>  <span class="tooltiptext">Copy (CO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>  <span class="tooltiptext">Rotate (RO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>  <span class="tooltiptext">Trim (TR)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>  <span class="tooltiptext">Extend (EX)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button>  <span class="tooltiptext">Erase (E)</span></div>
 
-        <span class="separator"></span>
-        <button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button>
-        <button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button>
+        <div class="tooltip"><span class="separator"></span></div>
+        <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
+        <div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>
 
     </div>
 

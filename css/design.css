@@ -305,6 +305,52 @@ canvasbottom {
     transform: translate(-50%, -50%);
 }
 
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--shadow-colour);
+    border: 1px solid var(--border-colour);
+	border-radius: 10px; /*var(border-radius);*/
+    color: var(--text-contrast-color);
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 110%;
+    left: 50%;
+    margin-left: -60px;
+	opacity: 0;
+    -webkit-transition-property: opacity; /* Safari */
+    -webkit-transition-duration: 0.5s; /* Safari */
+    -webkit-transition-delay: 1s; /* Safari */
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-delay: 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent var(--shadow-colour) transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+	opacity: 1;
+}
+
 .row {
     display: flex;
 	justify-content: space-between;
