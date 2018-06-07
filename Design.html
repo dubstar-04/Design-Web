@@ -147,8 +147,9 @@
     }, false);
 	
 	function hideModals(){
-	                    closePopover();
+	                closePopover();
 					closeColourPicker();
+					closeSettings();
 	}
 
 
@@ -183,7 +184,10 @@
             }
         }, false);
 		
-		getCookieConsent()
+		loadAllSettings();
+		canvas.resizeCanvas();
+		getCookieConsent();
+		
 		
     }
     
