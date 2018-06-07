@@ -69,7 +69,7 @@ function getSceneExtents() {
 	var width = size.width / canvas.scale;
 	var height = size.height / canvas.scale;
 	
-	var xmin = -canvas.panX / canvas.scale;
+    var xmin = -canvas.panX / canvas.scale;
 	var xmax = xmin + width;
 	var ymax =  -canvas.panY / canvas.scale;
 	var ymin = ymax - height;

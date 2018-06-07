@@ -268,7 +268,7 @@ function changeFont(font){
 function saveAllSettings (settings){
 	if(cookieConsent){
 		for (var setting in settings){
-			console.log("Setting:", setting, " value: ", settings[setting])
+			//console.log("Setting:", setting, " value: ", settings[setting])
 			saveSetting(setting, settings[setting])
 		}
 	} else {
@@ -278,7 +278,7 @@ function saveAllSettings (settings){
 
 function loadAllSettings (settings){
 	for (var setting in settings){
-		console.log("getSetting:", setting, " value: ", getSettings(setting))
+		//console.log("getSetting:", setting, " value: ", getSettings(setting))
 		settings[setting] = getSettings(setting) 
 	}
 }

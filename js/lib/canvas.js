@@ -7,7 +7,7 @@ function Canvas(cnvs) {
 	this.context = this.cvs.getContext('2d');
 	this.scale = 1.0;
 	this.minScaleFactor = 0.05;
-	this.maxScaleFactor = 350;
+	this.maxScaleFactor = 300;
 	this.panX = 0;
 	this.panY = 0;
 	this.alpha = 1.0;
@@ -297,14 +297,14 @@ Canvas.prototype.requestPaint = function () {
 
 	this.clear()
 	this.context.fillStyle = settings.canvasBackgroundColour
-		//this.context.clearRect(0, 0 + window.innerHeight, window.innerWidth, -window.innerHeight);
-		this.context.fillRect(0 - this.panX / this.scale, 0 - this.panY / this.scale, window.innerWidth / this.scale, -window.innerHeight / this.scale);
+	//this.context.clearRect(0, 0 + window.innerHeight, window.innerWidth, -window.innerHeight);
+	this.context.fillRect(0 - this.panX / this.scale, 0 - this.panY / this.scale, window.innerWidth / this.scale, -window.innerHeight / this.scale);
 	//this.context.fillRect(0, 0, this.context.canvas.width/ this.scale, -this.context.canvas.height/ this.scale);
 	this.context.globalAlpha = this.cvs.alpha
 
-		//Get the number of entities and decide how many to draw
-		var numOfEntities = items.length
-		var i = 0,
+	//Get the number of entities and decide how many to draw
+	var numOfEntities = items.length
+	var i = 0,
 	j = 0,
 	k = 0;
 
@@ -342,17 +342,15 @@ Canvas.prototype.clear = function () {
 };
 
 Canvas.prototype.paintGrid = function () {
-
-	if (settings["drawGrid"]) {
-
-		var extents = getSceneExtents();
+	
+	    var extents = getSceneExtents();
 
 		var xgridmin = extents.xmin;
 		var xgridmax = extents.xmax;
 		var ygridmin = extents.ymin;
 		var ygridmax = extents.ymax;
 
-		console.log("Xpan: ", this.panX, " Ypan: ", this.panY, " Scale: ", this.scale)
+		//console.log("Xpan: ", this.panX, " Ypan: ", this.panY, " Scale: ", this.scale)
 
 		this.context.strokeStyle = settings.gridColour;
 
@@ -366,17 +364,20 @@ Canvas.prototype.paintGrid = function () {
 		this.context.lineTo(0, ygridmin);
 		this.context.stroke()
 
+	if (settings["drawGrid"]) {
+
 		this.context.lineWidth = 0.25 / this.scale;
 
 		var gridInterval = 100;
 
-		if (this.scale > 250) {
+		/*if (this.scale > 300) {
 			gridInterval = 0.1;
-		} else if (this.scale > 20) {
+		} else */
+		if (this.scale > 50) {
 			gridInterval = 1
-		} else if (this.scale > 2) {
+		} else if (this.scale > 5) {
 			gridInterval = 10
-		} else if (this.scale < 0.1) {
+		} else if (this.scale < 0.6) {
 			gridInterval = 1000
 		} else {
 			gridInterval = 100;
@@ -387,6 +388,16 @@ Canvas.prototype.paintGrid = function () {
 			this.context.moveTo(i, ygridmin);
 			this.context.lineTo(i, ygridmax);
 			this.context.stroke()
+			
+			//Draw scale
+			/*
+			this.unflipY()
+			var datumTextHeight = 25 / this.scale;
+			var textOffset = 5 / this.scale;
+			this.context.font = datumTextHeight.toString() + "px Arial";
+			this.context.strokeText(i,i+textOffset,0+this.cvs.height+datumTextHeight+textOffset);
+			this.flipY()
+			*/
 		}
 
 		for (var i = 0; i > xgridmin; i = i - gridInterval) {
