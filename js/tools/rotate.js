@@ -6,6 +6,7 @@ function Rotate(items)
     this.family = "Tools";
     this.movement = "Angular";
     this.minPoints = 3;
+	this.selectionRequired = true;
     this.limitPoints = true;
     this.dimInput = true; //allow a single number to be input
 }

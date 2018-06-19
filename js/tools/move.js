@@ -7,6 +7,7 @@ function Move(items)
     this.family = "Tools";
     this.movement = "Linear";
     this.minPoints = 2;
+	this.selectionRequired = true;
     this.limitPoints = true;
     this.dimInput = true; //allow a single number to be input
 }

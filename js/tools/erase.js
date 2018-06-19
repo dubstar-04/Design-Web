@@ -6,6 +6,7 @@ function Erase()
     this.family = "Tools";
     this.movement = "None";
     this.minPoints = 0;
+	this.selectionRequired = true;
     this.limitPoints = true;
 }
 

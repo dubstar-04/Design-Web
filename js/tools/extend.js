@@ -6,6 +6,7 @@ function Extend(items)
     this.family = "Tools";
     this.movement = "Modify";
     this.minPoints = 2;
+	this.selectionRequired = true;
     this.limitPoints = false;
     this.dimInput = false; //allow a single number to be input
 }

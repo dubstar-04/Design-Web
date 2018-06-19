@@ -17,7 +17,7 @@ function processItem(item) {
 		minPoints = activeCommand.minPoints // Get the number if minimum points required for the new item
 			commandLine.setPrompt(promptTracker);
 	} else if (activeCommand.family === "Tools" && items.length) {
-		if (selectionSet.length) {
+		if (selectionSet.length || activeCommand.selectionRequired === false) {
 			minPoints = activeCommand.minPoints
 				promptTracker++;
 			commandLine.setPrompt(promptTracker);
@@ -147,9 +147,8 @@ function sceneControl(action, data) {
 
 			console.log(" scene.js - scene.js: handleLeftClickwithCommand- Selected Items:" + selectedItems.length)
 			console.log(" scene.js - Tool Command")
-
-			if (selectionAccepted) {
-
+			
+			if (selectionAccepted) {// || activeCommand.selectionRequired === false) {
 				promptTracker++;
 
 				if (activeCommand.movement === "Modify") {
@@ -162,7 +161,7 @@ function sceneControl(action, data) {
 				} else {
 
 					var point = new Point()
-						point.x = mouse.x; //data[0];
+					point.x = mouse.x; //data[0];
 					point.y = mouse.y; //data[1];
 					points.push(point);
 
