@@ -13,7 +13,7 @@ function processItem(item) {
 	}
 
 	if (typeof window[item] !== "function") {
-		//if the string is an unknow command exit gracefully
+		//if the string is an unknown command exit gracefully
 		notify("Unknown Command")
 		commandLine.resetPrompt();
 		return;
