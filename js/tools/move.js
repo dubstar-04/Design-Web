@@ -17,7 +17,7 @@ Move.prototype.prompt = function(num) {
         var prompt
   switch(num){
   case (0):
-      prompt = "Select Items To" + this.type;
+      prompt = "Select Items To " + this.type;
       break;
   case (1):
       prompt = "Select Base Point:";

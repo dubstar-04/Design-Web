@@ -26,16 +26,22 @@ CommandLine.prototype.resetPrompt = function () {
 
 CommandLine.prototype.setPrompt = function (index) {
     //var position = previous ? points.length : points.length+2;
-    console.log("[CommandLIne.setPrompt] Index: ", index)
-    console.log("[CommandLIne.setPrompt] type: ", activeCommand.type)
+    console.log("[CommandLine.setPrompt] Index: ", index)
+    console.log("[CommandLine.setPrompt] type: ", activeCommand.type)
     this.prompt = activeCommand.type + ": " + activeCommand.prompt(Number(index));
 	this.command = "";
     this.update();
 }
 
+CommandLine.prototype.setPromptText = function (promptString) {
+    this.prompt = activeCommand.type + ": " + promptString;
+	this.command = "";
+    this.update();
+}
+
 CommandLine.prototype.update = function () {
-	//console.log("Command: ", this.command)
-	//console.log("Prompt: ", this.prompt)
+	console.log("Command: ", this.command)
+	console.log("Prompt: ", this.prompt)
     this.cmdLine.value = this.prompt + this.command
 }
 

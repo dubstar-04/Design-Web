@@ -143,12 +143,11 @@ function sceneControl(action, data) {
 
 					if (points.length >= minPoints) {
 						//if we have all the required points then make the change
-						console.log("EXIT? ", points.length, " minPoints ", minPoints, " limitPoints: ", activeCommand.limitPoints  ) 
 						activeCommand.action(points, items);
 						if (activeCommand.limitPoints) {
 							reset();
-						}else{
-						commandLine.setPrompt(promptTracker);
+						} else {
+							commandLine.setPrompt(promptTracker);
 						}
 						canvas.requestPaint();
 
@@ -159,7 +158,7 @@ function sceneControl(action, data) {
 			} else {
 				selectClosestItem(data);
 				if (selectionSet.length) {
-					commandLine.setPrompt(selectionSet.length + " Item(s) selected: Add more or press Enter to accept")
+					commandLine.setPromptText(selectionSet.length + " Item(s) selected: Add more or press Enter to accept")
 				}
 			}
 		}
@@ -281,7 +280,7 @@ function sceneControl(action, data) {
 					if (points.length >= minPoints) {
 						addToScene(null, null, activeCommand.limitPoints);
 					} else {
-						commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
+						commandLine.setPrompt(points.length + 1);
 					}
 
 					//reset();
