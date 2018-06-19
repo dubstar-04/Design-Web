@@ -7,12 +7,18 @@ Design is a 2D computer aided design application (CAD),
 created to meet the needs of makers and designers, 
 hobbyists and professionals that require a first class 
 CAD application. 
+_________________________________________________________________________________________________________________
 
 Design can be accessed at:
-http://www.design-app.co.uk
+http://www.design-app.co.uk 
+
+Design testing branch can be accessed at: 
+http://design-app.co.uk/testing/Design.html
+_________________________________________________________________________________________________________________
 
 Raspberry PI Schematics available from:
 https://www.raspberrypi.org/documentation/hardware/raspberrypi/mechanical/README.md
+_________________________________________________________________________________________________________________
 
 
 Screenshots: 
