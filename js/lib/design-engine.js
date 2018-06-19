@@ -12,7 +12,16 @@ function processItem(item) {
 		lastCommand.pop()
 	}
 
+	if (typeof window[item] !== "function") {
+		//if the string is an unknow command exit gracefully
+		notify("Unknown Command")
+		commandLine.resetPrompt();
+		return;
+	}
+
 	activeCommand = new this[item]; // Convert the 'item' string in to a new object, Line, Circle...
+
+
 	if (activeCommand.family === "Geometry") { // if the active item exists
 		minPoints = activeCommand.minPoints // Get the number if minimum points required for the new item
 			commandLine.setPrompt(promptTracker);
@@ -48,7 +57,7 @@ function sceneControl(action, data) {
 		console.log(" scene.js - clicked: " + data)
 		selectClosestItem(data);
 	}
-	
+
 	function handleEnter(data) {
 
 		console.log(" scene.js - HandleEnter")
@@ -61,17 +70,17 @@ function sceneControl(action, data) {
 			console.log("[design-engine] handleEnter - lastCommand: ", lastCommand[0]);
 			currentCommand = lastCommand[0];
 		} else {
-			
-			currentCommand = getCommandFromShortcut( data[0].toUpperCase() )
-			
-/* 			var selectedCommand = data[0].toUpperCase();
 
-			for (var i = 0; i < commands.length; i++) {
+			currentCommand = getCommandFromShortcut(data[0].toUpperCase())
+
+				/* 			var selectedCommand = data[0].toUpperCase();
+
+				for (var i = 0; i < commands.length; i++) {
 
 				if (commands[i].shortcut === selectedCommand) {
-					currentCommand = commands[i].command;
+				currentCommand = commands[i].command;
 				}
-			} */
+				} */
 		}
 		console.log("Process: " + currentCommand);
 		processItem(currentCommand);
@@ -98,33 +107,32 @@ function sceneControl(action, data) {
 		//            reset()
 		//        }
 	}
-	
-	function getCommandFromShortcut( shortcut ){
-		
-		var commandFromShortcut = shortcut
-		
-		for (var i = 0; i < commands.length; i++) {
 
-			if (commands[i].shortcut === shortcut) {
-				commandFromShortcut = commands[i].command;
+	function getCommandFromShortcut(shortcut) {
+
+		var commandFromShortcut = shortcut
+
+			for (var i = 0; i < commands.length; i++) {
+
+				if (commands[i].shortcut === shortcut) {
+					commandFromShortcut = commands[i].command;
+				}
 			}
-		}
-		
-		return commandFromShortcut
+
+			return commandFromShortcut
 	}
-	
-	function isCommand(command){
-		
+
+	function isCommand(command) {
+
 		for (var i = 0; i < commands.length; i++) {
 
 			if (commands[i].command === command) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
 
 	function handleLeftClickwithCommand(data) {
 		console.log(" scene.js - scene.js: handleLeftClickwithCommand")
@@ -147,8 +155,8 @@ function sceneControl(action, data) {
 
 			console.log(" scene.js - scene.js: handleLeftClickwithCommand- Selected Items:" + selectedItems.length)
 			console.log(" scene.js - Tool Command")
-			
-			if (selectionAccepted) {// || activeCommand.selectionRequired === false) {
+
+			if (selectionAccepted) { // || activeCommand.selectionRequired === false) {
 				promptTracker++;
 
 				if (activeCommand.movement === "Modify") {
@@ -161,7 +169,7 @@ function sceneControl(action, data) {
 				} else {
 
 					var point = new Point()
-					point.x = mouse.x; //data[0];
+						point.x = mouse.x; //data[0];
 					point.y = mouse.y; //data[1];
 					points.push(point);
 
@@ -188,20 +196,108 @@ function sceneControl(action, data) {
 	}
 
 	function handleEnterwithCommand(data) {
-		
-	console.log("scene.js - scene.js: handleEnterwithCommand - DATA 0:", data[0])	
-		
-	if( isCommand(getCommandFromShortcut( data[0]))){
-		console.log("scene.js - scene.js: handleEnterwithCommand - New Command: Reset State")
-		reset()
-		processItem(getCommandFromShortcut( data[0]))
-	}else{
 
-		if (activeCommand.family === "Tools") {
-			////////// Typed Point x,y //////////
-			if (data[0].indexOf(",") !== -1) {
-				console.log(" scene.js - Coordinates Entered")
-				if (selectionAccepted) {
+		console.log("scene.js - scene.js: handleEnterwithCommand - DATA 0:", data[0])
+
+		if (isCommand(getCommandFromShortcut(data[0]))) {
+			console.log("scene.js - scene.js: handleEnterwithCommand - New Command: Reset State")
+			reset()
+			processItem(getCommandFromShortcut(data[0]))
+		} else {
+
+			if (activeCommand.family === "Tools") {
+				////////// Typed Point x,y //////////
+				if (data[0].indexOf(",") !== -1) {
+					console.log(" scene.js - Coordinates Entered")
+					if (selectionAccepted) {
+						var xyData = data[0].split(',');
+						var point = new Point()
+							// generate data from the prevous point and the radius
+							point.x = parseFloat(xyData[0]);
+						point.y = parseFloat(xyData[1]);
+						//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
+						points.push(point);
+						promptTracker++;
+						commandLine.setPrompt(promptTracker);
+					}
+				} else if (typeof data[0] === "number") {
+					////////// never reached as data always a string //////////
+					console.log(" scene.js - Dimension Entered")
+				} else if (typeof data[0] === "string") {
+					console.log(" scene.js - scene.js: handleEnterwithCommand - String Data")
+					////////// Point selection Accepted //////////
+					if (!selectionAccepted) {
+						minPoints = activeCommand.minPoints
+							promptTracker++;
+						commandLine.setPrompt(promptTracker);
+						selectionAccepted = true;
+
+						console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
+
+						if (activeCommand.minPoints === 0) {
+							///Erase??
+							activeCommand.action(points, items);
+							reset();
+							canvas.requestPaint();
+						}
+					} else if (selectionAccepted && activeCommand.dimInput) {
+						//console.log(data[0])
+						////////// A dimension is entered //////////
+						if (isFinite(data[0])) {
+							var point = new Point()
+
+								if (activeCommand.movement === "Linear") {
+									var length = data;
+									var x = length * Math.cos(degrees2radians(angle));
+									var y = length * Math.sin(degrees2radians(angle));
+									// generate data from the prevous point and the radius
+									point.x = points[points.length - 1].x + x;
+									point.y = points[points.length - 1].y + y;
+									points.push(point);
+									promptTracker++;
+								} else if (activeCommand.movement === "Angular") {
+									// An angle has been entered create a point at 0 degrees from the base point
+									point.x = points[0].x
+										point.y = points[0].y + 10
+										points.push(point);
+									promptTracker++;
+
+									var endPoint = new Point();
+									var theta = degrees2radians(data);
+
+									endPoint.x = points[0].x + (points[1].x - points[0].x) * Math.cos(theta) - (points[1].y - points[0].y) * Math.sin(theta);
+									endPoint.y = points[0].y + (points[1].x - points[0].x) * Math.sin(theta) + (points[1].y - points[0].y) * Math.cos(theta);
+
+									points.push(endPoint);
+									promptTracker++;
+								}
+
+								if (points.length >= minPoints) {
+									activeCommand.action(points, items);
+									reset();
+									canvas.requestPaint();
+								} else {
+									commandLine.setPrompt(promptTracker);
+								}
+
+								//addToScene(true)
+								console.log(" scene.js - Dim entered")
+						} else {
+							//repeat prompt
+							commandLine.setPrompt(promptTracker - 1);
+						}
+					} /////
+				} else {
+					console.log(" scene.js - HandleEnterWithData: I dont understand the state")
+					//repeat prompt
+					commandLine.setPrompt(promptTracker - 1);
+				}
+				console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
+			}
+
+			if (activeCommand.family === "Geometry") {
+				// check if the data contains a comma. if it does its probably user entered coordinates
+				if (data[0].indexOf(",") !== -1) {
 					var xyData = data[0].split(',');
 					var point = new Point()
 						// generate data from the prevous point and the radius
@@ -210,129 +306,41 @@ function sceneControl(action, data) {
 					//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
 					points.push(point);
 					promptTracker++;
-					commandLine.setPrompt(promptTracker);
-				}
-			} else if (typeof data[0] === "number") {
-				////////// never reached as data always a string //////////
-				console.log(" scene.js - Dimension Entered")
-			} else if (typeof data[0] === "string") {
-				console.log(" scene.js - scene.js: handleEnterwithCommand - String Data")
-				////////// Point selection Accepted //////////
-				if (!selectionAccepted) {
-					minPoints = activeCommand.minPoints
-						promptTracker++;
-					commandLine.setPrompt(promptTracker);
-					selectionAccepted = true;
+					commandLine.setPrompt();
 
-					console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
-
-					if (activeCommand.minPoints === 0) {
-						///Erase??
-						activeCommand.action(points, items);
-						reset();
-						canvas.requestPaint();
-					}
-				} else if (selectionAccepted && activeCommand.dimInput) {
-					//console.log(data[0])
-					////////// A dimension is entered //////////
-					if (isFinite(data[0])) {
-						var point = new Point()
-
-							if (activeCommand.movement === "Linear") {
-								var length = data;
-								var x = length * Math.cos(degrees2radians(angle));
-								var y = length * Math.sin(degrees2radians(angle));
-								// generate data from the prevous point and the radius
-								point.x = points[points.length - 1].x + x;
-								point.y = points[points.length - 1].y + y;
-								points.push(point);
-								promptTracker++;
-							} else if (activeCommand.movement === "Angular") {
-								// An angle has been entered create a point at 0 degrees from the base point
-								point.x = points[0].x
-									point.y = points[0].y + 10
-									points.push(point);
-								promptTracker++;
-
-								var endPoint = new Point();
-								var theta = degrees2radians(data);
-
-								endPoint.x = points[0].x + (points[1].x - points[0].x) * Math.cos(theta) - (points[1].y - points[0].y) * Math.sin(theta);
-								endPoint.y = points[0].y + (points[1].x - points[0].x) * Math.sin(theta) + (points[1].y - points[0].y) * Math.cos(theta);
-
-								points.push(endPoint);
-								promptTracker++;
-							}
-
-							if (points.length >= minPoints) {
-								activeCommand.action(points, items);
-								reset();
-								canvas.requestPaint();
-							} else {
-								commandLine.setPrompt(promptTracker);
-							}
-
-							//addToScene(true)
-							console.log(" scene.js - Dim entered")
+					if (points.length >= minPoints) {
+						addToScene(null, null, activeCommand.limitPoints);
 					} else {
-						//repeat prompt
-						commandLine.setPrompt(promptTracker - 1);
+						commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
 					}
-				} /////
-			} else {
-				console.log(" scene.js - HandleEnterWithData: I dont understand the state")
-				//repeat prompt
-				commandLine.setPrompt(promptTracker - 1);
-			}
-			console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
-		}
 
-		if (activeCommand.family === "Geometry") {
-			// check if the data contains a comma. if it does its probably user entered coordinates
-			if (data[0].indexOf(",") !== -1) {
-				var xyData = data[0].split(',');
-				var point = new Point()
+					//reset();
+				} else if (data[0] === "reset-repeat") {
+					reset();
+
+				} else if (isFinite(data[0])) {
+					var point = new Point()
+
+						var length = data[0];
+					var x = length * Math.cos(degrees2radians(angle));
+					var y = length * Math.sin(degrees2radians(angle));
+
 					// generate data from the prevous point and the radius
-					point.x = parseFloat(xyData[0]);
-				point.y = parseFloat(xyData[1]);
-				//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
-				points.push(point);
-				promptTracker++;
-				commandLine.setPrompt();
+					point.x = points[points.length - 1].x + x;
+					point.y = points[points.length - 1].y + y;
+					points.push(point);
+					promptTracker++;
 
-				if (points.length >= minPoints) {
-					addToScene(null, null, activeCommand.limitPoints);
-				} else {
-					commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
-				}
+					if (points.length >= minPoints) {
+						addToScene(null, null, activeCommand.limitPoints);
+						commandLine.clearPrompt();
+					} else {
+						commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
+					}
 
-				//reset();
-			} else if (data[0] === "reset-repeat") {
-				reset();
-
-			} else if (isFinite(data[0])) {
-				var point = new Point()
-
-					var length = data[0];
-				var x = length * Math.cos(degrees2radians(angle));
-				var y = length * Math.sin(degrees2radians(angle));
-
-				// generate data from the prevous point and the radius
-				point.x = points[points.length - 1].x + x;
-				point.y = points[points.length - 1].y + y;
-				points.push(point);
-				promptTracker++;
-
-				if (points.length >= minPoints) {
-					addToScene(null, null, activeCommand.limitPoints);
-					commandLine.clearPrompt();
-				} else {
-					commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
-				}
-
-			} else {}
+				} else {}
+			}
 		}
-	  }
 	}
 
 	if (action === "LeftClick" && activeCommand.type !== undefined) {
