@@ -11,6 +11,9 @@ CAD application.
 Design can be accessed at:
 http://www.design-app.co.uk
 
+Raspberry PI Schematics available from:
+https://www.raspberrypi.org/documentation/hardware/raspberrypi/mechanical/README.md
+
 
 Screenshots: 
 
