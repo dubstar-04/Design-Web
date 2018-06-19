@@ -13,7 +13,7 @@ function processItem(item) {
 	}
 
 	if (typeof window[item] !== "function") {
-		//if the string is an unknown command exit gracefully
+		//if the string is an unknown command error gracefully
 		notify("Unknown Command")
 		commandLine.resetPrompt();
 		return;
@@ -70,42 +70,10 @@ function sceneControl(action, data) {
 			console.log("[design-engine] handleEnter - lastCommand: ", lastCommand[0]);
 			currentCommand = lastCommand[0];
 		} else {
-
 			currentCommand = getCommandFromShortcut(data[0].toUpperCase())
-
-				/* 			var selectedCommand = data[0].toUpperCase();
-
-				for (var i = 0; i < commands.length; i++) {
-
-				if (commands[i].shortcut === selectedCommand) {
-				currentCommand = commands[i].command;
-				}
-				} */
 		}
 		console.log("Process: " + currentCommand);
 		processItem(currentCommand);
-
-		//        if (["L", "LINE"].contains(data[0].toUpperCase())){processItem("Line")}
-		//        else if (["C", "CIRCLE"].contains(data[0].toUpperCase())){processItem("Circle")}
-		//        else if (["REC", "RECTANGLE"].contains(data[0].toUpperCase())){processItem("Rectangle")}
-		//        else if (["A", "ARC"].contains(data[0].toUpperCase())){processItem("Arc")}
-		//        else if (["PL", "POLYLINE"].contains(data[0].toUpperCase())){processItem("Polyline")}
-		//        else if (["EL", "ELLIPSE"].contains(data[0].toUpperCase())){processItem("Ellipse")}
-		//        else if (["SP", "SPLINE"].contains(data[0].toUpperCase())){processItem("Spline")}
-
-		//        else if (["M", "MOVE"].contains(data[0].toUpperCase())){processItem("Move")}
-		//        else if (["RO", "ROTATE"].contains(data[0].toUpperCase())){processItem("Rotate")}
-		//        else if (["E", "ERASE"].contains(data[0].toUpperCase())){processItem("Erase")}
-		//        else if (["DI", "DISTANCE"].contains(data[0].toUpperCase())){processItem("Distance")}
-		//        else if (["CO", "COPY"].contains(data[0].toUpperCase())){processItem("Copy")}
-		//        else if (["DT", "TEXT"].contains(data[0].toUpperCase())){processItem("Text")}
-		//        else if (["EX", "EXTEND"].contains(data[0].toUpperCase())){processItem("Extend")}
-		//        else if (["TR", "TRIM"].contains(data[0].toUpperCase())){processItem("Trim")}
-		//        else if (data[0] === "reset-repeat"){if(lastCommand.length){processItem(lastCommand[0])}}
-		//        else {
-		//            console.log(" scene.js - Handledata: Not Recognised")
-		//            reset()
-		//        }
 	}
 
 	function getCommandFromShortcut(shortcut) {
@@ -169,17 +137,19 @@ function sceneControl(action, data) {
 				} else {
 
 					var point = new Point()
-						point.x = mouse.x; //data[0];
+					point.x = mouse.x; //data[0];
 					point.y = mouse.y; //data[1];
 					points.push(point);
 
 					if (points.length >= minPoints) {
 						//if we have all the required points then make the change
+						console.log("EXIT? ", points.length, " minPoints ", minPoints, " limitPoints: ", activeCommand.limitPoints  ) 
 						activeCommand.action(points, items);
 						if (activeCommand.limitPoints) {
 							reset();
-						}
+						}else{
 						commandLine.setPrompt(promptTracker);
+						}
 						canvas.requestPaint();
 
 					} else {
