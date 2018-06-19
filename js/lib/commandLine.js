@@ -29,10 +29,13 @@ CommandLine.prototype.setPrompt = function (index) {
     console.log("[CommandLIne.setPrompt] Index: ", index)
     console.log("[CommandLIne.setPrompt] type: ", activeCommand.type)
     this.prompt = activeCommand.type + ": " + activeCommand.prompt(Number(index));
+	this.command = "";
     this.update();
 }
 
 CommandLine.prototype.update = function () {
+	//console.log("Command: ", this.command)
+	//console.log("Prompt: ", this.prompt)
     this.cmdLine.value = this.prompt + this.command
 }
 
