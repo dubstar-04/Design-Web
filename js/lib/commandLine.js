@@ -40,8 +40,8 @@ CommandLine.prototype.setPromptText = function (promptString) {
 }
 
 CommandLine.prototype.update = function () {
-	console.log("Command: ", this.command)
-	console.log("Prompt: ", this.prompt)
+	//console.log("Command: ", this.command)
+	//console.log("Prompt: ", this.prompt)
     this.cmdLine.value = this.prompt + this.command
 }
 
