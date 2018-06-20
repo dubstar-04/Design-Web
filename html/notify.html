@@ -5,8 +5,12 @@
 
 
 <script>
+	
+	var notificationContent = "";
+
     function notify(content) {
 		console.log("Notification: ", content)
+		notificationContent = content;
         var notification = document.getElementById("Notification-body")
         notification.innerHTML = "<p>" + content + "</p>";
         shownotification();
@@ -26,19 +30,20 @@
 
     function shownotification() {
         document.getElementById('NotifyPopup').style.display = "block";
-		setTimeout(closenotification, 3000)
+		setTimeout(closenotification, 5000)
     }
 
     function closenotification() {
         document.getElementById('NotifyPopup').style.display = "none";
+		notificationContent = ""
     }
 
-    // When the user clicks anywhere outside of the dialogs, close them
-   // window.onclick = function(event) {
-   //     if (event.target == document.getElementById('NotifyPopup')) {
-   //         document.getElementById('NotifyPopup').style.display = "none";
-   //     }
-   // }
+//    When the user clicks anywhere outside of the dialogs, close them
+ //   window.onclick = function(event) {
+//        if (event.target == document.getElementById('NotifyPopup')) {
+//            document.getElementById('NotifyPopup').style.display = "none";
+//        }
+//    }
 
     //import this document in to the Design.html Document
     var import1 = document.currentScript.ownerDocument.querySelector("#NotifyPopup");
