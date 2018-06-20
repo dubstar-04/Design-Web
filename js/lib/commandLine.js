@@ -79,9 +79,13 @@ CommandLine.prototype.handleKeys = function (e) {
 			this.deletePressed(e)
             break;
         default:
+		var keyValue = this.keyboardmap(charCode)
+		if(keyValue){
+			console.log("KeyValue: ", keyValue)
 			e.preventDefault();
-            this.command = this.command + this.keyboardmap(charCode); //String.fromCharCode(charCode);
+            this.command = this.command + keyValue; //String.fromCharCode(charCode);
             this.update();
+		}
             break;
 
     }
@@ -179,11 +183,11 @@ var keyboardMap = [
   "ENTER", // [13]
   "ENTER_SPECIAL", // [14]
   "", // [15]
-  "SHIFT", // [16]
-  "CONTROL", // [17]
+  "", // [SHIFT][16]
+  "", // [CONTROL][17]
   "ALT", // [18]
   "PAUSE", // [19]
-  "CAPS_LOCK", // [20]
+  "", // [CAPS_LOCK][20]
   "KANA", // [21]
   "EISU", // [22]
   "JUNJA", // [23]
@@ -221,12 +225,12 @@ var keyboardMap = [
   "7", // [55]
   "8", // [56]
   "9", // [57]
-  "COLON", // [58]
-  "SEMICOLON", // [59]
-  "LESS_THAN", // [60]
-  "EQUALS", // [61]
-  "GREATER_THAN", // [62]
-  "QUESTION_MARK", // [63]
+  ":", // [58]
+  ";", // [59]
+  "<", // [60]
+  "=", // [61]
+  ">", // [62]
+  "?", // [63]
   "AT", // [64]
   "A", // [65]
   "B", // [66]
@@ -254,7 +258,7 @@ var keyboardMap = [
   "X", // [88]
   "Y", // [89]
   "Z", // [90]
-  "OS_KEY", // [91] Windows Key (Windows) or Command Key (Mac)
+  "", // [OS_KEY][91] Windows Key (Windows) or Command Key (Mac)
   "", // [92]
   "CONTEXT_MENU", // [93]
   "", // [94]
@@ -307,7 +311,7 @@ var keyboardMap = [
   "", // [141]
   "", // [142]
   "", // [143]
-  "NUM_LOCK", // [144]
+  "", // [NUM_LOCK][144]
   "SCROLL_LOCK", // [145]
   "WIN_OEM_FJ_JISHO", // [146]
   "WIN_OEM_FJ_MASSHOU", // [147]
@@ -326,11 +330,11 @@ var keyboardMap = [
   "CIRCUMFLEX", // [160]
   "EXCLAMATION", // [161]
   "DOUBLE_QUOTE", // [162]
-  "HASH", // [163]
-  "DOLLAR", // [164]
-  "PERCENT", // [165]
-  "AMPERSAND", // [166]
-  "UNDERSCORE", // [167]
+  "#", // [163]
+  "$", // [164]
+  "%", // [165]
+  "&", // [166]
+  "_", // [167]
   "OPEN_PAREN", // [168]
   "CLOSE_PAREN", // [169]
   "ASTERISK", // [170]
