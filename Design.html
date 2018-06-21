@@ -36,6 +36,7 @@
 
 
     <div class="toolbar">
+		<input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
         <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button>  <span class="tooltiptext">Open File</span></div>
         <div class="tooltip"><button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button>  <span class="tooltiptext">Save</span></div>
@@ -149,6 +150,11 @@
     window.addEventListener('resize', function() {
         hideModals()
     }, false);
+	
+	document.getElementById('fileupload').addEventListener("change", function () {
+		console.log(document.getElementById('fileupload').files[0])
+		readFile(document.getElementById('fileupload').files[0])
+	});
 	
 	function hideModals(){
 	                closePopover();
@@ -424,7 +430,7 @@
     var clickCoordsX;
     var clickCoordsY;
 
-    var menu = document.currentScript.ownerDocument.querySelector("#context-menu");
+    var menu = document.getElementById('context-menu'); //document.currentScript.ownerDocument.querySelector("#context-menu");
     //var menu = document.getElementById("context-menu").style.display = "block";
     var menuItems = menu.querySelectorAll(".context-menu__item");
     var menuState = 0;

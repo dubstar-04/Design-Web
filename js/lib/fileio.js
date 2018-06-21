@@ -122,13 +122,22 @@ function savedxf() {
 function fileBrowser() {}
 
 function selectFile() {
+	
 	console.log("fileio.js: selectFile()")
+	
+	document.getElementById('fileupload').click()
+	
+/* 	document.getElementById('fileupload').addEventListener("change", function () {
+		readFile(document.getElementById('fileupload').files[0])
+	}); */
+	
+/* 	console.log("fileio.js: selectFile()")
 	var fileSelector = document.createElement('input');
 	fileSelector.setAttribute('type', 'file');
 	fileSelector.addEventListener("change", function () {
 		readFile(fileSelector.files[0])
 	});
-	fileSelector.click();
+	fileSelector.click(); */
 }
 
 function readFile(file) {
