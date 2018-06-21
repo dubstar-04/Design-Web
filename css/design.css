@@ -39,21 +39,25 @@
 /* Fonts */
 
 h1 {
-    font-size: var(--xl-text);
+    font-size: 30px;
+	font-size: var(--xl-text);
     font-family: Tahoma, Verdana;
 }
 
 h2 {
+	font-size: 22px;
     font-size: var(--large-text);
     font-family: Tahoma, Verdana;
 }
 
 h3 {
+	font-size: 16px;
     font-size: var(--medium-text);
     font-family: Tahoma, Verdana;
 }
 
 p {
+	font-size: 12px;
     font-size: var(--small-text);
     font-family: Tahoma, Verdana;
 }
@@ -143,7 +147,7 @@ canvasbottom {
 }
 
 .designicon img {
-    height: 100%;
+    height: 100%;	
 }
 
 .toolbar button:hover {
