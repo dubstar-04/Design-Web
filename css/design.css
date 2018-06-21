@@ -196,6 +196,7 @@ canvasbottom {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: fade;
+	margin-left: 10px;
 }
 
 .Design-header-icon {
