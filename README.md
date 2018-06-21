@@ -1,6 +1,5 @@
 
 <img src="https://github.com/dubstar-04/Design/blob/master/icons/design.png?raw=true" width="64">
-
 # Design
 Design is a 2D CAD application for the web.
 
