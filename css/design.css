@@ -170,6 +170,7 @@ canvasbottom {
 
 .Design-header {
     /*padding: 2px 16px;*/
+	background-color: #38B44A;
     background-color: var(--dialog-header-colour);
     color: white;
     display: flex;
@@ -249,6 +250,7 @@ canvasbottom {
 
 .Design-sidebar-content {
     position: relative;
+	background-color: #fefefe;
     background-color: var(--dialog-bg-colour);
     margin: 0;
     padding: 0;

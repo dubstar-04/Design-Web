@@ -14,6 +14,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #8a8a8a;
   background-color: var(--inactive-colour);
   border-radius: 100%;
 }
@@ -30,10 +31,12 @@
 }
 
 input:checked + .tkbtn {
+background-color: #8a8a8a;	
 background-color: var(--active-colour);
 }
 
 input:hover + .tkbtn {
+background-color: #8a8a8a;	
 background-color: var(--hover-colour);
 }
 

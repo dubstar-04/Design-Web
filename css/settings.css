@@ -16,10 +16,11 @@
 /* Modal Content */
 .Settings-content {
     position: relative;
+	background-color: #fefefe;
     background-color: var(--dialog-bg-colour);
     margin: auto;
     padding: 0;
-    border: 1px solid var(--border-colour);
+    border: 1px solid #d3d3d3;;
     width: 50%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
@@ -31,6 +32,7 @@
 .Settings-body {
 	
 	padding: 2px 16px;
+	background-color: #fefefe;
 	background-color: var(--bg-colour);
 	}
 

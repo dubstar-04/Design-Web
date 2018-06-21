@@ -19,11 +19,13 @@
     margin: auto;
 	min-width: 150px;
     max-width: 200px;
+	background-color: #888888;
     background-color: var(--shadow-colour);
-    border: 1px solid var(--border-colour);
+    border: 1px solid #d3d3d3;
 	border-radius: 10px; /*var(border-radius);*/
     /*box-shadow: 1px 1px 2px var(--shadow-colour);*/
 	text-align: center;
+	color: #ffffff;
 	color: var(--text-contrast-color);
 	
 	
