@@ -6,6 +6,7 @@
     <title>Design</title>
     <link rel="stylesheet" href="css/design.css">
     <link rel="stylesheet" href="css/settings.css">
+	<link rel="stylesheet" href="css/welcomeWizzard.css">
     <link rel="stylesheet" href="css/toggle.css">
 	<link rel="stylesheet" href="css/tabs.css">
     <link rel="stylesheet" href="css/tickbox.css">
@@ -1622,7 +1623,14 @@ function layerColourChange(colour, layerIndex){
 
 <div id="About" class="tabcontent">
 <h3>About</h3>
-<p>about design. Version: designVersion, patreon? </p>
+<p>Design is a 2D CAD application for the web.
+Design is a 2D computer aided design application (CAD), 
+created to meet the needs of makers and designers, 
+hobbyists and professionals that require a first class CAD application. Version: designVersion, patreon? </p>
+<p> https://github.com/dubstar-04/Design </p>
+<p> patreon? </p>
+<p> Version: designVersion </p>
+
 </div>
 
 </div>
@@ -1679,13 +1687,14 @@ function getCookieConsent() {
 	} else {
 		
 		var ret;
-		if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accept cookies.")) {
-			ret = true;
-			cookieConsent = true;
-			saveSetting("Design", designVersion, 365);
-		} else {
-			ret = false;
-		}
+		//if (confirm("Design uses cookies to save your settings across sessions. No Personal data is saved. Click OK to accept cookies.")) {
+		//	ret = true;
+		//	cookieConsent = true;
+		showWelcomeWizzard();
+		//	saveSetting("Design", designVersion, 365);
+		//} else {
+		//	ret = false;
+		//}
 	}
 	
 	if(ret){
@@ -1888,6 +1897,109 @@ window.onclick = function(event) {
 
 <!---------------------------------------------------
 ------------------- settings  --------------------
+---------------------------------------------------->
+
+<!---------------------------------------------------
+------------------- welcomewizzard --------------------
+---------------------------------------------------->
+
+<div id="WelcomeWizzard" class="WelcomeWizzard">
+<div class="WelcomeWizzard-content">
+<div class="Design-header">
+<div class="Design-header-icon" , onclick="closeWelcomeWizzard()"><img src="icons/close.svg"></div>
+<div class="Design-header-title">
+<h3>Welcome</h3>
+</div>
+<div style="text-align:right">
+  <p>skip</p> 
+</div>
+</div>
+<div class="WelcomeWizzard-body">
+
+<div class="slideshow-container">
+
+<div class="slide-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="" style="width:100%">
+  <div class="text">Caption Text</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="" style="width:100%">
+  <div class="text">Caption Two</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="" style="width:100%">
+  <div class="text">Caption Three</div>
+</div>
+
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+
+<script>
+
+function showWelcomeWizzard() {
+	document.getElementById('WelcomeWizzard').style.display = "block";
+}
+
+function closeWelcomeWizzard() {
+	document.getElementById('WelcomeWizzard').style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+
+</script>
+
+<!---------------------------------------------------
+------------------- welcome Wizard ------------------
 ---------------------------------------------------->
 
 </html>
