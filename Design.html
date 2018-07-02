@@ -123,6 +123,9 @@
 <script type="text/javascript" src="js/lib/colours.js"></script>
 <script type="text/javascript" src="js/lib/intersect.js"></script>
 
+<script type="text/javascript" src="js/help/help.js"></script>
+<script type="text/javascript" src="js/lib/fuse.js"></script>
+
 <script>
 	var designVersion = "alpha";
     var mouse = new Mouse();
@@ -1618,7 +1621,11 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Help" class="tabcontent">
 <h3>Help</h3>
-<p> Design Help. </p>
+<div class="searchHelpInput"><input type="search" id="searchHelp" placeholder="Search Help">
+</div>
+
+
+
 </div>
 
 <div id="About" class="tabcontent">
@@ -1639,6 +1646,32 @@ hobbyists and professionals that require a first class CAD application. Version:
 
 
 <script>
+
+
+document.getElementById("searchHelp").onkeydown = searchHelp;
+
+
+function searchHelp(){
+	
+	var searchText = document.getElementById("searchHelp").value;
+	
+	//console.log("Search Text: ", searchText );
+	
+	var options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [ "Title" ]
+};
+var fuse = new Fuse(helpData, options); // "list" is the item array
+var matches = fuse.search(searchText);
+
+console.log("Search Matches: ", matches);
+
+}
 
 function changeColour(caller){
 	console.log("Caller: ", caller)
