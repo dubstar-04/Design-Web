@@ -37,8 +37,9 @@ function savedxf() {
 			"\n" + LM.getCLayer(),
 			"\n9",
 			"\nENDSEC",
-			"\n0",
-			"\nSECTION")
+//			"\n0",
+//			"\nSECTION"
+)
 
 		data = data.concat(
 
@@ -114,7 +115,7 @@ function savedxf() {
 
 		//return data
 		var blob = new Blob([data], {
-			type: "text/plain;charset=utf-8"
+			type: "text/plain;"
 		});
 	saveAs(blob, "design.dxf");
 }
