@@ -15,14 +15,14 @@ return data
 
 function savedxf() {
 
-	// Create a thumbnail of the scene and save as the file icon in the file browser
+	// TODO: Create a thumbnail of the scene and save as the file icon in the file browser
 
 	console.log("save dxf")
 	var data = ""
 		data = data.concat(
 			//Create Header Data
 			"999",
-			"\nDXF created from Design",
+			"\nDXF created from www.Design-App.co.uk",
 			"\n0",
 			"\nSECTION",
 			"\n2",
@@ -31,18 +31,15 @@ function savedxf() {
 			"\n$ACADVER",
 			"\n1",
 			"\nAC1009",
-			"\n0",
+			"\n9",
 			"\n$CLAYER",
 			"\n8",
 			"\n" + LM.getCLayer(),
-			"\n9",
-			"\nENDSEC",
-//			"\n0",
-//			"\nSECTION"
+			"\n0",
+			"\nENDSEC"
 )
 
 		data = data.concat(
-
 			"\n0",
 			"\nSECTION",
 			"\n2",
@@ -58,38 +55,101 @@ function savedxf() {
 			data = data.concat("\n", LM.getLayerByIndex(i).dxf())
 		}
 
+		data = data.concat(
+			"\n0",
+			"\nENDTAB",
+			//"\n0",
+			//"\nENDSEC"
+		)
+
 		var extents = getSceneExtents() //Scene.canvas.getExtents();
 
 		var width = extents.xmax - extents.xmin;
-	var height = extents.ymax - extents.ymin;
+		var height = extents.ymax - extents.ymin;
 
 	data = data.concat(
-			"\n0",
-			"\nENDTAB",
+			//"\n0",
+			//"\nENDTAB",
+			//"\n0",
+			//"\nSECTION",
 			"\n0",
 			"\nTABLE",
-			"\n2",
+			"\n2",  		//Table Name
 			"\nVPORT",
-			"\n2",
-			"\n*ACTIVE",
-			"\n10",
-			"\n0.0",
-			"\n20",
-			"\n0.0",
-			"\n11",
-			"\n1.0",
-			"\n21",
-			"\n1.0",
-			"\n12",
-			"\n" + Number(extents.xmin + width / 2),
-			"\n22",
-			"\n" + Number(extents.ymin + height / 2),
-			"\n40",
-			"\n" + height,
-			"\n41",
-			"\n" + width / height,
-			"\n76",
+			"\n70",			//Number of entries in table
 			"\n1",
+			"\n0",
+			"\nVPORT",
+			"\n2",			
+			"\n*ACTIVE",
+			"\n70",			//vport flags
+			"\n0",	
+			"\n10",			//lower left corner x pos
+			"\n0.0",
+			"\n20",			//lower left corner y pos
+			"\n0.0",
+			"\n11",			//upper right corner x pos
+			"\n1.0",
+			"\n21",			//upper right corner y pos		
+			"\n1.0",
+			"\n12",			//view centre x pos
+			"\n" + Number(extents.xmin + width / 2),
+			"\n22",			//view centre y pos
+			"\n" + Number(extents.ymin + height / 2),
+			"\n13", 		//snap base point x
+			"\n0.0",
+			"\n23",			//snap base point y
+			"\n0.0",
+			"\n14",			//snap spacing x
+			"\n10.0",
+			"\n24",			//snap spacing y
+			"\n10.0",
+			"\n15",			//grid spacing x
+			"\n10.0",
+			"\n25",			//grid spacing y
+			"\n10.0",
+			"\n16",			//view direction (x) from target point
+			"\n0.0",
+			"\n26",			//view direction (y) from target point
+			"\n0.0",
+			"\n 36",		//view direction (z) from target point
+			"\n1.0",
+			"\n 17",		//view target point x
+			"\n0.0",
+			"\n 27",		//view target point y
+			"\n0.0",
+			"\n 37",		//view target point z
+			"\n0.0",
+			"\n40",			//VPort Height
+			"\n" + height,
+			"\n41",			//Vport height/width ratio
+			"\n" + width / height,
+			"\n42",			//Lens Length
+			"\n50.0",
+			"\n 43",		//Front Clipping Plane
+			"\n0.0",
+			"\n 44",		//Back Clipping Plane
+			"\n0.0",
+			"\n 50",		//Snap Rotation Angle
+			"\n0.0",
+			"\n 51",		//View Twist Angle
+			"\n0.0",
+			"\n71",			//Viewmode (System Variable)
+			"\n0",
+			"\n72",			//Cicle sides
+			"\n1000",
+			"\n73",			//?
+			"\n1",
+			"\n74",			//UCSICON Setting
+			"\n3",
+			"\n75",			//?
+			"\n 0",
+			"\n76",			//?
+			"\n 1",
+			"\n77",			//?
+			"\n 0",
+			"\n78",			//?
+			"\n0",
 			"\n0",
 			"\nENDTAB",
 			"\n0",

@@ -89,12 +89,11 @@ Layer.prototype.dxf = function(){
                 "\n", this.on ? getACADColour(this.colour):(0 - getACADColour(this.colour)),
                 "\n", "6", //Linetype
                 "\n", this.lineType,
-                "\n", "330", //Plotting
-                "\n", this.plotting ? 1 : 0,
-                "\n", "370", //Lineweight
-                "\n", this.lineWeight
+               // "\n", "290", //plotting               |
+               // "\n", this.plotting ? 1 : 0,          |   These items codes dont seem to be
+               // "\n", "370", //lineWeight             |   supported in ACAD.
+               // "\n", this.lineWeight                 |
                 )
     console.log(" layer.js - DXF Data:" + data)
     return data
 }
-
