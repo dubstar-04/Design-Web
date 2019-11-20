@@ -17,21 +17,22 @@ LayerManager.prototype.layerCount = function () {
 LayerManager.prototype.newLayer = function () {
 
     this.addLayer({
-        "name": this.getUniqueName("New Layer")
+        "name": this.getUniqueName("NEW_LAYER")
     });
 }
 
 LayerManager.prototype.getUniqueName = function(name){
 	
 	var count = 0;
-    var layStr = name;
+    var layStr = name.replace(/ /g, "_").toUpperCase();
+    console.log("New Layer Name:" + layStr)
     for (var i = 0; i < this.layerCount(); i++) {
         if (this.layers[i].name.includes(layStr)) {
             count = count + 1;
         }
     }
     if (count > 0) {
-        layStr = layStr + " " + count;
+        layStr = layStr + "_" + count;
     }
 
 	return layStr;
