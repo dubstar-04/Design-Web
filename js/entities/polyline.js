@@ -102,6 +102,8 @@ Polyline.prototype.dxf = function(){
                 //"\n", "DA",
                 "\n", "8", //LAYERNAME
                 "\n", this.layer,
+                "\n", "66",
+                "\n", "1",
                 "\n", "10", //X
                 "\n", "0",
                 "\n", "20", //Y
@@ -112,10 +114,13 @@ Polyline.prototype.dxf = function(){
                 "\n", this.lineWidth,
                 "\n", "70", //Flags
                 "\n", closed ? "1" : "0",
-                               "\n", "100", //Subclass marker
-                               "\n", "AcDb2dPolyline",
-                               vertices, //Dont use a new line here as the vertix data will start with a new line.
-                               "\n", "0"
+                //"\n", "100", //Subclass marker
+                //"\n", "AcDb2dPolyline",
+                vertices, //Dont use a new line here as the vertex data will start with a new line.
+                "\n", "0",
+                "\n", "SEQEND", //END OF SEQUENCE
+                "\n", "8", //LAYERNAME
+                "\n", this.layer
                 )
     console.log(" polyline.js - DXF Data:" + data)
     return data
@@ -139,15 +144,16 @@ Polyline.prototype.vertices = function() {
                     //"\n", "DA",
                     "\n", "8", //LAYERNAME
                     "\n", "0",
-                    "\n", "100",
-                    "\n", "AcDbVertex",
-                    "\n", "100",
-                    "\n", "AcDb2dVertex",
+                    //"\n", "100",
+                    //"\n", "AcDbVertex",
+                    //"\n", "100",
+                    //"\n", "AcDb2dVertex",
                     "\n", "10", //X
                     "\n", this.points[i].x,
                     "\n", "20", //Y
                     "\n", this.points[i].y,
                     "\n", "30", //Z
+                    //"\n", "0",
                     //"\n", "0",
                     "\n", "0"
                     )
