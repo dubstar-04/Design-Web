@@ -273,5 +273,5 @@ var conversion_table = {
     253: '#ADADAD',
     254: '#D6D6D6',
     255: '#FFFFFF',
-    256: '#000000'
+    256: 'BYLAYER' //'#000000'
 }
