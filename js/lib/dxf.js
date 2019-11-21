@@ -1049,7 +1049,10 @@ DXF.prototype.readPolyline = function(){
 
                 if (flags === 1){
                     // Flag 1 signifies a closed shape. Copy the first point to the last index.
-                    points.push(points[0]);
+                    var point = new Point();
+                    point.x = points[0].x;
+                    point.y = points[0].y;
+                    points.push(point);
                 }
 
                 //debugLog("Polyline points: " + points.length)
@@ -1170,7 +1173,10 @@ DXF.prototype.readLwpolyline = function(){
 
                 if (flags === 1){
                     // Flag 1 signifies a closed shape. Copy the first point to the last index.
-                    points.push(points[0]);
+                    var point = new Point();
+                    point.x = points[0].x;
+                    point.y = points[0].y;
+                    points.push(point);
                 }
 
                 var polyline = {
