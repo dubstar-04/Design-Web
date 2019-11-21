@@ -8,6 +8,7 @@ function Text(data)//startX, startY, endX, endY)
     this.family = "Geometry";
     this.minPoints = 1;
     this.limitPoints = true;
+    this.allowMultiple = false;
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
 
     this.points = [];

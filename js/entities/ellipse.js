@@ -8,6 +8,7 @@ function Ellipse(data)//centre_x, centre_y, endX, endY)
     this.family = "Geometry";
     this.minPoints = 3;
     this.limitPoints = true;
+    this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
 
     this.points = [];

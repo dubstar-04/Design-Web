@@ -12,6 +12,7 @@ function Line(data) {
     this.family = "Geometry";
     this.minPoints = 2;
     this.limitPoints = false;
+    this.allowMultiple = true;
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.lineWidth = 2; //Thickness

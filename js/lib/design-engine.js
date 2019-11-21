@@ -115,13 +115,12 @@ function sceneControl(action, data) {
 			console.log("scene.js - handleLeftClickWithCommand points:" + points.length + " minPoints: " + minPoints)
 
 			if (points.length >= minPoints) {
-				if (activeCommand.limitPoints || points.length == minPoints){
+				if (activeCommand.allowMultiple || points.length == minPoints){
+					//AllowMultiple: Only Create Items once. i.e. polyline
+					//Items where (limitPoints = false) will should automatically recieve additional points
 					addToScene(null, null, activeCommand.limitPoints);
-				} else {
-					//Handle items that have already been created. i.e. polyline
-					//The points variable will be incremented so the item should automatically recieve additional points
-					//console.log("add point to polyline. Items length:" + items.length + "points length:" + points.length)
 				}
+
 			} else {
 				commandLine.setPrompt(promptTracker);
 			}

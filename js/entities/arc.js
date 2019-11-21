@@ -10,6 +10,7 @@ function Arc(data)//centreX, centreY, endX, endY)
     this.family = "Geometry";
     this.minPoints = 3;         //Should match number of cases in prompt
     this.limitPoints = true;
+    this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.radius = 0;
