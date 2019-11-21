@@ -31,7 +31,7 @@ function reset() {
 	tempItems = [];
 	selectedItems = [];
 	selectionSet = [];
-    selectionSetChanged();
+	selectionSetChanged();
 	selectionAccepted = false;
 	lastCommandPosition = -1;
 	//resetCommandPrompt();
@@ -47,31 +47,31 @@ function reset() {
 //    commandLine.value = activeCommand.type + ": " + activeCommand.prompt(Number(index))
 //}
 
-function selectionSetChanged(){
-    getProperties()
+function selectionSetChanged() {
+	getProperties()
 }
 
 function centreVPORT(centre, width, height) {
 	console.log(centre.x, centre.y, width, height)
 	if (height !== 0 && width !== 0) {
 		var xmin = centre.x - width / 2
-			var xmax = centre.x + width / 2
-			var ymin = centre.y - height / 2
-			var ymax = centre.y + height / 2
+		var xmax = centre.x + width / 2
+		var ymin = centre.y - height / 2
+		var ymax = centre.y + height / 2
 
-			canvas.centreInScene(xmin, xmax, ymin, ymax)
+		canvas.centreInScene(xmin, xmax, ymin, ymax)
 	}
 }
 
 function getSceneExtents() {
-	
-    var size = canvas.canvasSize();
+
+	var size = canvas.canvasSize();
 	var width = size.width / canvas.scale;
 	var height = size.height / canvas.scale;
-	
-    var xmin = -canvas.panX / canvas.scale;
+
+	var xmin = -canvas.panX / canvas.scale;
 	var xmax = xmin + width;
-	var ymax =  -canvas.panY / canvas.scale;
+	var ymax = -canvas.panY / canvas.scale;
 	var ymin = ymax - height;
 
 	return {
@@ -184,7 +184,7 @@ function selectClosestItem(data) {
 
 		console.log(" scene.js - Scene.js: selectClosestItem() - selected items length: " + selectedItems.length)
 		console.log(" scene.js - Scene.js: selectClosestItem() - indices for selectionSet: " + selectionSet);
-        selectionSetChanged();
+		selectionSetChanged();
 	} else {
 		if (data) {
 			console.log(" scene.js - Nothing Selected");
@@ -192,7 +192,7 @@ function selectClosestItem(data) {
 			// clear selection
 			selectedItems = [];
 			selectionSet = [];
-            selectionSetChanged();
+			selectionSetChanged();
 		}
 	}
 
@@ -211,32 +211,32 @@ function snapping() {
 	for (var i = 0; i < items.length; i++) {
 		var itemSnaps = items[i].snaps(mousePoint, delta) // get an array of snap point from the item
 
-			if (itemSnaps) {
-				for (var j = 0; j < itemSnaps.length; j++) {
-					var length = distBetweenPoints(itemSnaps[j].x, itemSnaps[j].y, mouse.x, mouse.y)
-						if (length < delta) {
-							delta = length;
-							closestItem = i;
+		if (itemSnaps) {
+			for (var j = 0; j < itemSnaps.length; j++) {
+				var length = distBetweenPoints(itemSnaps[j].x, itemSnaps[j].y, mouse.x, mouse.y)
+				if (length < delta) {
+					delta = length;
+					closestItem = i;
 
-							// Draw a circle to highlight the snap.
-							var CentrePoint = new Point(itemSnaps[j].x, itemSnaps[j].y);
-							var radiusPoint = new Point(itemSnaps[j].x, itemSnaps[j].y + (5 / canvas.scale));
-							var snapCirclePoints = [CentrePoint, radiusPoint];
+					// Draw a circle to highlight the snap.
+					var CentrePoint = new Point(itemSnaps[j].x, itemSnaps[j].y);
+					var radiusPoint = new Point(itemSnaps[j].x, itemSnaps[j].y + (5 / canvas.scale));
+					var snapCirclePoints = [CentrePoint, radiusPoint];
 
-							var data = {
-								points: snapCirclePoints,
-								colour: settings.snapColour.toString()
-							}
-							var item = new Circle(data); //snaps[j].x, snaps[j].y, snaps[j].x, snaps[j].y + 5) // 5 is a radius for the snap circle
-							mouse.x = itemSnaps[j].x;
-							mouse.y = itemSnaps[j].y;
-							//console.log(snaps[j].x, snaps[j].y, delta);
-							tempItems.push(item)
+					var data = {
+						points: snapCirclePoints,
+						colour: settings.snapColour.toString()
+					}
+					var item = new Circle(data); //snaps[j].x, snaps[j].y, snaps[j].x, snaps[j].y + 5) // 5 is a radius for the snap circle
+					mouse.x = itemSnaps[j].x;
+					mouse.y = itemSnaps[j].y;
+					//console.log(snaps[j].x, snaps[j].y, delta);
+					tempItems.push(item)
 
-							////////// Object Snapping //////////
-						}
+					////////// Object Snapping //////////
 				}
 			}
+		}
 	}
 
 	canvas.requestPaint();
@@ -294,7 +294,7 @@ function selecting(coordinates, SelectColour) {
 
 						selectedItems.push(copyofitem);
 						selectionSet.push(i);
-                        selectionSetChanged();
+						selectionSetChanged();
 
 					}
 				} else if (selectionSet.indexOf(i) !== -1) {
@@ -313,7 +313,7 @@ function selecting(coordinates, SelectColour) {
 
 						selectedItems.push(copyofitem);
 						selectionSet.push(i);
-                        selectionSetChanged();
+						selectionSetChanged();
 					}
 				} else if (selectionSet.indexOf(i) !== -1) {
 					//var index = selectionSet.indexOf(i);
@@ -349,37 +349,37 @@ function polarSnap(previousPoint) {
 	var angleDelta = 3;
 	var diff = radians2degrees(previousPoint.angle(mouse)) - (settings.polarAngle * Math.round(radians2degrees(previousPoint.angle(mouse)) / settings.polarAngle))
 
-		if (Math.abs(diff) < angleDelta) {
-			//console.log("scene.js - polarSnap - Diff:", diff, " canvas size", canvas.canvasSize)
-			var mousept = new Point(mouse.x, mouse.y);
-			mousept = mousept.rotate(previousPoint, degrees2radians(-diff))
+	if (Math.abs(diff) < angleDelta) {
+		//console.log("scene.js - polarSnap - Diff:", diff, " canvas size", canvas.canvasSize)
+		var mousept = new Point(mouse.x, mouse.y);
+		mousept = mousept.rotate(previousPoint, degrees2radians(-diff))
 
-				mouse.setX(mousept.x);
-			mouse.setY(mousept.y)
+		mouse.setX(mousept.x);
+		mouse.setY(mousept.y)
 
-			var extents = getSceneExtents();
-			var length = Math.max(extents.xmax - extents.xmin, extents.ymax - extents.ymin);
-			var x = length * Math.cos(previousPoint.angle(mousept));
-			var y = length * Math.sin(previousPoint.angle(mousept));
-			var polarLinePoints = new Array();
-			var lineEnd = new Point(mousept.x + x, mousept.y + y)
+		var extents = getSceneExtents();
+		var length = Math.max(extents.xmax - extents.xmin, extents.ymax - extents.ymin);
+		var x = length * Math.cos(previousPoint.angle(mousept));
+		var y = length * Math.sin(previousPoint.angle(mousept));
+		var polarLinePoints = new Array();
+		var lineEnd = new Point(mousept.x + x, mousept.y + y)
 
-				polarLinePoints.push(previousPoint, lineEnd);
-			addHelperGeometry("Line", polarLinePoints, settings.polarSnapColour.toString())
-		}
+		polarLinePoints.push(previousPoint, lineEnd);
+		addHelperGeometry("Line", polarLinePoints, settings.polarSnapColour.toString())
+	}
 
 }
 
 function orthoSnap(previousPoint) {
 
 	var x = mouse.x - previousPoint.x
-		var y = mouse.y - previousPoint.y
+	var y = mouse.y - previousPoint.y
 
-		if (Math.abs(x) > Math.abs(y)) {
-			mouse.setY(previousPoint.y)
-		} else {
-			mouse.setX(previousPoint.x)
-		}
+	if (Math.abs(x) > Math.abs(y)) {
+		mouse.setY(previousPoint.y)
+	} else {
+		mouse.setX(previousPoint.x)
+	}
 
 }
 
@@ -398,25 +398,25 @@ function writeCoordinates(label, coordinates) {
 	if (points.length !== 0) {
 
 		var previousPoint = new Point()
-			previousPoint.x = points[points.length - 1].x;
+		previousPoint.x = points[points.length - 1].x;
 		previousPoint.y = points[points.length - 1].y;
 
 		tempPoints = points.slice(0); // copy points to tempPoints
 		var point = new Point()
 
-			// generate data from the prevous point and the radius
-			// Polar snap if we are close
+		// generate data from the prevous point and the radius
+		// Polar snap if we are close
 
-			if (settings.polar) {
-				//if polar is enabled - get the closest points
-				polarSnap(previousPoint);
-			} else if (settings.ortho) {
-				//if ortho is enabled - get the nearest ortho point
-				orthoSnap(previousPoint)
-			}
+		if (settings.polar) {
+			//if polar is enabled - get the closest points
+			polarSnap(previousPoint);
+		} else if (settings.ortho) {
+			//if ortho is enabled - get the nearest ortho point
+			orthoSnap(previousPoint)
+		}
 
-			//Add coordinates to the point
-			point.x = mouse.x;
+		//Add coordinates to the point
+		point.x = mouse.x;
 		point.y = mouse.y;
 		tempPoints.push(point);
 
@@ -439,7 +439,7 @@ function writeCoordinates(label, coordinates) {
 		}
 
 		angle = radians2degrees(previousPoint.angle(mouse))
-			var len = distBetweenPoints(previousPoint.x, previousPoint.y, point.x, point.y);
+		var len = distBetweenPoints(previousPoint.x, previousPoint.y, point.x, point.y);
 
 		label.innerHTML = "X: " + mouse.x.toFixed(1) + " Y: " + mouse.y.toFixed(1) + ", Len: " + Math.round(len) + ", Ang: " + Math.round(angle)
 	} else {

@@ -1,4 +1,3 @@
-
 function processItem(item) {
 	console.log(" scene.js - Item To Process: " + item)
 	saveRequired();
@@ -24,11 +23,11 @@ function processItem(item) {
 
 	if (activeCommand.family === "Geometry") { // if the active item exists
 		minPoints = activeCommand.minPoints // Get the number if minimum points required for the new item
-			commandLine.setPrompt(promptTracker);
+		commandLine.setPrompt(promptTracker);
 	} else if (activeCommand.family === "Tools" && items.length) {
 		if (selectionSet.length || activeCommand.selectionRequired === false) {
 			minPoints = activeCommand.minPoints
-				promptTracker++;
+			promptTracker++;
 			commandLine.setPrompt(promptTracker);
 			selectionAccepted = true;
 			if (activeCommand.minPoints === 0) {
@@ -80,14 +79,14 @@ function sceneControl(action, data) {
 
 		var commandFromShortcut = shortcut
 
-			for (var i = 0; i < commands.length; i++) {
+		for (var i = 0; i < commands.length; i++) {
 
-				if (commands[i].shortcut === shortcut) {
-					commandFromShortcut = commands[i].command;
-				}
+			if (commands[i].shortcut === shortcut) {
+				commandFromShortcut = commands[i].command;
 			}
+		}
 
-			return commandFromShortcut
+		return commandFromShortcut
 	}
 
 	function isCommand(command) {
@@ -115,7 +114,7 @@ function sceneControl(action, data) {
 			console.log("scene.js - handleLeftClickWithCommand points:" + points.length + " minPoints: " + minPoints)
 
 			if (points.length >= minPoints) {
-				if (activeCommand.allowMultiple || points.length == minPoints){
+				if (activeCommand.allowMultiple || points.length == minPoints) {
 					//AllowMultiple: Only Create Items once. i.e. polyline
 					//Items where (limitPoints = false) will should automatically recieve additional points
 					addToScene(null, null, activeCommand.limitPoints);
@@ -186,8 +185,8 @@ function sceneControl(action, data) {
 					if (selectionAccepted) {
 						var xyData = data[0].split(',');
 						var point = new Point()
-							// generate data from the prevous point and the radius
-							point.x = parseFloat(xyData[0]);
+						// generate data from the prevous point and the radius
+						point.x = parseFloat(xyData[0]);
 						point.y = parseFloat(xyData[1]);
 						//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
 						points.push(point);
@@ -202,7 +201,7 @@ function sceneControl(action, data) {
 					////////// Point selection Accepted //////////
 					if (!selectionAccepted) {
 						minPoints = activeCommand.minPoints
-							promptTracker++;
+						promptTracker++;
 						commandLine.setPrompt(promptTracker);
 						selectionAccepted = true;
 
@@ -220,42 +219,42 @@ function sceneControl(action, data) {
 						if (isFinite(data[0])) {
 							var point = new Point()
 
-								if (activeCommand.movement === "Linear") {
-									var length = data;
-									var x = length * Math.cos(degrees2radians(angle));
-									var y = length * Math.sin(degrees2radians(angle));
-									// generate data from the prevous point and the radius
-									point.x = points[points.length - 1].x + x;
-									point.y = points[points.length - 1].y + y;
-									points.push(point);
-									promptTracker++;
-								} else if (activeCommand.movement === "Angular") {
-									// An angle has been entered create a point at 0 degrees from the base point
-									point.x = points[0].x
-										point.y = points[0].y + 10
-										points.push(point);
-									promptTracker++;
+							if (activeCommand.movement === "Linear") {
+								var length = data;
+								var x = length * Math.cos(degrees2radians(angle));
+								var y = length * Math.sin(degrees2radians(angle));
+								// generate data from the prevous point and the radius
+								point.x = points[points.length - 1].x + x;
+								point.y = points[points.length - 1].y + y;
+								points.push(point);
+								promptTracker++;
+							} else if (activeCommand.movement === "Angular") {
+								// An angle has been entered create a point at 0 degrees from the base point
+								point.x = points[0].x
+								point.y = points[0].y + 10
+								points.push(point);
+								promptTracker++;
 
-									var endPoint = new Point();
-									var theta = degrees2radians(data);
+								var endPoint = new Point();
+								var theta = degrees2radians(data);
 
-									endPoint.x = points[0].x + (points[1].x - points[0].x) * Math.cos(theta) - (points[1].y - points[0].y) * Math.sin(theta);
-									endPoint.y = points[0].y + (points[1].x - points[0].x) * Math.sin(theta) + (points[1].y - points[0].y) * Math.cos(theta);
+								endPoint.x = points[0].x + (points[1].x - points[0].x) * Math.cos(theta) - (points[1].y - points[0].y) * Math.sin(theta);
+								endPoint.y = points[0].y + (points[1].x - points[0].x) * Math.sin(theta) + (points[1].y - points[0].y) * Math.cos(theta);
 
-									points.push(endPoint);
-									promptTracker++;
-								}
+								points.push(endPoint);
+								promptTracker++;
+							}
 
-								if (points.length >= minPoints) {
-									activeCommand.action(points, items);
-									reset();
-									canvas.requestPaint();
-								} else {
-									commandLine.setPrompt(promptTracker);
-								}
+							if (points.length >= minPoints) {
+								activeCommand.action(points, items);
+								reset();
+								canvas.requestPaint();
+							} else {
+								commandLine.setPrompt(promptTracker);
+							}
 
-								//addToScene(true)
-								console.log(" scene.js - Dim entered")
+							//addToScene(true)
+							console.log(" scene.js - Dim entered")
 						} else {
 							//repeat prompt
 							commandLine.setPrompt(promptTracker - 1);
@@ -274,8 +273,8 @@ function sceneControl(action, data) {
 				if (data[0].indexOf(",") !== -1) {
 					var xyData = data[0].split(',');
 					var point = new Point()
-						// generate data from the prevous point and the radius
-						point.x = parseFloat(xyData[0]);
+					// generate data from the prevous point and the radius
+					point.x = parseFloat(xyData[0]);
 					point.y = parseFloat(xyData[1]);
 					//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
 					points.push(point);
@@ -295,7 +294,7 @@ function sceneControl(action, data) {
 				} else if (isFinite(data[0])) {
 					var point = new Point()
 
-						var length = data[0];
+					var length = data[0];
 					var x = length * Math.cos(degrees2radians(angle));
 					var y = length * Math.sin(degrees2radians(angle));
 

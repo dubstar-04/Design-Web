@@ -1,9 +1,6 @@
-
 function getHexColour(acad_colour) {
     // Convert an AutoCAD colour index (ACI) to a hex colour
-
     //console.log("getHexColour");
-
     return conversion_table[acad_colour];
 };
 
@@ -12,8 +9,8 @@ function getACADColour(hex_colour) {
 
     //console.log("getACADColour");
 
-    for(var acad_colour in conversion_table) {
-        if(conversion_table[acad_colour] === hex_colour){
+    for (var acad_colour in conversion_table) {
+        if (conversion_table[acad_colour] === hex_colour) {
             return acad_colour;
         }
     }
@@ -277,6 +274,4 @@ var conversion_table = {
     254: '#D6D6D6',
     255: '#FFFFFF',
     256: '#000000'
-
-
 }

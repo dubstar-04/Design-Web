@@ -1,5 +1,3 @@
-//Qt.include("./geometry/point.js")
-
 // Register this command with the scene
 commands.push({
     command: "Line",
@@ -19,10 +17,10 @@ function Line(data) {
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0 //Transparancy
-        //this.lineType
-        //this.LinetypeScale
-        //this.PlotStyle
-        //this.LineWeight
+    //this.lineType
+    //this.LinetypeScale
+    //this.PlotStyle
+    //this.LineWeight
 
     if (data) {
 
@@ -66,7 +64,7 @@ Line.prototype.draw = function (ctx, scale) {
     }
 
     var colour = this.colour;
-    
+
     if (this.colour === "BYLAYER") {
         colour = LM.getLayerByName(this.layer).colour
     }
@@ -85,13 +83,13 @@ Line.prototype.svg = function () {
     var quote = "\""
     var svgstr = ""
     var data = svgstr.concat("<line x1=", "\"", this.points[0].x, "\"",
-            " y1=", "\"", this.points[0].y, "\"",
-            " x2=", "\"", this.points[1].x, "\"",
-            " y2=", "\"", this.points[1].y, "\"",
-            " stroke=", "\"", this.colour, "\"",
-            " stroke-width=", "\"", this.lineWidth, "\"", "/>"
-        )
-        //console.log(data)
+        " y1=", "\"", this.points[0].y, "\"",
+        " x2=", "\"", this.points[1].x, "\"",
+        " y2=", "\"", this.points[1].y, "\"",
+        " stroke=", "\"", this.colour, "\"",
+        " stroke-width=", "\"", this.lineWidth, "\"", "/>"
+    )
+    //console.log(data)
     return data
 }
 
@@ -259,10 +257,10 @@ Line.prototype.extend = function (points) {
 
         if (Math.round(this.points[originPoint].angle(points[i])) === Math.round(this.points[originPoint ? 0 : 1].angle(this.points[originPoint])))
 
-        // if the destination point is different than the origin add it to the array of valid points
+            // if the destination point is different than the origin add it to the array of valid points
             if (Math.round(this.points[originPoint].distance(points[i])) !== 0) {
-            validPoints.push(i)
-        }
+                validPoints.push(i)
+            }
     }
 
     console.log("line.js - extend - Valid Points:", validPoints.length);
@@ -377,7 +375,7 @@ Line.prototype.closestPoint = function (P) {
 
     var closest = new Point(x, y);
     var distance = distBetweenPoints(P.x, P.y, x, y)
-        //console.log(distance);
+    //console.log(distance);
 
     return [closest, distance]
 

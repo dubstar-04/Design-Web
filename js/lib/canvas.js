@@ -37,8 +37,8 @@ Canvas.prototype.resizeCanvas = function () {
 		this.unflipY()
 		this.flipped = false;
 		this.scale = 1.0
-			this.panX -= this.panX
-			this.panY -= this.panY
+		this.panX -= this.panX
+		this.panY -= this.panY
 	}
 
 	this.context.canvas.width = window.innerWidth;
@@ -58,34 +58,34 @@ Canvas.prototype.mousedown = function (ev) {
 	ev.preventDefault();
 
 	switch (button) {
-	case 0: //left button
-		data = true;
-		sceneControl("LeftClick", data);
-		mouse.downX = mouse.x;
-		mouse.downY = mouse.y;
-		selectingActive = true;
-		break;
-	case 1: //middle button
-		canvas.panning = true;
-		ev.target.style.cursor = "move";
-		var doubleClickThreshold = 250;
-		var thisClick = new Date().getTime();
-		var delta = thisClick - this.lastClick
+		case 0: //left button
+			data = true;
+			sceneControl("LeftClick", data);
+			mouse.downX = mouse.x;
+			mouse.downY = mouse.y;
+			selectingActive = true;
+			break;
+		case 1: //middle button
+			canvas.panning = true;
+			ev.target.style.cursor = "move";
+			var doubleClickThreshold = 250;
+			var thisClick = new Date().getTime();
+			var delta = thisClick - this.lastClick
 			var isDoubleClick = delta < doubleClickThreshold;
-		//console.log(delta, doubleClickThreshold, isDoubleClick)
-		this.lastClick = thisClick;
-		if (isDoubleClick) {
-			//console.log("DoubleClick")
-			this.zoomExtents()
-		}
-		break;
-	case 2: //right button
-		//console.log("right click")
-		//var data = true;
-		//sceneControl("RightClick", data);
-		break;
-		//default:
-		//    default code block
+			//console.log(delta, doubleClickThreshold, isDoubleClick)
+			this.lastClick = thisClick;
+			if (isDoubleClick) {
+				//console.log("DoubleClick")
+				this.zoomExtents()
+			}
+			break;
+		case 2: //right button
+			//console.log("right click")
+			//var data = true;
+			//sceneControl("RightClick", data);
+			break;
+			//default:
+			//    default code block
 	}
 };
 
@@ -95,22 +95,22 @@ Canvas.prototype.mouseup = function (ev) {
 	ev.preventDefault();
 
 	switch (button) {
-	case 0: //left button
-		//console.log("left click")
-		selectingActive = false;
-		selecting([mouse.downX, mouse.downY, mouse.x, mouse.y], "");
-		break;
-	case 1: //middle button
-		//console.log("middle click")
-		canvas.panning = false;
-		canvas.requestPaint();
-		ev.target.style.cursor = "crosshair";
-		break;
-	case 2: //right button
-		//console.log("right click")
-		break;
-		//default:
-		//    default code block
+		case 0: //left button
+			//console.log("left click")
+			selectingActive = false;
+			selecting([mouse.downX, mouse.downY, mouse.x, mouse.y], "");
+			break;
+		case 1: //middle button
+			//console.log("middle click")
+			canvas.panning = false;
+			canvas.requestPaint();
+			ev.target.style.cursor = "crosshair";
+			break;
+		case 2: //right button
+			//console.log("right click")
+			break;
+			//default:
+			//    default code block
 	}
 };
 
@@ -120,17 +120,17 @@ Canvas.prototype.dblclick = function (ev) {
 	ev.preventDefault();
 
 	switch (button) {
-	case 0: //left button
-		console.log("left dbl click")
-		break;
-	case 1: //middle button
-		console.log("middle dbl click")
-		break;
-	case 2: //right button
-		console.log("right dbl click")
-		break;
-		//default:
-		//    default code block
+		case 0: //left button
+			console.log("left dbl click")
+			break;
+		case 1: //middle button
+			console.log("middle dbl click")
+			break;
+		case 2: //right button
+			console.log("right dbl click")
+			break;
+			//default:
+			//    default code block
 	}
 };
 
@@ -172,9 +172,9 @@ ev.preventDefault();
 
 Canvas.prototype.wheel = function (event) {
 	var delta = event.detail ? event.detail / 3 * (-120) : event.wheelDelta //event.detail; //.wheelDelta;
-		//console.log(delta);
+	//console.log(delta);
 
-		var scale = Math.pow(1 + Math.abs(delta / 120) / 2, delta > 0 ? 1 : -1);
+	var scale = Math.pow(1 + Math.abs(delta / 120) / 2, delta > 0 ? 1 : -1);
 	//console.log(scale + " canvas.scale " + canvas.scale)
 	if (scale < 1 && canvas.scale > canvas.minScaleFactor || scale > 1 && canvas.scale < canvas.maxScaleFactor) {
 		canvas.zoom(scale)
@@ -191,7 +191,7 @@ Canvas.prototype.zoom = function (scale) {
 	canvas.context.translate(x, y);
 	canvas.context.scale(scale, scale)
 	canvas.scale = canvas.scale * scale;
-	canvas.context.translate( - (x),  - (y));
+	canvas.context.translate(-(x), -(y));
 	canvas.panX += ((x / scale) - x) * canvas.scale;
 	canvas.panY += ((y / scale) - y) * canvas.scale;
 
@@ -208,15 +208,15 @@ Canvas.prototype.zoomExtents = function () {
 	if (items.length) {
 		console.log("zoom all ")
 		var extents = this.getExtents()
-			this.centreInScene(extents.xmin, extents.xmax, extents.ymin, extents.ymax)
+		this.centreInScene(extents.xmin, extents.xmax, extents.ymin, extents.ymax)
 	}
 }
 
 Canvas.prototype.getExtents = function () {
 	var xmin,
-	xmax,
-	ymin,
-	ymax;
+		xmax,
+		ymin,
+		ymax;
 
 	for (var i = 0; i < items.length; i++) {
 		var extremes = items[i].extremes();
@@ -281,9 +281,9 @@ Canvas.prototype.centreInScene = function (xmin, xmax, ymin, ymax) {
 Canvas.prototype.flipY = function () {
 
 	this.offset = this.context.canvas.height
-		this.context.scale(1, -1)
-		this.context.translate(0, -this.offset)
-		this.panY -= this.offset
+	this.context.scale(1, -1)
+	this.context.translate(0, -this.offset)
+	this.panY -= this.offset
 }
 
 Canvas.prototype.unflipY = function () {
@@ -305,15 +305,15 @@ Canvas.prototype.requestPaint = function () {
 	//Get the number of entities and decide how many to draw
 	var numOfEntities = items.length
 	var i = 0,
-	j = 0,
-	k = 0;
+		j = 0,
+		k = 0;
 
 	if (this.panning || this.zooming) {
 		//If Pan or Zoom is in progress, only draw a portion of the entities
 		if (numOfEntities > 350) {
 			i = (numOfEntities - 350)
 		}
-		}else{
+	} else {
 		//Dont paint the grid if pan or zoom is in progress
 		//this.paintGrid();
 	}
@@ -342,27 +342,27 @@ Canvas.prototype.clear = function () {
 };
 
 Canvas.prototype.paintGrid = function () {
-	
-	    var extents = getSceneExtents();
 
-		var xgridmin = extents.xmin;
-		var xgridmax = extents.xmax;
-		var ygridmin = extents.ymin;
-		var ygridmax = extents.ymax;
+	var extents = getSceneExtents();
 
-		//console.log("Xpan: ", this.panX, " Ypan: ", this.panY, " Scale: ", this.scale)
+	var xgridmin = extents.xmin;
+	var xgridmax = extents.xmax;
+	var ygridmin = extents.ymin;
+	var ygridmax = extents.ymax;
 
-		this.context.strokeStyle = settings.gridColour;
+	//console.log("Xpan: ", this.panX, " Ypan: ", this.panY, " Scale: ", this.scale)
 
-		this.context.lineWidth = 1.5 / this.scale;
-		this.context.beginPath()
-		this.context.moveTo(xgridmin, 0);
-		this.context.lineTo(xgridmax, 0);
-		this.context.moveTo(0, 0);
-		this.context.lineTo(0, ygridmax);
-		this.context.moveTo(0, 0);
-		this.context.lineTo(0, ygridmin);
-		this.context.stroke()
+	this.context.strokeStyle = settings.gridColour;
+
+	this.context.lineWidth = 1.5 / this.scale;
+	this.context.beginPath()
+	this.context.moveTo(xgridmin, 0);
+	this.context.lineTo(xgridmax, 0);
+	this.context.moveTo(0, 0);
+	this.context.lineTo(0, ygridmax);
+	this.context.moveTo(0, 0);
+	this.context.lineTo(0, ygridmin);
+	this.context.stroke()
 
 	if (settings["drawGrid"]) {
 
@@ -388,7 +388,7 @@ Canvas.prototype.paintGrid = function () {
 			this.context.moveTo(i, ygridmin);
 			this.context.lineTo(i, ygridmax);
 			this.context.stroke()
-			
+
 			//Draw scale
 			/*
 			this.unflipY()
