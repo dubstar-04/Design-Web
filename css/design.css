@@ -56,6 +56,12 @@ h3 {
     font-family: Tahoma, Verdana;
 }
 
+h4 {
+	font-size: 12px;
+    font-size: var(--small-text);
+    font-family: Tahoma, Verdana;
+}
+
 p {
 	font-size: 12px;
     font-size: var(--small-text);
