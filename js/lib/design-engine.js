@@ -107,7 +107,7 @@ function sceneControl(action, data) {
 		// data contains the mouse coordinates, set the point x & y
 		if (activeCommand.family === "Geometry") {
 			var point = new Point()
-				point.x = mouse.x; //data[0];
+			point.x = mouse.x; //data[0];
 			point.y = mouse.y; //data[1];
 			points.push(point);
 			promptTracker++;
@@ -115,7 +115,13 @@ function sceneControl(action, data) {
 			console.log("scene.js - handleLeftClickWithCommand points:" + points.length + " minPoints: " + minPoints)
 
 			if (points.length >= minPoints) {
-				addToScene(null, null, activeCommand.limitPoints);
+				if (activeCommand.limitPoints || points.length == minPoints){
+					addToScene(null, null, activeCommand.limitPoints);
+				} else {
+					//Handle items that have already been created. i.e. polyline
+					//The points variable will be incremented so the item should automatically recieve additional points
+					//console.log("add point to polyline. Items length:" + items.length + "points length:" + points.length)
+				}
 			} else {
 				commandLine.setPrompt(promptTracker);
 			}
