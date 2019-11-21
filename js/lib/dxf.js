@@ -518,13 +518,13 @@ DXF.prototype.readCircle = function(){
             // centre x
             this.getDXFLine();
             //debugLog("centre x: " + this.line);
-            pointCentre.x = this.line;
+            pointCentre.x = Number(this.line);
             break;
         case 20:
             // centre y
             this.getDXFLine();
             //debugLog("centre y: " + this.line);
-            pointCentre.y = this.line;
+            pointCentre.y = Number(this.line);
             break;
         case 30:
             // centre z
