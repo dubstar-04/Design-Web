@@ -24,11 +24,8 @@ CommandLine.prototype.resetPrompt = function () {
     this.update();
 }
 
-CommandLine.prototype.setPrompt = function (index) {
-    //var position = previous ? points.length : points.length+2;
-    console.log("[CommandLine.setPrompt] Index: ", index)
-    console.log("[CommandLine.setPrompt] type: ", activeCommand.type)
-    this.prompt = activeCommand.type + ": " + activeCommand.prompt(Number(index));
+CommandLine.prototype.setPrompt = function (prompt) {
+    this.prompt = activeCommand.type + ": " + prompt;
 	this.command = "";
     this.update();
 }
@@ -58,8 +55,8 @@ CommandLine.prototype.handleKeys = function (e) {
             this.enterPressed(e);
             break;
         case 27: // Escape
-            var data = true;
-            sceneControl("RightClick", data);
+            var data = [];
+            sceneControl("RightClick", []);
             break;
         case 32: // space
             this.enterPressed(e);
@@ -81,7 +78,7 @@ CommandLine.prototype.handleKeys = function (e) {
         default:
 		var keyValue = this.keyboardmap(charCode)
 		if(keyValue){
-			console.log("KeyValue: ", keyValue)
+			//console.log("KeyValue: ", keyValue)
 			e.preventDefault();
             this.command = this.command + keyValue; //String.fromCharCode(charCode);
             this.update();
@@ -151,7 +148,7 @@ CommandLine.prototype.enterPressed = function (event) {
         //console.log(data[0])
         sceneControl("Enter", data);
     } else {
-        var data = ["reset-repeat"];
+        var data = [];
         sceneControl("Enter", data);
     }
 
