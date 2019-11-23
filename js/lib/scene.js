@@ -7,8 +7,9 @@ var tempPoints = new Array(); // Temporary Array to store points while input is 
 var selectedItems = new Array(); // store a copy of selected items
 var selectionSet = new Array(); // store a list of selected items indices
 var selectionAccepted = false; // Store a bool so we know when the selectionSet has been accepted
-var activeCommand = ""; // Store the name of the active command
+var activeCommand = undefined; // Store the name of the active command
 var promptTracker = 0;
+var inputArray = new Array(); //Temporary Array to store input values. 
 
 var lastCommand = new Array(); // Store the last command
 var lastCommandPosition = -1; // Store the current position on the command history
@@ -27,7 +28,7 @@ function reset() {
 	console.log(" scene.js - Reset: In Reset");
 	points = []; // clear array
 	minPoints = 0; // reset minimum required points
-	activeCommand = ""; // reset the active command
+	activeCommand = undefined; // reset the active command
 	tempItems = [];
 	selectedItems = [];
 	selectionSet = [];
@@ -37,6 +38,7 @@ function reset() {
 	//resetCommandPrompt();
 	commandLine.resetPrompt();
 	promptTracker = 0;
+	inputArray = [];
 	canvas.requestPaint();
 	//sceneQmlObject.selectionSetChange();
 }
@@ -93,7 +95,8 @@ function addToScene(type, data, end, index) {
 		data = {
 			points: points,
 			colour: colour,
-			layer: LM.getCLayer()
+			layer: LM.getCLayer(),
+			input: inputArray
 		};
 	}
 
@@ -390,7 +393,7 @@ function writeCoordinates(label, coordinates) {
 	mouse.x = coordinates[0]; //set the mouse coordinates
 	mouse.y = coordinates[1]; //set the mouse coordinates
 
-	if (activeCommand.family === "Geometry" || selectionAccepted === true && activeCommand.movement !== "Modify") {
+	if (activeCommand !== undefined && activeCommand.family === "Geometry" || selectionAccepted === true && activeCommand.movement !== "Modify") {
 		snapping();
 	}
 
@@ -420,7 +423,7 @@ function writeCoordinates(label, coordinates) {
 		point.y = mouse.y;
 		tempPoints.push(point);
 
-		if (activeCommand.helper_geometry) {
+		if (activeCommand !== undefined && activeCommand.helper_geometry) {
 			//Make a new array of points with the base point and the current mouse position.
 			var helperPoints = new Array();
 			helperPoints.push(tempPoints[0]);
@@ -429,13 +432,16 @@ function writeCoordinates(label, coordinates) {
 			addHelperGeometry("Line", helperPoints, settings.helperGeometryColour.toString())
 		}
 
-		if (activeCommand.family === "Geometry" && tempPoints.length >= activeCommand.minPoints) {
+		if (activeCommand !== undefined && activeCommand.showPreview && activeCommand.family === "Geometry" && tempPoints.length >= activeCommand.minPoints) {
+			
 			addHelperGeometry(activeCommand.type, tempPoints, settings.helperGeometryColour.toString())
 			canvas.requestPaint(); //Improve requests to paint as it is called too often.
 		}
 
-		if (activeCommand.family === "Tools") {
+		if (activeCommand !== undefined && activeCommand.family === "Tools" && selectionAccepted) {
+			console.log("preview")
 			activeCommand.preview(tempPoints, selectedItems, items);
+			canvas.requestPaint();
 		}
 
 		angle = radians2degrees(previousPoint.angle(mouse))
