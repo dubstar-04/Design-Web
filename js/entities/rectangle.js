@@ -10,8 +10,9 @@ function Rectangle(data) //startX, startY, endX, endY)
     this.type = "Rectangle";
     this.family = "Geometry";
     this.minPoints = 2;
-    this.limitPoints = true;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = true;
+    //this.allowMultiple = false;
     this.helper_geometry = false; // If true a Line will be drawn between points when defining geometry
     this.points = [];
     this.lineWidth = 2; //Thickness
@@ -50,19 +51,31 @@ function Rectangle(data) //startX, startY, endX, endY)
     }
 }
 
-Rectangle.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick start point:";
-            break;
-        case (1):
-            prompt = "Pick opposite corner:";
-            break;
-    }
+Rectangle.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
 
-    return prompt
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick the start point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick opposite corner:";
+
+    expectedType[2] = "object";   
+    prompt[2] = prompt[1];
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Rectangle.prototype.draw = function (ctx, scale) {

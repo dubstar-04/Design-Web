@@ -11,22 +11,38 @@ function Copy()
     this.dimInput = true; //allow a single number to be input
 }
 
-Copy.prototype.prompt = function(num) {
-  //input prompt
-  var prompt
-  switch(num){
-  case (0):
-      prompt = "Select Items To" + this.type;
-      break;
-  case (1):
-      prompt = "Select Base Point:";
-      break;
-  case (2):
-      prompt = "Select Destination or Enter Distance:";
-      break;
-  }
+Copy.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
 
-  return prompt
+    expectedType[0] = "undefined";
+    prompt[0] = "Select Items To " + this.type;
+ 
+    expectedType[1] = "object";   
+    prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to accept";
+ 
+    expectedType[2] = "boolean";    
+    prompt[2] = "Select Base Point:";
+ 
+    expectedType[3] = "object";    
+    prompt[3] = "Select Destination or Enter Distance:";
+ 
+    expectedType[4] = "object";   
+    prompt[4] = "";
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === 4){
+        action = true;
+        reset = true
+    }
+
+    return [prompt[inputArray.length], reset, action]
 }
 
 Copy.prototype.action = function(points, items){

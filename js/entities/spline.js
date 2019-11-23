@@ -12,8 +12,9 @@ function Spline(data) //startX, startY, endX, endY)
     this.type = "Spline";
     this.family = "Geometry";
     this.minPoints = 3;
-    this.limitPoints = false;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = false;
+    //this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.lineWidth = 2; //Thickness
@@ -59,26 +60,31 @@ function Spline(data) //startX, startY, endX, endY)
 }
 
 
-Spline.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick start point:";
-            break;
-        case (1):
-            prompt = "Pick another point or press ESC:";
-            break;
-        case (2):
-            this.helper_geometry = false;
-            prompt = "Pick another point or press ESC:";
-            break;
-        case (3):
-            prompt = "Pick end point or press ESC:";
-            break;
-    }
+Spline.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
 
-    return prompt
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick start point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick another point or press ESC to quit:";
+
+    expectedType[2] = "object";   
+    prompt[2] = prompt[1];
+            
+    if(typeof inputArray[num-1] !== expectedType[num] || num > this.minPoints){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        //reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Spline.prototype.draw = function (ctx, scale) {

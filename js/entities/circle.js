@@ -10,8 +10,9 @@ function Circle(data) //centreX, centreY, endX, endY)
     this.type = "Circle";
     this.family = "Geometry";
     this.minPoints = 2;
-    this.limitPoints = true;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = true;
+    //this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
 
     this.points = [];
@@ -45,11 +46,35 @@ function Circle(data) //centreX, centreY, endX, endY)
 }
 
 Circle.prototype.calculateRadius = function () {
-
     this.radius = distBetweenPoints(this.points[0].x, this.points[0].y, this.points[1].x, this.points[1].y);
-
 }
 
+Circle.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick the centre point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick another point or Enter radius:";
+
+    expectedType[2] = "object";   
+    prompt[2] = prompt[1];
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
+}
 
 Circle.prototype.draw = function (ctx, scale) {
 
@@ -157,27 +182,10 @@ Circle.prototype.trim = function (points) {
 }
 
 Circle.prototype.intersectPoints = function () {
-
     return {
         centre: this.points[0],
         radius: this.radius
     }
-
-}
-
-Circle.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick the centre point:";
-            break;
-        case (1):
-            prompt = "Pick another point or Enter radius:";
-            break;
-    }
-
-    return prompt
 }
 
 Circle.prototype.snaps = function (mousePoint, delta) {

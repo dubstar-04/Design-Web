@@ -10,14 +10,15 @@ function Text(data) //startX, startY, endX, endY)
     this.type = "Text";
     this.family = "Geometry";
     this.minPoints = 1;
-    this.limitPoints = true;
-    this.allowMultiple = false;
+    //this.limitPoints = true;
+    //this.allowMultiple = false;
+    this.showPreview = false; //show preview of item as its being created
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
 
     this.points = [];
 
     //this.TextWidth = 2;         //Thickness
-    this.font = "Ubuntu"
+    this.font = "Arial"
     this.string = ""
     this.height = 2.5;
     this.rotation = 0;
@@ -39,21 +40,40 @@ function Text(data) //startX, startY, endX, endY)
 
     if (data) {
 
-        console.log("text.js - string:", data.string, "rotation: ", data.rotation, " hAlign: ", data.horizontalAlignment, " vAlign: ", data.verticalAlignment)
+        for (var i=0; data.length; i++){
+
+            console.log("Data: " + i + " : " + data[i])
+    
+        }
+
+        //console.log("text.js - string:", data.string, "rotation: ", data.rotation, " hAlign: ", data.horizontalAlignment, " vAlign: ", data.verticalAlignment)
 
         this.points = data.points;
-        this.colour = data.colour;
-        this.layer = data.layer;
-        this.string = data.string;
-        this.height = data.height;
-        this.rotation = data.rotation;
-        this.horizontalAlignment = data.horizontalAlignment;
-        this.verticalAlignment = data.verticalAlignment;
+        this.height = data.input[1];
+        this.string = data.input[2];
+
+        if (data.colour) {
+            this.colour = data.colour;
+        }
+
+        if (data.layer) {
+            this.layer = data.layer;
+        }
+
+        //this.colour = data.colour;
+        //this.layer = data.layer;
+        //this.string = data.string;
+        //this.height = data.height;
+        //this.rotation = data.rotation;
+        //this.horizontalAlignment = data.horizontalAlignment;
+        //this.verticalAlignment = data.verticalAlignment;
+
+        /*
 
         switch (data.flags) {
             /* DXF Data
             2 = Text is backward (mirrored in X).
-            4 = Text is upside down (mirrored in Y). */
+            4 = Text is upside down (mirrored in Y). 
             case 2:
                 this.backwards = true;
                 break;
@@ -65,7 +85,41 @@ function Text(data) //startX, startY, endX, endY)
                 this.backwards = true;
                 break;
         }
+
+        */
+        
+        
     }
+}
+
+Text.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick start point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Enter height:";
+
+    expectedType[2] = "number";   
+    prompt[2] = "Enter text:";
+
+    expectedType[3] = "string"; 
+    prompt[3] = "";
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === 3){
+        action = true;
+        reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Text.prototype.width = function () {
@@ -124,41 +178,16 @@ Text.prototype.getVerticalAlignment = function () {
     }
 }
 
-Text.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (1):
-            prompt = i18n.tr("Pick start point:");
-            break;
-        case (1):
-            prompt = i18n.tr("Enter height");
-            break;
-        case (2):
-            prompt = i18n.tr("Enter text");
-            break;
-    }
-
-    return prompt
-}
-
 Text.prototype.getBoundingRect = function () {
 
-    /*
+    //var textData = Qt.createQmlObject('import QtQuick 2.4; TextMetrics{id: textMetrics}', canvas, "textMetrics");
+    //textData.font.family = this.font;
+    //textData.font.pixelSize = this.height;
+    //textData.text = this.string
+    
+    var rect = {width: Number(this.width()), height: Number(this.height), x: this.points[0].x, y: this.points[0].y}
 
-FontMetrics {
-    id: fontMetrics
-    font.family: "Arial"
-}
-
-      */
-
-    var textData = Qt.createQmlObject('import QtQuick 2.4; TextMetrics{id: textMetrics}', canvas, "textMetrics");
-
-    textData.font.family = this.font;
-    textData.font.pixelSize = this.height;
-    textData.text = this.string
-    return textData.tightBoundingRect; //.height //tightBoundingRect(this.string).height
+    return rect
 }
 
 Text.prototype.draw = function (ctx, scale) {
@@ -179,17 +208,20 @@ Text.prototype.draw = function (ctx, scale) {
 
     ctx.strokeStyle = colour;
     //ctx.TextWidth = this.TextWidth/scale;
-    ctx.beginPath()
+    //ctx.beginPath()
 
-    ctx.font = this.height + "px " + this.font.toString();
+    ctx.font = this.height + "pt " + this.font.toString();
     ctx.fillStyle = colour;
-    ctx.textAlign = this.getHorizontalAlignment();
-    ctx.textBaseline = this.getVerticalAlignment();
+
+   
+   // ctx.textAlign = this.getHorizontalAlignment();
+   // ctx.textBaseline = this.getVerticalAlignment();
 
     ctx.save();
     ctx.scale(1, -1);
     ctx.translate(this.points[0].x, -this.points[0].y);
 
+    /*
     if (this.upsideDown) {
         ctx.scale(1, -1);
     }
@@ -211,12 +243,11 @@ Text.prototype.draw = function (ctx, scale) {
     ctx.lineTo(rect.x + rect.width, rect.y + rect.height);
     ctx.lineTo(rect.x, rect.y + rect.height);
     ctx.lineTo(rect.x, rect.y);
+    */
 
     //// Test Height
 
-
-
-    ctx.text(this.string, 0, 0)
+    ctx.fillText(this.string, 0, 0)
     ctx.stroke()
     ctx.restore();
 }
@@ -260,12 +291,11 @@ Text.prototype.closestPoint = function (P) {
 Text.prototype.extremes = function () {
 
     var rect = this.getBoundingRect()
-
     var xmin = rect.x;
     var xmax = rect.x + rect.width;
     var ymin = rect.y;
     var ymax = rect.y + rect.height;
-
+    //console.log("Rect:" + xmin + " " +  xmax + " " +  ymin + " " +  ymax)
     return [xmin, xmax, ymin, ymax]
 }
 

@@ -6,23 +6,34 @@ function Identify()
     this.family = "Tools";
     this.movement = "None";
     this.minPoints = 1;
-	this.selectionRequired = false;
+	  this.selectionRequired = false;
     this.limitPoints = true;
 }
 
-Identify.prototype.prompt = function(num) {
-  //input prompt
-    var prompt
-  switch(num){
-	case (0):
-      prompt = "File A BUG!!";
-      break;
-  case (1):
-      prompt = "Select Point";
-      break;
+Identify.prototype.prompt = function(inputArray) {
+  var num = inputArray.length;
+  var expectedType = [];
+  var reset = false;
+  var action = false;
+  var prompt = [];
+
+  expectedType[0] = "undefined";
+  prompt[0] = "Select Point:";
+
+  expectedType[1] = "object";    
+  prompt[1] = "";
+
+
+  if(typeof inputArray[num-1] !== expectedType[num]){
+      inputArray.pop()
   }
 
-  return prompt
+  if (inputArray.length === this.minPoints){
+      action = true;
+      reset = true
+  }
+
+  return [prompt[inputArray.length], reset, action]
 }
 
 Identify.prototype.preview = function(num) {
@@ -33,6 +44,6 @@ return;
 
 Identify.prototype.action = function(points, items){
 	
-    var id = (" X: " + points[0].x.toFixed(1) + " Y:" + points[0].y.toFixed(1));		
+  var id = (" X: " + points[0].x.toFixed(1) + " Y:" + points[0].y.toFixed(1));		
 	notify(id)
 }

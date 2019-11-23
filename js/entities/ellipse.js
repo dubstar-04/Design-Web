@@ -10,8 +10,9 @@ function Ellipse(data) //centre_x, centre_y, endX, endY)
     this.type = "Ellipse";
     this.family = "Geometry";
     this.minPoints = 3;
-    this.limitPoints = true;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = true;
+    //this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
 
     this.points = [];
@@ -49,6 +50,39 @@ function Ellipse(data) //centre_x, centre_y, endX, endY)
         }
     }
 }
+
+Ellipse.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick the centre point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick start point:";
+
+    expectedType[2] = "object";   
+    prompt[2] = "Pick end point:";
+
+    expectedType[3] = "object";   
+    prompt[3] = "";
+    
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        reset = true;
+        this.helper_geometry = false;
+    }
+    return [prompt[inputArray.length], reset, action]
+}
+
 
 
 Ellipse.prototype.draw = function (ctx, scale) {
@@ -165,27 +199,6 @@ Ellipse.prototype.intersectPoints = function () {
     }
 
 }
-
-Ellipse.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick the centre point:";
-            break;
-        case (1):
-            prompt = "Pick a second point:";
-            break;
-        case (2):
-            prompt = "Pick a third point:";
-            this.helper_geometry = false;
-            break;
-    }
-
-    return prompt
-}
-
-
 
 Ellipse.prototype.snaps = function (mousePoint, delta) {
 

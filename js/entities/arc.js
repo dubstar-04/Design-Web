@@ -10,8 +10,9 @@ function Arc(data) //centreX, centreY, endX, endY)
     this.type = "Arc";
     this.family = "Geometry";
     this.minPoints = 3; //Should match number of cases in prompt
-    this.limitPoints = true;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = true;
+    //this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.radius = 0;
@@ -68,6 +69,38 @@ Arc.prototype.direction = function () {
 
     return end < start; // < end;
 
+}
+
+Arc.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick the centre point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick start point:";
+
+    expectedType[2] = "object";   
+    prompt[2] = "Pick end point:";
+
+    expectedType[3] = "object";   
+    prompt[3] = "";
+    
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        reset = true;
+        this.helper_geometry = false;
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Arc.prototype.draw = function (ctx, scale) {
@@ -155,25 +188,6 @@ Arc.prototype.intersectPoints = function () {
         endAngle: this.endAngle()
     }
 
-}
-
-Arc.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick the centre point:";
-            break;
-        case (1):
-            prompt = "Pick start point:";
-            break;
-        case (2):
-            prompt = "Pick end point:";
-            this.helper_geometry = false; // Turn off the helper geometry
-            break;
-    }
-
-    return prompt
 }
 
 Arc.prototype.snaps = function (mousePoint, delta) {

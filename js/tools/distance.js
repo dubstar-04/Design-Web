@@ -6,26 +6,36 @@ function Distance()
     this.family = "Tools";
     this.movement = "None";
     this.minPoints = 2;
-	this.selectionRequired = false;
+	  this.selectionRequired = false;
     this.limitPoints = true;
 }
 
-Distance.prototype.prompt = function(num) {
-  //input prompt
-    var prompt
-  switch(num){
-	case (0):
-      prompt = "File A BUG!!";
-      break;
-  case (1):
-      prompt = "Select Start Point";
-      break;
-  case (2):
-      prompt = "Select End Point";
-      break;
+Distance.prototype.prompt = function(inputArray) {
+  var num = inputArray.length;
+  var expectedType = [];
+  var reset = false;
+  var action = false;
+  var prompt = [];
+
+  expectedType[0] = "undefined";
+  prompt[0] = "Select Start Point:";
+
+  expectedType[1] = "object";   
+  prompt[1] = "Select End Point:";
+
+  expectedType[2] = "object";    
+  prompt[2] = "";
+
+  if(typeof inputArray[num-1] !== expectedType[num]){
+      inputArray.pop()
   }
 
-  return prompt
+  if (inputArray.length === this.minPoints){
+      action = true;
+      reset = true
+  }
+
+  return [prompt[inputArray.length], reset, action]
 }
 
 Distance.prototype.preview = function(num) {
@@ -39,7 +49,7 @@ Distance.prototype.action = function(points, items){
     //var point1 = new Point(points[0].x, points[0].y)
     //var point2 = new Point(points[1].x, points[1].y)
 
-    var di = ("Length:" + distBetweenPoints(points[0].x, points[0].y, points[1].x, points[1].y).toFixed(1)
+    var di = (" Length: " + distBetweenPoints(points[0].x, points[0].y, points[1].x, points[1].y).toFixed(1)
                 + " X: " + (points[1].x - points[0].x).toFixed(1) + " Y:" + (points[1].y - points[0].y).toFixed(1));
 				
 	notify(di)

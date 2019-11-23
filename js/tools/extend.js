@@ -11,27 +11,47 @@ function Extend(items)
     this.dimInput = false; //allow a single number to be input
 }
 
-Extend.prototype.prompt = function(num) {
-    //input prompt
-    var prompt
-    switch(num){
-    case (0):
-        prompt = "Select boundary edges:";
-        break;
-    case (1):
-        prompt = "Select object to extend:";
-        break;
-    default:
-        prompt = "Select another object to extend or press ESC to quit:";
+Extend.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    console.log("inputArray: ", inputArray)
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Select boundary edges:";
+
+    expectedType[1] = "object";   
+    prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to accept";
+ 
+    expectedType[2] = "boolean";   
+    prompt[2] = "Select object to extend:";
+
+    expectedType[3] = "object";    
+    prompt[3] = "Select another object to Trim or press ESC to quit:";
+ 
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
     }
-    return prompt
+    
+   if (inputArray.length === 3){
+        action = true;
+        //reset = true
+    }
+
+    return [prompt[inputArray.length], reset, action]
 }
 
-Extend.prototype.action = function(item){
+Extend.prototype.action = function(){
 
     console.log("Extend.js: Extend.prototype.action")
 
     console.log("Extend.js: selectionset length:", selectionSet.length)
+
+    var item = findClosestItem();
 
     var intersectPoints = [];
 

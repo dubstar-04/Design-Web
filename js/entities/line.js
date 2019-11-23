@@ -9,8 +9,9 @@ function Line(data) {
     this.type = "Line";
     this.family = "Geometry";
     this.minPoints = 2;
-    this.limitPoints = false;
-    this.allowMultiple = true;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = false;
+    //this.allowMultiple = true;
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.lineWidth = 2; //Thickness
@@ -43,18 +44,34 @@ function Line(data) {
     }
 }
 
-Line.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick start point:";
-            break;
-        default:
-            prompt = "Pick another point or press ESC to quit:";
-    }
+Line.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
 
-    return prompt
+    console.log("inputArray: ", inputArray)
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick start point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick another point or press ESC to quit:";
+
+    expectedType[2] = "object";   
+    prompt[2] = prompt[1];
+            
+    if(typeof inputArray[num-1] !== expectedType[num] || num > this.minPoints){
+        console.log("pop")
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        //reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Line.prototype.draw = function (ctx, scale) {

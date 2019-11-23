@@ -9,8 +9,9 @@ function Polyline(data) {
     this.type = "Polyline";
     this.family = "Geometry";
     this.minPoints = 2;
-    this.limitPoints = false;
-    this.allowMultiple = false;
+    this.showPreview = true; //show preview of item as its being created
+    //this.limitPoints = false;
+    //this.allowMultiple = false;
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
     this.points = [];
     this.lineWidth = 2; //Thickness
@@ -36,18 +37,32 @@ function Polyline(data) {
     }
 }
 
-Polyline.prototype.prompt = function (num) {
-    //input prompt
-    var prompt
-    switch (num) {
-        case (0):
-            prompt = "Pick start point:";
-            break;
-        default:
-            prompt = "Pick another point or press ESC to quit:";
-    }
+Polyline.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
 
-    return prompt
+    expectedType[0] = "undefined";
+    prompt[0] = "Pick start point:";
+ 
+    expectedType[1] = "object";   
+    prompt[1] = "Pick another point or press ESC to quit:";
+
+    expectedType[2] = "object";   
+    prompt[2] = prompt[1];
+            
+    if(typeof inputArray[num-1] !== expectedType[num] || num > this.minPoints){
+        console.log("pop")
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === this.minPoints){
+        action = true;
+        //reset = true
+    }
+    return [prompt[inputArray.length], reset, action]
 }
 
 Polyline.prototype.draw = function (ctx, scale) {

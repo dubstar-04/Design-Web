@@ -11,25 +11,41 @@ function Rotate(items)
     this.dimInput = true; //allow a single number to be input
 }
 
-Rotate.prototype.prompt = function(num) {
-    //input prompt
-        var prompt
-    switch(num){
-    case (0):
-        prompt = "Select Items To " + this.type;
-        break;
-    case (1):
-        prompt = "Select Base Point:";
-        break;
-    case (2):
-        prompt = "Select Start Point or Enter Angle:";
-        break;
-    case (3):
-        prompt = "Select End Angle:";
-        break;
+Rotate.prototype.prompt = function (inputArray) {
+    var num = inputArray.length;
+    var expectedType = [];
+    var reset = false;
+    var action = false;
+    var prompt = [];
+
+    expectedType[0] = "undefined";
+    prompt[0] = "Select Items To " + this.type;
+ 
+    expectedType[1] = "object";   
+    prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to accept";
+ 
+    expectedType[2] = "boolean";    
+    prompt[2] = "Select Base Point:";
+ 
+    expectedType[3] = "object";    
+    prompt[3] = "Select Start Point or Enter Angle:";
+
+    expectedType[4] = "object";   
+    prompt[4] = "Select End Angle:";
+ 
+    expectedType[5] = "object";   
+    prompt[5] = "";
+            
+    if(typeof inputArray[num-1] !== expectedType[num]){
+        inputArray.pop()
+    }
+    
+   if (inputArray.length === 5){
+        action = true;
+        reset = true
     }
 
-    return prompt
+    return [prompt[inputArray.length], reset, action]
 }
 
 Rotate.prototype.preview = function(points, selectedItems, items){
