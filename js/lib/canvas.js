@@ -59,7 +59,7 @@ Canvas.prototype.mousedown = function (ev) {
 
 	switch (button) {
 		case 0: //left button
-			data = true;
+			data = [];
 			sceneControl("LeftClick", data);
 			mouse.downX = mouse.x;
 			mouse.downY = mouse.y;
