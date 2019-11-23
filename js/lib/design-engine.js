@@ -1,7 +1,130 @@
-function processItem(item) {
-	console.log(" scene.js - Item To Process: " + item)
+function sceneControl(action, data) {
+
+	var input = data[0];
+	var inputData = undefined;
+	var expectedInputType = undefined;
+	//Create Point to hold any new position
+	var point = new Point()
+
+	//console.log("sceneControl - InputAction:" + action);
+	//console.log("sceneControl - InputData:" + data);
+	//console.log("sceneControl - Var Input:" + input);
+
+	var isNumber = /(\d+(\.\d+)?)/.test(input);
+	var isLetters = /^[A-Za-z]+$/.test(input);
+	var isPoint = /^\d+,\d+$/.test(input);
+	var isUndefined = input == undefined
+
+	//console.log("sceneControl - only Numbers " + isNumber)
+	//console.log("sceneControl - only Letters " + isLetters)
+	//console.log("sceneControl - is Point " + isPoint)
+	//console.log("sceneControl - is Undefined " + isUndefined)
+
+	if (action === "RightClick") {
+		reset()
+		return
+	}
+
+	if (action === "Enter" && isUndefined) {
+		if (activeCommand !== undefined && activeCommand.family === "Tools" && selectionSet.length) {
+			selectionAccepted = true;
+			inputData = true;
+		} else if (activeCommand !== undefined) {
+			reset()
+			return
+		} else if (activeCommand == undefined) {
+			initialiseItem(lastCommand[0]);
+		}
+	}
+
+	if (isPoint) {
+		console.log("design engine - comma seperated point - create new point ")
+		var xyData = input.split(',');
+		point.x = parseFloat(xyData[0]);
+		point.y = parseFloat(xyData[1]);
+		inputData = point;
+		points.push(inputData);
+	}
+
+	if (action === "LeftClick") {
+		console.log("design engine - left click- create new point ")
+
+
+		var point = new Point()
+		point.x = mouse.x; //data[0];
+		point.y = mouse.y; //data[1];
+		inputData = point;
+		if (activeCommand !== undefined && activeCommand.family === "Geometry" || selectionAccepted) {
+			points.push(inputData);
+		}
+
+		if (activeCommand !== undefined && activeCommand.family === "Tools" && !selectionAccepted) {
+			var closestItem = selectClosestItem(data);
+		}
+	}
+
+	if (isNumber) {
+		console.log("design engine - Numbers Recieved")
+		//inputData = Number(input);
+		point = convertInputToPoint(Number(input))
+		inputData = Number(input);
+		points.push(point);
+	}
+
+	if (isLetters && !isUndefined) {
+		console.log("design-engine - Letters Recieved")
+		inputData = String(input);
+	}
+
+	///////////////////////////////////////////////////////////////////////
+	////////////////////// handle the new inputData //////////////////////
+	/////////////////////////////////////////////////////////////////////
+
+	if (activeCommand !== undefined) {
+		inputArray.push(inputData)
+		actionInput();
+	} else if (isCommand(getCommandFromShortcut(input))) {
+		initialiseItem(getCommandFromShortcut(input));
+		if (activeCommand.family === "Tools" && selectionSet.length || activeCommand.selectionRequired === false) {
+			if (activeCommand.selectionRequired) {
+
+				inputArray.push(selectionSet)
+			}
+			selectionAccepted = true;
+		}
+		actionInput();
+	} else {
+		console.log("End of design-engine")
+	}
+
+	///////////////////////////////////////////////////////////////////////
+	////////////////////// handle the new inputData //////////////////////
+	/////////////////////////////////////////////////////////////////////
+
+}
+
+function actionInput() {
+
+	[prompt, resetBool, actionBool] = activeCommand.prompt(inputArray);
+	console.log("prompt: " + prompt + " reset: " + resetBool + " action: " + actionBool)
+	commandLine.setPrompt(prompt);
+
+	if (actionBool) {
+		if (activeCommand.family === "Tools") {
+			activeCommand.action(points, items);
+		} else {
+			addToScene(null, null, resetBool)
+		}
+	}
+
+	if (resetBool) {
+		reset();
+	}
+}
+
+function initialiseItem(item) {
+	console.log(" design-engine - Item To Process: " + item)
 	saveRequired();
-	//reset();
 
 	if (lastCommand.indexOf(item) !== -1) { // only store command once
 		lastCommand.splice(lastCommand.indexOf(item), 1); // if the command is already in the array, Erase it
@@ -20,313 +143,35 @@ function processItem(item) {
 
 	activeCommand = new this[item]; // Convert the 'item' string in to a new object, Line, Circle...
 
-
-	if (activeCommand.family === "Geometry") { // if the active item exists
-		minPoints = activeCommand.minPoints // Get the number if minimum points required for the new item
-		commandLine.setPrompt(promptTracker);
-	} else if (activeCommand.family === "Tools" && items.length) {
-		if (selectionSet.length || activeCommand.selectionRequired === false) {
-			minPoints = activeCommand.minPoints
-			promptTracker++;
-			commandLine.setPrompt(promptTracker);
-			selectionAccepted = true;
-			if (activeCommand.minPoints === 0) {
-				///Erase??
-				activeCommand.action(points, items);
-				reset();
-				canvas.requestPaint();
-			}
-		} else {
-			commandLine.setPrompt(promptTracker);
-		}
-
-	} else {
-		console.log(" scene.js - processItem: activeCommand === undefined")
-		reset()
-	}
 };
 
-///////////////////////////////////////////////////////////////////////
-////////// This is the main function that contols the scene //////////
-/////////////////////////////////////////////////////////////////////
-function sceneControl(action, data) {
+function convertInputToPoint(input) {
+	var point = new Point()
+	var x = input * Math.cos(degrees2radians(angle));
+	var y = input * Math.sin(degrees2radians(angle));
+	// generate data from the prevous point and the radius
+	point.x = points[points.length - 1].x + x;
+	point.y = points[points.length - 1].y + y;
 
-	function handleLeftClick(data) {
-		console.log(" scene.js - HandleLeftClick - find the closest item")
-		console.log(" scene.js - clicked: " + data)
-		selectClosestItem(data);
-	}
+	return point
+}
 
-	function handleEnter(data) {
-
-		console.log(" scene.js - HandleEnter")
-		console.log("Selected Command: " + data[0])
-		//console.log("Available commands:")
-
-		var currentCommand = "";
-
-		if (data[0] === 'reset-repeat') {
-			console.log("[design-engine] handleEnter - lastCommand: ", lastCommand[0]);
-			currentCommand = lastCommand[0];
-		} else {
-			currentCommand = getCommandFromShortcut(data[0].toUpperCase())
-		}
-		console.log("Process: " + currentCommand);
-		processItem(currentCommand);
-	}
-
-	function getCommandFromShortcut(shortcut) {
-
-		var commandFromShortcut = shortcut
-
-		for (var i = 0; i < commands.length; i++) {
-
-			if (commands[i].shortcut === shortcut) {
-				commandFromShortcut = commands[i].command;
-			}
-		}
-
-		return commandFromShortcut
-	}
-
-	function isCommand(command) {
-
-		for (var i = 0; i < commands.length; i++) {
-
-			if (commands[i].command === command) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	function handleLeftClickwithCommand(data) {
-		console.log(" scene.js - scene.js: handleLeftClickwithCommand")
-		// data contains the mouse coordinates, set the point x & y
-		if (activeCommand.family === "Geometry") {
-			var point = new Point()
-			point.x = mouse.x; //data[0];
-			point.y = mouse.y; //data[1];
-			points.push(point);
-			promptTracker++;
-
-			console.log("scene.js - handleLeftClickWithCommand points:" + points.length + " minPoints: " + minPoints)
-
-			if (points.length >= minPoints) {
-				if (activeCommand.allowMultiple || points.length == minPoints) {
-					//AllowMultiple: Only Create Items once. i.e. polyline
-					//Items where (limitPoints = false) will should automatically recieve additional points
-					addToScene(null, null, activeCommand.limitPoints);
-				}
-
-			} else {
-				commandLine.setPrompt(promptTracker);
-			}
-		} else if (activeCommand.family === "Tools") {
-
-			console.log(" scene.js - scene.js: handleLeftClickwithCommand- Selected Items:" + selectedItems.length)
-			console.log(" scene.js - Tool Command")
-
-			if (selectionAccepted) { // || activeCommand.selectionRequired === false) {
-				promptTracker++;
-
-				if (activeCommand.movement === "Modify") {
-					console.log("scene.js - handle left click with command - trim/extend")
-					var closestItem = findClosestItem();
-
-					if (closestItem !== undefined) {
-						activeCommand.action(closestItem);
-					}
-				} else {
-
-					var point = new Point()
-					point.x = mouse.x; //data[0];
-					point.y = mouse.y; //data[1];
-					points.push(point);
-
-					if (points.length >= minPoints) {
-						//if we have all the required points then make the change
-						activeCommand.action(points, items);
-						if (activeCommand.limitPoints) {
-							reset();
-						} else {
-							commandLine.setPrompt(promptTracker);
-						}
-						canvas.requestPaint();
-
-					} else {
-						commandLine.setPrompt(promptTracker);
-					}
-				}
-			} else {
-				selectClosestItem(data);
-				if (selectionSet.length) {
-					commandLine.setPromptText(selectionSet.length + " Item(s) selected: Add more or press Enter to accept")
-				}
-			}
+function isCommand(command) {
+	for (var i = 0; i < commands.length; i++) {
+		if (commands[i].command === command) {
+			return true;
 		}
 	}
+	return false;
+}
 
-	function handleEnterwithCommand(data) {
+function getCommandFromShortcut(shortcut) {
 
-		console.log("scene.js - scene.js: handleEnterwithCommand - DATA 0:", data[0])
-
-		if (isCommand(getCommandFromShortcut(data[0]))) {
-			console.log("scene.js - scene.js: handleEnterwithCommand - New Command: Reset State")
-			reset()
-			processItem(getCommandFromShortcut(data[0]))
-		} else {
-
-			if (activeCommand.family === "Tools") {
-				////////// Typed Point x,y //////////
-				if (data[0].indexOf(",") !== -1) {
-					console.log(" scene.js - Coordinates Entered")
-					if (selectionAccepted) {
-						var xyData = data[0].split(',');
-						var point = new Point()
-						// generate data from the prevous point and the radius
-						point.x = parseFloat(xyData[0]);
-						point.y = parseFloat(xyData[1]);
-						//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
-						points.push(point);
-						promptTracker++;
-						commandLine.setPrompt(promptTracker);
-					}
-				} else if (typeof data[0] === "number") {
-					////////// never reached as data always a string //////////
-					console.log(" scene.js - Dimension Entered")
-				} else if (typeof data[0] === "string") {
-					console.log(" scene.js - scene.js: handleEnterwithCommand - String Data")
-					////////// Point selection Accepted //////////
-					if (!selectionAccepted) {
-						minPoints = activeCommand.minPoints
-						promptTracker++;
-						commandLine.setPrompt(promptTracker);
-						selectionAccepted = true;
-
-						console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
-
-						if (activeCommand.minPoints === 0) {
-							///Erase??
-							activeCommand.action(points, items);
-							reset();
-							canvas.requestPaint();
-						}
-					} else if (selectionAccepted && activeCommand.dimInput) {
-						//console.log(data[0])
-						////////// A dimension is entered //////////
-						if (isFinite(data[0])) {
-							var point = new Point()
-
-							if (activeCommand.movement === "Linear") {
-								var length = data;
-								var x = length * Math.cos(degrees2radians(angle));
-								var y = length * Math.sin(degrees2radians(angle));
-								// generate data from the prevous point and the radius
-								point.x = points[points.length - 1].x + x;
-								point.y = points[points.length - 1].y + y;
-								points.push(point);
-								promptTracker++;
-							} else if (activeCommand.movement === "Angular") {
-								// An angle has been entered create a point at 0 degrees from the base point
-								point.x = points[0].x
-								point.y = points[0].y + 10
-								points.push(point);
-								promptTracker++;
-
-								var endPoint = new Point();
-								var theta = degrees2radians(data);
-
-								endPoint.x = points[0].x + (points[1].x - points[0].x) * Math.cos(theta) - (points[1].y - points[0].y) * Math.sin(theta);
-								endPoint.y = points[0].y + (points[1].x - points[0].x) * Math.sin(theta) + (points[1].y - points[0].y) * Math.cos(theta);
-
-								points.push(endPoint);
-								promptTracker++;
-							}
-
-							if (points.length >= minPoints) {
-								activeCommand.action(points, items);
-								reset();
-								canvas.requestPaint();
-							} else {
-								commandLine.setPrompt(promptTracker);
-							}
-
-							//addToScene(true)
-							console.log(" scene.js - Dim entered")
-						} else {
-							//repeat prompt
-							commandLine.setPrompt(promptTracker - 1);
-						}
-					} /////
-				} else {
-					console.log(" scene.js - HandleEnterWithData: I dont understand the state")
-					//repeat prompt
-					commandLine.setPrompt(promptTracker - 1);
-				}
-				console.log(" scene.js - scene.js: handleEnterwithCommand - Selected Items:" + selectedItems.length)
-			}
-
-			if (activeCommand.family === "Geometry") {
-				// check if the data contains a comma. if it does its probably user entered coordinates
-				if (data[0].indexOf(",") !== -1) {
-					var xyData = data[0].split(',');
-					var point = new Point()
-					// generate data from the prevous point and the radius
-					point.x = parseFloat(xyData[0]);
-					point.y = parseFloat(xyData[1]);
-					//console.log(" scene.js - Point entered: " + point.x + " " + point.y)
-					points.push(point);
-					promptTracker++;
-					commandLine.setPrompt();
-
-					if (points.length >= minPoints) {
-						addToScene(null, null, activeCommand.limitPoints);
-					} else {
-						commandLine.setPrompt(points.length + 1);
-					}
-
-					//reset();
-				} else if (data[0] === "reset-repeat") {
-					reset();
-
-				} else if (isFinite(data[0])) {
-					var point = new Point()
-
-					var length = data[0];
-					var x = length * Math.cos(degrees2radians(angle));
-					var y = length * Math.sin(degrees2radians(angle));
-
-					// generate data from the prevous point and the radius
-					point.x = points[points.length - 1].x + x;
-					point.y = points[points.length - 1].y + y;
-					points.push(point);
-					promptTracker++;
-
-					if (points.length >= minPoints) {
-						addToScene(null, null, activeCommand.limitPoints);
-						commandLine.clearPrompt();
-					} else {
-						commandLine.setPrompt(activeCommand.type + ": " + activeCommand.prompt(points.length + 1));
-					}
-
-				} else {}
-			}
+	var commandFromShortcut = shortcut
+	for (var i = 0; i < commands.length; i++) {
+		if (commands[i].shortcut === shortcut) {
+			commandFromShortcut = commands[i].command;
 		}
 	}
-
-	if (action === "LeftClick" && activeCommand.type !== undefined) {
-		handleLeftClickwithCommand(data)
-	} else if (action === "LeftClick" && activeCommand.type === undefined) {
-		handleLeftClick(data)
-	} else if (action === "Enter" && activeCommand.type !== undefined) {
-		handleEnterwithCommand(data)
-	} else if (action === "Enter" && activeCommand.type === undefined) {
-		handleEnter(data)
-	} else if (action === "RightClick") {
-		reset()
-	} else {
-		console.log(" scene.js - Scenecontrol: Command Not recognised")
-	}
+	return commandFromShortcut
 }
