@@ -10,7 +10,7 @@ function sceneControl(action, data) {
 	//console.log("sceneControl - InputData:" + data);
 	//console.log("sceneControl - Var Input:" + input);
 
-	var isNumber = /^\d+\.\d+$/.test(input);
+	var isNumber = /^\d+\.\d+$/.test(input) || /^\d+$/.test(input);
 	var isLetters = /^[A-Za-z]+$/.test(input);
 	var isPoint = /^\d+,\d+$/.test(input) || /^@\d+,\d+$/.test(input) || /^#\d+,\d+$/.test(input);
 	var isUndefined = (input === undefined)
@@ -88,6 +88,7 @@ function sceneControl(action, data) {
 		point = convertInputToPoint(Number(input))
 		inputData = Number(input);
 		points.push(point);
+		console.log("Number Input Data: ", inputData)
 	}
 
 	if (isLetters && !isUndefined) {
@@ -125,9 +126,13 @@ function sceneControl(action, data) {
 
 function actionInput() {
 
-	[prompt, resetBool, actionBool] = activeCommand.prompt(inputArray);
-	console.log("prompt: " + prompt + " reset: " + resetBool + " action: " + actionBool)
+	[prompt, resetBool, actionBool, validInput] = activeCommand.prompt(inputArray);
+	console.log("prompt: ", prompt, " reset: ", resetBool, " action: " + actionBool)
 	commandLine.setPrompt(prompt);
+
+	if (!validInput){
+		notify("Invalid Input")
+	}
 
 	if (actionBool) {
 		if (activeCommand.family === "Tools") {
