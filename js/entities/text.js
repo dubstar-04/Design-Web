@@ -273,7 +273,13 @@ Text.prototype.dxf = function () {
         "\n", "1", //STRING
         "\n", this.string,
         "\n", "40", //STRING
-        "\n", this.height
+        "\n", this.height,
+        "\n", "7", // TEXT STYLE
+        "\n", "STANDARD",
+        "\n", "72", //HORIZONTAL ALIGNMENT
+        "\n", this.getHorizontalAlignment(),
+        "\n", "73", //VERTICAL ALIGNMENT
+        "\n", this.getVerticalAlignment()
     )
     console.log(" line.js - DXF Data:" + data)
     return data
