@@ -26,10 +26,6 @@ function Text(data) //startX, startY, endX, endY)
     this.verticalAlignment = 0;
     this.backwards = false;
     this.upsideDown = false;
-
-
-
-    //this.string = this.height + "px " + this.font //10px sans-serif
     this.colour = "BYLAYER";
     this.layer = "0";
     //this.alpha = 1.0            //Transparancy
@@ -123,7 +119,10 @@ Text.prototype.prompt = function (inputArray) {
 }
 
 Text.prototype.width = function () {
-    var width = (canvas.context.measureText(this.text).width);
+    var oldFont = canvas.context.font;
+    canvas.context.font = this.height + "pt " + this.font.toString();
+    var width = (canvas.context.measureText(this.string.toString()).width);
+    canvas.context.font =  oldFont;
     return width
 }
 
@@ -180,22 +179,15 @@ Text.prototype.getVerticalAlignment = function () {
 
 Text.prototype.getBoundingRect = function () {
 
-    //var textData = Qt.createQmlObject('import QtQuick 2.4; TextMetrics{id: textMetrics}', canvas, "textMetrics");
-    //textData.font.family = this.font;
-    //textData.font.pixelSize = this.height;
-    //textData.text = this.string
-    
     var rect = {width: Number(this.width()), height: Number(this.height), x: this.points[0].x, y: this.points[0].y}
-
+    //console.log("text.js - Rect height: ", rect.height, " width: ", rect.width, " x: ", rect.x, " y: ", rect.y)
     return rect
 }
 
 Text.prototype.draw = function (ctx, scale) {
 
-
     var rect = this.getBoundingRect()
-    console.log("text.js - text height: ", this.height, " displayed Height: ", rect.height)
-
+  
     if (!LM.layerVisible(this.layer)) {
         return
     }
@@ -207,21 +199,15 @@ Text.prototype.draw = function (ctx, scale) {
     }
 
     ctx.strokeStyle = colour;
-    //ctx.TextWidth = this.TextWidth/scale;
-    //ctx.beginPath()
-
     ctx.font = this.height + "pt " + this.font.toString();
     ctx.fillStyle = colour;
-
-   
-   // ctx.textAlign = this.getHorizontalAlignment();
-   // ctx.textBaseline = this.getVerticalAlignment();
-
+    ctx.textAlign = this.getHorizontalAlignment();
+    ctx.textBaseline = this.getVerticalAlignment();
     ctx.save();
     ctx.scale(1, -1);
     ctx.translate(this.points[0].x, -this.points[0].y);
 
-    /*
+    
     if (this.upsideDown) {
         ctx.scale(1, -1);
     }
@@ -236,20 +222,22 @@ Text.prototype.draw = function (ctx, scale) {
         ctx.rotate(degrees2radians(-this.rotation));
     }
 
-    //// Test height
+    ctx.fillText(this.string, 0, 0)
+    ctx.stroke()
+    ctx.restore();
 
+    //// Draw Bounding Box to test the getBoundingRect()
+    /*
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = 1 / scale;
+    ctx.beginPath()
     ctx.moveTo(rect.x, rect.y);
     ctx.lineTo(rect.x + rect.width, rect.y);
     ctx.lineTo(rect.x + rect.width, rect.y + rect.height);
     ctx.lineTo(rect.x, rect.y + rect.height);
     ctx.lineTo(rect.x, rect.y);
-    */
-
-    //// Test Height
-
-    ctx.fillText(this.string, 0, 0)
     ctx.stroke()
-    ctx.restore();
+    */ 
 }
 
 Text.prototype.SVG = function (file) {
@@ -257,39 +245,45 @@ Text.prototype.SVG = function (file) {
     //"<Text x1=" + this.startX  + "y1=" + this.startY + "x2=" + this.endX + "y2=" + this.endY + "style=" + this.colour + ";stroke-width:" + this.TextWidth + "/>"
 }
 
-
-
-
 Text.prototype.snaps = function (mousePoint, delta) {
 
     var rect = this.getBoundingRect()
 
-    var start = new Point(rect.x, rect.y);
-    var mid = new Point();
+    var botLeft = new Point(rect.x, rect.y);
+    var botRight = new Point(rect.x + rect.width, rect.y);
+    var topLeft = new Point(rect.x, rect.y + rect.height);
+    var topRight = new Point(rect.x + rect.width, rect.y + rect.height);
+    var mid = new Point(rect.x + rect.width / 2, rect.y + rect.height / 2);
 
-    mid.x = rect.x + rect.width / 2;
-    mid.y = rect.y + rect.height / 2;
-
-    var end = new Point(rect.x + rect.width, rect.y);
+    var snaps = [botLeft, botRight, topLeft, topRight, mid];
 
     //var closest = this.closestPoint(mousePoint)
-    var snaps = [start, mid, end];
 
     return snaps;
 }
 
 Text.prototype.closestPoint = function (P) {
 
-    var mid = new Point();
+    var rect = this.getBoundingRect()
+    var botLeft = new Point(rect.x, rect.y);
+    var topRight = new Point(rect.x + rect.width, rect.y + rect.height);
+    var mid = new Point(rect.x + rect.width / 2, rect.y + rect.height / 2);
 
-    mid.x = this.points[0].x + this.width() / 2;
-    mid.y = this.points[0].y + this.height / 2;
+    var distance = distBetweenPoints(P.x, P.y, mid.x, mid.y)
 
-    return mid
+    // if P is inside teh bounding box return distance 0  
+    if (P.x > botLeft.x && 
+        P.x < topRight.x &&
+        P.y > botLeft.y &&
+        P.y < topRight.y
+    ){distance = 0}
+
+    console.log(distance);
+
+    return [mid, distance]
 }
 
 Text.prototype.extremes = function () {
-
     var rect = this.getBoundingRect()
     var xmin = rect.x;
     var xmax = rect.x + rect.width;
@@ -316,6 +310,40 @@ Text.prototype.within = function (selection_extremes) {
 
 }
 
+Text.prototype.intersectPoints = function () {
+
+    var rect = this.getBoundingRect()
+
+    var botLeft = new Point(rect.x, rect.y);
+    var topRight = new Point(rect.x + rect.width, rect.y + rect.height);
+
+    return {
+        start: botLeft,
+        end: topRight
+    }
+}
+
 Text.prototype.touched = function (selection_extremes) {
-    return false;
+
+    if (!LM.layerVisible(this.layer)) {
+        return
+    }
+
+    var rP1 = new Point(selection_extremes[0], selection_extremes[2]);
+    var rP2 = new Point(selection_extremes[1], selection_extremes[3]);
+
+    var rectPoints = {
+        start: rP1,
+        end: rP2
+    };
+
+    var output = Intersection.intersectRectangleRectangle(this.intersectPoints(), rectPoints);
+    console.log(output.status)
+
+    if (output.status === "Intersection") {
+        return true
+    }
+    //no intersection found. return false
+    return false
+
 }
