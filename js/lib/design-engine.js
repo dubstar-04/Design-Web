@@ -94,6 +94,7 @@ function sceneControl(action, data) {
 			if (activeCommand.selectionRequired) {
 
 				inputArray.push(selectionSet)
+				inputArray.push(true)
 			}
 			selectionAccepted = true;
 		}
