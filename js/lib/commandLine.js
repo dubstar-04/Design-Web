@@ -44,7 +44,7 @@ CommandLine.prototype.update = function () {
 
 CommandLine.prototype.handleKeys = function (e) {
     var charCode = (e.charCode) ? e.charCode : e.keyCode;
-    console.log("[CommandLine.handleKeys] - Key pressed - char:" + charCode + " String:" + String.fromCharCode(charCode) + " keyboardmap: " + this.keyboardmap(charCode))
+    //console.log("[CommandLine.handleKeys] - Key pressed - char:" + charCode + " String:" + String.fromCharCode(charCode) + " keyboardmap: " + this.keyboardmap(charCode))
 
     switch (charCode) {
 
@@ -80,11 +80,9 @@ CommandLine.prototype.handleKeys = function (e) {
 		if(keyValue){
 			//console.log("KeyValue: ", keyValue)
 			e.preventDefault();
-            this.command = this.command + keyValue; //String.fromCharCode(charCode);
+            this.command = this.command + e.key // keyValue; //String.fromCharCode(charCode);
             this.update();
 		}
-            break;
-
     }
 }
 

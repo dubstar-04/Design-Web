@@ -4,16 +4,16 @@ function sceneControl(action, data) {
 	var inputData = undefined;
 	var expectedInputType = undefined;
 	//Create Point to hold any new position
-	var point = new Point()
+	//var point = new Point()
 
 	//console.log("sceneControl - InputAction:" + action);
 	//console.log("sceneControl - InputData:" + data);
 	//console.log("sceneControl - Var Input:" + input);
 
-	var isNumber = /(\d+(\.\d+)?)/.test(input);
+	var isNumber = /^\d+\.\d+$/.test(input);
 	var isLetters = /^[A-Za-z]+$/.test(input);
-	var isPoint = /^\d+,\d+$/.test(input);
-	var isUndefined = input == undefined
+	var isPoint = /^\d+,\d+$/.test(input) || /^@\d+,\d+$/.test(input) || /^#\d+,\d+$/.test(input);
+	var isUndefined = (input === undefined)
 
 	//console.log("sceneControl - only Numbers " + isNumber)
 	//console.log("sceneControl - only Letters " + isLetters)
@@ -39,11 +39,26 @@ function sceneControl(action, data) {
 
 	if (isPoint) {
 		console.log("design engine - comma seperated point - create new point ")
+
+		var isRelative = input.includes('@')
+		var isAbsolute = input.includes('#')
+
+		if (isAbsolute || isRelative){
+			input = input.replace('@', '').replace('#', '')
+		}
+
 		var xyData = input.split(',');
+		var point = new Point()
 		point.x = parseFloat(xyData[0]);
 		point.y = parseFloat(xyData[1]);
+
+		if (isRelative && points.length){
+			point.x = parseFloat(points[points.length - 1].x + point.x);
+			point.y = parseFloat(points[points.length - 1].y + point.y);
+		}
+
 		inputData = point;
-		points.push(inputData);
+		points.push(point);
 	}
 
 	if (action === "LeftClick") {
@@ -52,7 +67,6 @@ function sceneControl(action, data) {
 		if (activeCommand === undefined) {
 			selectClosestItem(data)
 		} else {
-
 			var point = new Point()
 			point.x = mouse.x; //data[0];
 			point.y = mouse.y; //data[1];
