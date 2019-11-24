@@ -24,12 +24,12 @@ ________________________________________________________________________________
 
 Screenshots: 
 
-<img src="https://github.com/dubstar-04/Design/blob/master/icons/Screenshot3.PNG?raw=true" width="1024">
+<img src="https://github.com/dubstar-04/Design/blob/master/Screenshots/Screenshot3.PNG?raw=true" width="1024">
 
-<img src="https://github.com/dubstar-04/Design/blob/master/icons/Screenshot.PNG?raw=true" width="1024">
+<img src="https://github.com/dubstar-04/Design/blob/master/Screenshots/Screenshot.PNG?raw=true" width="1024">
 
-<img src="https://github.com/dubstar-04/Design/blob/master/icons/Screenshot2.PNG?raw=true" width="1024">
+<img src="https://github.com/dubstar-04/Design/blob/master/Screenshots/Screenshot2.PNG?raw=true" width="1024">
 
-<img src="https://github.com/dubstar-04/Design/blob/master/icons/Screenshot4.PNG?raw=true" width="1024">
+<img src="https://github.com/dubstar-04/Design/blob/master/Screenshots/Screenshot4.PNG?raw=true" width="1024">
 
 
