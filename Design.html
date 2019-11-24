@@ -115,7 +115,6 @@
 <script type="text/javascript" src="js/lib/intersect.js"></script>
 
 <script type="text/javascript" src="js/help/help.js"></script>
-<script type="text/javascript" src="js/lib/fuse.js"></script>
 
 <script>
 	var designVersion = "Pre-Alpha-Dev";
@@ -129,22 +128,16 @@
     cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
     cnvs.addEventListener('mouseup', canvas.mouseup, false);
     cnvs.addEventListener('dblclick', canvas.dblclick, false);
-    cnvs.addEventListener('contextmenu', function() {
-        canvas_contextmenu()
-    }, false);
+    cnvs.addEventListener('contextmenu', function() {canvas_contextmenu()}, false);
     //cnvs.addEventListener('wheel', canvas.wheel, false);
     cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
     cnvs.addEventListener('mousewheel', canvas.wheel, false);
     cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
     cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
-    window.addEventListener('contextmenu', function(e) {
-        e.preventDefault()
-    }, false);
+    window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
     //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
-    window.addEventListener('resize', function() {
-        hideModals()
-    }, false);
+    window.addEventListener('resize', function() {hideModals()}, false);
 	
 	document.getElementById('fileupload').addEventListener("change", function () {
 		console.log(document.getElementById('fileupload').files[0])
@@ -1607,18 +1600,27 @@ function layerColourChange(colour, layerIndex){
 
 <div id="Accounts" class="tabcontent">
 <h3>Accounts</h3>
-<p>Place Online Accounts settings</p> 
+<p>Placeholder for Online Accounts settings</p> 
 </div>
 
 <div id="Help" class="tabcontent">
 <h3>Help</h3>
-<div class="searchHelpInput"><input type="search" id="searchHelp" placeholder="Search Help">
-<a href="help/" target="_blank">Help Documentation</a>
+    <div class="row">
+        <div class="column" style="text-align: center;">
+                <a href="help/" target="_blank"><img src="icons/online-help.svg" height="100"></a>
+                <h4>Online Help</h4>
+        </div>
+        <div class="column" style="text-align: center;">
+                <a href="help/" target="_blank"><img src="icons/pdf-file.svg" height="100"></a>
+                <h4>Offline Help</h4>
+        </div> 
+        <div class="column" style="text-align: center;">
+                <a href="https://t.me/joinchat/BQHZRA1R0Ke297gkQEJEEQ" target="_blank"><img src="icons/telegram-logo.svg" height="100"></a>
+                <h4>Telegram Group</h4>
+        </div>     
+    </div>
 </div>
 
-
-
-</div>
 
 <div id="About" class="tabcontent">
 <h3>About</h3>
@@ -1640,7 +1642,7 @@ hobbyists and professionals that require a first class CAD application.</p>
 <script>
 
 
-document.getElementById("searchHelp").onkeydown = searchHelp;
+//document.getElementById("searchHelp").onkeydown = searchHelp;
 
 
 function searchHelp(){

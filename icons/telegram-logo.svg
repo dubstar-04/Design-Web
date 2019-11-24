@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 240 240"
+   version="1.1"
+   id="svg22"
+   sodipodi:docname="telegram-logo.svg"
+   inkscape:version="0.92.1 r15371">
+  <metadata
+     id="metadata26">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1429"
+     inkscape:window-height="1050"
+     id="namedview24"
+     showgrid="false"
+     inkscape:zoom="0.98333333"
+     inkscape:cx="3.3039833"
+     inkscape:cy="82.250128"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg22" />
+  <defs
+     id="defs12">
+    <linearGradient
+       id="a"
+       x1=".667"
+       x2=".417"
+       y1=".167"
+       y2=".75">
+      <stop
+         offset="0"
+         stop-color="#37aee2"
+         id="stop2" />
+      <stop
+         offset="1"
+         stop-color="#1e96c8"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       id="b"
+       x1=".66"
+       x2=".851"
+       y1=".437"
+       y2=".802">
+      <stop
+         offset="0"
+         stop-color="#eff7fc"
+         id="stop7" />
+      <stop
+         offset="1"
+         stop-color="#fff"
+         id="stop9" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective5729"
+       inkscape:persp3d-origin="48 : 32 : 1"
+       inkscape:vp_z="96 : 48 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 48 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <circle
+     cx="120"
+     cy="120"
+     r="120"
+     id="circle14"
+     fill="url(#a)" />
+  <path
+     style="fill:#808080;fill-opacity:1"
+     d="M 120 0 A 120 120 0 0 0 0 120 A 120 120 0 0 0 120 240 A 120 120 0 0 0 240 120 A 120 120 0 0 0 120 0 z M 120 10 A 110 110 0 0 1 230 120 A 110 110 0 0 1 120 230 A 110 110 0 0 1 10 120 A 110 110 0 0 1 120 10 z "
+     id="circle4575" />
+  <path
+     fill="#c8daea"
+     d="M98 175c-3.888 0-3.227-1.468-4.568-5.17L82 132.207 170 80"
+     id="path16" />
+  <path
+     fill="#a9c9dd"
+     d="M98 175c3 0 4.325-1.372 6-3l16-15.558-19.958-12.035"
+     id="path18" />
+  <path
+     fill="url(#b)"
+     d="M100.04 144.41l48.36 35.729c5.519 3.045 9.501 1.468 10.876-5.123l19.685-92.763c2.015-8.08-3.08-11.746-8.36-9.349l-115.59 44.571c-7.89 3.165-7.843 7.567-1.438 9.528l29.663 9.259 68.673-43.325c3.242-1.966 6.218-.91 3.776 1.258"
+     id="path20" />
+</svg>
