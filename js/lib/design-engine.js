@@ -49,17 +49,22 @@ function sceneControl(action, data) {
 	if (action === "LeftClick") {
 		console.log("design engine - left click- create new point ")
 
+		if (activeCommand === undefined) {
+			selectClosestItem(data)
+		} else {
 
-		var point = new Point()
-		point.x = mouse.x; //data[0];
-		point.y = mouse.y; //data[1];
-		inputData = point;
-		if (activeCommand !== undefined && activeCommand.family === "Geometry" || selectionAccepted) {
-			points.push(inputData);
-		}
+			var point = new Point()
+			point.x = mouse.x; //data[0];
+			point.y = mouse.y; //data[1];
+			inputData = point;
 
-		if (activeCommand !== undefined && activeCommand.family === "Tools" && !selectionAccepted) {
-			var closestItem = selectClosestItem(data);
+			if (activeCommand.family === "Geometry" || selectionAccepted) {
+				points.push(inputData);
+			}
+
+			if (activeCommand.family === "Tools" && !selectionAccepted) {
+				var closestItem = selectClosestItem(data);
+			}
 		}
 	}
 
