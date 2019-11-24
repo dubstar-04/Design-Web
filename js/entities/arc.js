@@ -78,20 +78,21 @@ Arc.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Pick the centre point:";
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = "Pick start point:";
 
-    expectedType[2] = "object";   
+    expectedType[2] = ["object"];   
     prompt[2] = "Pick end point:";
 
-    expectedType[3] = "object";   
+    expectedType[3] = ["object"];   
     prompt[3] = "";
     
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    if(!validInput){
         inputArray.pop()
     }
     
@@ -100,7 +101,8 @@ Arc.prototype.prompt = function (inputArray) {
         reset = true;
         this.helper_geometry = false;
     }
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Arc.prototype.draw = function (ctx, scale) {

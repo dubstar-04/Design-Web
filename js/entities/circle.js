@@ -56,24 +56,25 @@ Circle.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Pick the centre point:";
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = "Pick another point or Enter radius:";
 
-    expectedType[2] = "object";   
+    expectedType[2] = ["object", "number"];   
     prompt[2] = prompt[1];
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+    if(!validInput){
         inputArray.pop()
-    }
-    
-   if (inputArray.length === this.minPoints){
+    }else if (inputArray.length === this.minPoints){
         action = true;
         reset = true
     }
-    return [prompt[inputArray.length], reset, action]
+
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Circle.prototype.draw = function (ctx, scale) {

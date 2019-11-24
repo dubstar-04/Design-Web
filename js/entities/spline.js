@@ -67,24 +67,25 @@ Spline.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Pick start point:";
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = "Pick another point or press ESC to quit:";
 
-    expectedType[2] = "object";   
+    expectedType[2] = ["object"];   
     prompt[2] = prompt[1];
             
-    if(typeof inputArray[num-1] !== expectedType[num] || num > this.minPoints){
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+    if(!validInput || num > this.minPoints){
         inputArray.pop()
-    }
-    
-   if (inputArray.length === this.minPoints){
+    }else if (inputArray.length === this.minPoints){
         action = true;
         //reset = true
     }
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Spline.prototype.draw = function (ctx, scale) {

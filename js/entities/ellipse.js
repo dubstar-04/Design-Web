@@ -14,14 +14,10 @@ function Ellipse(data) //centre_x, centre_y, endX, endY)
     //this.limitPoints = true;
     //this.allowMultiple = false;
     this.helper_geometry = true; // If true a line will be drawn between points when defining geometry
-
     this.points = [];
-
     this.width = 0;
     this.height = this.width / 2 || 10;
     this.rotation = 0
-
-
     this.lineWidth = 2; //Thickness
     this.colour = "BYLAYER";
     this.layer = "0";
@@ -58,29 +54,29 @@ Ellipse.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Pick the centre point:";
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = "Pick start point:";
 
-    expectedType[2] = "object";   
+    expectedType[2] = ["object"];   
     prompt[2] = "Pick end point:";
 
-    expectedType[3] = "object";   
+    expectedType[3] = ["object"];   
     prompt[3] = "";
-    
+
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])    
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    if(!validInput){
         inputArray.pop()
-    }
-    
-   if (inputArray.length === this.minPoints){
+    }else if (inputArray.length === this.minPoints){
         action = true;
         reset = true;
         this.helper_geometry = false;
     }
-    return [prompt[inputArray.length], reset, action]
+
+    return [prompt[inputArray.length], reset, action, validInput]    
 }
 
 

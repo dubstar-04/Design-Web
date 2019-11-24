@@ -95,27 +95,32 @@ Text.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    console.log("inputArray: ", inputArray)
+    console.log("type: ", typeof inputArray[num-1])
+
+    expectedType[0] = ["undefined"];
     prompt[0] = "Pick start point:";
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = "Enter height:";
 
-    expectedType[2] = "number";   
+    expectedType[2] = ["number"];   
     prompt[2] = "Enter text:";
 
-    expectedType[3] = "string"; 
+    expectedType[3] = ["string", "number"]; 
     prompt[3] = "";
+
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    if(!validInput){
+        console.log("invalid")
         inputArray.pop()
-    }
-    
-   if (inputArray.length === 3){
+    }else if (inputArray.length === 3){
         action = true;
         reset = true
     }
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Text.prototype.width = function () {
