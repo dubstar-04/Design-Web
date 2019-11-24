@@ -7,7 +7,8 @@ function Identify()
     this.movement = "None";
     this.minPoints = 1;
 	  this.selectionRequired = false;
-    this.limitPoints = true;
+    this.helper_geometry = false;
+    this.showPreview = false;
 }
 
 Identify.prototype.prompt = function(inputArray) {
@@ -17,23 +18,22 @@ Identify.prototype.prompt = function(inputArray) {
   var action = false;
   var prompt = [];
 
-  expectedType[0] = "undefined";
+  expectedType[0] = ["undefined"];
   prompt[0] = "Select Point:";
 
-  expectedType[1] = "object";    
+  expectedType[1] = ["object"];    
   prompt[1] = "";
 
-
-  if(typeof inputArray[num-1] !== expectedType[num]){
+  var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+  if(!validInput){
       inputArray.pop()
-  }
-
-  if (inputArray.length === this.minPoints){
+  }else if (inputArray.length === this.minPoints){
       action = true;
       reset = true
   }
-
-  return [prompt[inputArray.length], reset, action]
+  
+  return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Identify.prototype.preview = function(num) {

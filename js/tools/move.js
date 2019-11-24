@@ -8,8 +8,8 @@ function Move(items)
     this.movement = "Linear";
     this.minPoints = 2;
 	this.selectionRequired = true;
-    this.limitPoints = true;
-    this.dimInput = true; //allow a single number to be input
+    this.helper_geometry = true;
+    this.showPreview = true;
 }
 
 
@@ -20,31 +20,33 @@ Move.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    console.log("inputArray: ", inputArray)
+
+    expectedType[0] = ["undefined"];
     prompt[0] = "Select Items To " + this.type;
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to accept";
  
-    expectedType[2] = "boolean";    
+    expectedType[2] = ["boolean"];    
     prompt[2] = "Select Base Point:";
  
-    expectedType[3] = "object";    
+    expectedType[3] = ["object"];    
     prompt[3] = "Select Destination or Enter Distance:";
  
-    expectedType[4] = "object";   
+    expectedType[4] = ["object", "number"];   
     prompt[4] = "";
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+   var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+    if(!validInput){
         inputArray.pop()
-    }
-    
-   if (inputArray.length === 4){
+    }else if (inputArray.length === 4){
         action = true;
         reset = true
     }
-
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Move.prototype.action = function(points, items){

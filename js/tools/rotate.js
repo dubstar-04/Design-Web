@@ -7,8 +7,8 @@ function Rotate(items)
     this.movement = "Angular";
     this.minPoints = 3;
 	this.selectionRequired = true;
-    this.limitPoints = true;
-    this.dimInput = true; //allow a single number to be input
+    this.helper_geometry = true;
+    this.showPreview = true;
 }
 
 Rotate.prototype.prompt = function (inputArray) {
@@ -18,34 +18,35 @@ Rotate.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Select Items To " + this.type;
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to accept";
  
-    expectedType[2] = "boolean";    
+    expectedType[2] = ["boolean"];    
     prompt[2] = "Select Base Point:";
  
-    expectedType[3] = "object";    
+    expectedType[3] = ["object"];    
     prompt[3] = "Select Start Point or Enter Angle:";
 
-    expectedType[4] = "object";   
+    expectedType[4] = ["object"];   
     prompt[4] = "Select End Angle:";
  
-    expectedType[5] = "object";   
+    expectedType[5] = ["object"];   
     prompt[5] = "";
             
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+    if(!validInput){
         inputArray.pop()
     }
-    
-   if (inputArray.length === 5){
+    if (inputArray.length === 5){
         action = true;
         reset = true
     }
-
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Rotate.prototype.preview = function(points, selectedItems, items){

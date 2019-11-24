@@ -10,7 +10,8 @@ function Erase() {
     this.movement = "None";
     this.minPoints = 0;
     this.selectionRequired = true;
-    this.limitPoints = true;
+    this.helper_geometry = false;
+    this.showPreview = false;
 }
 
 Erase.prototype.prompt = function (inputArray) {
@@ -20,25 +21,25 @@ Erase.prototype.prompt = function (inputArray) {
     var action = false;
     var prompt = [];
 
-    expectedType[0] = "undefined";
+    expectedType[0] = ["undefined"];
     prompt[0] = "Select Items To " + this.type;
  
-    expectedType[1] = "object";   
+    expectedType[1] = ["object"];   
     prompt[1] = selectionSet.length + " Item(s) selected: Add more or press Enter to Erase";
  
-    expectedType[2] = "boolean";    
+    expectedType[2] = ["boolean"];    
     prompt[2] = "";
 
-    if(typeof inputArray[num-1] !== expectedType[num]){
+    var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+    if(!validInput){
         inputArray.pop()
-    }
-
-    if (inputArray.length === 2){
+    }else if (inputArray.length === 2){
         action = true;
         reset = true
     }
-
-    return [prompt[inputArray.length], reset, action]
+    
+    return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Erase.prototype.action = function (points, items) {

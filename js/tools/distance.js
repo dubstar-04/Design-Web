@@ -6,8 +6,9 @@ function Distance()
     this.family = "Tools";
     this.movement = "None";
     this.minPoints = 2;
-	  this.selectionRequired = false;
-    this.limitPoints = true;
+	this.selectionRequired = false;
+    this.helper_geometry = false;
+    this.showPreview = false;
 }
 
 Distance.prototype.prompt = function(inputArray) {
@@ -17,25 +18,25 @@ Distance.prototype.prompt = function(inputArray) {
   var action = false;
   var prompt = [];
 
-  expectedType[0] = "undefined";
+  expectedType[0] = ["undefined"];
   prompt[0] = "Select Start Point:";
 
-  expectedType[1] = "object";   
+  expectedType[1] = ["object"];   
   prompt[1] = "Select End Point:";
 
-  expectedType[2] = "object";    
+  expectedType[2] = ["object"];    
   prompt[2] = "";
 
-  if(typeof inputArray[num-1] !== expectedType[num]){
+  var validInput = expectedType[num].includes(typeof inputArray[num-1])
+            
+  if(!validInput){
       inputArray.pop()
-  }
-
-  if (inputArray.length === this.minPoints){
+  }else if (inputArray.length === this.minPoints){
       action = true;
       reset = true
   }
-
-  return [prompt[inputArray.length], reset, action]
+  
+  return [prompt[inputArray.length], reset, action, validInput]
 }
 
 Distance.prototype.preview = function(num) {
