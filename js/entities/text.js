@@ -250,6 +250,36 @@ Text.prototype.SVG = function (file) {
     //"<Text x1=" + this.startX  + "y1=" + this.startY + "x2=" + this.endX + "y2=" + this.endY + "style=" + this.colour + ";stroke-width:" + this.TextWidth + "/>"
 }
 
+/*
+Text.prototype.dxf = function () {
+    var dxfitem = ""
+    var data = dxfitem.concat(
+        "0",
+        "\n", "TEXT",
+        "\n", "8", //LAYERNAME
+        "\n", this.layer,
+        "\n", "10", //X
+        "\n", this.points[0].x,
+        "\n", "20", //Y
+        "\n", this.points[0].y,
+        "\n", "30", //Z
+        "\n", "0.0",
+        "\n", "11", //X
+        "\n", this.points[1].x,
+        "\n", "21", //Y
+        "\n", this.points[1].y, //Y
+        "\n", "31", //Z
+        "\n", "0.0",
+        "\n", "1", //STRING
+        "\n", this.string,
+        "\n", "40", //STRING
+        "\n", this.height
+    )
+    console.log(" line.js - DXF Data:" + data)
+    return data
+}
+*/
+
 Text.prototype.snaps = function (mousePoint, delta) {
 
     var rect = this.getBoundingRect()
