@@ -438,7 +438,7 @@ function writeCoordinates(label, coordinates) {
 			canvas.requestPaint(); //Improve requests to paint as it is called too often.
 		}
 
-		if (activeCommand !== undefined && activeCommand.family === "Tools" && selectionAccepted) {
+		if (activeCommand !== undefined && activeCommand.showPreview && activeCommand.family === "Tools" && selectionAccepted) {
 			console.log("preview")
 			activeCommand.preview(tempPoints, selectedItems, items);
 			canvas.requestPaint();
