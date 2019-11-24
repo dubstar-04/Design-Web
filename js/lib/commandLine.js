@@ -44,15 +44,25 @@ CommandLine.prototype.update = function () {
 
 CommandLine.prototype.handleKeys = function (e) {
     var charCode = (e.charCode) ? e.charCode : e.keyCode;
-    //console.log("[CommandLine.handleKeys] - Key pressed - char:" + charCode + " String:" + String.fromCharCode(charCode) + " keyboardmap: " + this.keyboardmap(charCode))
+    console.log("[CommandLine.handleKeys] - Key pressed - char:" + charCode + " String:" + String.fromCharCode(charCode) ) //+ " keyboardmap: " + this.keyboardmap(charCode))
 
     switch (charCode) {
 
         case 8: //Backspace
             this.backPressed(e);
             break;
+        case 9: //Tab
+            break;
         case 13: //Enter
             this.enterPressed(e);
+            break;
+        case 16: // Shift
+            break;
+        case 17: // Ctrl
+            break;
+        case 19: // Pause
+            break;
+        case 20: // Caps
             break;
         case 27: // Escape
             var data = [];
@@ -60,6 +70,14 @@ CommandLine.prototype.handleKeys = function (e) {
             break;
         case 32: // space
             this.enterPressed(e);
+            break;
+        case 33: // PgUp
+            break;
+        case 34: // PgDn
+            break;
+        case 35: // End
+            break;
+        case 36: // Home
             break;
         case 37: // Left-Arrow
             this.leftPressed(e);
@@ -72,17 +90,66 @@ CommandLine.prototype.handleKeys = function (e) {
         case 40: // Down-Arrow
             this.previousCommand("down");
             break;
+        case 45: // Insert
+            break;
         case 46: // Delete
 			this.deletePressed(e)
             break;
+        case 91: // Windows / Meta
+            break;
+        case 112: // F1
+            e.preventDefault();
+            break;
+        case 113: // F2
+            e.preventDefault();
+            break;
+        case 114: // F3
+            e.preventDefault();
+            break;
+        case 115: // F4
+            e.preventDefault();
+            break;
+        case 116: // F5
+            e.preventDefault();
+            break;
+        case 117: // F6
+            e.preventDefault();
+            break;
+        case 118: // F7
+            e.preventDefault();
+            break;
+        case 119: // F8
+            e.preventDefault();
+            break;
+        case 120: // F9
+            e.preventDefault();
+            break;
+        case 121: // F10
+            e.preventDefault();
+            break;
+        case 122: // F11
+            e.preventDefault();
+            break;
+        case 123: // F12
+            e.preventDefault();
+            break;
+        case 145: // ScrLK
+            break;
+        case 173: // Mute
+            break;
+        case 174: // Vol+
+            break;
+        case 175: // Vol-
+            break;
+
         default:
-		var keyValue = this.keyboardmap(charCode)
-		if(keyValue){
+		//var keyValue = this.keyboardmap(charCode)
+		//if(keyValue){
 			//console.log("KeyValue: ", keyValue)
 			e.preventDefault();
             this.command = this.command + e.key // keyValue; //String.fromCharCode(charCode);
             this.update();
-		}
+		//}
     }
 }
 
@@ -159,6 +226,7 @@ this.cmdLine.selectionStart = this.cmdLine.selectionEnd = this.cmdLine.value.len
     
 }
 
+/*
 CommandLine.prototype.keyboardmap = function(keycode){
 	
 var keyboardMap = [
@@ -422,3 +490,4 @@ var keyboardMap = [
 
 return keyboardMap[keycode]
 }
+*/
