@@ -89,6 +89,7 @@
 
 <script type="text/javascript" src="js/entities/point.js"></script>
 <script type="text/javascript" src="js/entities/layer.js"></script>
+<script type="text/javascript" src="js/entities/style.js"></script>
 
 <script type="text/javascript" src="js/tools/move.js"></script>
 <script type="text/javascript" src="js/tools/copy.js"></script>
@@ -103,6 +104,7 @@
 <script type="text/javascript" src="js/lib/canvas.js"></script>
 <script type="text/javascript" src="js/lib/mouse.js"></script>
 <script type="text/javascript" src="js/lib/layerManager.js"></script>
+<script type="text/javascript" src="js/lib/styleManager.js"></script>
 <script type="text/javascript" src="js/lib/scene.js"></script>
 <script type="text/javascript" src="js/lib/commandLine.js"></script>
 <script type="text/javascript" src="js/lib/fileio.js"></script>
@@ -121,8 +123,9 @@
     var canvas = new Canvas(cnvs);
     var commandLine = new CommandLine(cmd_Line);
     var LM = new LayerManager();
+    var SM = new StyleManager();
 
-    LM.addStandardLayers(); //TO DO: Where should start up scripts go?
+    //LM.addStandardLayers(); //TO DO: Where should start up scripts go?
 
     cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
     cnvs.addEventListener('mouseup', canvas.mouseup, false);

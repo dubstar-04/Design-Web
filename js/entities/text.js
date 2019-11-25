@@ -10,15 +10,12 @@ function Text(data) //startX, startY, endX, endY)
     this.type = "Text";
     this.family = "Geometry";
     this.minPoints = 1;
-    //this.limitPoints = true;
-    //this.allowMultiple = false;
     this.showPreview = false; //show preview of item as its being created
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
-
     this.points = [];
 
     //this.TextWidth = 2;         //Thickness
-    this.font = "Arial"
+    //this.font = "Arial"
     this.string = ""
     this.height = 2.5;
     this.rotation = 0;
@@ -28,6 +25,7 @@ function Text(data) //startX, startY, endX, endY)
     this.upsideDown = false;
     this.colour = "BYLAYER";
     this.layer = "0";
+    this.styleName = "STANDARD"
     //this.alpha = 1.0            //Transparancy
     //this.TextType
     //this.TexttypeScale
@@ -72,6 +70,11 @@ function Text(data) //startX, startY, endX, endY)
         if (data.verticalAlignment) {
             this.verticalAlignment = data.verticalAlignment;
         }
+
+        if (data.styleName) {
+            this.styleName = data.styleName;
+        }
+
         if (data.flags){
             switch (data.flags) {
                 // DXF Data
@@ -129,7 +132,7 @@ Text.prototype.prompt = function (inputArray) {
 
 Text.prototype.width = function () {
     var oldFont = canvas.context.font;
-    canvas.context.font = this.height + "pt " + this.font.toString();
+    canvas.context.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     var width = (canvas.context.measureText(this.string.toString()).width);
     canvas.context.font =  oldFont;
     return width
@@ -208,7 +211,7 @@ Text.prototype.draw = function (ctx, scale) {
     }
 
     ctx.strokeStyle = colour;
-    ctx.font = this.height + "pt " + this.font.toString();
+    ctx.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     ctx.fillStyle = colour;
     ctx.textAlign = this.getHorizontalAlignment();
     ctx.textBaseline = this.getVerticalAlignment();

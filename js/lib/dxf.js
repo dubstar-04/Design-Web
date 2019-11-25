@@ -215,6 +215,11 @@ DXF.prototype.processData = function () {
                 //debugLog("Found " + this.line)
                 this.readText();
                 break;
+
+            case "STYLE":
+                //debugLog("Found " + this.line)
+                this.readStyle();
+                break;
         }
     }
     //Finished reading entities. Request repaint. 
@@ -1480,7 +1485,7 @@ DXF.prototype.readText = function () {
     var rotation = 0;
     var horizontalAlignment = 0;
     var verticalAlignment = 0;
-
+    var styleName = "STANDARD"
     var colour = "BYLAYER";
     var layer = "0"
     var flags;
@@ -1489,8 +1494,6 @@ DXF.prototype.readText = function () {
 
         this.getDXFLine();
         var n = parseInt(this.line);
-        //debugLog("Group Code: " + n)
-        //console.log("Group Code: " + n)
 
         switch (n) {
             case 0:
@@ -1505,7 +1508,7 @@ DXF.prototype.readText = function () {
                     points: points,
                     colour: colour,
                     layer: layer,
-
+                    styleName: styleName,
                     string: string,
                     height: height,
                     rotation: rotation,
@@ -1519,67 +1522,49 @@ DXF.prototype.readText = function () {
                 return true;
             case 1: // Text string follows
                 this.getDXFLine();
-                //console.log("text: ", this.line)
-                //debugLog("String: " + this.line);
                 string = this.line;
+                break;
+            case 7: // Style Name
+                this.getDXFLine();
+                styleName = this.line;
                 break;
             case 8: // Layer name follows
                 this.getDXFLine();
-                //debugLog("Layer: " + this.line);
                 layer = this.line;
                 break;
-            case 10:
-                // x
+            case 10: // x
                 this.getDXFLine();
                 firstAlignmentPoint.x = Number(this.line);
-                //debugLog("Text X: " + this.line);
                 break;
-            case 20:
-                // y
+            case 20: // y
                 this.getDXFLine();
                 firstAlignmentPoint.y = Number(this.line);
-                //debugLog("Text Y: " + this.line);
                 break;
-            case 30:
-                // z
+            case 30: // z
                 this.getDXFLine();
-                //debugLog("Text Z: " + this.line);
                 break;
-            case 11:
-                // x
+            case 11: // x
                 this.getDXFLine();
                 secondAlignmentPoint.x = Number(this.line);
-                //debugLog("Text X: " + this.line);
                 break;
-            case 21:
-                // y
+            case 21: // y
                 this.getDXFLine();
                 secondAlignmentPoint.y = Number(this.line);
-                //debugLog("Text Y: " + this.line);
                 break;
-            case 31:
-                // z
+            case 31: // z
                 this.getDXFLine();
-                //debugLog("Text Z: " + this.line);
                 break;
             case 40:
                 // height
                 this.getDXFLine();
-                //debugLog("Text Height: " + this.line);
-                //console.log("Text Height: " + this.line);
                 height = Number(this.line);
                 break;
-            case 50:
-                // rotation
+            case 50: // rotation
                 this.getDXFLine();
-                //debugLog("Text rotation: " + this.line);
-                //console.log("Text rotation: " + this.line)
                 rotation = Number(this.line);
                 break;
-            case 62:
-                // color index
+            case 62: // color index
                 this.getDXFLine();
-                //debugLog("Colour: ACAD:" + this.line + " HEX: " + getHexColour(Number(this.line)));
                 colour = getHexColour(Number(this.line));
                 break;
             case 71:
@@ -1708,6 +1693,89 @@ DXF.prototype.readText = function(){
         }
     }
 }*/
+
+DXF.prototype.readStyle = function () {
+
+    var name = "";
+    var font = "";
+    var bigFont = 0
+    var textHeight = 2.5;
+    var lastTextHeight = 2.5;
+    var obliqueAngle = 0;
+    var flags = 0;
+    var standardFlags = 0;
+    var widthFactor = 1;
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+
+        switch (n) {
+            case 0:
+
+                var style = {
+                    name: name,
+                    font: font,
+                    bigFont: bigFont,
+                    textHeight: textHeight,
+                    lastTextHeight: lastTextHeight,
+                    obliqueAngle: obliqueAngle,
+                    flags: flags,
+                    standardFlags: standardFlags,
+                    widthFactor: widthFactor
+                }
+
+                if (name !== ""){
+                    SM.addStyle(style)
+                }
+
+                return true;
+            case 2: // Style Name follows
+                this.getDXFLine();
+                name = this.line;
+                break;
+            case 3: // Font Name
+                this.getDXFLine();
+                font = this.line;
+                break;
+            case 4: // Big font name
+                this.getDXFLine();
+                bigFont = this.line;
+                break;
+            case 40: // height
+                this.getDXFLine();
+                textHeight = Number(this.line);
+                break;
+            case 41: // height
+                this.getDXFLine();
+                widthFactor = Number(this.line);
+                break;
+            case 42: // last height
+                this.getDXFLine();
+                lastTextHeight = Number(this.line);
+                break;
+            case 50: // oblique angle
+                this.getDXFLine();
+                abliqueAngle = Number(this.line);
+                break;
+            case 70: //Standard Flags
+                this.getDXFLine();
+                standardFlags = Number(this.line);
+                break;
+            case 71: //Text generation flags (optional, default = 0):
+                //2 = Text is backward (mirrored in X).
+                //4 = Text is upside down (mirrored in Y).
+                this.getDXFLine();
+                flags = Number(this.line);
+                break;
+            default:
+                // skip the next line
+                this.getDXFLine();
+                break;
+        }
+    }
+}
 
 
 DXF.prototype.readVPort = function () {

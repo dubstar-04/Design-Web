@@ -3,6 +3,8 @@ function LayerManager() {
     this.layers = new Array();
     this.currentLayer = "0";
 
+    this.addStandardLayers()
+
 }
 
 
@@ -129,7 +131,6 @@ LayerManager.prototype.addStandardLayers = function () {
         "plotting": false
     });
     saveRequired();
-    //Scene.clayer = "0";
 }
 
 

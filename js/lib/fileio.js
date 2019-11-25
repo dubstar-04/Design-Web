@@ -62,6 +62,25 @@ function savedxf() {
 			//"\nENDSEC"
 		)
 
+		data = data.concat(
+			"\n0",
+			"\nTABLE",
+			"\n2",
+			"\nSTYLE",
+			"\n70",
+			"\n" + SM.styleCount())
+
+		for (var i = 0; i < SM.styleCount(); i++) {
+			data = data.concat("\n", SM.getStyleByIndex(i).dxf())
+		}
+
+		data = data.concat(
+			"\n0",
+			"\nENDTAB",
+			//"\n0",
+			//"\nENDSEC"
+		)
+
 		var extents = getSceneExtents() //Scene.canvas.getExtents();
 
 		var width = extents.xmax - extents.xmin;
