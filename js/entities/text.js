@@ -312,7 +312,7 @@ Text.prototype.closestPoint = function (P) {
 
     var distance = distBetweenPoints(P.x, P.y, mid.x, mid.y)
 
-    // if P is inside teh bounding box return distance 0  
+    // if P is inside the bounding box return distance 0  
     if (P.x > botLeft.x && 
         P.x < topRight.x &&
         P.y > botLeft.y &&
