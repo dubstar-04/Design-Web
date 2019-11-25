@@ -213,7 +213,7 @@ DXF.prototype.processData = function () {
 
             case "TEXT":
                 //debugLog("Found " + this.line)
-                //this.readText();
+                this.readText();
                 break;
         }
     }
@@ -1531,13 +1531,13 @@ DXF.prototype.readText = function () {
             case 10:
                 // x
                 this.getDXFLine();
-                firstAlignmentPoint.x = this.line;
+                firstAlignmentPoint.x = Number(this.line);
                 //debugLog("Text X: " + this.line);
                 break;
             case 20:
                 // y
                 this.getDXFLine();
-                firstAlignmentPoint.y = this.line;
+                firstAlignmentPoint.y = Number(this.line);
                 //debugLog("Text Y: " + this.line);
                 break;
             case 30:
@@ -1548,13 +1548,13 @@ DXF.prototype.readText = function () {
             case 11:
                 // x
                 this.getDXFLine();
-                secondAlignmentPoint.x = this.line;
+                secondAlignmentPoint.x = Number(this.line);
                 //debugLog("Text X: " + this.line);
                 break;
             case 21:
                 // y
                 this.getDXFLine();
-                secondAlignmentPoint.y = this.line;
+                secondAlignmentPoint.y = Number(this.line);
                 //debugLog("Text Y: " + this.line);
                 break;
             case 31:

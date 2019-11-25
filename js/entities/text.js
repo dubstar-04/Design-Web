@@ -36,17 +36,24 @@ function Text(data) //startX, startY, endX, endY)
 
     if (data) {
 
-        for (var i=0; data.length; i++){
+        //console.log("Data: ", data)
+        //console.log("text.js - string:", data.string, "rotation: ", data.rotation, " hAlign: ", data.horizontalAlignment, " vAlign: ", data.verticalAlignment)
+        this.points = data.points;
 
-            console.log("Data: " + i + " : " + data[i])
-    
+        if (data.input){
+            //TODO: Find a better way of providing this data
+            // This comes from design-engine
+            this.height = data.input[1];
+            this.string = data.input[2];
         }
 
-        //console.log("text.js - string:", data.string, "rotation: ", data.rotation, " hAlign: ", data.horizontalAlignment, " vAlign: ", data.verticalAlignment)
+        if (data.string){
+            this.string = data.string;
+        }
 
-        this.points = data.points;
-        this.height = data.input[1];
-        this.string = data.input[2];
+        if (data.height){
+            this.height = data.height;
+        }
 
         if (data.colour) {
             this.colour = data.colour;
@@ -56,35 +63,32 @@ function Text(data) //startX, startY, endX, endY)
             this.layer = data.layer;
         }
 
-        //this.colour = data.colour;
-        //this.layer = data.layer;
-        //this.string = data.string;
-        //this.height = data.height;
-        //this.rotation = data.rotation;
-        //this.horizontalAlignment = data.horizontalAlignment;
-        //this.verticalAlignment = data.verticalAlignment;
-
-        /*
-
-        switch (data.flags) {
-            /* DXF Data
-            2 = Text is backward (mirrored in X).
-            4 = Text is upside down (mirrored in Y). 
-            case 2:
-                this.backwards = true;
-                break;
-            case 4:
-                this.upsideDown = true;
-                break;
-            case 6:
-                this.upsideDown = true;
-                this.backwards = true;
-                break;
+        if (data.rotation) {
+            this.rotation = data.rotation;
         }
-
-        */
-        
-        
+        if (data.horizontalAlignment) {
+            this.horizontalAlignment = data.horizontalAlignment;
+        }
+        if (data.verticalAlignment) {
+            this.verticalAlignment = data.verticalAlignment;
+        }
+        if (data.flags){
+            switch (data.flags) {
+                // DXF Data
+                //2 = Text is backward (mirrored in X).
+                // 4 = Text is upside down (mirrored in Y). 
+                case 2:
+                    this.backwards = true;
+                    break;
+                case 4:
+                    this.upsideDown = true;
+                    break;
+                case 6:
+                    this.upsideDown = true;
+                    this.backwards = true;
+                    break;
+            }
+        }    
     }
 }
 
@@ -250,7 +254,7 @@ Text.prototype.SVG = function (file) {
     //"<Text x1=" + this.startX  + "y1=" + this.startY + "x2=" + this.endX + "y2=" + this.endY + "style=" + this.colour + ";stroke-width:" + this.TextWidth + "/>"
 }
 
-/*
+
 Text.prototype.dxf = function () {
     var dxfitem = ""
     var data = dxfitem.concat(
@@ -264,27 +268,26 @@ Text.prototype.dxf = function () {
         "\n", this.points[0].y,
         "\n", "30", //Z
         "\n", "0.0",
-        "\n", "11", //X
-        "\n", this.points[1].x,
-        "\n", "21", //Y
-        "\n", this.points[1].y, //Y
-        "\n", "31", //Z
-        "\n", "0.0",
+       // "\n", "11", //X
+       // "\n", this.points[1].x,
+       // "\n", "21", //Y
+       // "\n", this.points[1].y, //Y
+       // "\n", "31", //Z
+       // "\n", "0.0",
         "\n", "1", //STRING
         "\n", this.string,
         "\n", "40", //STRING
         "\n", this.height,
-        "\n", "7", // TEXT STYLE
-        "\n", "STANDARD",
-        "\n", "72", //HORIZONTAL ALIGNMENT
-        "\n", this.getHorizontalAlignment(),
-        "\n", "73", //VERTICAL ALIGNMENT
-        "\n", this.getVerticalAlignment()
+       // "\n", "7", // TEXT STYLE
+       // "\n", "STANDARD",
+       // "\n", "72", //HORIZONTAL ALIGNMENT
+       // "\n", this.getHorizontalAlignment(),
+       // "\n", "73", //VERTICAL ALIGNMENT
+       // "\n", this.getVerticalAlignment()
     )
-    console.log(" line.js - DXF Data:" + data)
+    //console.log(" line.js - DXF Data:" + data)
     return data
 }
-*/
 
 Text.prototype.snaps = function (mousePoint, delta) {
 
