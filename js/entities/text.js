@@ -67,8 +67,9 @@ function Text(data) //startX, startY, endX, endY)
         if (data.horizontalAlignment) {
             this.horizontalAlignment = data.horizontalAlignment;
         }
+
         if (data.verticalAlignment) {
-            this.verticalAlignment = data.verticalAlignment;
+            this.verticalAlignment = data.verticalAlignment; 
         }
 
         if (data.styleName) {
@@ -147,8 +148,6 @@ Text.prototype.getHorizontalAlignment = function () {
     5 = Fit (if vertical alignment = 0)
     */
 
-    // Return canvas textAlignment value
-
     switch (this.horizontalAlignment) {
         case 0:
             return "left";
@@ -157,11 +156,11 @@ Text.prototype.getHorizontalAlignment = function () {
         case 2:
             return "right";
         case 3:
-            return this.verticalAlignment = 0 ? "aligned" : "left"; //(if vertical alignment = 0)
+            return (this.verticalAlignment === 0 ? "aligned" : "left"); //(if vertical alignment = 0)
         case 4:
-            return this.verticalAlignment = 0 ? "center" : "left" //(if vertical alignment = 0)
+            return (this.verticalAlignment === 0 ? "center" : "left"); //(if vertical alignment = 0)
         case 5:
-            return this.verticalAlignment = 0 ? "fit" : "left" //(if vertical alignment = 0)
+            return (this.verticalAlignment === 0 ? "fit" : "left"); //(if vertical alignment = 0)
         default:
             return "left";
     }
@@ -219,7 +218,6 @@ Text.prototype.draw = function (ctx, scale) {
     ctx.scale(1, -1);
     ctx.translate(this.points[0].x, -this.points[0].y);
 
-    
     if (this.upsideDown) {
         ctx.scale(1, -1);
     }
