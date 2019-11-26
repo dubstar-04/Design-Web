@@ -1448,7 +1448,7 @@ function layerColourChange(colour, layerIndex){
 <div class="tab">
 <button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
 <button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
-<button class="tablinks" onclick="changeTab(event, 'Text')">Text</button>
+<button class="tablinks" onclick="changeTab(event, 'Text'); loadStyleList();">Text</button>
 <button class="tablinks" onclick="changeTab(event, 'Accounts')">Accounts</button>
 <button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
 <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
@@ -1458,7 +1458,9 @@ function layerColourChange(colour, layerIndex){
 <!-- Autoload tab content here -->
 </div>
 
-
+<!---------------------------------------------------
+-------------------   colours    --------------------
+---------------------------------------------------->
 <!-- Tab content -->
 <div id="Colour" class="tabcontent">
 
@@ -1498,11 +1500,12 @@ function layerColourChange(colour, layerIndex){
 </ul>
 </div>
 </div>
-
 </div>
 
+<!---------------------------------------------------
+-------------------    snaps     --------------------
+---------------------------------------------------->
 <div id="Snaps" class="tabcontent">
-
 <div class="row">
 <div class="column">
 <ul> 
@@ -1547,7 +1550,6 @@ function layerColourChange(colour, layerIndex){
 
 <div class="column">
 <ul> 
-
 <div id="Polar" class="Design-sidebar-listitem">
 <img src="icons/polar.svg" style="width:32px;height:32px;">
 <p>Polar</p>
@@ -1590,15 +1592,72 @@ function layerColourChange(colour, layerIndex){
 </div>
 </div>
 
+<!---------------------------------------------------
+-------------------   styles    --------------------
+---------------------------------------------------->
 <div id="Text" class="tabcontent">
 
+<div class="row">
+<div class="column">
+<p> Styles: </p>
+<ul id="StylesManagerList" class="Design-sidebar-list">
+<!-- Dynamically add layer list -->
+</ul>
+</div>
+
+<div class="column">
 <div id="font" class="Design-sidebar-listitem">
 <p>Font</p>
-<select id="fontSelect" onchange="changeFont(this.value)";>
+<select id="fontSelect" onchange="updateStyle()";>
 </select>
-</div> 
+</div>
+
+<div id="fontStyle" class="Design-sidebar-listitem">
+<p>Font Style</p>
+<select id="fontStyleSelect" onchange="updateStyle()";>
+</select>
+</div>
+
+<div class="Design-sidebar-listitem">
+<p>Text Height</p>
+<input id="textHeightInput" type="number" onkeypress="updateStyle()";>
+</div>
+
+<div id="styleWidthFactor" class="Design-sidebar-listitem">
+<p>Width Factor</p>
+<input id="widthFactorInput" type="number" onchange="updateStyle()";>
+</label>
+</div>
+
+<div id="styleObliqueAngle" class="Design-sidebar-listitem">
+<p>Oblique Angle</p>
+<input id="obliqueAngleInput" type="number" onchange="updateStyle()";>
+</label>
+</div>
+
+<div id="styleUpsideDown" class="Design-sidebar-listitem">
+<p>Upside Down</p>
+<label class="toggle">
+<input type="checkbox" id="upsideDownToggle" onclick="updateStyle()";>
+<span class="slider"></span>
+</label>
+</div>
+
+<div id="styleBackwards" class="Design-sidebar-listitem">
+<p>Backwards</p>
+<label class="toggle">
+<input type="checkbox" id="backwardsToggle" onclick="updateStyle()";>
+<span class="slider"></span>
+</label>
 
 </div>
+</div> 
+</div> 
+</div>
+
+<!---------------------------------------------------
+-------------------   Accounts   --------------------
+---------------------------------------------------->
 
 <div id="Accounts" class="tabcontent">
 <h3>Accounts</h3>
@@ -1623,6 +1682,9 @@ function layerColourChange(colour, layerIndex){
     </div>
 </div>
 
+<!---------------------------------------------------
+-------------------   About    --------------------
+---------------------------------------------------->
 
 <div id="About" class="tabcontent">
 <h3>About</h3>
@@ -1635,7 +1697,6 @@ hobbyists and professionals that require a first class CAD application.</p>
 <h4> Version: <script type="text/javascript">document.write(designVersion)</script> </h4>
 
 </div>
-
 </div>
 </div>
 </div>
@@ -1643,30 +1704,90 @@ hobbyists and professionals that require a first class CAD application.</p>
 
 <script>
 
+function loadStyleList() {
 
-//document.getElementById("searchHelp").onkeydown = searchHelp;
+        // get a list of available fonts
+        getFonts();
+        //set font style options
+        var fontStyleSelect = document.getElementById("fontStyleSelect")
+
+        for (i = fontStyleSelect.options.length; i >= 0; i--) {
+            fontStyleSelect.remove(i);
+	    }
+
+        var fontStyles = {
+        1 : "Regular",
+        2 : "Bold",
+        3 : "Italic"
+        };
+
+        for(index in fontStyles) {
+            fontStyleSelect.options[fontStyleSelect.options.length] = new Option(fontStyles[index], index);
+        }
 
 
-function searchHelp(){
-	
-	var searchText = document.getElementById("searchHelp").value;
-	
-	//console.log("Search Text: ", searchText );
-	
-	var options = {
-  shouldSort: true,
-  threshold: 0.6,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [ "Title" ]
-};
-var fuse = new Fuse(helpData, options); // "list" is the item array
-var matches = fuse.search(searchText);
 
-console.log("Search Matches: ", matches);
+        var list = document.getElementById("StylesManagerList")
+        clearStylesList()
 
+        styles = SM.getStyles()
+        
+        for (var item = 0; item < styles.length; item++) {
+
+            var li = document.createElement("li");
+
+
+            var ListItemDiv = document.createElement("div");
+            ListItemDiv.className = "Design-sidebar-listitem";
+            ListItemDiv.id = styles[item].name;
+            ListItemDiv.onmousedown = function(e) {
+                loadStyleData(this.id)
+            };
+
+            var type = document.createTextNode(styles[item].name)
+            ListItemDiv.appendChild(type);
+            li.appendChild(ListItemDiv)
+            list.appendChild(li);
+        }
+
+
+        //load the first style available
+        loadStyleData(SM.getStyleByIndex(0).name)
+    }
+
+    function loadStyleData(styleName){
+
+        console.log("load style: ", styleName)
+
+        var style = SM.getStyleByName(styleName)
+
+        var fontStyle = document.getElementById("fontSelect")
+        var fontStyleSelect = document.getElementById("fontStyleSelect")
+        var textHeightInput = document.getElementById("textHeightInput")
+        var styleWidthFactor = document.getElementById("widthFactorInput")
+        var styleObliqueAngle = document.getElementById("obliqueAngleInput")
+        var styleUpsideDown = document.getElementById("upsideDownToggle")
+        var styleBackwards = document.getElementById("backwardsToggle")
+
+        console.log("StyleData: ", style)
+
+        fontStyle.value = style.font
+        fontStyleSelect.value = style.font 
+        textHeightInput.value = style.textHeight
+        styleWidthFactor.value = style.widthFactor
+        styleObliqueAngle.value = style.obliqueAngle
+        styleUpsideDown.checked = style.upsideDown
+        styleBackwards.checked = style.backwards
+    }
+
+    function clearStylesList() {
+        var list = document.getElementById("StylesManagerList")
+        list.innerHTML = '';
+    }
+
+function updateStyle(){
+
+    console.log("Update Style")
 }
 
 function changeColour(caller){
@@ -1811,9 +1932,6 @@ function setDefaultSettings(){
 	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
 	document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
 	document.getElementById("gridColour").style.backgroundColor = settings["gridColour"]
-	
-	
-	getFonts();
 }
 
 
@@ -1874,7 +1992,7 @@ function getFonts(){
 	var fontSelectorLength = fontSelector.options.length
 	
 	for (i = fontSelectorLength; i >= 0; i--) {
-		console.log("Remove Font: ", fonts[i], " From Index: ", i)
+		//console.log("Remove Font: ", fonts[i], " From Index: ", i)
 		fontSelector.remove(i);
 	}			
 
@@ -1884,12 +2002,12 @@ function getFonts(){
 			var fontOption = document.createElement("option");
 			fontOption.text = fonts[font]
 			fontSelector.options.add(fontOption);
-			console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
+			//console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
 		};		
 	}
 	
 	//set select value
-	fontSelector.value = settings["font"]
+	//fontSelector.value = settings["font"]
 }
 
 function showSettings() {

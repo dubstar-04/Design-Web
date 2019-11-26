@@ -7,7 +7,7 @@ function StyleManager() {
 }
 
 
-StyleManager.prototype.getstyles = function () {
+StyleManager.prototype.getStyles = function () {
     return this.styles;
 }
 
@@ -114,14 +114,10 @@ StyleManager.prototype.checkStyles = function () {
 
 StyleManager.prototype.addStandardStyles = function () {
     this.addStyle({
-        "name": "STANDARD",
-        "font" : "Arial", //TODO: How to set an available font
-        "textHeight" : 2.5
+        "name": "STANDARD"
     });
     this.addStyle({
-        "name": "ANNOTATIVE",
-        "font" : "Arial", //TODO: How to set an available font
-        "textHeight" : 2.5
+        "name": "ANNOTATIVE"
     });
     saveRequired();
 }
