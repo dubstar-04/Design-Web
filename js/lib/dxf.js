@@ -1488,6 +1488,7 @@ DXF.prototype.readText = function () {
     var styleName = "STANDARD"
     var colour = "BYLAYER";
     var layer = "0"
+    var widthFactor = 1;
     var flags;
 
     while (this.lineNum < this.lines.length) {
@@ -1514,7 +1515,8 @@ DXF.prototype.readText = function () {
                     rotation: rotation,
                     horizontalAlignment: horizontalAlignment,
                     verticalAlignment: verticalAlignment,
-                    flags: flags,
+                    widthFactor: widthFactor,
+                    flags: flags
                 }
 
                 addToScene("Text", text)
@@ -1547,18 +1549,21 @@ DXF.prototype.readText = function () {
                 this.getDXFLine();
                 secondAlignmentPoint.x = Number(this.line);
                 break;
-            case 21: // y
+           case 21: // y
                 this.getDXFLine();
                 secondAlignmentPoint.y = Number(this.line);
                 break;
             case 31: // z
                 this.getDXFLine();
                 break;
-            case 40:
-                // height
+            case 40: // height
                 this.getDXFLine();
                 height = Number(this.line);
                 break;
+            case 41: // width factor
+                this.getDXFLine();
+                widthFactor = Number(this.line);
+                 break;
             case 50: // rotation
                 this.getDXFLine();
                 rotation = Number(this.line);
@@ -1572,8 +1577,6 @@ DXF.prototype.readText = function () {
                 //2 = Text is backward (mirrored in X).
                 //4 = Text is upside down (mirrored in Y).
                 this.getDXFLine();
-                //debugLog("Text Flags: " + this.line);
-                //console.log("Text Flags: " + this.line);
                 flags = Number(this.line);
                 break;
             case 72:
@@ -1583,18 +1586,14 @@ DXF.prototype.readText = function () {
                 // 4 = Middle (if vertical alignment = 0)
                 // 5 = Fit (if vertical alignment = 0)
                 this.getDXFLine();
-                //debugLog("Horizontal Alignment: " + this.line);
-                //console.log("Horizontal Alignment: " + this.line);
                 horizontalAlignment = Number(this.line);
                 break;
             case 73:
                 //Vertical text justification type (optional, default = 0): integer codes (not bit- coded):
                 //0 = Baseline; 1 = Bottom; 2 = Middle; 3 = Top
-                //See the Group 72 and 73 integer codes table for clarification.
                 this.getDXFLine();
-                //debugLog("Vertical Alignment: " + this.line);
-                //console.log("Vertical Alignment: " + this.line);
                 verticalAlignment = Number(this.line);
+                console.log("dxf vertical align:", verticalAlignment)
                 break;
             default:
                 // skip the next line
