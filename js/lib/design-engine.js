@@ -10,9 +10,9 @@ function sceneControl(action, data) {
 	//console.log("sceneControl - InputData:" + data);
 	//console.log("sceneControl - Var Input:" + input);
 
-	var isNumber = /^\d+\.\d+$/.test(input) || /^\d+$/.test(input);
+	var isNumber = /^-?\d+\.\d+$/.test(input) || /^-?\d+$/.test(input);
 	var isLetters = /^[A-Za-z]+$/.test(input);
-	var isPoint = /^\d+,\d+$/.test(input) || /^@\d+,\d+$/.test(input) || /^#\d+,\d+$/.test(input);
+	var isPoint = /^\d+,\d+$/.test(input) || /^@-?\d+,-?\d+$/.test(input) || /^#-?\d+,-?\d+$/.test(input);
 	var isUndefined = (input === undefined)
 
 	//console.log("sceneControl - only Numbers " + isNumber)
