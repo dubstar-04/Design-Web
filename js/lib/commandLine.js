@@ -99,6 +99,8 @@ CommandLine.prototype.handleKeys = function (e) {
             break;
         case 112: // F1
             e.preventDefault();
+            showSettings()
+            changeTab(event, 'Help')
             break;
         case 113: // F2
             e.preventDefault();
@@ -216,14 +218,12 @@ CommandLine.prototype.enterPressed = function (event) {
         var data = [];
         sceneControl("Enter", data);
     }
-
 }
 
 CommandLine.prototype.mouseup = function (event){
     console.log("[CommandLine.mousedown]")
     
-this.cmdLine.selectionStart = this.cmdLine.selectionEnd = this.cmdLine.value.length;
-    
+    this.cmdLine.selectionStart = this.cmdLine.selectionEnd = this.cmdLine.value.length;  
 }
 
 /*
