@@ -137,7 +137,7 @@
     cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
     cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
     window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
-    //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
+    window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
     window.addEventListener('resize', function() {hideModals()}, false);
 	
