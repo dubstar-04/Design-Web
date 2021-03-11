@@ -11,10 +11,7 @@ CAD application.
 _________________________________________________________________________________________________________________
 
 Design can be accessed at:
-http://www.design-app.co.uk 
-
-Design testing branch can be accessed at: 
-http://design-app.co.uk/testing/Design.html
+https://dubstar-04.github.io/Design/Design.html
 _________________________________________________________________________________________________________________
 
 Raspberry PI Schematics available from:
