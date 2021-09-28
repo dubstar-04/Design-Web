@@ -100,7 +100,7 @@ function sceneControl(action, data) {
 	////////////////////// handle the new inputData //////////////////////
 	/////////////////////////////////////////////////////////////////////
 
-	if (activeCommand !== undefined) {
+	if (typeof activeCommand !== "undefined") {
 		inputArray.push(inputData)
 		actionInput();
 	} else if (isCommand(getCommandFromShortcut(input))) {
@@ -182,20 +182,24 @@ function convertInputToPoint(input) {
 }
 
 function isCommand(command) {
-	for (var i = 0; i < commands.length; i++) {
-		if (commands[i].command === command) {
-			return true;
+	if(typeof command !== "undefined"){
+		for (var i = 0; i < commands.length; i++) {
+			if (commands[i].command.toUpperCase() === command.toUpperCase()) {
+				return true;
+			}
 		}
-	}
+	}	
 	return false;
 }
 
 function getCommandFromShortcut(shortcut) {
 
 	var commandFromShortcut = shortcut
-	for (var i = 0; i < commands.length; i++) {
-		if (commands[i].shortcut === shortcut) {
-			commandFromShortcut = commands[i].command;
+	if(typeof shortcut !== "undefined"){
+		for (var i = 0; i < commands.length; i++) {
+			if (commands[i].shortcut.toUpperCase() === shortcut.toUpperCase()) {
+				commandFromShortcut = commands[i].command;
+			}
 		}
 	}
 	return commandFromShortcut
