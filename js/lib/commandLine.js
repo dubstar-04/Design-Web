@@ -120,6 +120,7 @@ CommandLine.prototype.handleKeys = function (e) {
         case 118: // F7
             e.preventDefault();
             toggleSnap('drawGrid')
+            canvas.requestPaint()
             break;
         case 119: // F8
             e.preventDefault();
