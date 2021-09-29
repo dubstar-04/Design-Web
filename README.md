@@ -12,6 +12,9 @@ ________________________________________________________________________________
 
 Design can be accessed at:
 https://www.design-app.co.uk
+
+Documention is available at:
+https://design-app.readthedocs.io/en/latest/index.html
 _________________________________________________________________________________________________________________
 
 Raspberry PI Schematics available from:
