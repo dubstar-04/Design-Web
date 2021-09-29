@@ -1,4 +1,5 @@
-# Commands
+Commands
+========
 
 *Please note that all commands have prompts displayed on the CommandLine. If in doubt read the CommandLine.*
 
