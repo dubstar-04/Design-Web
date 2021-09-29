@@ -11,7 +11,7 @@ Welcome to Design Documentation
    pages/settings
 
 
-## What is Design
+What is Design
 --------------
 Design is an opensource 2D computer aided design application (CAD) application for the web, 
 created to meet the needs of makers and designers, hobbyists and professionals that require a first class CAD application.
