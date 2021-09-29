@@ -23,7 +23,9 @@ Icon                                    Shortcut            Command Description
 .. image:: ../../icons/extend.svg       `E` `X`             **Extend** - Select boundry edge(s) followed by object(s) to extend.
 .. image:: ../../icons/erase.svg        `E`                 **Erase** - Select items to erase. (select first or during). 
 .. image:: ../../icons/erase.svg        `DEL`               **Delete** - Functions as per Erase Command.
-.. image:: ../../icons/text.svg         `D` `T`             **Text** - Pick start point, height and enter required test string
+.. image:: ../../icons/text.svg         `D` `T`             **Text** - Pick start point, enter height and enter required test string.
+.. image:: ../../icons/distance.svg     `D` `I`             **Distance** - Pick a centre point followed by second point to measure the distance.
+.. image:: ../../icons/identify.svg     `I` `D`             **Identify** - Pick a single point to display the co-ordinates.
 ====================================    =================   ========================================================================================================================
 
 
