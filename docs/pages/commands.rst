@@ -9,7 +9,7 @@ Commands Shortcut/Alias
 Below is list of common, abreviated commands available in Design. Enter the Shortcut followed by SpaceBar or Enter.
 
 ====================================    =================   ========================================================================================================================
-Icon                                    Shortcut Command    Command Description
+Icon                                    Shortcut            Command Description
 ====================================    =================   ========================================================================================================================
 .. image:: ../../icons/line.svg         `L`                 **Line** - Pick a start point followed by picking consecutive point(s) to draw line(s).
 .. image:: ../../icons/polyline.svg     `P` `L`             **PolyLine** - Pick a start point followed by picking consecutive point(s) to draw a continuos Polyline.
