@@ -16,7 +16,7 @@ created to meet the needs of makers and designers, hobbyists and professionals t
 Goals:
 *******
 - Educate. Learn. Teach. Pay it forward!
-- Encourge. We love CAD and we want to love CAD too! :heart:
+- Encourge. We love CAD and we want to love CAD too!
 - Be free. Zero cost and zero restrictions.
 - Play Well With Others. Design uses industry standard `DXF <https://en.wikipedia.org/wiki/AutoCAD_DXF>`_ Files. 
 
