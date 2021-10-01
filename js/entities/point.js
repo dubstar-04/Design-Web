@@ -65,3 +65,36 @@ Point.fromPoints = function (p1, p2) {
         p2.y - p1.y
     );
 };
+
+Point.prototype.project = function (angle, distance) {
+    // project point from this along angle(radians) by distance
+    // angle = degrees2radians(angle);
+    x = this.x + Math.sin(angle) * distance
+    y = this.y + Math.cos(angle) * distance
+    p = new Point(x, y)
+    return p
+};
+
+Point.prototype.perpendicular = function (Pt1, Pt2) {
+    //find the closest point on the straight line between Pt1 and Pt2
+
+    var APx = this.x - Pt1.x;
+    var APy = this.y - Pt1.y;
+    var ABx = Pt2.x - Pt1.x;
+    var ABy = Pt2.y - Pt1.y;
+
+    var magAB2 = ABx * ABx + ABy * ABy;
+    var ABdotAP = ABx * APx + ABy * APy;
+    var t = ABdotAP / magAB2;
+
+    // check if the point is < start or > end
+    if (t > 0 && t < 1) {
+
+        var x = Pt1.x + ABx * t
+        var y = Pt1.y + ABy * t
+        return new Point(x, y);
+    }
+
+    // no perpendicular point found. return this point.
+    return this
+}
