@@ -374,33 +374,16 @@ Line.prototype.snaps = function (mousePoint, delta) {
 }
 
 Line.prototype.closestPoint = function (P) {
+
     //find the closest point on the straight line
     var A = new Point(this.points[0].x, this.points[0].y);
     var B = new Point(this.points[1].x, this.points[1].y);
 
-    var APx = P.x - A.x;
-    var APy = P.y - A.y;
-    var ABx = B.x - A.x;
-    var ABy = B.y - A.y;
+    var pnt = P.perpendicular(A, B)
+    var distance = distBetweenPoints(P.x, P.y, pnt.x, pnt.y)
+    console.log(distance);
 
-    var magAB2 = ABx * ABx + ABy * ABy;
-    var ABdotAP = ABx * APx + ABy * APy;
-    var t = ABdotAP / magAB2;
-
-
-    // check if the point is < start or > end
-    if (t > 0 && t < 1) {
-
-        var x = A.x + ABx * t
-        var y = A.y + ABy * t
-
-    }
-
-    var closest = new Point(x, y);
-    var distance = distBetweenPoints(P.x, P.y, x, y)
-    //console.log(distance);
-
-    return [closest, distance]
+    return [pnt, distance]
 
 }
 
