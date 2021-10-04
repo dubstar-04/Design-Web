@@ -68,7 +68,6 @@ Point.fromPoints = function (p1, p2) {
 
 Point.prototype.project = function (angle, distance) {
     // project point from this along angle(radians) by distance
-    // angle = degrees2radians(angle);
     x = this.x + Math.sin(angle) * distance
     y = this.y + Math.cos(angle) * distance
     p = new Point(x, y)
