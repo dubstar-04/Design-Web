@@ -380,9 +380,12 @@ Line.prototype.closestPoint = function (P) {
     var B = new Point(this.points[1].x, this.points[1].y);
 
     var pnt = P.perpendicular(A, B)
-    var distance = distBetweenPoints(P.x, P.y, pnt.x, pnt.y)
-    console.log(distance);
+    if (pnt === null){
+        return [P, Infinity]
+    }
 
+    var distance = distBetweenPoints(P.x, P.y, pnt.x, pnt.y)
+    // console.log(distance);
     return [pnt, distance]
 
 }
