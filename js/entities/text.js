@@ -209,7 +209,7 @@ Text.prototype.draw = function (ctx, scale) {
         colour = LM.getLayerByName(this.layer).colour
     }
 
-    ctx.strokeStyle = colour;
+    //ctx.strokeStyle = colour; // Text doesn't require a stroke, see fill.
     ctx.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     ctx.fillStyle = colour;
     ctx.textAlign = this.getHorizontalAlignment();
@@ -233,7 +233,7 @@ Text.prototype.draw = function (ctx, scale) {
     }
 
     ctx.fillText(this.string, 0, 0)
-    ctx.stroke()
+    //ctx.stroke() // Text doesn't require a stroke
     ctx.restore();
 
     //// Draw Bounding Box to test the getBoundingRect()
@@ -323,7 +323,7 @@ Text.prototype.closestPoint = function (P) {
         P.y < topRight.y
     ){distance = 0}
 
-    console.log(distance);
+    //console.log(distance);
 
     return [mid, distance]
 }
