@@ -52,6 +52,16 @@ Point.prototype.max = function (that) {
     );
 };
 
+Point.prototype.midPoint = function (that) {
+    // return point midway between this and that
+    var midX = (this.x + that.x) / 2
+    var midY = (this.y + that.y) / 2
+
+    var midPoint = new Point(midX, midY);
+
+    return midPoint;
+}
+
 Point.prototype.lerp = function (that, t) {
     return new Point(
         this.x + (that.x - this.x) * t,
