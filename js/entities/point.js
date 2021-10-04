@@ -95,6 +95,6 @@ Point.prototype.perpendicular = function (Pt1, Pt2) {
         return new Point(x, y);
     }
 
-    // no perpendicular point found. return this point.
-    return this
+    // no perpendicular point found. return null
+    return null
 }
