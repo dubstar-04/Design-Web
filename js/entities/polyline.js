@@ -236,39 +236,27 @@ Polyline.prototype.snaps = function (mousePoint, delta) {
 
 Polyline.prototype.closestPoint = function (P) {
 
-    var closest = new Point();
-    var distance = 1.65;
+    var distance = Infinity;
+    var minPnt = P;
 
     for (var i = 1; i < this.points.length; i++) {
 
         var A = this.points[i - 1];
         var B = this.points[i];
+        var pnt = P.perpendicular(A, B);
+    
+        if (pnt !== null){
+            pntDist = distBetweenPoints(P.x, P.y, pnt.x, pnt.y)
 
-        //find the closest point on the straight line
-        var APx = P.x - A.x;
-        var APy = P.y - A.y;
-        var ABx = B.x - A.x;
-        var ABy = B.y - A.y;
-
-        var magAB2 = ABx * ABx + ABy * ABy;
-        var ABdotAP = ABx * APx + ABy * APy;
-        var t = ABdotAP / magAB2;
-
-
-        // check if the point is < start or > end
-        if (t > 0 && t < 1) {
-            closest.x = A.x + ABx * t
-            closest.y = A.y + ABy * t
-
-            var dist = distBetweenPoints(P.x, P.y, closest.x, closest.y);
-            //console.log(" polyline.js - Dist: " + dist);
-            if (dist < distance) {
-                distance = dist;
+            if(pntDist < distance){
+                distance = pntDist;
+                minPnt = pnt;
+                console.log("distance:" , distance)
             }
         }
     }
 
-    return [closest, distance]
+    return [minPnt, distance]
 }
 
 Polyline.prototype.extremes = function () {
