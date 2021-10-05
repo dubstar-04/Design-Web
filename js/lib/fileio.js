@@ -38,7 +38,7 @@ function savedxf() {
 			"\n0",
 			"\nENDSEC"
 )
-
+			// Create table data for layers
 		data = data.concat(
 			"\n0",
 			"\nSECTION",
@@ -57,10 +57,10 @@ function savedxf() {
 
 		data = data.concat(
 			"\n0",
-			"\nENDTAB",
-			//"\n0",
-			//"\nENDSEC"
+			"\nENDTAB"
 		)
+
+		// Create table data for text styles
 
 		data = data.concat(
 			"\n0",
