@@ -169,6 +169,9 @@ DXF.prototype.processData = function () {
             case "DIMENSION":
                 //debugLog("Found " + this.line)
                 //this.readDimension();
+            case "DIMSTYLE":
+                //debugLog("Found " + this.line)
+                this.readDimStyle();
                 break;
 
             case "ELLIPSE":
@@ -1767,6 +1770,275 @@ DXF.prototype.readStyle = function () {
                 //4 = Text is upside down (mirrored in Y).
                 this.getDXFLine();
                 flags = Number(this.line);
+                break;
+            default:
+                // skip the next line
+                this.getDXFLine();
+                break;
+        }
+    }
+}
+
+DXF.prototype.readDimStyle = function () {
+
+    var name = "";
+    var standardFlags = 0;
+    var DIMPOST = "" //3
+    var DIMAPOST = "" //4
+    var DIMBLK = "" //5
+    var DIMBLK1 = "" //6
+    var DIMBLK2 = "" //8
+    var DIMSCALE = "1.0" //40
+    var DIMASZ = "0.18"; //41 
+    var DIMEXO = "0.0625"; //42 
+    var DIMDLI = "0.38"; //43
+    var DIMEXE = "0.18"; //44
+    var DIMRND = "0.0"; //45
+    var DIMDLE = "0.0"; //46
+    var DIMTP = "0.0"; //47
+    var DIMTM = "0.0"; //48
+    var DIMTXT = "0.18"; //140
+    var DIMCEN = "0.09"; //141
+    var DIMTSZ = "0.0"; //142
+    var DIMALTF = "25.39"; //143
+    var DIMLFAC = "1.0"; //144
+    var DIMTVP = "0.0"; //145
+    var DIMTFAC = "1.0"; //146
+    var DIMGAP = "0.09"; //147
+    var DIMTOL = "0"; //71
+    var DIMLIM = "0"; //72
+    var DIMTIH = "1"; //73
+    var DIMTOH = "1"; //74
+    var DIMSE1 = "0"; //75
+    var DIMSE2 = "0"; //76
+    var DIMTAD = "0"; //77 
+    var DIMZIN = "0"; //78
+    var DIMALT = "0"; //170 
+    var DIMALTD = "2"; //171
+    var DIMTOFL = "0"; //172
+    var DIMSAH = "0"; //173
+    var DIMTIX = "0"; //174
+    var DIMSOXD = "0"; //175
+    var DIMCLRD = "0"; //176
+    var DIMCLRE = "0"; //177
+    var DIMCLRT = "0";
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+
+        switch (n) {
+            case 0:
+
+                var dimstyle = {
+                    name: name,
+                    standardFlags: standardFlags,
+                    DIMPOST: DIMPOST,
+                    DIMAPOST: DIMAPOST,
+                    DIMBLK: DIMBLK,
+                    DIMBLK1: DIMBLK1,
+                    DIMBLK2: DIMBLK2,
+                    DIMSCALE: DIMSCALE,
+                    DIMASZ: DIMASZ,
+                    DIMEXO: DIMEXO,
+                    DIMDLI: DIMDLI,
+                    DIMEXE: DIMEXE,
+                    DIMRND: DIMRND,
+                    DIMDLE: DIMDLE,
+                    DIMTP: DIMTP,
+                    DIMTM: DIMTM,
+                    DIMTXT: DIMTXT,
+                    DIMCEN: DIMCEN,
+                    DIMTSZ: DIMTSZ,
+                    DIMALTF: DIMALTF,
+                    DIMLFAC: DIMLFAC,
+                    DIMTVP: DIMTVP,
+                    DIMTFAC: DIMTFAC,
+                    DIMGAP: DIMGAP,
+                    DIMTOL: DIMTOL,
+                    DIMLIM: DIMLIM,
+                    DIMTIH: DIMTIH,
+                    DIMTOH: DIMTOH,
+                    DIMSE1: DIMSE1,
+                    DIMSE2: DIMSE2,
+                    DIMTAD: DIMTAD,
+                    DIMZIN: DIMZIN,
+                    DIMALT: DIMALT,
+                    DIMALTD: DIMALTD,
+                    DIMTOFL: DIMTOFL,
+                    DIMSAH: DIMSAH,
+                    DIMTIX: DIMTIX,
+                    DIMSOXD: DIMSOXD,
+                    DIMCLRD: DIMCLRD,
+                    DIMCLRE: DIMCLRE,
+                    DIMCLRT: DIMCLRT
+                }
+
+                if (name !== ""){
+                    DSM.addStyle(dimstyle)
+                }
+
+                return true;
+            case 2: // Style Name follows
+                this.getDXFLine();
+                name = this.line;
+                break;
+            case 3:
+                this.getDXFLine();
+                DIMPOST = Number(this.line);
+                break;
+            case 4:
+                this.getDXFLine();   
+                DIMAPOST = Number(this.line);
+                break;
+            case 5:
+                this.getDXFLine(); 
+                DIMBLK = Number(this.line);
+                break;
+            case 6:
+                this.getDXFLine(); 
+                DIMBLK1 = Number(this.line);
+                break;
+            case 8:
+                this.getDXFLine();
+                DIMBLK2 = Number(this.line);
+                break;
+            case 40:
+                this.getDXFLine();
+                DIMSCALE = Number(this.line);
+                break;
+            case 41:
+                this.getDXFLine();
+                DIMASZ = Number(this.line);
+                break; 
+            case 42:
+                this.getDXFLine();
+                DIMEXO = Number(this.line);
+                break;
+            case 43:
+                this.getDXFLine();
+                DIMDLI = Number(this.line);
+                break;
+            case 44:
+                this.getDXFLine();
+                DIMEXE = Number(this.line);
+                break;
+            case 45:
+                this.getDXFLine();
+                DIMRND = Number(this.line);
+                break;
+            case 46:
+                this.getDXFLine();
+                DIMDLE = Number(this.line);
+                break;
+            case 47:
+                this.getDXFLine();
+                DIMTP = Number(this.line);
+                break;
+            case 48:
+                this.getDXFLine();
+                DIMTM = Number(this.line);
+                break;
+            case 140:
+                this.getDXFLine();
+                DIMTXT = Number(this.line);
+                break;
+            case 141:
+                this.getDXFLine();
+                DIMCEN = Number(this.line);
+                break;
+            case 142:
+                this.getDXFLine();
+                DIMTSZ = Number(this.line);
+                break;
+            case 143:
+                this.getDXFLine();
+                DIMALTF = Number(this.line);
+                break;
+            case 144:
+                this.getDXFLine();
+                DIMLFAC = Number(this.line);
+                break;
+            case 145:
+                this.getDXFLine();
+                DIMTVP = Number(this.line);
+                break;
+            case 146:
+                this.getDXFLine();
+                DIMTFAC = Number(this.line);
+                break;
+            case 147:
+                this.getDXFLine();
+                DIMGAP = Number(this.line);
+                break;
+            case 71:
+                this.getDXFLine();
+                DIMTOL = Number(this.line);
+                break;
+            case 72:
+                this.getDXFLine();
+                DIMLIM = Number(this.line);
+                break;
+            case 73:
+                this.getDXFLine();
+                DIMTIH = Number(this.line);
+                break;
+            case 74:
+                this.getDXFLine();
+                DIMTOH = Number(this.line);
+                break;
+            case 75:
+                this.getDXFLine();
+                DIMSE1 = Number(this.line);
+                break;
+            case 76:
+                this.getDXFLine();
+                DIMSE2 = Number(this.line);
+                break;
+            case 77:
+                this.getDXFLine();
+                DIMTAD = Number(this.line);
+                break; 
+            case 78:
+                this.getDXFLine();
+                DIMZIN = Number(this.line);
+                break;
+            case 170:
+                this.getDXFLine();
+                DIMALT = Number(this.line);
+                break; 
+            case 171:
+                this.getDXFLine();
+                DIMALTD = Number(this.line);
+                break;
+            case 172:
+                this.getDXFLine();
+                DIMTOFL = Number(this.line);
+                break;
+            case 173:
+                this.getDXFLine();
+                DIMSAH = Number(this.line);
+                break;
+            case 174:
+                this.getDXFLine();
+                DIMTIX = Number(this.line);
+                break;
+            case 175:
+                this.getDXFLine();
+                DIMSOXD = Number(this.line);
+                break;
+            case 176:
+                this.getDXFLine();
+                DIMCLRD = Number(this.line);
+                break;
+            case 177:
+                this.getDXFLine();
+                DIMCLRE = Number(this.line);
+                break;
+            case 178:
+                this.getDXFLine();
+                DIMCLRT = Number(this.line);
                 break;
             default:
                 // skip the next line
