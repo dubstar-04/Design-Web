@@ -77,20 +77,14 @@ function savedxf() {
 		data = data.concat(
 			"\n0",
 			"\nENDTAB",
-			//"\n0",
-			//"\nENDSEC"
 		)
 
-		var extents = getSceneExtents() //Scene.canvas.getExtents();
+		var extents = getSceneExtents()
 
 		var width = extents.xmax - extents.xmin;
 		var height = extents.ymax - extents.ymin;
 
 	data = data.concat(
-			//"\n0",
-			//"\nENDTAB",
-			//"\n0",
-			//"\nSECTION",
 			"\n0",
 			"\nTABLE",
 			"\n2",  		//Table Name
