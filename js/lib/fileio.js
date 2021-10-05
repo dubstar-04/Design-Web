@@ -76,6 +76,25 @@ function savedxf() {
 
 		data = data.concat(
 			"\n0",
+			"\nENDTAB"
+		)
+
+		// Create table data for dimension styles
+		
+		data = data.concat(
+			"\n0",
+			"\nTABLE",
+			"\n2",
+			"\nDIMSTYLE",
+			"\n70",
+			"\n" + DSM.styleCount())
+
+		for (var i = 0; i < DSM.styleCount(); i++) {
+			data = data.concat("\n", DSM.getStyleByIndex(i).dxf())
+		}
+
+		data = data.concat(
+			"\n0",
 			"\nENDTAB",
 		)
 
