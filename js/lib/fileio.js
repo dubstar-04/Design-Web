@@ -157,17 +157,17 @@ function savedxf() {
 			"\n0",
 			"\n72",			//Cicle sides
 			"\n1000",
-			"\n73",			//?
+			"\n73",			//fast zoom setting
 			"\n1",
 			"\n74",			//UCSICON Setting
 			"\n3",
-			"\n75",			//?
+			"\n75",			// snap on/off
 			"\n 0",
-			"\n76",			//?
+			"\n76",			// grid on/off
 			"\n 1",
-			"\n77",			//?
+			"\n77",			//snap style
 			"\n 0",
-			"\n78",			//?
+			"\n78",			//snap isopair
 			"\n0",
 			"\n0",
 			"\nENDTAB",
