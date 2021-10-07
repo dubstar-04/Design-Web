@@ -11,13 +11,11 @@ on:
       - master
 
 jobs:
-  run-linters:
-    name: Run linters
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-        
-      - name: Run ESLint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
