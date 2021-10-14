@@ -18,10 +18,10 @@ function Line(data) {
     this.colour = "BYLAYER";
     this.layer = "0";
     this.alpha = 1.0 //Transparancy
-    //this.lineType
-    //this.LinetypeScale
-    //this.PlotStyle
-    //this.LineWeight
+        //this.lineType
+        //this.LinetypeScale
+        //this.PlotStyle
+        //this.LineWeight
 
     if (data) {
 
@@ -44,7 +44,7 @@ function Line(data) {
     }
 }
 
-Line.prototype.prompt = function (inputArray) {
+Line.prototype.prompt = function(inputArray) {
     var num = inputArray.length;
     var expectedType = [];
     var reset = false;
@@ -56,23 +56,23 @@ Line.prototype.prompt = function (inputArray) {
 
     expectedType[0] = ["undefined"];
     prompt[0] = "Pick start point:";
- 
-    expectedType[1] = ["object"];   
+
+    expectedType[1] = ["object"];
     prompt[1] = "Pick another point or press ESC to quit:";
 
-    expectedType[2] = ["object","number"];   
+    expectedType[2] = ["object", "number"];
     prompt[2] = prompt[1];
 
-    expectedType[3] = ["object","number"];   
+    expectedType[3] = ["object", "number"];
     prompt[3] = prompt[1];
 
-    validInput = expectedType[num].includes(typeof inputArray[num-1])
-            
-    if(!validInput || num > this.minPoints){
+    validInput = expectedType[num].includes(typeof inputArray[num - 1])
+
+    if (!validInput || num > this.minPoints) {
         inputArray.pop()
     }
-    
-    if (inputArray.length === this.minPoints){
+
+    if (inputArray.length === this.minPoints) {
         action = true;
         //reset = true
     }
@@ -80,7 +80,7 @@ Line.prototype.prompt = function (inputArray) {
     return [prompt[inputArray.length], reset, action, validInput]
 }
 
-Line.prototype.draw = function (ctx, scale) {
+Line.prototype.draw = function(ctx, scale) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -100,23 +100,23 @@ Line.prototype.draw = function (ctx, scale) {
     ctx.stroke()
 }
 
-Line.prototype.svg = function () {
+Line.prototype.svg = function() {
     //<line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
     //<line x1="20" y1="100" x2="100" y2="100" stroke-width="2" stroke="black"/>
     var quote = "\""
     var svgstr = ""
     var data = svgstr.concat("<line x1=", "\"", this.points[0].x, "\"",
-        " y1=", "\"", this.points[0].y, "\"",
-        " x2=", "\"", this.points[1].x, "\"",
-        " y2=", "\"", this.points[1].y, "\"",
-        " stroke=", "\"", this.colour, "\"",
-        " stroke-width=", "\"", this.lineWidth, "\"", "/>"
-    )
-    //console.log(data)
+            " y1=", "\"", this.points[0].y, "\"",
+            " x2=", "\"", this.points[1].x, "\"",
+            " y2=", "\"", this.points[1].y, "\"",
+            " stroke=", "\"", this.colour, "\"",
+            " stroke-width=", "\"", this.lineWidth, "\"", "/>"
+        )
+        //console.log(data)
     return data
 }
 
-Line.prototype.dxf = function () {
+Line.prototype.dxf = function() {
     var dxfitem = ""
     var data = dxfitem.concat(
         "0",
@@ -142,7 +142,7 @@ Line.prototype.dxf = function () {
     return data
 }
 
-Line.prototype.trim = function (points) {
+Line.prototype.trim = function(points) {
 
     console.log("line.js - Points:", points.length)
 
@@ -256,7 +256,7 @@ Line.prototype.trim = function (points) {
 
 }
 
-Line.prototype.extend = function (points) {
+Line.prototype.extend = function(points) {
 
     var originPoint;
     var destinationPoint;
@@ -280,10 +280,10 @@ Line.prototype.extend = function (points) {
 
         if (Math.round(this.points[originPoint].angle(points[i])) === Math.round(this.points[originPoint ? 0 : 1].angle(this.points[originPoint])))
 
-            // if the destination point is different than the origin add it to the array of valid points
+        // if the destination point is different than the origin add it to the array of valid points
             if (Math.round(this.points[originPoint].distance(points[i])) !== 0) {
-                validPoints.push(i)
-            }
+            validPoints.push(i)
+        }
     }
 
     console.log("line.js - extend - Valid Points:", validPoints.length);
@@ -310,7 +310,7 @@ Line.prototype.extend = function (points) {
 
 }
 
-Line.prototype.intersectPoints = function () {
+Line.prototype.intersectPoints = function() {
 
     return {
         start: this.points[0],
@@ -319,7 +319,7 @@ Line.prototype.intersectPoints = function () {
 
 }
 
-Line.prototype.length = function () {
+Line.prototype.length = function() {
     var A = (this.points[0].x - this.points[1].x)
     var B = (this.points[0].y - this.points[1].y)
     var ASQ = Math.pow(A, 2)
@@ -329,21 +329,21 @@ Line.prototype.length = function () {
     return dist
 }
 
-Line.prototype.midPoint = function () {
-    var midX = (this.points[0].x + this.points[1].x) / 2
-    var midY = (this.points[0].y + this.points[1].y) / 2
+Line.prototype.midPoint = function() {
+    //var midX = (this.points[0].x + this.points[1].x) / 2
+    //var midY = (this.points[0].y + this.points[1].y) / 2
 
-    var midPoint = new Point(midX, midY);
+    var midPoint = this.points[0].midPoint(this.points[1]); //new Point(midX, midY);
 
     return midPoint;
 }
 
-Line.prototype.angle = function () {
+Line.prototype.angle = function() {
     var angle = 180;
     return angle
 }
 
-Line.prototype.snaps = function (mousePoint, delta) {
+Line.prototype.snaps = function(mousePoint, delta) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -373,24 +373,24 @@ Line.prototype.snaps = function (mousePoint, delta) {
     return snaps;
 }
 
-Line.prototype.closestPoint = function (P) {
+Line.prototype.closestPoint = function(P) {
 
     //find the closest point on the straight line
     var A = new Point(this.points[0].x, this.points[0].y);
     var B = new Point(this.points[1].x, this.points[1].y);
 
     var pnt = P.perpendicular(A, B)
-    if (pnt === null){
+    if (pnt === null) {
         return [P, Infinity]
     }
 
     var distance = distBetweenPoints(P.x, P.y, pnt.x, pnt.y)
-    // console.log(distance);
+        // console.log(distance);
     return [pnt, distance]
 
 }
 
-Line.prototype.extremes = function () {
+Line.prototype.extremes = function() {
 
     var xmin = Math.min(this.points[0].x, this.points[1].x);
     var xmax = Math.max(this.points[0].x, this.points[1].x);
@@ -401,7 +401,7 @@ Line.prototype.extremes = function () {
 
 }
 
-Line.prototype.within = function (selection_extremes) {
+Line.prototype.within = function(selection_extremes) {
 
     if (!LM.layerVisible(this.layer)) {
         return
@@ -422,7 +422,7 @@ Line.prototype.within = function (selection_extremes) {
 
 }
 
-Line.prototype.touched = function (selection_extremes) {
+Line.prototype.touched = function(selection_extremes) {
 
     if (!LM.layerVisible(this.layer)) {
         return
