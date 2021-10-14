@@ -6,18 +6,18 @@
     <title>Design</title>
     <link rel="stylesheet" href="css/design.css">
     <link rel="stylesheet" href="css/settings.css">
-	<link rel="stylesheet" href="css/welcomeWizzard.css">
+    <link rel="stylesheet" href="css/welcomeWizzard.css">
     <link rel="stylesheet" href="css/toggle.css">
-	<link rel="stylesheet" href="css/tabs.css">
+    <link rel="stylesheet" href="css/tabs.css">
     <link rel="stylesheet" href="css/tickbox.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/layerManager.css">
     <link rel="stylesheet" href="css/contextmenu.css">
     <link rel="stylesheet" href="css/popover.css">
-	<link rel="stylesheet" href="css/colourpicker.css">
+    <link rel="stylesheet" href="css/colourpicker.css">
     <link rel="stylesheet" href="css/dropdown.css">
-	<link rel="stylesheet" href="css/notification.css">
-	
+    <link rel="stylesheet" href="css/notification.css">
+
     <div role="main">
         <!--<canvas id="myCanvas" width="600" height="400" style="border:1px solid #c3c3c3;">-->
         <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
@@ -27,26 +27,26 @@
 
 
     <div class="toolbar">
-		<input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
+        <input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
         <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
-        <div class="tooltip"><button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button>  <span class="tooltiptext">Open File</span></div>
-        <div class="tooltip"><button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button>  <span class="tooltiptext">Save</span></div>
+        <div class="tooltip"><button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button> <span class="tooltiptext">Open File</span></div>
+        <div class="tooltip"><button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button> <span class="tooltiptext">Save</span></div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button>  <span class="tooltiptext">Line (L)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>  <span class="tooltiptext">Polyline (PL)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button>  <span class="tooltiptext">Circle (C)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button>  <span class="tooltiptext">Arc (A)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button>  <span class="tooltiptext">Rectangle (REC)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
         <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button>  <span class="tooltiptext">Text (DT)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button>  <span class="tooltiptext">Dimension (DIM)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button>  <span class="tooltiptext">Move (M)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>  <span class="tooltiptext">Copy (CO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>  <span class="tooltiptext">Rotate (RO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>  <span class="tooltiptext">Trim (TR)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>  <span class="tooltiptext">Extend (EX)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button>  <span class="tooltiptext">Erase (E)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
 
         <div class="tooltip"><span class="separator"></span></div>
         <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
@@ -72,7 +72,6 @@
     var cmd_Line = document.getElementById('cmdLine')
     var cnvs = document.getElementById('designCanvas');
     cnvs.style.cursor = "crosshair";
-
 </script>
 
 <!--Load all the design libs-->
@@ -88,6 +87,8 @@
 <script type="text/javascript" src="js/entities/spline.js"></script>
 <script type="text/javascript" src="js/entities/text.js"></script>
 <script type="text/javascript" src="js/entities/dimension.js"></script>
+<script type="text/javascript" src="js/entities/block.js"></script>
+<!--<script type="text/javascript" src="js/entities/insert.js"></script>-->
 
 <script type="text/javascript" src="js/entities/point.js"></script>
 <script type="text/javascript" src="js/entities/layer.js"></script>
@@ -122,7 +123,7 @@
 <script type="text/javascript" src="js/help/help.js"></script>
 
 <script>
-	var designVersion = "Pre-Alpha-Dev";
+    var designVersion = "Pre-Alpha-Dev";
     var mouse = new Mouse();
     var canvas = new Canvas(cnvs);
     var commandLine = new CommandLine(cmd_Line);
@@ -135,37 +136,55 @@
     cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
     cnvs.addEventListener('mouseup', canvas.mouseup, false);
     cnvs.addEventListener('dblclick', canvas.dblclick, false);
-    cnvs.addEventListener('contextmenu', function() {canvas_contextmenu()}, false);
+    cnvs.addEventListener('contextmenu', function() {
+        canvas_contextmenu()
+    }, false);
     //cnvs.addEventListener('wheel', canvas.wheel, false);
     cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
     cnvs.addEventListener('mousewheel', canvas.wheel, false);
     cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
     cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
-    window.addEventListener('contextmenu', function(e) {e.preventDefault()}, false);
+    window.addEventListener('contextmenu', function(e) {
+        e.preventDefault()
+    }, false);
     //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
     window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
-    window.addEventListener('resize', function() {hideModals()}, false);
-	
-	document.getElementById('fileupload').addEventListener("change", function () {
-		console.log(document.getElementById('fileupload').files[0])
-		readFile(document.getElementById('fileupload').files[0])
-	});
-	
-	function hideModals(){
-	    closePopover();
-	    closeColourPicker();
-	    closeSettings();
-	}
+    window.addEventListener('resize', function() {
+        hideModals()
+    }, false);
+
+    document.getElementById('fileupload').addEventListener("change", function() {
+        console.log(document.getElementById('fileupload').files[0])
+        readFile(document.getElementById('fileupload').files[0])
+    });
+
+    function hideModals() {
+        closePopover();
+        closeColourPicker();
+        closeSettings();
+    }
 
 
     function canvas_contextmenu() {
 
         var listItems = [{
-            name: "Enter", action: function(){reset(); closePopover();}
+            name: "Enter",
+            action: function() {
+                reset();
+                closePopover();
+            }
         }, {
-            name: "Mid Between 2 Points", action: function(){closePopover();}
+            name: "Mid Between 2 Points",
+            action: function() {
+                    closePopover();
+                }
+                //TODO: mid isn't functional
         }, {
-            name: "Settings", action: function(){showSettings(); closePopover();}
+            name: "Settings",
+            action: function() {
+                showSettings();
+                closePopover();
+            }
         }];
         popover_showList(listItems);
     }
@@ -188,13 +207,12 @@
                 }
             }
         }, false);
-		
-		loadAllSettings();
-		canvas.resizeCanvas();
-		getCookieConsent();		
-		
+
+        loadAllSettings();
+        canvas.resizeCanvas();
+        getCookieConsent();
+
     }
-    
 </script>
 
 
@@ -209,15 +227,14 @@
 
 
 <script>
-
     function ColourPicker_setContent(content) {
         var ColourPicker = document.getElementById("ColourPicker-body")
         ColourPicker.innerHTML = content;
         //showColourPicker();
     }
-	
-	
-	    function ColourPicker_appendContent(content) {
+
+
+    function ColourPicker_appendContent(content) {
         ColourPicker_clearContent();
         var ColourPicker = document.getElementById("ColourPicker-body");
         ColourPicker.appendChild(content);
@@ -228,43 +245,43 @@
         var ColourPicker = document.getElementById("ColourPicker-body")
         ColourPicker.innerHTML = '';
     }
-	
+
     function showColourPicker(ev, callback, caller) {
         document.getElementById('ColourPickerWindow').style.display = "block";
         positionColourPicker(ev);
-		
-		
-		var ColourPicker_table = document.createElement("div");
+
+
+        var ColourPicker_table = document.createElement("div");
         ColourPicker_table.className = "ColourPicker-table";
         ColourPicker_table.id = "ColourPicker-table";
 
         var colours = [1, 2, 3, 4, 5, 6, 230, 30, 7, 8, 9, 256]
 
         for (var i = 0; i < colours.length; i++) {
-        var ACIColour = document.createElement("div");
-        ACIColour.className = "Design-shape"
-        ACIColour.style.backgroundColor = getHexColour(colours[i]);
-        ACIColour.id = getHexColour(colours[i]);
-        ACIColour.onmousedown = function(e) {
-        //LM.layers[layerIndex].colour = this.id;
-        //console.log(" selected colour " + this.id);
-		
-        //return selected colour and redraw canvas
-        closeColourPicker()
-        canvas.requestPaint()
-		var selectedColour = this.id;
-		callback(selectedColour, caller);
+            var ACIColour = document.createElement("div");
+            ACIColour.className = "Design-shape"
+            ACIColour.style.backgroundColor = getHexColour(colours[i]);
+            ACIColour.id = getHexColour(colours[i]);
+            ACIColour.onmousedown = function(e) {
+                //LM.layers[layerIndex].colour = this.id;
+                //console.log(" selected colour " + this.id);
 
-        };
+                //return selected colour and redraw canvas
+                closeColourPicker()
+                canvas.requestPaint()
+                var selectedColour = this.id;
+                callback(selectedColour, caller);
 
-        ColourPicker_table.appendChild(ACIColour);
-                    }
-      
-	  ColourPicker_appendContent(ColourPicker_table)
-		
+            };
+
+            ColourPicker_table.appendChild(ACIColour);
+        }
+
+        ColourPicker_appendContent(ColourPicker_table)
+
     }
-	
-	
+
+
 
     function closeColourPicker() {
         document.getElementById('ColourPickerWindow').style.display = "none";
@@ -318,7 +335,7 @@
     // When the user clicks anywhere outside of the dialogs, close them
     window.onclick = function(event) {
         if (event.target == document.getElementById('ColourPickerWindow')) {
-			console.log("Close Colour Picker")
+            console.log("Close Colour Picker")
             closeColourPicker()
         }
     }
@@ -326,7 +343,6 @@
     //import this document in to the Design.html Document
     //var import1 = document.currentScript.ownerDocument.querySelector("#ColourPickerWindow");
     //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
-
 </script>
 
 
@@ -341,38 +357,37 @@
 ---------------------------------------------------->
 <div id="context-menu" class="context-menu">
     <div id="LayerManagerContent" class="LayerManager-content">
-    <ul class="context-menu__items">
-        <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i> View Task</a>
-        </li>
-        <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-action="Edit"><i class="fa fa-edit"></i> Edit Task</a>
-        </li>
-        <li class="context-menu__item">
-            <a href="#" class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i> Delete Task</a>
-        </li>
-    </ul>
-        </div>
+        <ul class="context-menu__items">
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i> View Task</a>
+            </li>
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="Edit"><i class="fa fa-edit"></i> Edit Task</a>
+            </li>
+            <li class="context-menu__item">
+                <a href="#" class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i> Delete Task</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <script>
-   
- /*   function clickInsideElement(e, className) {
-        var el = e.srcElement || e.target;
+    /*   function clickInsideElement(e, className) {
+                            var el = e.srcElement || e.target;
 
-        if (el.classList.contains(className)) {
-            return el;
-        } else {
-            while (el = el.parentNode) {
-                if (el.classList && el.classList.contains(className)) {
-                    return el;
-                }
-            }
-        }
+                            if (el.classList.contains(className)) {
+                                return el;
+                            } else {
+                                while (el = el.parentNode) {
+                                    if (el.classList && el.classList.contains(className)) {
+                                        return el;
+                                    }
+                                }
+                            }
 
-        return false;
-    }
-    */
+                            return false;
+                        }
+                        */
 
     /**
      * Get's exact position of event.
@@ -381,7 +396,7 @@
      * @return {Object} Returns the x and y position
      */
     function getPosition(e) {
-        
+
         console.log("get position of menu")
         var posx = 0;
         var posy = 0;
@@ -513,7 +528,7 @@
     function toggleMenuOn() {
         menu.style.display = "none";
         console.log(menu.style.display);
-        
+
         if (menuState !== 1) {
             console.log("menu on")
             menuState = 1;
@@ -543,18 +558,18 @@
         clickCoords = getPosition(e);
         clickCoordsX = clickCoords.x;
         clickCoordsY = clickCoords.y;
-        
+
         console.log(clickCoordsX, clickCoordsY)
 
         menuWidth = menu.offsetWidth + 4;
         menuHeight = menu.offsetHeight + 4;
-        
-        console.log("width: ",menuWidth, " Height: ", menuHeight)
+
+        console.log("width: ", menuWidth, " Height: ", menuHeight)
 
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
-        
-        console.log("width: ",windowWidth, " Height: ", windowHeight)
+
+        console.log("width: ", windowWidth, " Height: ", windowHeight)
 
         if ((windowWidth - clickCoordsX) < menuWidth) {
             menu.style.left = windowWidth - menuWidth + "px";
@@ -588,7 +603,6 @@
     //var import2 = document.currentScript.ownerDocument.querySelector("#context-menu");
 
     //document.body.appendChild(document.currentScript.ownerDocument.importNode(import2, true));
-
 </script>
 
 <!---------------------------------------------------
@@ -608,12 +622,12 @@
         <div class="Design-header-icon" , onclick="addNewLayer()"><img src="icons/add.svg"></div>
     </div>
     <div id="LayerManagerContent" class="Design-sidebar-content">
-       <!--  <div class="LayerManager-body">-->
+        <!--  <div class="LayerManager-body">-->
 
-            <ul id="LayerManagerList" class="Design-sidebar-list">
-                <!-- Dynamically add layer list -->
-            </ul>
-       <!-- </div> -->
+        <ul id="LayerManagerList" class="Design-sidebar-list">
+            <!-- Dynamically add layer list -->
+        </ul>
+        <!-- </div> -->
     </div>
 </div>
 
@@ -718,14 +732,14 @@
                 //console.log("Show Details")
         }
     }
-	
-function layerColourChange(colour, layerIndex){
-		console.log("change ", layerIndex, " to: ", colour);
+
+    function layerColourChange(colour, layerIndex) {
+        console.log("change ", layerIndex, " to: ", colour);
         LM.layers[layerIndex].colour = colour;
         loadLayers();
         //closePopover()
         canvas.requestPaint()
-	}
+    }
 
     function handleMouse(e, elem, layerID, layerIndex) {
         e.preventDefault();
@@ -739,10 +753,10 @@ function layerColourChange(colour, layerIndex){
                     showHideLayerDetails(layerID)
                 }
                 if (elem === "colour") {
-				
-				showColourPicker(null, layerColourChange, layerIndex)
 
- /**                var popover_table = document.createElement("div");
+                    showColourPicker(null, layerColourChange, layerIndex)
+
+                    /**                var popover_table = document.createElement("div");
                     popover_table.className = "Popover-table";
                     popover_table.id = "Popover-table";
 
@@ -871,13 +885,13 @@ function layerColourChange(colour, layerIndex){
             };
 
             layerNameDiv.onblur = function() {
-                if(this.value){
-                this.style.outline = "none"
-                var layerIndex = this.parentElement.getAttribute('id');
-                console.log("this value:", this.value)
-                LM.renameLayer(layerIndex, this.value)
+                if (this.value) {
+                    this.style.outline = "none"
+                    var layerIndex = this.parentElement.getAttribute('id');
+                    console.log("this value:", this.value)
+                    LM.renameLayer(layerIndex, this.value)
                 }
-                
+
                 loadLayers();
             }
 
@@ -969,7 +983,6 @@ function layerColourChange(colour, layerIndex){
     //var import1 = document.currentScript.ownerDocument.querySelector("#LayerManager");
 
     //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
-
 </script>
 
 
@@ -988,12 +1001,11 @@ function layerColourChange(colour, layerIndex){
 
 
 <script>
-	
-	var notificationContent = "";
+    var notificationContent = "";
 
     function notify(content) {
-		console.log("Notification: ", content)
-		notificationContent = content;
+        console.log("Notification: ", content)
+        notificationContent = content;
         var notification = document.getElementById("Notification-body")
         notification.innerHTML = "<p>" + content + "</p>";
         shownotification();
@@ -1013,25 +1025,24 @@ function layerColourChange(colour, layerIndex){
 
     function shownotification() {
         document.getElementById('NotifyPopup').style.display = "block";
-		setTimeout(closenotification, 5000)
+        setTimeout(closenotification, 5000)
     }
 
     function closenotification() {
         document.getElementById('NotifyPopup').style.display = "none";
-		notificationContent = ""
+        notificationContent = ""
     }
 
-//    When the user clicks anywhere outside of the dialogs, close them
- //   window.onclick = function(event) {
-//        if (event.target == document.getElementById('NotifyPopup')) {
-//            document.getElementById('NotifyPopup').style.display = "none";
-//        }
-//    }
+    //    When the user clicks anywhere outside of the dialogs, close them
+    //   window.onclick = function(event) {
+    //        if (event.target == document.getElementById('NotifyPopup')) {
+    //            document.getElementById('NotifyPopup').style.display = "none";
+    //        }
+    //    }
 
     //import this document in to the Design.html Document
     //var import1 = document.currentScript.ownerDocument.querySelector("#NotifyPopup");
     //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
-
 </script>
 
 <!---------------------------------------------------
@@ -1062,15 +1073,15 @@ function layerColourChange(colour, layerIndex){
     }
 
     function popover_showList(listItems) {
-    var popover_list = document.createElement("ui");
+        var popover_list = document.createElement("ui");
         popover_list.className = "Popover-list";
         popover_list.id = "Popover-list";
 
-        for (var i = 0; i < listItems.length; i++) { 
+        for (var i = 0; i < listItems.length; i++) {
             var listItem = document.createElement("li");
             listItem.appendChild(document.createTextNode(listItems[i].name))
             listItem.onmousedown = listItems[i].action;
-            
+
 
             popover_list.appendChild(listItem);
         }
@@ -1140,15 +1151,14 @@ function layerColourChange(colour, layerIndex){
     // When the user clicks anywhere outside of the dialogs, close them
     window.onclick = function(event) {
         if (event.target == document.getElementById('PopoverWindow')) {
-			console.log("CLOSE CLOSE CLOSE CLOSE")
+            console.log("CLOSE CLOSE CLOSE CLOSE")
             document.getElementById('PopoverWindow').style.display = "none";
         }
     }
-	
+
     //import this document in to the Design.html Document
     //var import1 = document.currentScript.ownerDocument.querySelector("#PopoverWindow");
-   // document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
-
+    // document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
@@ -1273,15 +1283,17 @@ function layerColourChange(colour, layerIndex){
             for (var i = 0; i < selectionSet.length; i++) {
                 if (items[selectionSet[i]].type === itemType) {
                     var prop = items[selectionSet[i]][property]
-                    propertiesValueList.push(prop)                                    
+                    propertiesValueList.push(prop)
                 }
             }
         }
-        
+
         console.log("[propertiesManager.getItemProperyValue()]", propertiesValueList)
-        if(propertiesValueList.every(function(prop){return prop === propertiesValueList[0]})){
+        if (propertiesValueList.every(function(prop) {
+                return prop === propertiesValueList[0]
+            })) {
             return propertiesValueList[0]
-        }else{
+        } else {
             return "varies"
         }
     }
@@ -1335,13 +1347,13 @@ function layerColourChange(colour, layerIndex){
             console.log("[propertiesManager.loadItemProperties()]: type:", itemType, " property: ", propertiesList[property])
 
             var propValue = getItemPropertyValue(itemType, propertiesList[property])
-            
-                        props += '\
+
+            props += '\
         <div class="Design-sidebar-listitem"> \
 		<div class="Design-sidebar-listitem-child"><p>' + propertiesList[property] + '</p></div>';
-            
-            switch (propertiesList[property]){
-                    
+
+            switch (propertiesList[property]) {
+
                 case "width":
                     props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
                     break;
@@ -1350,7 +1362,7 @@ function layerColourChange(colour, layerIndex){
                     break;
                 case "rotation":
                     props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
-                    break;    
+                    break;
                 case "radius":
                     props += '<div class="Design-sidebar-listitem-child"> <input type="text" value=' + propValue + '></div>'
                     break;
@@ -1359,42 +1371,42 @@ function layerColourChange(colour, layerIndex){
                     break;
                 case "colour":
                     props += '<div class="Design-sidebar-listitem-child"><select>';
-                    props +=  '<option>' + propValue + '</option>'; 
+                    props += '<option>' + propValue + '</option>';
                     for (var ACI = 0; ACI < 256; ACI++) {
-                    props +=  '<option>' + ACI + '</option>';   
+                        props += '<option>' + ACI + '</option>';
                     }
-                    props += '</select></div>'; 
+                    props += '</select></div>';
                     break;
                 case "layer":
-                    
+
                     props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + LM.getCLayer() + '<ul class="dropdown"> '
-                           // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
+                        // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
                         //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
                         //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
-                   
+
                     for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                        if(LM.getLayerByIndex(layerIndex).name !== LM.getCLayer()){
-                      props +=  '<li style="border-left-color: #38B44A">' + LM.getLayerByIndex(layerIndex).name + '</li>'; 
+                        if (LM.getLayerByIndex(layerIndex).name !== LM.getCLayer()) {
+                            props += '<li style="border-left-color: #38B44A">' + LM.getLayerByIndex(layerIndex).name + '</li>';
+                        }
                     }
-            }
-      
-                       props +=     '</ul> \
+
+                    props += '</ul> \
                                     </div>'
-                   /* props += '<div class="Design-sidebar-listitem-child"><select>';
-                    for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                      props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
-                    }
-                    props += '</select></div>'; 
-                    */
+                        /* props += '<div class="Design-sidebar-listitem-child"><select>';
+                         for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                           props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
+                         }
+                         props += '</select></div>'; 
+                         */
                     break;
                 default:
-                    props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>' 
+                    props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>'
                     break;
             }
-            
 
-		
-        props += '</div>';
+
+
+            props += '</div>';
         }
         detailsDiv.innerHTML = props;
         return propertiesList.length;
@@ -1429,7 +1441,6 @@ function layerColourChange(colour, layerIndex){
     //var import1 = document.currentScript.ownerDocument.querySelector("#PropertiesManager");
 
     //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
-
 </script>
 
 <!---------------------------------------------------
@@ -1441,275 +1452,275 @@ function layerColourChange(colour, layerIndex){
 ---------------------------------------------------->
 
 <div id="SettingsWindow" class="Settings">
-<div class="Settings-content">
-<div class="Design-header">
-<div class="Design-header-icon" , onclick="closeSettings()"><img src="icons/close.svg"></div>
-<div class="Design-header-title">
-<h3>Settings</h3>
-</div>
-</div>
-<div class="Settings-body">
+    <div class="Settings-content">
+        <div class="Design-header">
+            <div class="Design-header-icon" , onclick="closeSettings()"><img src="icons/close.svg"></div>
+            <div class="Design-header-title">
+                <h3>Settings</h3>
+            </div>
+        </div>
+        <div class="Settings-body">
 
-<div class="tab">
-<button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
-<button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
-<button class="tablinks" onclick="changeTab(event, 'Text'); loadStyleList();">Text</button>
-<button class="tablinks" onclick="changeTab(event, 'Accounts')">Accounts</button>
-<button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
-<button class="tablinks" onclick="changeTab(event, 'About')">About</button>
-</div>
+            <div class="tab">
+                <button class="tablinks" onclick="changeTab(event, 'Colour')" id="defaultOpen">Colour</button>
+                <button class="tablinks" onclick="changeTab(event, 'Snaps')">Snaps</button>
+                <button class="tablinks" onclick="changeTab(event, 'Text'); loadStyleList();">Text</button>
+                <button class="tablinks" onclick="changeTab(event, 'Accounts')">Accounts</button>
+                <button class="tablinks" onclick="changeTab(event, 'Help')">Help</button>
+                <button class="tablinks" onclick="changeTab(event, 'About')">About</button>
+            </div>
 
-<div id="tabcontent" class="tabcontent">
-<!-- Autoload tab content here -->
-</div>
+            <div id="tabcontent" class="tabcontent">
+                <!-- Autoload tab content here -->
+            </div>
 
-<!---------------------------------------------------
+            <!---------------------------------------------------
 -------------------   colours    --------------------
 ---------------------------------------------------->
-<!-- Tab content -->
-<div id="Colour" class="tabcontent">
+            <!-- Tab content -->
+            <div id="Colour" class="tabcontent">
 
-<div class="row">
-<div class="column">
-<ul> 
-<div class="Design-sidebar-listitem">
-<div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Canvas Background Colour</p>
-<div></div>
-</div>
-<div class="Design-sidebar-listitem">
-<div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Selected Items Colour</p>
-<div></div>
-</div>
-<div class="Design-sidebar-listitem">
-<div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Snap Colour</p>
-<div></div>
-</div>
-<div class="Design-sidebar-listitem">
-<div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Helper Geometry Colour</p>
-<div></div>
-</div>
-<div class="Design-sidebar-listitem">
-<div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Polar Snap Colour</p>
-<div></div>
-</div>
-<div class="Design-sidebar-listitem">
-<div id="gridColour" class="Design-shape" onclick="changeColour(this.id)"></div>
-<p>Grid Colour</p>
-<div></div>
-</div>
-</ul>
-</div>
-</div>
-</div>
+                <div class="row">
+                    <div class="column">
+                        <ul>
+                            <div class="Design-sidebar-listitem">
+                                <div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Canvas Background Colour</p>
+                                <div></div>
+                            </div>
+                            <div class="Design-sidebar-listitem">
+                                <div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Selected Items Colour</p>
+                                <div></div>
+                            </div>
+                            <div class="Design-sidebar-listitem">
+                                <div id="snapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Snap Colour</p>
+                                <div></div>
+                            </div>
+                            <div class="Design-sidebar-listitem">
+                                <div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Helper Geometry Colour</p>
+                                <div></div>
+                            </div>
+                            <div class="Design-sidebar-listitem">
+                                <div id="polarSnapColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Polar Snap Colour</p>
+                                <div></div>
+                            </div>
+                            <div class="Design-sidebar-listitem">
+                                <div id="gridColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <p>Grid Colour</p>
+                                <div></div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-<!---------------------------------------------------
+            <!---------------------------------------------------
 -------------------    snaps     --------------------
 ---------------------------------------------------->
-<div id="Snaps" class="tabcontent">
-<div class="row">
-<div class="column">
-<ul> 
+            <div id="Snaps" class="tabcontent">
+                <div class="row">
+                    <div class="column">
+                        <ul>
 
-<div id="Endsnap" class="Design-sidebar-listitem">
-<img src="icons/snap-end.svg" style="width:32px;height:32px;">
-<p>End</p>
-<label class="toggle">
+                            <div id="Endsnap" class="Design-sidebar-listitem">
+                                <img src="icons/snap-end.svg" style="width:32px;height:32px;">
+                                <p>End</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('endSnap')" checked=function(){settings["endSnap"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-<div id="Midsnap" class="Design-sidebar-listitem">
-<img src="icons/snap-mid.svg" style="width:32px;height:32px;">
-<p>Mid</p>
-<label class="toggle">
+                            <div id="Midsnap" class="Design-sidebar-listitem">
+                                <img src="icons/snap-mid.svg" style="width:32px;height:32px;">
+                                <p>Mid</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){settings["midSnap"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-<div id="Centresnap" class="Design-sidebar-listitem">
-<img src="icons/snap-centre.svg" style="width:32px;height:32px;">
-<p>Centre</p>
-<label class="toggle">
+                            <div id="Centresnap" class="Design-sidebar-listitem">
+                                <img src="icons/snap-centre.svg" style="width:32px;height:32px;">
+                                <p>Centre</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-<div id="Nearestsnap" class="Design-sidebar-listitem">
-<img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
-<p>Nearest</p>
-<label class="toggle">
+                            <div id="Nearestsnap" class="Design-sidebar-listitem">
+                                <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
+                                <p>Nearest</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};>
 <span class="slider"></span>
 </label>
-</div>
-</ul>
-</div>
+                            </div>
+                        </ul>
+                    </div>
 
-<div class="column">
-<ul> 
-<div id="Polar" class="Design-sidebar-listitem">
-<img src="icons/polar.svg" style="width:32px;height:32px;">
-<p>Polar</p>
-<label class="toggle">
+                    <div class="column">
+                        <ul>
+                            <div id="Polar" class="Design-sidebar-listitem">
+                                <img src="icons/polar.svg" style="width:32px;height:32px;">
+                                <p>Polar</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-<div id="PolarAngle" class="Design-sidebar-listitem">
-<p>Polar Angle</p>
-<select id="polarAngle" onchange="changePolarAngle(this.value)";>
+                            <div id="PolarAngle" class="Design-sidebar-listitem">
+                                <p>Polar Angle</p>
+                                <select id="polarAngle" onchange="changePolarAngle(this.value)" ;>
 <option value="22.5">22.5</option>
 <option value="45">45</option>
 <option value="90">90</option>
 <option value="180">180</option>
 </select>
-</div>
+                            </div>
 
-<div id="Ortho" class="Design-sidebar-listitem">
-<img src="icons/ortho.svg" style="width:32px;height:32px;">
-<p>Ortho</p>
-<label class="toggle">
+                            <div id="Ortho" class="Design-sidebar-listitem">
+                                <img src="icons/ortho.svg" style="width:32px;height:32px;">
+                                <p>Ortho</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){settings["ortho"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-<div id="Grid" class="Design-sidebar-listitem">
-<img src="icons/grid.svg" style="width:32px;height:32px;">
-<p>Show Grid</p>
-<label class="toggle">
+                            <div id="Grid" class="Design-sidebar-listitem">
+                                <img src="icons/grid.svg" style="width:32px;height:32px;">
+                                <p>Show Grid</p>
+                                <label class="toggle">
 <input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){settings["drawGrid"]};>
 <span class="slider"></span>
 </label>
-</div>
+                            </div>
 
-</ul>
-</div>
-</div>
-</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-<!---------------------------------------------------
+            <!---------------------------------------------------
 -------------------   styles    --------------------
 ---------------------------------------------------->
-<div id="Text" class="tabcontent">
+            <div id="Text" class="tabcontent">
 
-<div class="row">
-<div class="column">
-<p> Styles: </p>
-<ul id="StylesManagerList" class="Design-sidebar-list">
-<!-- Dynamically add layer list -->
-</ul>
-</div>
+                <div class="row">
+                    <div class="column">
+                        <p> Styles: </p>
+                        <ul id="StylesManagerList" class="Design-sidebar-list">
+                            <!-- Dynamically add layer list -->
+                        </ul>
+                    </div>
 
-<div class="column">
-<div id="font" class="Design-sidebar-listitem">
-<p>Font</p>
-<select id="fontSelect" onchange="updateStyle()";>
+                    <div class="column">
+                        <div id="font" class="Design-sidebar-listitem">
+                            <p>Font</p>
+                            <select id="fontSelect" onchange="updateStyle()" ;>
 </select>
-</div>
+                        </div>
 
-<div id="fontStyle" class="Design-sidebar-listitem">
-<p>Font Style</p>
-<select id="fontStyleSelect" onchange="updateStyle()";>
+                        <div id="fontStyle" class="Design-sidebar-listitem">
+                            <p>Font Style</p>
+                            <select id="fontStyleSelect" onchange="updateStyle()" ;>
 </select>
-</div>
+                        </div>
 
-<div class="Design-sidebar-listitem">
-<p>Text Height</p>
-<input id="textHeightInput" type="number" onkeypress="updateStyle()";>
-</div>
+                        <div class="Design-sidebar-listitem">
+                            <p>Text Height</p>
+                            <input id="textHeightInput" type="number" onkeypress="updateStyle()" ;>
+                        </div>
 
-<div id="styleWidthFactor" class="Design-sidebar-listitem">
-<p>Width Factor</p>
-<input id="widthFactorInput" type="number" onchange="updateStyle()";>
-</label>
-</div>
+                        <div id="styleWidthFactor" class="Design-sidebar-listitem">
+                            <p>Width Factor</p>
+                            <input id="widthFactorInput" type="number" onchange="updateStyle()" ;>
+                            </label>
+                        </div>
 
-<div id="styleObliqueAngle" class="Design-sidebar-listitem">
-<p>Oblique Angle</p>
-<input id="obliqueAngleInput" type="number" onchange="updateStyle()";>
-</label>
-</div>
+                        <div id="styleObliqueAngle" class="Design-sidebar-listitem">
+                            <p>Oblique Angle</p>
+                            <input id="obliqueAngleInput" type="number" onchange="updateStyle()" ;>
+                            </label>
+                        </div>
 
-<div id="styleUpsideDown" class="Design-sidebar-listitem">
-<p>Upside Down</p>
-<label class="toggle">
+                        <div id="styleUpsideDown" class="Design-sidebar-listitem">
+                            <p>Upside Down</p>
+                            <label class="toggle">
 <input type="checkbox" id="upsideDownToggle" onclick="updateStyle()";>
 <span class="slider"></span>
 </label>
-</div>
+                        </div>
 
-<div id="styleBackwards" class="Design-sidebar-listitem">
-<p>Backwards</p>
-<label class="toggle">
+                        <div id="styleBackwards" class="Design-sidebar-listitem">
+                            <p>Backwards</p>
+                            <label class="toggle">
 <input type="checkbox" id="backwardsToggle" onclick="updateStyle()";>
 <span class="slider"></span>
 </label>
 
-</div>
-</div> 
-</div> 
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<!---------------------------------------------------
+            <!---------------------------------------------------
 -------------------   Accounts   --------------------
 ---------------------------------------------------->
 
-<div id="Accounts" class="tabcontent">
-<h3>Accounts</h3>
-<p>Placeholder for Online Accounts settings</p> 
-</div>
+            <div id="Accounts" class="tabcontent">
+                <h3>Accounts</h3>
+                <p>Placeholder for Online Accounts settings</p>
+            </div>
 
-<div id="Help" class="tabcontent">
-<h3>Help</h3>
-    <div class="row">
-        <div class="column" style="text-align: center;">
-                <a href="https://design-app.readthedocs.io" target="_blank"><img src="icons/online-help.svg" height="100"></a>
-                <h4>Online Help</h4>
-        </div>
-        <div class="column" style="text-align: center;">
-                <a href="https://design-app.readthedocs.io/_/downloads/en/latest/pdf/" target="_blank"><img src="icons/pdf-file.svg" height="100"></a>
-                <h4>Offline Help</h4>
-        </div> 
-        <div class="column" style="text-align: center;">
-                <a href="https://t.me/joinchat/BQHZRA1R0Ke297gkQEJEEQ" target="_blank"><img src="icons/telegram-logo.svg" height="100"></a>
-                <h4>Telegram Group</h4>
-        </div>     
-    </div>
-</div>
+            <div id="Help" class="tabcontent">
+                <h3>Help</h3>
+                <div class="row">
+                    <div class="column" style="text-align: center;">
+                        <a href="https://design-app.readthedocs.io" target="_blank"><img src="icons/online-help.svg" height="100"></a>
+                        <h4>Online Help</h4>
+                    </div>
+                    <div class="column" style="text-align: center;">
+                        <a href="https://design-app.readthedocs.io/_/downloads/en/latest/pdf/" target="_blank"><img src="icons/pdf-file.svg" height="100"></a>
+                        <h4>Offline Help</h4>
+                    </div>
+                    <div class="column" style="text-align: center;">
+                        <a href="https://t.me/joinchat/BQHZRA1R0Ke297gkQEJEEQ" target="_blank"><img src="icons/telegram-logo.svg" height="100"></a>
+                        <h4>Telegram Group</h4>
+                    </div>
+                </div>
+            </div>
 
-<!---------------------------------------------------
+            <!---------------------------------------------------
 -------------------   About    --------------------
 ---------------------------------------------------->
 
-<div id="About" class="tabcontent">
-<h3>About</h3>
-<p>Design is a 2D CAD application for the web.
-Design is a 2D computer aided design application (CAD), 
-created to meet the needs of makers and designers, 
-hobbyists and professionals that require a first class CAD application.</p>
+            <div id="About" class="tabcontent">
+                <h3>About</h3>
+                <p>Design is a 2D CAD application for the web. Design is a 2D computer aided design application (CAD), created to meet the needs of makers and designers, hobbyists and professionals that require a first class CAD application.</p>
 
-<h4>GitHub: <a href="https://github.com/dubstar-04/Design">https://github.com/dubstar-04/Design</a></h4>
-<h4> Version: <script type="text/javascript">document.write(designVersion)</script> </h4>
+                <h4>GitHub: <a href="https://github.com/dubstar-04/Design">https://github.com/dubstar-04/Design</a></h4>
+                <h4> Version:
+                    <script type="text/javascript">
+                        document.write(designVersion)
+                    </script>
+                </h4>
 
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script>
-
-function loadStyleList() {
+    function loadStyleList() {
 
         // get a list of available fonts
         getFonts();
@@ -1718,15 +1729,15 @@ function loadStyleList() {
 
         for (i = fontStyleSelect.options.length; i >= 0; i--) {
             fontStyleSelect.remove(i);
-	    }
+        }
 
         var fontStyles = {
-        1 : "Regular",
-        2 : "Bold",
-        3 : "Italic"
+            1: "Regular",
+            2: "Bold",
+            3: "Italic"
         };
 
-        for(index in fontStyles) {
+        for (index in fontStyles) {
             fontStyleSelect.options[fontStyleSelect.options.length] = new Option(fontStyles[index], index);
         }
 
@@ -1736,7 +1747,7 @@ function loadStyleList() {
         clearStylesList()
 
         styles = SM.getStyles()
-        
+
         for (var item = 0; item < styles.length; item++) {
 
             var li = document.createElement("li");
@@ -1760,7 +1771,7 @@ function loadStyleList() {
         loadStyleData(SM.getStyleByIndex(0).name)
     }
 
-    function loadStyleData(styleName){
+    function loadStyleData(styleName) {
 
         console.log("load style: ", styleName)
 
@@ -1777,7 +1788,7 @@ function loadStyleList() {
         console.log("StyleData: ", style)
 
         fontStyle.value = style.font
-        fontStyleSelect.value = style.font 
+        fontStyleSelect.value = style.font
         textHeightInput.value = style.textHeight
         styleWidthFactor.value = style.widthFactor
         styleObliqueAngle.value = style.obliqueAngle
@@ -1790,255 +1801,255 @@ function loadStyleList() {
         list.innerHTML = '';
     }
 
-function updateStyle(){
+    function updateStyle() {
 
-    console.log("Update Style")
-}
+        console.log("Update Style")
+    }
 
-function changeColour(caller){
-	console.log("Caller: ", caller)
-	showColourPicker(null, settingColourChange, caller)
-}
+    function changeColour(caller) {
+        console.log("Caller: ", caller)
+        showColourPicker(null, settingColourChange, caller)
+    }
 
-function settingColourChange(colour, caller){
-	console.log("change ", caller, " to: ", colour);
-	settings[caller] = colour
-	saveAllSettings(settings)
-	setDefaultSettings()
-	canvas.requestPaint()
-}
-
-
-var cookieConsent = false;
-
-var settings = {
-	canvasBackgroundColour: "#E9E9E9", //"#000000",
-	selectedItemsColour: "#00FF00",
-	snapColour: "#FF0000",
-	gridColour: "#00BFFF",
-	helperGeometryColour: "#00BFFF",
-	polarSnapColour: "#38B44A",
-	//fontSettings
-	font: "Arial",
-	fontupsidedown: false,
-	fontbackwards: false,
-	//snapSettings
-	endSnap: true,
-	midSnap: true,
-	centreSnap: true,
-	nearestSnap: false,
-	quadrantSnap: false,
-	polarAngle: 45,
-	polar: true,
-	ortho: false,
-	drawGrid: true
-}
-function getCookieConsent() {  
-	var cookiesAllowed = getSettings("Design")
-	
-	if(cookiesAllowed != ""){
-		cookieConsent = true;
-		loadAllSettings(settings)
-	} else {
-		showWelcomeWizzard();
-	}
-}
-
-function cookiesAccepted(){
-	console.log("cookies Accepted")
-	cookieConsent = true;
-	saveSetting("Design", designVersion, 365);
-	saveAllSettings(settings)
-}
-
-function toggleSnap(snap){
-	settings[snap] = !settings[snap]
-	saveAllSettings(settings)
-}
-
-function changePolarAngle(angle){
-
-	console.log("Angle:", angle)
-	settings["polarAngle"] = angle;
-	saveAllSettings(settings);
-}
-
-function changeFont(font){
-	console.log("Selected Font:", font)
-	settings["font"] = font;
-	saveAllSettings(settings);
-}
-
-function saveAllSettings (settings){
-	if(cookieConsent){
-		for (var setting in settings){
-			//console.log("Setting:", setting, " value: ", settings[setting])
-			saveSetting(setting, settings[setting])
-		}
-	} else {
-		console.log("settings won't be saved")
-	}
-}
-
-function loadAllSettings (settings){
-	for (var setting in settings){
-		//console.log("getSetting:", setting, " value: ", getSettings(setting))
-		settings[setting] = getSettings(setting) 
-	}
-}
-
-function saveSetting(name, value) {
-	var d = new Date();
-	d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-	var expires = "expires="+d.toUTCString();
-	document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-function getSettings(name) {
-	var name = name + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
+    function settingColourChange(colour, caller) {
+        console.log("change ", caller, " to: ", colour);
+        settings[caller] = colour
+        saveAllSettings(settings)
+        setDefaultSettings()
+        canvas.requestPaint()
+    }
 
 
-function changeTab(evt, tabName) {
-	var i, tabcontent, tablinks;
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
-	}
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
-	}
-	
-	document.getElementById(tabName).style.display = "block";
-	evt.currentTarget.className += " active";
-	
-	setDefaultSettings();
-}
+    var cookieConsent = false;
 
-function setDefaultSettings(){
-	//set defaults
-	document.getElementById("polarAngle").value = settings["polarAngle"]
-	document.getElementById("canvasBackgroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
-	document.getElementById("selectedItemsColour").style.backgroundColor = settings["selectedItemsColour"]
-	document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
-	document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
-	document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
-	document.getElementById("gridColour").style.backgroundColor = settings["gridColour"]
-}
+    var settings = {
+        canvasBackgroundColour: "#E9E9E9", //"#000000",
+        selectedItemsColour: "#00FF00",
+        snapColour: "#FF0000",
+        gridColour: "#00BFFF",
+        helperGeometryColour: "#00BFFF",
+        polarSnapColour: "#38B44A",
+        //fontSettings
+        font: "Arial",
+        fontupsidedown: false,
+        fontbackwards: false,
+        //snapSettings
+        endSnap: true,
+        midSnap: true,
+        centreSnap: true,
+        nearestSnap: false,
+        quadrantSnap: false,
+        polarAngle: 45,
+        polar: true,
+        ortho: false,
+        drawGrid: true
+    }
+
+    function getCookieConsent() {
+        var cookiesAllowed = getSettings("Design")
+
+        if (cookiesAllowed != "") {
+            cookieConsent = true;
+            loadAllSettings(settings)
+        } else {
+            showWelcomeWizzard();
+        }
+    }
+
+    function cookiesAccepted() {
+        console.log("cookies Accepted")
+        cookieConsent = true;
+        saveSetting("Design", designVersion, 365);
+        saveAllSettings(settings)
+    }
+
+    function toggleSnap(snap) {
+        settings[snap] = !settings[snap]
+        saveAllSettings(settings)
+    }
+
+    function changePolarAngle(angle) {
+
+        console.log("Angle:", angle)
+        settings["polarAngle"] = angle;
+        saveAllSettings(settings);
+    }
+
+    function changeFont(font) {
+        console.log("Selected Font:", font)
+        settings["font"] = font;
+        saveAllSettings(settings);
+    }
+
+    function saveAllSettings(settings) {
+        if (cookieConsent) {
+            for (var setting in settings) {
+                //console.log("Setting:", setting, " value: ", settings[setting])
+                saveSetting(setting, settings[setting])
+            }
+        } else {
+            console.log("settings won't be saved")
+        }
+    }
+
+    function loadAllSettings(settings) {
+        for (var setting in settings) {
+            //console.log("getSetting:", setting, " value: ", getSettings(setting))
+            settings[setting] = getSettings(setting)
+        }
+    }
+
+    function saveSetting(name, value) {
+        var d = new Date();
+        d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getSettings(name) {
+        var name = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 
 
-function getFonts(){
+    function changeTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
 
-	var fontDetector = function() {
-		// a font will be compared against all the three default fonts.
-		// and if it doesn't match all 3 then that font is not available.
-		var baseFonts = ['monospace', 'sans-serif', 'serif'];
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
 
-		//we use m or w because these two characters take up the maximum width.
-		// And we use a LLi so that the same matching fonts can get separated
-		var testString = "mmmmmmmmmmlli";
+        setDefaultSettings();
+    }
 
-		//we test using 72px font size, we may use any size. I guess larger the better.
-		var testSize = '72px';
+    function setDefaultSettings() {
+        //set defaults
+        document.getElementById("polarAngle").value = settings["polarAngle"]
+        document.getElementById("canvasBackgroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
+        document.getElementById("selectedItemsColour").style.backgroundColor = settings["selectedItemsColour"]
+        document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
+        document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
+        document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
+        document.getElementById("gridColour").style.backgroundColor = settings["gridColour"]
+    }
 
-		var h = document.getElementsByTagName("body")[0];
 
-		// create a SPAN in the document to get the width of the text we use to test
-		var s = document.createElement("span");
-		s.style.fontSize = testSize;
-		s.innerHTML = testString;
-		var defaultWidth = {};
-		var defaultHeight = {};
-		for (var index in baseFonts) {
-			//get the default width for the three base fonts
-			s.style.fontFamily = baseFonts[index];
-			h.appendChild(s);
-			defaultWidth[baseFonts[index]] = s.offsetWidth; //width for the default font
-			defaultHeight[baseFonts[index]] = s.offsetHeight; //height for the defualt font
-			h.removeChild(s);
-		}
+    function getFonts() {
 
-		function detect(font) {
-			var detected = false;
-			for (var index in baseFonts) {
-				s.style.fontFamily = font + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
-				h.appendChild(s);
-				var matched = (s.offsetWidth != defaultWidth[baseFonts[index]] || s.offsetHeight != defaultHeight[baseFonts[index]]);
-				h.removeChild(s);
-				detected = detected || matched;
-			}
-			return detected;
-		}
+        var fontDetector = function() {
+            // a font will be compared against all the three default fonts.
+            // and if it doesn't match all 3 then that font is not available.
+            var baseFonts = ['monospace', 'sans-serif', 'serif'];
 
-		this.detect = detect;
-	};
+            //we use m or w because these two characters take up the maximum width.
+            // And we use a LLi so that the same matching fonts can get separated
+            var testString = "mmmmmmmmmmlli";
 
-	var fonts = ["Arial","Helvetica","Times New Roman","Times","Courier New","Courier","Verdana","Georgia","Palatino","Garamond","Bookman","Comic Sans MS","Trebuchet MS","Impact"];
-	
-	//var availableFonts = [];				
-	d = new fontDetector();	
-	var fontSelector = document.getElementById('fontSelect')
+            //we test using 72px font size, we may use any size. I guess larger the better.
+            var testSize = '72px';
 
-	//clear the drop down
-	
-	var fontSelectorLength = fontSelector.options.length
-	
-	for (i = fontSelectorLength; i >= 0; i--) {
-		//console.log("Remove Font: ", fonts[i], " From Index: ", i)
-		fontSelector.remove(i);
-	}			
+            var h = document.getElementsByTagName("body")[0];
 
-	for(font = 0 ; font < fonts.length-1; font++){
-		if (d.detect(fonts[font])){
-			//availableFonts.push(fonts[font])
-			var fontOption = document.createElement("option");
-			fontOption.text = fonts[font]
-			fontSelector.options.add(fontOption);
-			//console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
-		};		
-	}
-	
-	//set select value
-	//fontSelector.value = settings["font"]
-}
+            // create a SPAN in the document to get the width of the text we use to test
+            var s = document.createElement("span");
+            s.style.fontSize = testSize;
+            s.innerHTML = testString;
+            var defaultWidth = {};
+            var defaultHeight = {};
+            for (var index in baseFonts) {
+                //get the default width for the three base fonts
+                s.style.fontFamily = baseFonts[index];
+                h.appendChild(s);
+                defaultWidth[baseFonts[index]] = s.offsetWidth; //width for the default font
+                defaultHeight[baseFonts[index]] = s.offsetHeight; //height for the defualt font
+                h.removeChild(s);
+            }
 
-function showSettings() {
-	//block context menu for layer manager
-	//var SW = document.getElementById("SettingsWindow");
-	//SW.oncontextmenu =  function(e) {e.preventDefault()};
-	document.getElementById('SettingsWindow').style.display = "block";
-	document.getElementById("defaultOpen").click();
-}
+            function detect(font) {
+                var detected = false;
+                for (var index in baseFonts) {
+                    s.style.fontFamily = font + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
+                    h.appendChild(s);
+                    var matched = (s.offsetWidth != defaultWidth[baseFonts[index]] || s.offsetHeight != defaultHeight[baseFonts[index]]);
+                    h.removeChild(s);
+                    detected = detected || matched;
+                }
+                return detected;
+            }
 
-function closeSettings() {
-	console.log("Close Settings")
-	document.getElementById('SettingsWindow').style.display = "none";
-}
+            this.detect = detect;
+        };
 
-// When the user clicks anywhere outside of the dialogs, close them
-window.onclick = function(event) {
-	if (event.target == document.getElementById('SettingsWindow')) {
-		closeSettings();
-	}
-}
+        var fonts = ["Arial", "Helvetica", "Times New Roman", "Times", "Courier New", "Courier", "Verdana", "Georgia", "Palatino", "Garamond", "Bookman", "Comic Sans MS", "Trebuchet MS", "Impact"];
 
-//import this document in to the Design.html Document
-//var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow");
-//document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
+        //var availableFonts = [];				
+        d = new fontDetector();
+        var fontSelector = document.getElementById('fontSelect')
 
+        //clear the drop down
+
+        var fontSelectorLength = fontSelector.options.length
+
+        for (i = fontSelectorLength; i >= 0; i--) {
+            //console.log("Remove Font: ", fonts[i], " From Index: ", i)
+            fontSelector.remove(i);
+        }
+
+        for (font = 0; font < fonts.length - 1; font++) {
+            if (d.detect(fonts[font])) {
+                //availableFonts.push(fonts[font])
+                var fontOption = document.createElement("option");
+                fontOption.text = fonts[font]
+                fontSelector.options.add(fontOption);
+                //console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
+            };
+        }
+
+        //set select value
+        //fontSelector.value = settings["font"]
+    }
+
+    function showSettings() {
+        //block context menu for layer manager
+        //var SW = document.getElementById("SettingsWindow");
+        //SW.oncontextmenu =  function(e) {e.preventDefault()};
+        document.getElementById('SettingsWindow').style.display = "block";
+        document.getElementById("defaultOpen").click();
+    }
+
+    function closeSettings() {
+        console.log("Close Settings")
+        document.getElementById('SettingsWindow').style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the dialogs, close them
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('SettingsWindow')) {
+            closeSettings();
+        }
+    }
+
+    //import this document in to the Design.html Document
+    //var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow");
+    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
@@ -2050,126 +2061,128 @@ window.onclick = function(event) {
 ---------------------------------------------------->
 
 <div id="WelcomeWizzard" class="WelcomeWizzard">
-<div class="WelcomeWizzard-content">
-<div class="Design-header">
-<div class="Design-header-title">
-<h3>Welcome</h3>
-</div>
-<div class="skipButton", onclick="closeWelcomeWizzard()">
-  <p>skip</p> 
-</div>
-</div>
-<div class="WelcomeWizzard-body">
-	<div class="slideshow-container">
-		<div class="slide-container">
-			<div class="slides fade">
-				<div class="image"><img src="icons/design-small.svg"></div>
-				<div class="title">Welcome To Design</div>
-				<div class="text">Design is a 2D CAD application for makers, designer, hobbyists and Professionals.</div>
-				<br>
-				<br>
-				<div class="text">
-				<button id="cookieButton", class="button", style="width:25%";>Accept</button>
-				<div id="cookieShape", class="Design-shape", style="background-Color:#38B44A; visibility:hidden";>
-				<div class="tick"></div>
-				</div>
-				
-				</div>
-				<div class="text">We use cookies to store app settings between sessions.</div>
-			</div>
+    <div class="WelcomeWizzard-content">
+        <div class="Design-header">
+            <div class="Design-header-title">
+                <h3>Welcome</h3>
+            </div>
+            <div class="skipButton" , onclick="closeWelcomeWizzard()">
+                <p>skip</p>
+            </div>
+        </div>
+        <div class="WelcomeWizzard-body">
+            <div class="slideshow-container">
+                <div class="slide-container">
+                    <div class="slides fade">
+                        <div class="image"><img src="icons/design-small.svg"></div>
+                        <div class="title">Welcome To Design</div>
+                        <div class="text">Design is a 2D CAD application for makers, designer, hobbyists and Professionals.</div>
+                        <br>
+                        <br>
+                        <div class="text">
+                            <button id="cookieButton" , class="button" , style="width:25%" ;>Accept</button>
+                            <div id="cookieShape" , class="Design-shape" , style="background-Color:#38B44A; visibility:hidden" ;>
+                                <div class="tick"></div>
+                            </div>
 
-			<div class="slides fade">
-				<div class="image"><img src="icons/convergence.svg"></div>
-				<div class="title">Design Everywhere!</div>
-				<div class="text">Design was created with cross browser compatability. Design works where you are. </div>
-			</div>
+                        </div>
+                        <div class="text">We use cookies to store app settings between sessions.</div>
+                    </div>
 
-			<div class="slides fade">
-				<div class="image"><img src="icons/dxf-file.svg"></div>
-				<div class="title">Plays Well With Others...</div>
-				<div class="text">Design uses industry standard DXF files for compatability and simplicity.</div>
-			</div>
+                    <div class="slides fade">
+                        <div class="image"><img src="icons/convergence.svg"></div>
+                        <div class="title">Design Everywhere!</div>
+                        <div class="text">Design was created with cross browser compatability. Design works where you are. </div>
+                    </div>
 
-			<div class="slides fade">
-				<div class="image"><img src="icons/design-small.svg"></div>
-				<div class="title">Learn, Create, Have Fun!</div>
-				<div class="text">We love CAD and we want you to also. Check the help tab in settings for tips to get going with your designs. </div>
-							<br>
-				<div class="text">
-				<button class="button", style="width:25%", onclick="closeWelcomeWizzard()";>Get Started!</button>
-				</div>
-			
-			</div>
-		</div>	
-</div>	
-	
-	<div class="navigation-bar">
-		<div>
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		</div>	
-		<div class="dot-container">
-			<span class="dot" onclick="currentSlide(1)"></span> 
-			<span class="dot" onclick="currentSlide(2)"></span> 
-			<span class="dot" onclick="currentSlide(3)"></span> 
-			<span class="dot" onclick="currentSlide(4)"></span>
-		</div>
-		<div>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-		</div>	
-	</div>
+                    <div class="slides fade">
+                        <div class="image"><img src="icons/dxf-file.svg"></div>
+                        <div class="title">Plays Well With Others...</div>
+                        <div class="text">Design uses industry standard DXF files for compatability and simplicity.</div>
+                    </div>
 
-</div>
-</div>
+                    <div class="slides fade">
+                        <div class="image"><img src="icons/design-small.svg"></div>
+                        <div class="title">Learn, Create, Have Fun!</div>
+                        <div class="text">We love CAD and we want you to also. Check the help tab in settings for tips to get going with your designs. </div>
+                        <br>
+                        <div class="text">
+                            <button class="button" , style="width:25%" , onclick="closeWelcomeWizzard()" ;>Get Started!</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-bar">
+                <div>
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                </div>
+                <div class="dot-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+                <div>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
 <script>
+    var cookieButton = document.getElementById("cookieButton");
 
-var cookieButton = document.getElementById("cookieButton");
+    cookieButton.onclick = function() {
+        var cookieShape = document.getElementById("cookieShape");
 
-cookieButton.onclick = function(){
-var cookieShape = document.getElementById("cookieShape");
+        cookieButton.classList.add("disabledbutton");
+        cookieShape.style.visibility = 'visible'
+        cookiesAccepted()
+    }
 
-cookieButton.classList.add("disabledbutton");
-cookieShape.style.visibility='visible' 
-cookiesAccepted()
-}
+    function showWelcomeWizzard() {
+        document.getElementById('WelcomeWizzard').style.display = "block";
+    }
 
-function showWelcomeWizzard() {
-	document.getElementById('WelcomeWizzard').style.display = "block";
-}
+    function closeWelcomeWizzard() {
+        document.getElementById('WelcomeWizzard').style.display = "none";
+    }
 
-function closeWelcomeWizzard() {
-	document.getElementById('WelcomeWizzard').style.display = "none";
-}
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
-var slideIndex = 1;
-showSlides(slideIndex);
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = slides.length}    
-  if (n < 1) {slideIndex = 1}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("slides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = slides.length
+        }
+        if (n < 1) {
+            slideIndex = 1
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
 </script>
 
 <!---------------------------------------------------
