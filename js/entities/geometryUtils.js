@@ -16,7 +16,7 @@ function distBetweenPoints(firstPointx, firstPointy, secondPointx, secondPointy)
     return dist
 }
 
-Array.prototype.contains = function (obj) {
+Array.prototype.contains = function(obj) {
     var i = this.length;
     while (i--) {
         if (this[i] === obj) {
@@ -27,18 +27,25 @@ Array.prototype.contains = function (obj) {
 }
 
 function cloneObject(obj) {
+    // deep clone obj and all its attributes
 
     if (obj === null || typeof obj !== 'object') {
         return obj;
     }
 
     if (Object.prototype.toString.call(obj) === '[object Array]') {
+        // of obj is an array, return a complete copy of the array
+        // array attributes are typically Points or Items (see Block)
         var arr = [];
         for (var i = 0; i < obj.length; i++) {
-            var point = new Point(obj[i].x, obj[i].y);
-            arr.push(point);
+            //console.log("geometryUtils.js - [cloneObject] [INFO]:", obj, i, obj[i])
+            newObj = new this[obj[i].type]();
+            attr = JSON.parse(JSON.stringify(obj[i]));
+            temp = Object.assign(newObj, attr)
+                // console.log("temp item", temp)
+                //var point = new Point(obj[i].x, obj[i].y);
+            arr.push(temp);
         }
-
         return arr;
     }
 
