@@ -1,4 +1,5 @@
 function DimStyleManager() {
+    //TODO: Can dimstylemanager and style manager be merged?
 
     this.styles = new Array();
     this.currentstyle = "STANDARD";
@@ -7,24 +8,24 @@ function DimStyleManager() {
 }
 
 
-DimStyleManager.prototype.getStyles = function () {
+DimStyleManager.prototype.getStyles = function() {
     return this.styles;
 }
 
-DimStyleManager.prototype.styleCount = function () {
+DimStyleManager.prototype.styleCount = function() {
     return this.styles.length;
 }
 
-DimStyleManager.prototype.newStyle = function () {
+DimStyleManager.prototype.newStyle = function() {
 
     this.addStyle({
         "name": this.getUniqueName("NEW_STYLE")
     });
 }
 
-DimStyleManager.prototype.getUniqueName = function(name){
-	
-	var count = 0;
+DimStyleManager.prototype.getUniqueName = function(name) {
+
+    var count = 0;
     var styStr = name.replace(/ /g, "_").toUpperCase();
     console.log("New style Name:" + styStr)
     for (var i = 0; i < this.styleCount(); i++) {
@@ -36,10 +37,10 @@ DimStyleManager.prototype.getUniqueName = function(name){
         styStr = styStr + "_" + count;
     }
 
-	return styStr;
+    return styStr;
 }
 
-DimStyleManager.prototype.addStyle = function (style) {
+DimStyleManager.prototype.addStyle = function(style) {
     console.log(" DimStyleManager.js - addstyle() - New style Added:" + style.name)
     var newstyle = new DimStyle(style);
     if (!this.styleExists(style)) {
@@ -48,7 +49,7 @@ DimStyleManager.prototype.addStyle = function (style) {
     }
 }
 
-DimStyleManager.prototype.deleteStyle = function (styleIndex) {
+DimStyleManager.prototype.deleteStyle = function(styleIndex) {
 
     var styleToDelete = this.getStyleByIndex(styleIndex).name;
 
@@ -76,15 +77,15 @@ DimStyleManager.prototype.deleteStyle = function (styleIndex) {
     this.styles.splice(styleIndex, 1);
 }
 
-DimStyleManager.prototype.getCstyle = function () {
+DimStyleManager.prototype.getCstyle = function() {
     return this.currentstyle;
 }
 
-DimStyleManager.prototype.setCstyle = function (cstyle) {
+DimStyleManager.prototype.setCstyle = function(cstyle) {
     this.currentstyle = cstyle;
 }
 
-DimStyleManager.prototype.styleExists = function (style) {
+DimStyleManager.prototype.styleExists = function(style) {
     var i = this.styleCount();
     while (i--) {
         //console.log("styleExists:", this.styles[i].name)
@@ -97,7 +98,7 @@ DimStyleManager.prototype.styleExists = function (style) {
     return false;
 }
 
-DimStyleManager.prototype.checkStyles = function () {
+DimStyleManager.prototype.checkStyles = function() {
 
     if (!this.styleCount()) {
         console.log("DimStyleManager.js - Check styles -> Add Standard styles")
@@ -112,14 +113,14 @@ DimStyleManager.prototype.checkStyles = function () {
     }
 }
 
-DimStyleManager.prototype.addStandardStyles = function () {
+DimStyleManager.prototype.addStandardStyles = function() {
     this.addStyle({
         "name": "STANDARD"
     });
     saveRequired();
 }
 
-DimStyleManager.prototype.getStyleByName = function (styleName) {
+DimStyleManager.prototype.getStyleByName = function(styleName) {
 
     for (var i = 0; i < this.styleCount(); i++) {
         if (this.styles[i].name === styleName) {
@@ -129,23 +130,23 @@ DimStyleManager.prototype.getStyleByName = function (styleName) {
     }
 }
 
-DimStyleManager.prototype.getStyleByIndex = function (styleIndex) {
+DimStyleManager.prototype.getStyleByIndex = function(styleIndex) {
 
     return this.styles[styleIndex];
 }
 
 
-DimStyleManager.prototype.renameStyle = function (styleIndex, newName) {
-	
-	var newName = this.getUniqueName(newName)
+DimStyleManager.prototype.renameStyle = function(styleIndex, newName) {
+
+    var newName = this.getUniqueName(newName)
 
     if (this.getStyleByIndex(styleIndex).name.toUpperCase() !== "STANDARD") {
-        
-        if (this.getStyleByIndex(styleIndex).name === this.getCStyle()) {	
+
+        if (this.getStyleByIndex(styleIndex).name === this.getCStyle()) {
             this.setCStyle(newName);
             console.log("[DimStyleManager.renamestyle] - set new Cstyle name")
         }
-        
+
         this.styles[styleIndex].name = newName;
     }
 
