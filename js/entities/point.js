@@ -79,8 +79,8 @@ Point.fromPoints = function(p1, p2) {
 
 Point.prototype.project = function(angle, distance) {
     // project point from this along angle(radians) by distance
-    x = this.x + Math.sin(angle) * distance
-    y = this.y + Math.cos(angle) * distance
+    x = this.x + Math.cos(angle) * distance
+    y = this.y + Math.sin(angle) * distance
     p = new Point(x, y)
     return p
 };
@@ -107,4 +107,11 @@ Point.prototype.perpendicular = function(Pt1, Pt2) {
 
     // no perpendicular point found. return null
     return null
+}
+
+Point.prototype.isSame = function(that) {
+    //Check if this is the same as that
+    if (this.x == that.x && this.y == that.y) return true;
+
+    return false
 }

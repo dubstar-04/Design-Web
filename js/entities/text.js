@@ -12,13 +12,13 @@ function Text(data) //startX, startY, endX, endY)
     this.minPoints = 1;
     this.showPreview = false; //show preview of item as its being created
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
-    this.points = [];
+    this.points = [new Point()];
 
     //this.TextWidth = 2;         //Thickness
     //this.font = "Arial"
     this.string = ""
     this.height = 2.5;
-    this.rotation = 0;
+    this.rotation = 0; //in degrees
     this.horizontalAlignment = 0;
     this.verticalAlignment = 0;
     this.backwards = false;
