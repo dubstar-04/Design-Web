@@ -12,13 +12,13 @@ function Text(data) //startX, startY, endX, endY)
     this.minPoints = 1;
     this.showPreview = false; //show preview of item as its being created
     this.helper_geometry = false; // If true a line will be drawn between points when defining geometry
-    this.points = [];
+    this.points = [new Point()];
 
     //this.TextWidth = 2;         //Thickness
     //this.font = "Arial"
     this.string = ""
     this.height = 2.5;
-    this.rotation = 0;
+    this.rotation = 0; //in degrees
     this.horizontalAlignment = 0;
     this.verticalAlignment = 0;
     this.backwards = false;
@@ -26,11 +26,11 @@ function Text(data) //startX, startY, endX, endY)
     this.colour = "BYLAYER";
     this.layer = "0";
     this.styleName = "STANDARD"
-    //this.alpha = 1.0            //Transparancy
-    //this.TextType
-    //this.TexttypeScale
-    //this.PlotStyle
-    //this.TextWeight
+        //this.alpha = 1.0            //Transparancy
+        //this.TextType
+        //this.TexttypeScale
+        //this.PlotStyle
+        //this.TextWeight
 
     if (data) {
 
@@ -38,18 +38,18 @@ function Text(data) //startX, startY, endX, endY)
         //console.log("text.js - string:", data.string, "rotation: ", data.rotation, " hAlign: ", data.horizontalAlignment, " vAlign: ", data.verticalAlignment)
         this.points = data.points;
 
-        if (data.input){
+        if (data.input) {
             //TODO: Find a better way of providing this data
             // This comes from design-engine
             this.height = data.input[1];
             this.string = data.input[2];
         }
 
-        if (data.string){
+        if (data.string) {
             this.string = data.string;
         }
 
-        if (data.height){
+        if (data.height) {
             this.height = data.height;
         }
 
@@ -69,14 +69,14 @@ function Text(data) //startX, startY, endX, endY)
         }
 
         if (data.verticalAlignment) {
-            this.verticalAlignment = data.verticalAlignment; 
+            this.verticalAlignment = data.verticalAlignment;
         }
 
         if (data.styleName) {
             this.styleName = data.styleName;
         }
 
-        if (data.flags){
+        if (data.flags) {
             switch (data.flags) {
                 // DXF Data
                 //2 = Text is backward (mirrored in X).
@@ -92,11 +92,11 @@ function Text(data) //startX, startY, endX, endY)
                     this.backwards = true;
                     break;
             }
-        }    
+        }
     }
 }
 
-Text.prototype.prompt = function (inputArray) {
+Text.prototype.prompt = function(inputArray) {
     var num = inputArray.length;
     var expectedType = [];
     var reset = false;
@@ -104,42 +104,42 @@ Text.prototype.prompt = function (inputArray) {
     var prompt = [];
 
     console.log("inputArray: ", inputArray)
-    console.log("type: ", typeof inputArray[num-1])
+    console.log("type: ", typeof inputArray[num - 1])
 
     expectedType[0] = ["undefined"];
     prompt[0] = "Pick start point:";
- 
-    expectedType[1] = ["object"];   
+
+    expectedType[1] = ["object"];
     prompt[1] = "Enter height:";
 
-    expectedType[2] = ["number"];   
+    expectedType[2] = ["number"];
     prompt[2] = "Enter text:";
 
-    expectedType[3] = ["string", "number"]; 
+    expectedType[3] = ["string", "number"];
     prompt[3] = "";
 
-    var validInput = expectedType[num].includes(typeof inputArray[num-1])
-            
-    if(!validInput){
+    var validInput = expectedType[num].includes(typeof inputArray[num - 1])
+
+    if (!validInput) {
         console.log("invalid")
         inputArray.pop()
-    }else if (inputArray.length === 3){
+    } else if (inputArray.length === 3) {
         action = true;
         reset = true
     }
-    
+
     return [prompt[inputArray.length], reset, action, validInput]
 }
 
-Text.prototype.width = function () {
+Text.prototype.width = function() {
     var oldFont = canvas.context.font;
     canvas.context.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     var width = (canvas.context.measureText(this.string.toString()).width);
-    canvas.context.font =  oldFont;
+    canvas.context.font = oldFont;
     return width
 }
 
-Text.prototype.getHorizontalAlignment = function () {
+Text.prototype.getHorizontalAlignment = function() {
 
     /* DXF Data
     0 = Left; 1= Center; 2 = Right
@@ -166,7 +166,7 @@ Text.prototype.getHorizontalAlignment = function () {
     }
 }
 
-Text.prototype.getVerticalAlignment = function () {
+Text.prototype.getVerticalAlignment = function() {
 
     /* DXF Data
     Vertical text justification type (optional, default = 0): integer codes (not bit- coded):
@@ -188,17 +188,17 @@ Text.prototype.getVerticalAlignment = function () {
     }
 }
 
-Text.prototype.getBoundingRect = function () {
+Text.prototype.getBoundingRect = function() {
 
-    var rect = {width: Number(this.width()), height: Number(this.height), x: this.points[0].x, y: this.points[0].y}
-    //console.log("text.js - Rect height: ", rect.height, " width: ", rect.width, " x: ", rect.x, " y: ", rect.y)
+    var rect = { width: Number(this.width()), height: Number(this.height), x: this.points[0].x, y: this.points[0].y }
+        //console.log("text.js - Rect height: ", rect.height, " width: ", rect.width, " x: ", rect.x, " y: ", rect.y)
     return rect
 }
 
-Text.prototype.draw = function (ctx, scale) {
+Text.prototype.draw = function(ctx, scale) {
 
     var rect = this.getBoundingRect()
-  
+
     if (!LM.layerVisible(this.layer)) {
         return
     }
@@ -209,7 +209,7 @@ Text.prototype.draw = function (ctx, scale) {
         colour = LM.getLayerByName(this.layer).colour
     }
 
-    ctx.strokeStyle = colour;
+    //ctx.strokeStyle = colour; // Text doesn't require a stroke, see fill.
     ctx.font = this.height + "pt " + SM.getStyleByName(this.styleName).font.toString();
     ctx.fillStyle = colour;
     ctx.textAlign = this.getHorizontalAlignment();
@@ -233,7 +233,7 @@ Text.prototype.draw = function (ctx, scale) {
     }
 
     ctx.fillText(this.string, 0, 0)
-    ctx.stroke()
+        //ctx.stroke() // Text doesn't require a stroke
     ctx.restore();
 
     //// Draw Bounding Box to test the getBoundingRect()
@@ -247,50 +247,50 @@ Text.prototype.draw = function (ctx, scale) {
     ctx.lineTo(rect.x, rect.y + rect.height);
     ctx.lineTo(rect.x, rect.y);
     ctx.stroke()
-    */ 
+    */
 }
 
-Text.prototype.SVG = function (file) {
+Text.prototype.SVG = function(file) {
     //<Text x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
     //"<Text x1=" + this.startX  + "y1=" + this.startY + "x2=" + this.endX + "y2=" + this.endY + "style=" + this.colour + ";stroke-width:" + this.TextWidth + "/>"
 }
 
 
-Text.prototype.dxf = function () {
+Text.prototype.dxf = function() {
     var dxfitem = ""
     var data = dxfitem.concat(
-        "0",
-        "\n", "TEXT",
-        "\n", "8", //LAYERNAME
-        "\n", this.layer,
-        "\n", "10", //X
-        "\n", this.points[0].x,
-        "\n", "20", //Y
-        "\n", this.points[0].y,
-        "\n", "30", //Z
-        "\n", "0.0",
-       // "\n", "11", //X
-       // "\n", this.points[1].x,
-       // "\n", "21", //Y
-       // "\n", this.points[1].y, //Y
-       // "\n", "31", //Z
-       // "\n", "0.0",
-        "\n", "1", //STRING
-        "\n", this.string,
-        "\n", "40", //STRING
-        "\n", this.height,
-       // "\n", "7", // TEXT STYLE
-       // "\n", "STANDARD",
-       // "\n", "72", //HORIZONTAL ALIGNMENT
-       // "\n", this.getHorizontalAlignment(),
-       // "\n", "73", //VERTICAL ALIGNMENT
-       // "\n", this.getVerticalAlignment()
-    )
-    //console.log(" line.js - DXF Data:" + data)
+            "0",
+            "\n", "TEXT",
+            "\n", "8", //LAYERNAME
+            "\n", this.layer,
+            "\n", "10", //X
+            "\n", this.points[0].x,
+            "\n", "20", //Y
+            "\n", this.points[0].y,
+            "\n", "30", //Z
+            "\n", "0.0",
+            // "\n", "11", //X
+            // "\n", this.points[1].x,
+            // "\n", "21", //Y
+            // "\n", this.points[1].y, //Y
+            // "\n", "31", //Z
+            // "\n", "0.0",
+            "\n", "1", //STRING
+            "\n", this.string,
+            "\n", "40", //STRING
+            "\n", this.height,
+            // "\n", "7", // TEXT STYLE
+            // "\n", "STANDARD",
+            // "\n", "72", //HORIZONTAL ALIGNMENT
+            // "\n", this.getHorizontalAlignment(),
+            // "\n", "73", //VERTICAL ALIGNMENT
+            // "\n", this.getVerticalAlignment()
+        )
+        //console.log(" line.js - DXF Data:" + data)
     return data
 }
 
-Text.prototype.snaps = function (mousePoint, delta) {
+Text.prototype.snaps = function(mousePoint, delta) {
 
     var rect = this.getBoundingRect()
 
@@ -307,7 +307,7 @@ Text.prototype.snaps = function (mousePoint, delta) {
     return snaps;
 }
 
-Text.prototype.closestPoint = function (P) {
+Text.prototype.closestPoint = function(P) {
 
     var rect = this.getBoundingRect()
     var botLeft = new Point(rect.x, rect.y);
@@ -317,18 +317,18 @@ Text.prototype.closestPoint = function (P) {
     var distance = distBetweenPoints(P.x, P.y, mid.x, mid.y)
 
     // if P is inside the bounding box return distance 0  
-    if (P.x > botLeft.x && 
+    if (P.x > botLeft.x &&
         P.x < topRight.x &&
         P.y > botLeft.y &&
         P.y < topRight.y
-    ){distance = 0}
+    ) { distance = 0 }
 
-    console.log(distance);
+    //console.log(distance);
 
     return [mid, distance]
 }
 
-Text.prototype.extremes = function () {
+Text.prototype.extremes = function() {
     var rect = this.getBoundingRect()
     var xmin = rect.x;
     var xmax = rect.x + rect.width;
@@ -338,7 +338,7 @@ Text.prototype.extremes = function () {
     return [xmin, xmax, ymin, ymax]
 }
 
-Text.prototype.within = function (selection_extremes) {
+Text.prototype.within = function(selection_extremes) {
 
     // determin if this entities is within a the window specified by selection_extremes
     var extremePoints = this.extremes()
@@ -355,7 +355,7 @@ Text.prototype.within = function (selection_extremes) {
 
 }
 
-Text.prototype.intersectPoints = function () {
+Text.prototype.intersectPoints = function() {
 
     var rect = this.getBoundingRect()
 
@@ -368,7 +368,7 @@ Text.prototype.intersectPoints = function () {
     }
 }
 
-Text.prototype.touched = function (selection_extremes) {
+Text.prototype.touched = function(selection_extremes) {
 
     if (!LM.layerVisible(this.layer)) {
         return

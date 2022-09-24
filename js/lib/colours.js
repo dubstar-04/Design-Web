@@ -18,6 +18,7 @@ function getACADColour(hex_colour) {
 
 var conversion_table = {
     // Map the 256 AutoCAD colours to the equivalent hex colour
+    0: 'BYBLOCK',
     1: '#FF0000',
     2: '#FFFF00',
     3: '#00FF00',

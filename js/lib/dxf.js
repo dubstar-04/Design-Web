@@ -3,7 +3,7 @@ var debug = false
 
 function debugLog(msg) {
     if (debug) {
-        //console.log("DXF.js: " + msg)
+        console.log("DXF.js: " + msg)
     }
 }
 
@@ -11,32 +11,43 @@ function degrees2radians(degrees) { //why wont this import from geometryUtils?
     return degrees * Math.PI / 180;
 };
 
-function DXF(data, Scene) {
+function DXF(data) {
 
     //debugLog("fileio.js - processDXF")
 
     this.line = "";
     this.lines = data.split('\n');
     this.lineNum = 0;
-    this.scene = Scene;
+    //this.scene = Scene;
     this.processed = 0
+    this.blockName = "";
 }
 
-DXF.prototype.getDXFLine = function () {
+DXF.prototype.getDXFLine = function() {
     this.line = this.lines[this.lineNum].replace(/\s+/, "");
     this.lineNum = this.lineNum + 1;
     if (Math.round((this.lineNum / this.lines.length) * 100) > this.processed) {
         this.processed = Math.round((this.lineNum / this.lines.length) * 100)
-        console.log("Progress:" + this.processed + "%")
+            ////console.log("Progress:" + this.processed + "%")
     }
 }
 
-DXF.prototype.previewNextLine = function () {
+DXF.prototype.addElementToScene = function(type, data) {
+
+    if (this.blockName !== "" || type == "Insert") {
+        var name = data.name ? data.name : this.blockName
+        addItemToBlock(type, data, name);
+    } else {
+        addToScene(type, data)
+    }
+}
+
+DXF.prototype.previewNextLine = function() {
     //Read the next available line - NOTE: getDXFLine increments this.LineNum, therefore this.lineNum is the next line.
     return this.lines[this.lineNum].replace(/\s+/, "");
 }
 
-DXF.prototype.processData = function () {
+DXF.prototype.processData = function() {
 
     while (this.lineNum < this.lines.length) {
 
@@ -49,7 +60,7 @@ DXF.prototype.processData = function () {
                 //debugLog("Found " + this.line)
                 var clayer = this.readHeader(8);
                 if (clayer) {
-                    //console.log("clayer:" + clayer)
+                    //////console.log("clayer:" + clayer)
                     clayer = clayer;
                 }
                 break;
@@ -122,7 +133,7 @@ DXF.prototype.processData = function () {
                 break;
 
             case "LAYER":
-                //console.log("Found " + this.line)
+                //////console.log("Found " + this.line)
                 this.readLayer();
                 break;
 
@@ -132,6 +143,16 @@ DXF.prototype.processData = function () {
 
             case "BLOCK":
                 //debugLog("Found " + this.line)
+                this.readBlock();
+                break;
+
+            case "INSERT":
+                this.readInsert();
+                break;
+
+            case "ENDBLK":
+                ////console.log("Close Block:", this.blockName);
+                this.blockName = "";
                 break;
 
             case "ENDSEC":
@@ -168,7 +189,12 @@ DXF.prototype.processData = function () {
 
             case "DIMENSION":
                 //debugLog("Found " + this.line)
-                //this.readDimension();
+                this.readDimension();
+                break;
+
+            case "DIMSTYLE":
+                //debugLog("Found " + this.line)
+                this.readDimStyle();
                 break;
 
             case "ELLIPSE":
@@ -221,13 +247,15 @@ DXF.prototype.processData = function () {
                 this.readStyle();
                 break;
         }
+
     }
-    //Finished reading entities. Request repaint. 
+
+    //Finished reading entities.
     //TODO: dxf shouldn't access the app, it should work as an external lib. 
 
 }
 
-DXF.prototype.readHeader = function (groupCode) {
+DXF.prototype.readHeader = function(groupCode) {
 
     while (this.lineNum < this.lines.length) {
         this.getDXFLine();
@@ -247,8 +275,155 @@ DXF.prototype.readHeader = function (groupCode) {
     }
 }
 
+DXF.prototype.readBlock = function() {
 
-DXF.prototype.readLayer = function () {
+    //Create the points required for a circle
+    var points = new Array();
+    var point = new Point();
+    var flags = "";
+    var name = "";
+    var colour = "BYLAYER";
+    var layer = "0"
+
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+        //debugLog("readCircle: " + n)
+        switch (n) {
+            case 1:
+                // next item found, so finish with Circle
+                //Push the points to the points array and pass it to the Scene
+                points.push(point); //TO DO: Check the points are valid before they are pushed.
+
+
+                var block = {
+                    name: name,
+                    points: points,
+                    flags: flags,
+                    colour: colour,
+                    layer: layer
+                }
+
+                this.addElementToScene("Block", block)
+
+                // set the current block name to add to preceeding elements;
+                this.blockName = name;
+                ////console.log("Open Block:", this.blockName)
+
+                return;
+            case 2: // name follows
+                this.getDXFLine();
+                name = this.line;
+                break;
+            case 5: // handle name follows
+                this.getDXFLine();
+                //debugLog("Handle name: " + this.line);
+                break;
+            case 8: // Layer name follows
+                this.getDXFLine();
+                layer = this.line;
+                break;
+            case 10: // X
+                this.getDXFLine();
+                point.x = Number(this.line);
+                break;
+            case 20: //Y
+                this.getDXFLine();
+                point.y = Number(this.line);
+                break;
+            case 30: // Z
+                this.getDXFLine();
+                break;
+            case 62: // color index
+                this.getDXFLine();
+                colour = getHexColour(Number(this.line));
+                break;
+            case 70:
+                this.getDXFLine();
+                flags = this.line;
+                break;
+            default:
+                // skip the next line
+                //this.getDXFLine();
+                break;
+        }
+
+    }
+
+}
+
+DXF.prototype.readInsert = function() {
+
+    //Create the points required for a circle
+    var points = new Array();
+    var point = new Point();
+    var block = "";
+    var colour = "BYLAYER";
+    var layer = "0"
+
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+        //debugLog("readCircle: " + n)
+        switch (n) {
+            case 0:
+                // next item found, so finish with Circle
+                //Push the points to the points array and pass it to the Scene
+                points.push(point); //TO DO: Check the points are valid before they are pushed.
+
+
+                var insert = {
+                    name: block,
+                    points: points,
+                    colour: colour,
+                    layer: layer
+                }
+
+                this.addElementToScene("Insert", insert)
+
+                return;
+            case 2: // name follows
+                this.getDXFLine();
+                block = this.line;
+                break;
+            case 5: // handle name follows
+                this.getDXFLine();
+                break;
+            case 8: // Layer name follows
+                this.getDXFLine();
+                layer = this.line;
+                break;
+            case 10: // X
+                this.getDXFLine();
+                point.x = Number(this.line);
+                break;
+            case 20: //Y
+                this.getDXFLine();
+                point.y = Number(this.line);
+                break;
+            case 30: // Z
+                this.getDXFLine();
+                break;
+            case 62: // color index
+                this.getDXFLine();
+                colour = getHexColour(Number(this.line));
+                break;
+            default:
+                // skip the next line
+                //this.getDXFLine();
+                break;
+        }
+
+    }
+
+}
+
+
+DXF.prototype.readLayer = function() {
 
     var name = "";
     //var handle = "";
@@ -267,7 +442,7 @@ DXF.prototype.readLayer = function () {
             case 0:
                 // next item found, so finish with line
 
-                //console.log(name, colour)
+                //////console.log(name, colour)
                 var layer = {
                     name: name,
                     flags: flags,
@@ -359,7 +534,7 @@ DXF.prototype.readLayer = function () {
 
 }
 
-DXF.prototype.readLine = function () {
+DXF.prototype.readLine = function() {
 
     //Create the points required for a line
     var points = new Array();
@@ -386,7 +561,7 @@ DXF.prototype.readLine = function () {
                     layer: layer
                 }
 
-                addToScene("Line", line)
+                this.addElementToScene("Line", line)
                 return;
             case 5: // handle name follows
                 this.getDXFLine();;
@@ -404,13 +579,13 @@ DXF.prototype.readLine = function () {
             case 10:
                 // start x
                 this.getDXFLine();
-                pointStart.x = this.line;
+                pointStart.x = Number(this.line);
                 //debugLog("startx: " + this.line);
                 break;
             case 20:
                 // start y
                 this.getDXFLine();
-                pointStart.y = this.line;
+                pointStart.y = Number(this.line);
                 //debugLog("starty: " + this.line);
                 break;
             case 30:
@@ -421,13 +596,13 @@ DXF.prototype.readLine = function () {
             case 11:
                 // end x
                 this.getDXFLine();
-                pointEnd.x = this.line;
+                pointEnd.x = Number(this.line);
                 //debugLog("endx: " + this.line);
                 break;
             case 21:
                 // end y
                 this.getDXFLine();
-                pointEnd.y = this.line;
+                pointEnd.y = Number(this.line);
                 //debugLog("endy: " + this.line);
                 break;
             case 31:
@@ -471,7 +646,7 @@ DXF.prototype.readLine = function () {
 }
 
 
-DXF.prototype.readCircle = function () {
+DXF.prototype.readCircle = function() {
 
     //Create the points required for a circle
     var points = new Array();
@@ -491,7 +666,7 @@ DXF.prototype.readCircle = function () {
                 //Push the points to the points array and pass it to the Scene
                 points.push(pointCentre); //TO DO: Check the points are valid before they are pushed.
                 points.push(pointRadius);
-                //alsoAddToScene("Circle", points, colour);
+                //alsothis.addElementToScene("Circle", points, colour);
 
                 var circle = {
                     points: points,
@@ -499,7 +674,7 @@ DXF.prototype.readCircle = function () {
                     layer: layer
                 }
 
-                addToScene("Circle", circle)
+                this.addElementToScene("Circle", circle)
 
                 return;
             case 5: // handle name follows
@@ -576,8 +751,143 @@ DXF.prototype.readCircle = function () {
 
 }
 
+DXF.prototype.readDimension = function() {
 
-DXF.prototype.readPoint = function () {
+    //Create the points required for a dimension
+    var points = new Array();
+    var point102030 = new Point();
+    var point112131 = new Point(); //pt3
+    var point132333 = new Point(); //pt1
+    var point142434 = new Point(); //pt2
+    var point152535 = new Point();
+    var dimType = 0;
+    var leaderLength = 0;
+    var angle = 0;
+    var blockName = "";
+    var colour = "BYLAYER";
+    var layer = "0";
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+        switch (n) {
+            case 0:
+                // next item found, so finish with dimension
+                //Push the points to the points array and pass it to the Scene
+                points.push(point132333); //TO DO: Check the points are valid before they are pushed.
+                points.push(point142434);
+                points.push(point112131);
+                points.push(point102030);
+                points.push(point152535);
+
+                var dimension = {
+                    points: points,
+                    colour: colour,
+                    layer: layer,
+                    blockName: blockName,
+                    dimType: dimType,
+                    leaderLength: leaderLength,
+                    angle: angle
+                }
+
+                this.addElementToScene("Dimension", dimension)
+                return;
+            case 1: // Dimension Text String
+                this.getDXFLine();
+                break;
+            case 2: // BLOCK name follows
+                this.getDXFLine();
+                blockName = this.line;
+                break;
+            case 5: // handle name follows
+                this.getDXFLine();
+                break;
+            case 8: // Layer name follows
+                this.getDXFLine();
+                layer = this.line;
+                break;
+            case 10: // X - DEFINITION / ARROW POINT
+                this.getDXFLine();
+                point102030.x = Number(this.line);
+                break;
+            case 20: // Y - DEFINITION / ARROW POINT
+                this.getDXFLine();
+                point102030.y = Number(this.line);
+                break;
+            case 30:
+                // centre z
+                this.getDXFLine();
+                break;
+            case 11: // x - TEXT MIDPOINT
+                this.getDXFLine();
+                point112131.x = Number(this.line);
+                break;
+            case 21: // Y - TEXT MIDPOINT
+                this.getDXFLine();
+                point112131.y = Number(this.line);
+                break;
+            case 31: // Z - TEXT MIDPOINT
+                this.getDXFLine();
+                break;
+            case 13: // X - START POINT OF FIRST EXTENSION LINE
+                this.getDXFLine();
+                point132333.x = Number(this.line);
+                break;
+            case 23: // Y - START POINT OF FIRST EXTENSION LINE
+                this.getDXFLine();
+                point132333.y = Number(this.line);
+                break;
+            case 33: // Z - START POINT OF FIRST EXTENSION LINE
+                this.getDXFLine();
+                break;
+            case 14: // X - START POINT OF SECOND EXTENSION LINE
+                this.getDXFLine();
+                point142434.x = Number(this.line);
+                break;
+            case 24: // Y - START POINT OF SECOND EXTENSION LINE
+                this.getDXFLine();
+                point142434.y = Number(this.line);
+                break;
+            case 34: // Z - START POINT OF SECOND EXTENSION LINE
+                this.getDXFLine();
+                break;
+            case 15: // X
+                this.getDXFLine();
+                point152535.x = Number(this.line);
+                ////console.log("pt 15", this.line)
+                break;
+            case 25: // Y
+                this.getDXFLine();
+                point152535.y = Number(this.line);
+                break;
+            case 35: // Z
+                this.getDXFLine();
+                break;
+            case 40: // Leader length for radius and diameter dimensions
+                this.getDXFLine();
+                leaderLength = Number(this.line);
+                break;
+            case 50: // Angle of rotated, horizontal or vertical linear dimensions
+                this.getDXFLine();
+                angle = Number(this.line);
+                break;
+            case 70: // //DIMENSION TYPE
+                this.getDXFLine();
+                dimType = Number(this.line);
+                break;
+            default:
+                // skip the next line
+                //this.getDXFLine();;
+                break;
+        }
+
+    }
+
+}
+
+
+DXF.prototype.readPoint = function() {
 
     var colour = "BYLAYER";
     var layer = "0"
@@ -656,15 +966,15 @@ DXF.prototype.readPoint = function () {
     }
 }
 
-DXF.prototype.readArc = function () {
+DXF.prototype.readArc = function() {
 
     //Create the points required for an Arc
     var points = new Array();
     var point_centre = new Point();
     var colour = "BYLAYER";
     var layer = "0"
-    // var point_start = new Point();
-    // var point_end = new Point();
+        // var point_start = new Point();
+        // var point_end = new Point();
 
     var start_angle = 0;
     var end_angle = 0;
@@ -687,7 +997,7 @@ DXF.prototype.readArc = function () {
                 points.push(point_centre); //TO DO: Check the points are valid before they are pushed.
                 points.push(point_start);
                 points.push(point_end);
-                //alsoAddToScene("Arc", points, colour);
+                //alsothis.addElementToScene("Arc", points, colour);
 
                 var arc = {
                     points: points,
@@ -695,7 +1005,7 @@ DXF.prototype.readArc = function () {
                     layer: layer
                 }
 
-                addToScene("Arc", arc)
+                this.addElementToScene("Arc", arc)
 
                 return;
             case 5: // handle name follows
@@ -781,7 +1091,7 @@ DXF.prototype.readArc = function () {
     }
 }
 
-DXF.prototype.readEllipse = function () {
+DXF.prototype.readEllipse = function() {
 
     var points = new Array();
     var point_centre = new Point();
@@ -821,9 +1131,9 @@ DXF.prototype.readEllipse = function () {
                     layer: layer
                 }
 
-                addToScene("Ellipse", ellipse)
+                this.addElementToScene("Ellipse", ellipse)
 
-                //alsoAddToScene("Ellipse", points, colour);
+                //alsothis.addElementToScene("Ellipse", points, colour);
 
                 return;
             case 5: // handle name follows
@@ -923,7 +1233,7 @@ DXF.prototype.readEllipse = function () {
     }
 }
 
-DXF.prototype.readVertex = function () {
+DXF.prototype.readVertex = function() {
 
     var vertex = new Point();
     //debugLog("In VERTEX");
@@ -1010,7 +1320,7 @@ DXF.prototype.readVertex = function () {
 
 
 
-DXF.prototype.readPolyline = function () {
+DXF.prototype.readPolyline = function() {
 
     var points = new Array();
     var colour = "BYLAYER";
@@ -1063,8 +1373,8 @@ DXF.prototype.readPolyline = function () {
 
                     }
 
-                    addToScene("Polyline", polyline)
-                    //alsoAddToScene("Polyline", points, colour)
+                    this.addElementToScene("Polyline", polyline)
+                        //alsothis.addElementToScene("Polyline", points, colour)
                     return;
                 }
                 break;
@@ -1136,7 +1446,7 @@ DXF.prototype.readPolyline = function () {
 }
 
 
-DXF.prototype.readLwpolyline = function () {
+DXF.prototype.readLwpolyline = function() {
 
     var points = new Array();
     var x_array = new Array();
@@ -1184,9 +1494,9 @@ DXF.prototype.readLwpolyline = function () {
                         layer: layer
                     }
 
-                    addToScene("Polyline", polyline)
+                    this.addElementToScene("Polyline", polyline)
 
-                    //alsoAddToScene("Polyline", points, colour) //////////////////////////////////////////////  LWPOLYLINE is being represented as a POLYLINE in DESIGN. Does this affect anything?
+                    //alsothis.addElementToScene("Polyline", points, colour) //////////////////////////////////////////////  LWPOLYLINE is being represented as a POLYLINE in DESIGN. Does this affect anything?
                 }
 
                 return;
@@ -1262,7 +1572,7 @@ DXF.prototype.readLwpolyline = function () {
 }
 
 
-DXF.prototype.readSpline = function () {
+DXF.prototype.readSpline = function() {
 
     var points = new Array();
     var x_ctrl_points = new Array();
@@ -1317,8 +1627,8 @@ DXF.prototype.readSpline = function () {
                         layer: layer
                     }
 
-                    addToScene("Spline", spline)
-                    //alsoAddToScene("Spline", points, colour);
+                    this.addElementToScene("Spline", spline)
+                        //alsothis.addElementToScene("Spline", points, colour);
                 }
 
                 return true;
@@ -1473,7 +1783,7 @@ DXF.prototype.readSpline = function () {
 }
 
 
-DXF.prototype.readText = function () {
+DXF.prototype.readText = function() {
 
     var points = new Array();
 
@@ -1519,7 +1829,7 @@ DXF.prototype.readText = function () {
                     flags: flags
                 }
 
-                addToScene("Text", text)
+                this.addElementToScene("Text", text)
 
                 return true;
             case 1: // Text string follows
@@ -1549,7 +1859,7 @@ DXF.prototype.readText = function () {
                 this.getDXFLine();
                 secondAlignmentPoint.x = Number(this.line);
                 break;
-           case 21: // y
+            case 21: // y
                 this.getDXFLine();
                 secondAlignmentPoint.y = Number(this.line);
                 break;
@@ -1563,7 +1873,7 @@ DXF.prototype.readText = function () {
             case 41: // width factor
                 this.getDXFLine();
                 widthFactor = Number(this.line);
-                 break;
+                break;
             case 50: // rotation
                 this.getDXFLine();
                 rotation = Number(this.line);
@@ -1593,7 +1903,7 @@ DXF.prototype.readText = function () {
                 //0 = Baseline; 1 = Bottom; 2 = Middle; 3 = Top
                 this.getDXFLine();
                 verticalAlignment = Number(this.line);
-                console.log("dxf vertical align:", verticalAlignment)
+                ////console.log("dxf vertical align:", verticalAlignment)
                 break;
             default:
                 // skip the next line
@@ -1693,7 +2003,7 @@ DXF.prototype.readText = function(){
     }
 }*/
 
-DXF.prototype.readStyle = function () {
+DXF.prototype.readStyle = function() {
 
     var name = "";
     var font = "";
@@ -1725,7 +2035,7 @@ DXF.prototype.readStyle = function () {
                     widthFactor: widthFactor
                 }
 
-                if (name !== ""){
+                if (name !== "") {
                     SM.addStyle(style)
                 }
 
@@ -1776,8 +2086,277 @@ DXF.prototype.readStyle = function () {
     }
 }
 
+DXF.prototype.readDimStyle = function() {
 
-DXF.prototype.readVPort = function () {
+    var name = "";
+    var standardFlags = 0;
+    var DIMPOST = "" //3
+    var DIMAPOST = "" //4
+    var DIMBLK = "" //5
+    var DIMBLK1 = "" //6
+    var DIMBLK2 = "" //8
+    var DIMSCALE = "1.0" //40
+    var DIMASZ = "0.18"; //41 
+    var DIMEXO = "0.0625"; //42 
+    var DIMDLI = "0.38"; //43
+    var DIMEXE = "0.18"; //44
+    var DIMRND = "0.0"; //45
+    var DIMDLE = "0.0"; //46
+    var DIMTP = "0.0"; //47
+    var DIMTM = "0.0"; //48
+    var DIMTXT = "0.18"; //140
+    var DIMCEN = "0.09"; //141
+    var DIMTSZ = "0.0"; //142
+    var DIMALTF = "25.39"; //143
+    var DIMLFAC = "1.0"; //144
+    var DIMTVP = "0.0"; //145
+    var DIMTFAC = "1.0"; //146
+    var DIMGAP = "0.09"; //147
+    var DIMTOL = "0"; //71
+    var DIMLIM = "0"; //72
+    var DIMTIH = "1"; //73
+    var DIMTOH = "1"; //74
+    var DIMSE1 = "0"; //75
+    var DIMSE2 = "0"; //76
+    var DIMTAD = "0"; //77 
+    var DIMZIN = "0"; //78
+    var DIMALT = "0"; //170 
+    var DIMALTD = "2"; //171
+    var DIMTOFL = "0"; //172
+    var DIMSAH = "0"; //173
+    var DIMTIX = "0"; //174
+    var DIMSOXD = "0"; //175
+    var DIMCLRD = "0"; //176
+    var DIMCLRE = "0"; //177
+    var DIMCLRT = "0";
+
+    while (this.lineNum < this.lines.length) {
+
+        this.getDXFLine();
+        var n = parseInt(this.line);
+
+        switch (n) {
+            case 0:
+
+                var dimstyle = {
+                    name: name,
+                    standardFlags: standardFlags,
+                    DIMPOST: DIMPOST,
+                    DIMAPOST: DIMAPOST,
+                    DIMBLK: DIMBLK,
+                    DIMBLK1: DIMBLK1,
+                    DIMBLK2: DIMBLK2,
+                    DIMSCALE: DIMSCALE,
+                    DIMASZ: DIMASZ,
+                    DIMEXO: DIMEXO,
+                    DIMDLI: DIMDLI,
+                    DIMEXE: DIMEXE,
+                    DIMRND: DIMRND,
+                    DIMDLE: DIMDLE,
+                    DIMTP: DIMTP,
+                    DIMTM: DIMTM,
+                    DIMTXT: DIMTXT,
+                    DIMCEN: DIMCEN,
+                    DIMTSZ: DIMTSZ,
+                    DIMALTF: DIMALTF,
+                    DIMLFAC: DIMLFAC,
+                    DIMTVP: DIMTVP,
+                    DIMTFAC: DIMTFAC,
+                    DIMGAP: DIMGAP,
+                    DIMTOL: DIMTOL,
+                    DIMLIM: DIMLIM,
+                    DIMTIH: DIMTIH,
+                    DIMTOH: DIMTOH,
+                    DIMSE1: DIMSE1,
+                    DIMSE2: DIMSE2,
+                    DIMTAD: DIMTAD,
+                    DIMZIN: DIMZIN,
+                    DIMALT: DIMALT,
+                    DIMALTD: DIMALTD,
+                    DIMTOFL: DIMTOFL,
+                    DIMSAH: DIMSAH,
+                    DIMTIX: DIMTIX,
+                    DIMSOXD: DIMSOXD,
+                    DIMCLRD: DIMCLRD,
+                    DIMCLRE: DIMCLRE,
+                    DIMCLRT: DIMCLRT
+                }
+
+                if (name !== "") {
+                    DSM.addStyle(dimstyle)
+                }
+
+                return true;
+            case 2: // Style Name follows
+                this.getDXFLine();
+                name = this.line;
+                break;
+            case 3:
+                this.getDXFLine();
+                DIMPOST = Number(this.line);
+                break;
+            case 4:
+                this.getDXFLine();
+                DIMAPOST = Number(this.line);
+                break;
+            case 5:
+                this.getDXFLine();
+                DIMBLK = Number(this.line);
+                break;
+            case 6:
+                this.getDXFLine();
+                DIMBLK1 = Number(this.line);
+                break;
+            case 8:
+                this.getDXFLine();
+                DIMBLK2 = Number(this.line);
+                break;
+            case 40:
+                this.getDXFLine();
+                DIMSCALE = Number(this.line);
+                break;
+            case 41:
+                this.getDXFLine();
+                DIMASZ = Number(this.line);
+                break;
+            case 42:
+                this.getDXFLine();
+                DIMEXO = Number(this.line);
+                break;
+            case 43:
+                this.getDXFLine();
+                DIMDLI = Number(this.line);
+                break;
+            case 44:
+                this.getDXFLine();
+                DIMEXE = Number(this.line);
+                break;
+            case 45:
+                this.getDXFLine();
+                DIMRND = Number(this.line);
+                break;
+            case 46:
+                this.getDXFLine();
+                DIMDLE = Number(this.line);
+                break;
+            case 47:
+                this.getDXFLine();
+                DIMTP = Number(this.line);
+                break;
+            case 48:
+                this.getDXFLine();
+                DIMTM = Number(this.line);
+                break;
+            case 140:
+                this.getDXFLine();
+                DIMTXT = Number(this.line);
+                break;
+            case 141:
+                this.getDXFLine();
+                DIMCEN = Number(this.line);
+                break;
+            case 142:
+                this.getDXFLine();
+                DIMTSZ = Number(this.line);
+                break;
+            case 143:
+                this.getDXFLine();
+                DIMALTF = Number(this.line);
+                break;
+            case 144:
+                this.getDXFLine();
+                DIMLFAC = Number(this.line);
+                break;
+            case 145:
+                this.getDXFLine();
+                DIMTVP = Number(this.line);
+                break;
+            case 146:
+                this.getDXFLine();
+                DIMTFAC = Number(this.line);
+                break;
+            case 147:
+                this.getDXFLine();
+                DIMGAP = Number(this.line);
+                break;
+            case 71:
+                this.getDXFLine();
+                DIMTOL = Number(this.line);
+                break;
+            case 72:
+                this.getDXFLine();
+                DIMLIM = Number(this.line);
+                break;
+            case 73:
+                this.getDXFLine();
+                DIMTIH = Number(this.line);
+                break;
+            case 74:
+                this.getDXFLine();
+                DIMTOH = Number(this.line);
+                break;
+            case 75:
+                this.getDXFLine();
+                DIMSE1 = Number(this.line);
+                break;
+            case 76:
+                this.getDXFLine();
+                DIMSE2 = Number(this.line);
+                break;
+            case 77:
+                this.getDXFLine();
+                DIMTAD = Number(this.line);
+                break;
+            case 78:
+                this.getDXFLine();
+                DIMZIN = Number(this.line);
+                break;
+            case 170:
+                this.getDXFLine();
+                DIMALT = Number(this.line);
+                break;
+            case 171:
+                this.getDXFLine();
+                DIMALTD = Number(this.line);
+                break;
+            case 172:
+                this.getDXFLine();
+                DIMTOFL = Number(this.line);
+                break;
+            case 173:
+                this.getDXFLine();
+                DIMSAH = Number(this.line);
+                break;
+            case 174:
+                this.getDXFLine();
+                DIMTIX = Number(this.line);
+                break;
+            case 175:
+                this.getDXFLine();
+                DIMSOXD = Number(this.line);
+                break;
+            case 176:
+                this.getDXFLine();
+                DIMCLRD = Number(this.line);
+                break;
+            case 177:
+                this.getDXFLine();
+                DIMCLRE = Number(this.line);
+                break;
+            case 178:
+                this.getDXFLine();
+                DIMCLRT = Number(this.line);
+                break;
+            default:
+                // skip the next line
+                this.getDXFLine();
+                break;
+        }
+    }
+}
+
+
+DXF.prototype.readVPort = function() {
 
     var centre = new Point();
     var width = 0;
@@ -1788,14 +2367,14 @@ DXF.prototype.readVPort = function () {
         this.getDXFLine();
         var n = parseInt(this.line);
         //debugLog("Group Code: " + n)
-        //console.log("Group Code: " + n)
+        //////console.log("Group Code: " + n)
 
         switch (n) {
             case 0:
 
                 if (height !== 0 && ratio !== 0) {
                     width = height * ratio
-                    //console.log("Vport Width: ", width)
+                        //////console.log("Vport Width: ", width)
                 }
 
                 /*   var vport = {
@@ -1803,68 +2382,68 @@ DXF.prototype.readVPort = function () {
                        height: height,
                        width: width
                    }*/
-                //console.log("TODO: Implement Centring the data")
+                //////console.log("TODO: Implement Centring the data")
                 //centreVPORT(centre, width, height);
 
                 return true;
             case 2:
                 // name
                 this.getDXFLine();
-                //console.log("VPORT Name: " + this.line);
+                //////console.log("VPORT Name: " + this.line);
                 break;
             case 10:
                 // x
                 this.getDXFLine();
-                //console.log("Bottom Left X: " + this.line);          
+                //////console.log("Bottom Left X: " + this.line);          
                 break;
             case 20:
                 // y
                 this.getDXFLine();
-                //console.log("Bottom Left Y: " + this.line);
+                //////console.log("Bottom Left Y: " + this.line);
                 break;
             case 11:
                 // x
                 this.getDXFLine();
-                //console.log("Top Right X: " + this.line);
+                //////console.log("Top Right X: " + this.line);
                 break;
             case 21:
                 // y
                 this.getDXFLine();
-                //console.log("Top Right Y: " + this.line);
+                //////console.log("Top Right Y: " + this.line);
                 break;
             case 12:
                 // x
                 this.getDXFLine();
-                //console.log("Centre X: " + this.line);
+                //////console.log("Centre X: " + this.line);
                 centre.x = Number(this.line);
                 break;
             case 22:
                 // y
                 this.getDXFLine();
-                //console.log("Centre Y: " + this.line);
+                //////console.log("Centre Y: " + this.line);
                 centre.y = Number(this.line);
                 break;
             case 40:
                 // View Height
                 this.getDXFLine();
-                //console.log("Viewport Height: " + this.line);
+                //////console.log("Viewport Height: " + this.line);
                 height = Number(this.line);
                 break;
             case 41:
                 // Viewport ratio
                 this.getDXFLine();
-                //console.log("Viewport ratio: " + this.line);
+                //////console.log("Viewport ratio: " + this.line);
                 ratio = this.line;
                 break;
             case 70:
                 // flags
                 this.getDXFLine();
-                //console.log("Viewport Flags: " + this.line);
+                //////console.log("Viewport Flags: " + this.line);
                 break;
             case 76:
                 // grid on/off
                 this.getDXFLine();
-                //console.log("Grid ON/OFF: " + this.line);
+                //////console.log("Grid ON/OFF: " + this.line);
                 break;
             default:
                 // skip the next line
