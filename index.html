@@ -19,41 +19,37 @@
     <link rel="stylesheet" href="css/notification.css">
 
     <div role="main">
-        <!--<canvas id="myCanvas" width="600" height="400" style="border:1px solid #c3c3c3;">-->
         <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
     </div>
-
-
+   
     <div class="toolbar">
         <input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
         <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
-        <div class="tooltip"><button class="tool" , onclick="selectFile()"><img src="icons/open.svg"></button> <span class="tooltiptext">Open File</span></div>
-        <div class="tooltip"><button class="tool" , onclick="savedxf()"><img src="icons/save.svg"></button> <span class="tooltiptext">Save</span></div>
+        <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button> <span class="tooltiptext">Open File</span></div>
+        <div class="tooltip"><button class="tool" , onclick="saveFileClicked()"><img src="icons/save.svg"></button> <span class="tooltiptext">Save</span></div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
-        <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
-        <!--<div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
+        <!--<div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
+        <!--<div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
 
         <div class="tooltip"><span class="separator"></span></div>
         <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
         <div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>
-
     </div>
-
 </body>
 
 <!--<footer>-->
@@ -64,99 +60,94 @@
 </canvasbottom>
 <!--</footer>-->
 
+<!--<script type="text/javascript" src="Design-Core/help/help.js"></script>-->
+<!-- used for saving file data -->
+<script type="text/javascript" src="js/FileSaver.min.js"></script>
+
+<script type="module">
+     import { DesignEngine } from "./Design-Core/lib/designEngine.js"
+     import { Colours } from "./Design-Core/lib/colours.js"
+    window.designEngine = new DesignEngine();
+    initDesignEngine();
+</script>
 
 <script>
-    // store a list of loaded commands - this is also created in scene.js //FIX
-    var commands = [];
+    var designVersion = "Pre-Alpha-Dev";
     var coordinatesLabel = document.getElementById('coordLabel')
     var cmd_Line = document.getElementById('cmdLine')
     var cnvs = document.getElementById('designCanvas');
     cnvs.style.cursor = "crosshair";
-</script>
 
-<!--Load all the design libs-->
-<script type="text/javascript" src="Design-Core/entities/geometryUtils.js"></script>
+    function initDesignEngine(){
+        designEngine.canvas.setCanvasWidget(cnvs);
+        initCanvas();
+    }
 
-<script type="text/javascript" src="Design-Core/entities/line.js"></script>
-<script type="text/javascript" src="Design-Core/entities/polyline.js"></script>
-<script type="text/javascript" src="Design-Core/entities/circle.js"></script>
-<script type="text/javascript" src="Design-Core/entities/arc.js"></script>
-<script type="text/javascript" src="Design-Core/entities/rectangle.js"></script>
-<script type="text/javascript" src="Design-Core/entities/filledRectangle.js"></script>
-<script type="text/javascript" src="Design-Core/entities/ellipse.js"></script>
-<script type="text/javascript" src="Design-Core/entities/spline.js"></script>
-<script type="text/javascript" src="Design-Core/entities/text.js"></script>
-<script type="text/javascript" src="Design-Core/entities/dimension.js"></script>
-<script type="text/javascript" src="Design-Core/entities/block.js"></script>
-<!--<script type="text/javascript" src="Design-Core/entities/insert.js"></script>-->
+    function initCanvas(){
+        //TODO: All mouse actions should go to mouse class
+        // Mouse Events
+        cnvs.addEventListener('mousedown', designEngine.mouse.mouseDown.bind(designEngine.mouse), false);
+        cnvs.addEventListener('mouseup', designEngine.canvas.mouseup.bind(designEngine.canvas), false);
+        cnvs.addEventListener('dblclick', designEngine.canvas.dblclick.bind(designEngine.canvas), false);
+        cnvs.addEventListener('mousewheel', designEngine.canvas.wheel.bind(designEngine.canvas), false);
+        cnvs.addEventListener('DOMMouseScroll', designEngine.canvas.wheel.bind(designEngine.canvas), false);
+        cnvs.addEventListener('mousemove', designEngine.mouse.mouseMoved.bind(designEngine.mouse), false);
+        cnvs.addEventListener('mousemove', writeCoordinatesLabel, false);
 
-<script type="text/javascript" src="Design-Core/entities/point.js"></script>
-<script type="text/javascript" src="Design-Core/entities/layer.js"></script>
-<script type="text/javascript" src="Design-Core/entities/style.js"></script>
-<script type="text/javascript" src="Design-Core/entities/dimStyle.js"></script>
+        function writeCoordinatesLabel(){
+            coordinatesLabel.innerHTML = designEngine.mouse.positionString()
+        }
 
-<script type="text/javascript" src="Design-Core/tools/move.js"></script>
-<script type="text/javascript" src="Design-Core/tools/copy.js"></script>
-<script type="text/javascript" src="Design-Core/tools/rotate.js"></script>
-<script type="text/javascript" src="Design-Core/tools/erase.js"></script>
-<script type="text/javascript" src="Design-Core/tools/distance.js"></script>
-<script type="text/javascript" src="Design-Core/tools/identify.js"></script>
+        cnvs.addEventListener('contextmenu', function(e) {
+            e.preventDefault()
+            canvas_contextmenu()
+        }, false);
+  
+       window.addEventListener('contextmenu', function(e) {
+            e.preventDefault()
+       }, false);
 
-<script type="text/javascript" src="Design-Core/tools/extend.js"></script>
-<script type="text/javascript" src="Design-Core/tools/trim.js"></script>
 
-<script type="text/javascript" src="Design-Core/lib/canvas.js"></script>
-<script type="text/javascript" src="Design-Core/lib/mouse.js"></script>
-<script type="text/javascript" src="Design-Core/lib/layerManager.js"></script>
-<script type="text/javascript" src="Design-Core/lib/styleManager.js"></script>
-<script type="text/javascript" src="Design-Core/lib/dimStyleManager.js"></script>
-<script type="text/javascript" src="Design-Core/lib/scene.js"></script>
-<script type="text/javascript" src="Design-Core/lib/commandLine.js"></script>
-<script type="text/javascript" src="Design-Core/lib/fileio.js"></script>
-<script type="text/javascript" src="Design-Core/lib/dxf.js"></script>
-<script type="text/javascript" src="Design-Core/lib/FileSaver.min.js"></script>
+        //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
+        window.addEventListener('resize', designEngine.canvas.resizeCanvas.bind(designEngine.canvas), false);
+        window.addEventListener('resize', function() {
+            hideModals()
+        }, false);
 
-<script type="text/javascript" src="Design-Core/lib/design-engine.js"></script>
-<script type="text/javascript" src="Design-Core/lib/colours.js"></script>
-<script type="text/javascript" src="Design-Core/lib/intersect.js"></script>
+        document.getElementById('fileupload').addEventListener("change", function() {
+            console.log(document.getElementById('fileupload').files[0])
 
-<script type="text/javascript" src="Design-Core/help/help.js"></script>
+            
+            
+            var file = (document.getElementById('fileupload').files[0])
+            console.log("open file:", file)
 
-<script>
-    var designVersion = "Pre-Alpha-Dev";
-    var mouse = new Mouse();
-    var canvas = new Canvas(cnvs);
-    var commandLine = new CommandLine(cmd_Line);
-    var LM = new LayerManager();
-    var SM = new StyleManager();
-    var DSM = new DimStyleManager();
+            var reader = new FileReader();
+            reader.onload = function() {
+                var text = reader.result;
+                //openFile(text);
+                designEngine.scene.openFile(text);
+            };
 
-    //LM.addStandardLayers(); //TO DO: Where should start up scripts go?
+            reader.readAsText(file);
+            
+        });
+    }
 
-    cnvs.addEventListener('mousedown', canvas.mousedown.bind(canvas), false);
-    cnvs.addEventListener('mouseup', canvas.mouseup, false);
-    cnvs.addEventListener('dblclick', canvas.dblclick, false);
-    cnvs.addEventListener('contextmenu', function() {
-        canvas_contextmenu()
-    }, false);
-    //cnvs.addEventListener('wheel', canvas.wheel, false);
-    cnvs.addEventListener('DOMMouseScroll', canvas.wheel, false);
-    cnvs.addEventListener('mousewheel', canvas.wheel, false);
-    cnvs.addEventListener('mousemove', mouse.mouseMoved.bind(mouse), false);
-    cmd_Line.addEventListener('mouseup', commandLine.mouseup.bind(commandLine), false);
-    window.addEventListener('contextmenu', function(e) {
-        e.preventDefault()
-    }, false);
-    //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
-    window.addEventListener('resize', canvas.resizeCanvas.bind(canvas), false);
-    window.addEventListener('resize', function() {
-        hideModals()
-    }, false);
+    function selectFileClicked(){
+        document.getElementById('fileupload').click()
+        
+    }
 
-    document.getElementById('fileupload').addEventListener("change", function() {
-        console.log(document.getElementById('fileupload').files[0])
-        readFile(document.getElementById('fileupload').files[0])
-    });
+    function saveFileClicked(){
+
+        var dxfData = designEngine.scene.saveFile()
+
+        var blob = new Blob([dxfData], {
+        type: "text/plain;"
+        });
+        saveAs(blob, "design.dxf");
+    }
 
     function hideModals() {
         closePopover();
@@ -170,7 +161,7 @@
         var listItems = [{
             name: "Enter",
             action: function() {
-                reset();
+                designEngine.scene.reset();
                 closePopover();
             }
         }, {
@@ -189,7 +180,7 @@
         popover_showList(listItems);
     }
 
-    var lastDownTarget, canvas;
+    var lastDownTarget //, canvas;
     window.onload = function() {
         document.addEventListener('mousedown', function(event) {
             lastDownTarget = event.target;
@@ -198,7 +189,7 @@
 
         document.addEventListener('keydown', function(event) {
             if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
-                commandLine.handleKeys(event);
+                designEngine.commandLine.handleKeys(event);
 
                 var charCode = (event.charCode) ? event.charCode : event.keyCode;
                 //if escape is pressed hide any popovers
@@ -209,7 +200,7 @@
         }, false);
 
         loadAllSettings();
-        canvas.resizeCanvas();
+        designEngine.canvas.resizeCanvas();
         getCookieConsent();
 
     }
@@ -260,15 +251,15 @@
         for (var i = 0; i < colours.length; i++) {
             var ACIColour = document.createElement("div");
             ACIColour.className = "Design-shape"
-            ACIColour.style.backgroundColor = getHexColour(colours[i]);
-            ACIColour.id = getHexColour(colours[i]);
+            ACIColour.style.backgroundColor = Colours.getHexColour(colours[i]);
+            ACIColour.id = Colours.getHexColour(colours[i]);
             ACIColour.onmousedown = function(e) {
                 //LM.layers[layerIndex].colour = this.id;
                 //console.log(" selected colour " + this.id);
 
                 //return selected colour and redraw canvas
                 closeColourPicker()
-                canvas.requestPaint()
+                designEngine.canvas.requestPaint()
                 var selectedColour = this.id;
                 callback(selectedColour, caller);
 
@@ -647,7 +638,7 @@
 
     function addNewLayer() {
 
-        LM.newLayer()
+        designEngine.LM.newLayer()
         loadLayers();
 
     }
@@ -735,10 +726,10 @@
 
     function layerColourChange(colour, layerIndex) {
         console.log("change ", layerIndex, " to: ", colour);
-        LM.layers[layerIndex].colour = colour;
+        designEngine.LM.layers[layerIndex].colour = colour;
         loadLayers();
         //closePopover()
-        canvas.requestPaint()
+        designEngine.canvas.requestPaint()
     }
 
     function handleMouse(e, elem, layerID, layerIndex) {
@@ -766,7 +757,7 @@
                         var ACIColour = document.createElement("div");
                         ACIColour.className = "Design-shape"
                         ACIColour.style.backgroundColor = getHexColour(colours[i]);
-                        ACIColour.id = getHexColour(colours[i]);
+                        ACIColour.id = Colours.getHexColour(colours[i]);
                         ACIColour.onmousedown = function(e) {
                             LM.layers[layerIndex].colour = this.id;
                             console.log(this.id, " colour clicked " + layerIndex);
@@ -793,7 +784,7 @@
                 var listItems = [{
                     name: "Rename",
                     action: function() {
-                        console.log("Rename layer:", LM.getLayerByIndex(layerIndex).name);
+                        console.log("Rename layer:", designEngine.LM.getLayerByIndex(layerIndex).name);
                         closePopover();
                         var edit = document.getElementById(layerID)
                         var style = getComputedStyle(document.body);
@@ -807,18 +798,18 @@
                 }, {
                     name: "Delete",
                     action: function() {
-                        LM.deleteLayer(layerIndex);
+                        designEngine.LM.deleteLayer(layerIndex);
                         closePopover();
                         loadLayers();
-                        canvas.requestPaint();
+                        designEngine.canvas.requestPaint();
                     }
                 }];
-                if (LM.getCLayer() + "-layer" !== layerID) {
+                if (designEngine.LM.getCLayer() + "-layer" !== layerID) {
                     listItems.push({
                         name: "Set Current",
                         action: function() {
                             console.log("Set Current clicked layer:", layerIndex)
-                            LM.setCLayer(LM.getLayerByIndex(layerIndex).name);
+                            designEngine.LM.setCLayer(designEngine.LM.getLayerByIndex(layerIndex).name);
                             closePopover();
                             loadLayers();
 
@@ -847,9 +838,9 @@
         var list = document.getElementById("LayerManagerList")
         list.innerHTML = '';
 
-        for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+        for (var layerIndex = 0; layerIndex < designEngine.LM.layerCount(); layerIndex++) {
 
-            var layer = LM.getLayerByIndex(layerIndex);
+            var layer = designEngine.LM.getLayerByIndex(layerIndex);
             var li = document.createElement("li");
 
             var ListItemDiv = document.createElement("div");
@@ -889,7 +880,7 @@
                     this.style.outline = "none"
                     var layerIndex = this.parentElement.getAttribute('id');
                     console.log("this value:", this.value)
-                    LM.renameLayer(layerIndex, this.value)
+                    designEngine.LM.renameLayer(layerIndex, this.value)
                 }
 
                 loadLayers();
@@ -908,8 +899,8 @@
             toggle.onclick = function() {
                 //console.log("Toggle Layer " + this.id + ": " + this.checked)
                 var index = this.parentElement.parentElement.parentElement.getAttribute('id')
-                LM.getLayerByIndex(index).on = this.checked;
-                canvas.requestPaint();
+                designEngine.LM.getLayerByIndex(index).on = this.checked;
+                designEngine.canvas.requestPaint();
 
             }
 
@@ -926,7 +917,7 @@
             li.appendChild(ListItemDiv)
             ListItemDiv.appendChild(layerColour);
 
-            if (layer.name === LM.getCLayer()) {
+            if (layer.name === designEngine.LM.getCLayer()) {
 
                 layerNameDiv.style.fontWeight = "bold";
 
@@ -1209,7 +1200,7 @@
         console.log(document.getElementById("PropertiesManager").style.width)
         if (document.getElementById("PropertiesManager").style.width > "0px") {
             console.log("[PropertiesManager] - getProperties()")
-            if (selectionSet.length) {
+            if (designEngine.scene.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
                 //console.log("[PropertiesManager] - getProperties() items", selectionSet)
                 loadPropertyList(getItemType())
@@ -1225,10 +1216,10 @@
         //Loop through the items and get a list of item types.
         var itemTypes = [];
 
-        if (selectionSet.length > 0) {
-            for (var i = 0; i < selectionSet.length; i++) {
+        if (designEngine.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
 
-                var itemType = items[selectionSet[i]].type;
+                var itemType = designEngine.scene.items[designEngine.scene.selectionSet[i]].type;
                 //console.log(scene.items[scene.selectionSet[i]].type);
 
                 if (itemTypes.indexOf(itemType, 0) === -1) {
@@ -1251,11 +1242,11 @@
         //console.log("Properties - Item Type: " + itemType)
         var propertiesList = [];
 
-        if (selectionSet.length > 0) {
-            for (var i = 0; i < selectionSet.length; i++) {
+        if (designEngine.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
                 //console.log("[propertiesManager.js - getItemProperties()] type:", items[selectionSet[i]].type)
-                if (items[selectionSet[i]].type === itemType) {
-                    var properties = items[selectionSet[i]]
+                if (designEngine.scene.items[designEngine.scene.selectionSet[i]].type === itemType) {
+                    var properties = designEngine.scene.items[designEngine.scene.selectionSet[i]]
                     for (var prop in properties) {
                         //console.log("Property: " + prop)
                         if (propertiesList.indexOf(prop, 0) === -1) {
@@ -1279,10 +1270,10 @@
         //Loop through the items and get a list the property values
         var propertiesValueList = [];
         var propertyValue = ""
-        if (selectionSet.length > 0) {
-            for (var i = 0; i < selectionSet.length; i++) {
-                if (items[selectionSet[i]].type === itemType) {
-                    var prop = items[selectionSet[i]][property]
+        if (designEngine.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
+                if (designEngine.scene.items[designEngine.scene.selectionSet[i]].type === itemType) {
+                    var prop = designEngine.scene.items[designEngine.scene.selectionSet[i]][property]
                     propertiesValueList.push(prop)
                 }
             }
@@ -1379,14 +1370,14 @@
                     break;
                 case "layer":
 
-                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + LM.getCLayer() + '<ul class="dropdown"> '
+                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designEngine.LM.getCLayer() + '<ul class="dropdown"> '
                         // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
                         //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
                         //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
 
-                    for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                        if (LM.getLayerByIndex(layerIndex).name !== LM.getCLayer()) {
-                            props += '<li style="border-left-color: #38B44A">' + LM.getLayerByIndex(layerIndex).name + '</li>';
+                    for (var layerIndex = 0; layerIndex < designEngine.LM.layerCount(); layerIndex++) {
+                        if (designEngine.LM.getLayerByIndex(layerIndex).name !== designEngine.LM.getCLayer()) {
+                            props += '<li style="border-left-color: #38B44A">' + designEngine.LM.getLayerByIndex(layerIndex).name + '</li>';
                         }
                     }
 
@@ -1816,7 +1807,7 @@
         settings[caller] = colour
         saveAllSettings(settings)
         setDefaultSettings()
-        canvas.requestPaint()
+        designEngine.canvas.requestPaint()
     }
 
 
