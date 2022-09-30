@@ -30,21 +30,21 @@
         <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button> <span class="tooltiptext">Open File</span></div>
         <div class="tooltip"><button class="tool" , onclick="saveFileClicked()"><img src="icons/save.svg"></button> <span class="tooltiptext">Save</span></div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
-        <!--<div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
-        <!--<div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
+        <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
+        <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designEngine.sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
 
         <div class="tooltip"><span class="separator"></span></div>
         <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
@@ -60,15 +60,15 @@
 </canvasbottom>
 <!--</footer>-->
 
-<!--<script type="text/javascript" src="Design-Core/help/help.js"></script>-->
+<!--<script type="text/javascript" src="Design-designCore/help/help.js"></script>-->
 <!-- used for saving file data -->
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
 <script type="module">
-     import { DesignEngine } from "./Design-Core/lib/designEngine.js"
+     import { Core } from "./Design-Core/Core.js"
      import { Colours } from "./Design-Core/lib/colours.js"
-    window.designEngine = new DesignEngine();
-    initDesignEngine();
+    window.designCore = new Core();
+    initdesignCore();
 </script>
 
 <script>
@@ -78,24 +78,24 @@
     var cnvs = document.getElementById('designCanvas');
     cnvs.style.cursor = "crosshair";
 
-    function initDesignEngine(){
-        designEngine.canvas.setCanvasWidget(cnvs);
+    function initdesignCore(){
+        designCore.canvas.setCanvasWidget(cnvs);
         initCanvas();
     }
 
     function initCanvas(){
-        //TODO: All mouse actions should go to mouse class
+
         // Mouse Events
-        cnvs.addEventListener('mousedown', designEngine.mouse.mouseDown.bind(designEngine.mouse), false);
-        cnvs.addEventListener('mouseup', designEngine.canvas.mouseup.bind(designEngine.canvas), false);
-        cnvs.addEventListener('dblclick', designEngine.canvas.dblclick.bind(designEngine.canvas), false);
-        cnvs.addEventListener('mousewheel', designEngine.canvas.wheel.bind(designEngine.canvas), false);
-        cnvs.addEventListener('DOMMouseScroll', designEngine.canvas.wheel.bind(designEngine.canvas), false);
-        cnvs.addEventListener('mousemove', designEngine.mouse.mouseMoved.bind(designEngine.mouse), false);
+        cnvs.addEventListener('mousedown', designCore.mouse.mouseDown.bind(designCore.mouse), false);
+        cnvs.addEventListener('mouseup', designCore.mouse.mouseUp.bind(designCore.mouse), false);
+        cnvs.addEventListener('dblclick', designCore.mouse.doubleClick.bind(designCore.mouse), false);
+        cnvs.addEventListener('mousewheel', designCore.mouse.wheel.bind(designCore.mouse), false);
+        cnvs.addEventListener('DOMMouseScroll', designCore.mouse.wheel.bind(designCore.mouse), false);
+        cnvs.addEventListener('mousemove', designCore.mouse.mouseMoved.bind(designCore.mouse), false);
         cnvs.addEventListener('mousemove', writeCoordinatesLabel, false);
 
         function writeCoordinatesLabel(){
-            coordinatesLabel.innerHTML = designEngine.mouse.positionString()
+            coordinatesLabel.innerHTML = designCore.mouse.positionString()
         }
 
         cnvs.addEventListener('contextmenu', function(e) {
@@ -109,7 +109,7 @@
 
 
         //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
-        window.addEventListener('resize', designEngine.canvas.resizeCanvas.bind(designEngine.canvas), false);
+        window.addEventListener('resize', designCore.canvas.resizeCanvas.bind(designCore.canvas), false);
         window.addEventListener('resize', function() {
             hideModals()
         }, false);
@@ -126,7 +126,7 @@
             reader.onload = function() {
                 var text = reader.result;
                 //openFile(text);
-                designEngine.scene.openFile(text);
+                designCore.openFile(text);
             };
 
             reader.readAsText(file);
@@ -141,7 +141,7 @@
 
     function saveFileClicked(){
 
-        var dxfData = designEngine.scene.saveFile()
+        var dxfData = designCore.saveFile()
 
         var blob = new Blob([dxfData], {
         type: "text/plain;"
@@ -161,7 +161,7 @@
         var listItems = [{
             name: "Enter",
             action: function() {
-                designEngine.scene.reset();
+                designCore.scene.reset();
                 closePopover();
             }
         }, {
@@ -189,7 +189,7 @@
 
         document.addEventListener('keydown', function(event) {
             if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
-                designEngine.commandLine.handleKeys(event);
+                designCore.commandLine.handleKeys(event);
 
                 var charCode = (event.charCode) ? event.charCode : event.keyCode;
                 //if escape is pressed hide any popovers
@@ -200,7 +200,7 @@
         }, false);
 
         loadAllSettings();
-        designEngine.canvas.resizeCanvas();
+        designCore.canvas.resizeCanvas();
         getCookieConsent();
 
     }
@@ -259,7 +259,7 @@
 
                 //return selected colour and redraw canvas
                 closeColourPicker()
-                designEngine.canvas.requestPaint()
+                designCore.canvas.requestPaint()
                 var selectedColour = this.id;
                 callback(selectedColour, caller);
 
@@ -638,7 +638,7 @@
 
     function addNewLayer() {
 
-        designEngine.LM.newLayer()
+        designCore.LM.newLayer()
         loadLayers();
 
     }
@@ -726,10 +726,10 @@
 
     function layerColourChange(colour, layerIndex) {
         console.log("change ", layerIndex, " to: ", colour);
-        designEngine.LM.layers[layerIndex].colour = colour;
+        designCore.LM.layers[layerIndex].colour = colour;
         loadLayers();
         //closePopover()
-        designEngine.canvas.requestPaint()
+        designCore.canvas.requestPaint()
     }
 
     function handleMouse(e, elem, layerID, layerIndex) {
@@ -784,7 +784,7 @@
                 var listItems = [{
                     name: "Rename",
                     action: function() {
-                        console.log("Rename layer:", designEngine.LM.getLayerByIndex(layerIndex).name);
+                        console.log("Rename layer:", designCore.LM.getLayerByIndex(layerIndex).name);
                         closePopover();
                         var edit = document.getElementById(layerID)
                         var style = getComputedStyle(document.body);
@@ -798,18 +798,18 @@
                 }, {
                     name: "Delete",
                     action: function() {
-                        designEngine.LM.deleteLayer(layerIndex);
+                        designCore.LM.deleteLayer(layerIndex);
                         closePopover();
                         loadLayers();
-                        designEngine.canvas.requestPaint();
+                        designCore.canvas.requestPaint();
                     }
                 }];
-                if (designEngine.LM.getCLayer() + "-layer" !== layerID) {
+                if (designCore.LM.getCLayer() + "-layer" !== layerID) {
                     listItems.push({
                         name: "Set Current",
                         action: function() {
                             console.log("Set Current clicked layer:", layerIndex)
-                            designEngine.LM.setCLayer(designEngine.LM.getLayerByIndex(layerIndex).name);
+                            designCore.LM.setCLayer(designCore.LM.getLayerByIndex(layerIndex).name);
                             closePopover();
                             loadLayers();
 
@@ -838,9 +838,9 @@
         var list = document.getElementById("LayerManagerList")
         list.innerHTML = '';
 
-        for (var layerIndex = 0; layerIndex < designEngine.LM.layerCount(); layerIndex++) {
+        for (var layerIndex = 0; layerIndex < designCore.LM.layerCount(); layerIndex++) {
 
-            var layer = designEngine.LM.getLayerByIndex(layerIndex);
+            var layer = designCore.LM.getLayerByIndex(layerIndex);
             var li = document.createElement("li");
 
             var ListItemDiv = document.createElement("div");
@@ -880,7 +880,7 @@
                     this.style.outline = "none"
                     var layerIndex = this.parentElement.getAttribute('id');
                     console.log("this value:", this.value)
-                    designEngine.LM.renameLayer(layerIndex, this.value)
+                    designCore.LM.renameLayer(layerIndex, this.value)
                 }
 
                 loadLayers();
@@ -899,8 +899,8 @@
             toggle.onclick = function() {
                 //console.log("Toggle Layer " + this.id + ": " + this.checked)
                 var index = this.parentElement.parentElement.parentElement.getAttribute('id')
-                designEngine.LM.getLayerByIndex(index).on = this.checked;
-                designEngine.canvas.requestPaint();
+                designCore.LM.getLayerByIndex(index).on = this.checked;
+                designCore.canvas.requestPaint();
 
             }
 
@@ -917,7 +917,7 @@
             li.appendChild(ListItemDiv)
             ListItemDiv.appendChild(layerColour);
 
-            if (layer.name === designEngine.LM.getCLayer()) {
+            if (layer.name === designCore.LM.getCLayer()) {
 
                 layerNameDiv.style.fontWeight = "bold";
 
@@ -1200,7 +1200,7 @@
         console.log(document.getElementById("PropertiesManager").style.width)
         if (document.getElementById("PropertiesManager").style.width > "0px") {
             console.log("[PropertiesManager] - getProperties()")
-            if (designEngine.scene.selectionSet.length) {
+            if (designCore.scene.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
                 //console.log("[PropertiesManager] - getProperties() items", selectionSet)
                 loadPropertyList(getItemType())
@@ -1216,11 +1216,11 @@
         //Loop through the items and get a list of item types.
         var itemTypes = [];
 
-        if (designEngine.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
+        if (designCore.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
 
-                var itemType = designEngine.scene.items[designEngine.scene.selectionSet[i]].type;
-                //console.log(scene.items[scene.selectionSet[i]].type);
+                var itemType = designCore.scene.items[designCore.scene.selectionSet[i]].type;
+                //console.log(designCore.scene.items[designCore.scene.selectionSet[i]].type);
 
                 if (itemTypes.indexOf(itemType, 0) === -1) {
                     itemTypes.push(itemType)
@@ -1242,11 +1242,11 @@
         //console.log("Properties - Item Type: " + itemType)
         var propertiesList = [];
 
-        if (designEngine.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
+        if (designCore.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
                 //console.log("[propertiesManager.js - getItemProperties()] type:", items[selectionSet[i]].type)
-                if (designEngine.scene.items[designEngine.scene.selectionSet[i]].type === itemType) {
-                    var properties = designEngine.scene.items[designEngine.scene.selectionSet[i]]
+                if (designCore.scene.items[designCore.scene.selectionSet[i]].type === itemType) {
+                    var properties = designCore.scene.items[designCore.scene.selectionSet[i]]
                     for (var prop in properties) {
                         //console.log("Property: " + prop)
                         if (propertiesList.indexOf(prop, 0) === -1) {
@@ -1270,10 +1270,10 @@
         //Loop through the items and get a list the property values
         var propertiesValueList = [];
         var propertyValue = ""
-        if (designEngine.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designEngine.scene.selectionSet.length; i++) {
-                if (designEngine.scene.items[designEngine.scene.selectionSet[i]].type === itemType) {
-                    var prop = designEngine.scene.items[designEngine.scene.selectionSet[i]][property]
+        if (designCore.scene.selectionSet.length > 0) {
+            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
+                if (designCore.scene.items[designCore.scene.selectionSet[i]].type === itemType) {
+                    var prop = designCore.scene.items[designCore.scene.selectionSet[i]][property]
                     propertiesValueList.push(prop)
                 }
             }
@@ -1370,14 +1370,14 @@
                     break;
                 case "layer":
 
-                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designEngine.LM.getCLayer() + '<ul class="dropdown"> '
+                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designCore.LM.getCLayer() + '<ul class="dropdown"> '
                         // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
                         //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
                         //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
 
-                    for (var layerIndex = 0; layerIndex < designEngine.LM.layerCount(); layerIndex++) {
-                        if (designEngine.LM.getLayerByIndex(layerIndex).name !== designEngine.LM.getCLayer()) {
-                            props += '<li style="border-left-color: #38B44A">' + designEngine.LM.getLayerByIndex(layerIndex).name + '</li>';
+                    for (var layerIndex = 0; layerIndex < designCore.LM.layerCount(); layerIndex++) {
+                        if (designCore.LM.getLayerByIndex(layerIndex).name !== designCore.LM.getCLayer()) {
+                            props += '<li style="border-left-color: #38B44A">' + designCore.LM.getLayerByIndex(layerIndex).name + '</li>';
                         }
                     }
 
@@ -1521,7 +1521,7 @@
                                 <img src="icons/snap-end.svg" style="width:32px;height:32px;">
                                 <p>End</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('endSnap')" checked=function(){settings["endSnap"]};>
+<input type="checkbox" onclick="toggleSnap('endSnap')" checked=function(){designCore.settings["endSnap"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1530,7 +1530,7 @@
                                 <img src="icons/snap-mid.svg" style="width:32px;height:32px;">
                                 <p>Mid</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){settings["midSnap"]};>
+<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){designCore.settings["midSnap"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1539,7 +1539,7 @@
                                 <img src="icons/snap-centre.svg" style="width:32px;height:32px;">
                                 <p>Centre</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){settings["centreSnap"]};>
+<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){designCore.settings["centreSnap"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1548,7 +1548,7 @@
                                 <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
                                 <p>Nearest</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){settings["nearestSnap"]};>
+<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){designCore.settings["nearestSnap"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1561,7 +1561,7 @@
                                 <img src="icons/polar.svg" style="width:32px;height:32px;">
                                 <p>Polar</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){settings["polar"]};>
+<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){designCore.settings["polar"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1580,7 +1580,7 @@
                                 <img src="icons/ortho.svg" style="width:32px;height:32px;">
                                 <p>Ortho</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){settings["ortho"]};>
+<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){designCore.settings["ortho"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1589,7 +1589,7 @@
                                 <img src="icons/grid.svg" style="width:32px;height:32px;">
                                 <p>Show Grid</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){settings["drawGrid"]};>
+<input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){designCore.settings["drawGrid"]};>
 <span class="slider"></span>
 </label>
                             </div>
@@ -1804,44 +1804,21 @@
 
     function settingColourChange(colour, caller) {
         console.log("change ", caller, " to: ", colour);
-        settings[caller] = colour
-        saveAllSettings(settings)
+        designCore.settings[caller] = colour
+        saveAllSettings()
         setDefaultSettings()
-        designEngine.canvas.requestPaint()
+        designCore.canvas.requestPaint()
     }
 
 
     var cookieConsent = false;
-
-    var settings = {
-        canvasBackgroundColour: "#E9E9E9", //"#000000",
-        selectedItemsColour: "#00FF00",
-        snapColour: "#FF0000",
-        gridColour: "#00BFFF",
-        helperGeometryColour: "#00BFFF",
-        polarSnapColour: "#38B44A",
-        //fontSettings
-        font: "Arial",
-        fontupsidedown: false,
-        fontbackwards: false,
-        //snapSettings
-        endSnap: true,
-        midSnap: true,
-        centreSnap: true,
-        nearestSnap: false,
-        quadrantSnap: false,
-        polarAngle: 45,
-        polar: true,
-        ortho: false,
-        drawGrid: true
-    }
 
     function getCookieConsent() {
         var cookiesAllowed = getSettings("Design")
 
         if (cookiesAllowed != "") {
             cookieConsent = true;
-            loadAllSettings(settings)
+            loadAllSettings()
         } else {
             showWelcomeWizzard();
         }
@@ -1851,42 +1828,42 @@
         console.log("cookies Accepted")
         cookieConsent = true;
         saveSetting("Design", designVersion, 365);
-        saveAllSettings(settings)
+        saveAllSettings()
     }
 
     function toggleSnap(snap) {
-        settings[snap] = !settings[snap]
-        saveAllSettings(settings)
+        designCore.settings[snap] = !designCore.settings[snap]
+        saveAllSettings()
     }
 
     function changePolarAngle(angle) {
 
         console.log("Angle:", angle)
-        settings["polarAngle"] = angle;
-        saveAllSettings(settings);
+        designCore.settings["polarAngle"] = angle;
+        saveAllSettings();
     }
 
     function changeFont(font) {
         console.log("Selected Font:", font)
-        settings["font"] = font;
-        saveAllSettings(settings);
+        designCore.settings["font"] = font;
+        saveAllSettings();
     }
 
-    function saveAllSettings(settings) {
+    function saveAllSettings() {
         if (cookieConsent) {
-            for (var setting in settings) {
-                //console.log("Setting:", setting, " value: ", settings[setting])
-                saveSetting(setting, settings[setting])
+            for (var setting in Object.keys(designCore.settings)) {
+                //console.log("Setting:", setting, " value: ", designCore.settings[setting])
+                saveSetting(setting, designCore.settings[setting])
             }
         } else {
             console.log("settings won't be saved")
         }
     }
 
-    function loadAllSettings(settings) {
-        for (var setting in settings) {
+    function loadAllSettings() {
+        for (var setting in Object.keys(designCore.settings)) {
             //console.log("getSetting:", setting, " value: ", getSettings(setting))
-            settings[setting] = getSettings(setting)
+            designCore.settings.setSetting(setting, getSettings(setting))
         }
     }
 
@@ -1933,13 +1910,13 @@
 
     function setDefaultSettings() {
         //set defaults
-        document.getElementById("polarAngle").value = settings["polarAngle"]
-        document.getElementById("canvasBackgroundColour").style.backgroundColor = settings["canvasBackgroundColour"]
-        document.getElementById("selectedItemsColour").style.backgroundColor = settings["selectedItemsColour"]
-        document.getElementById("snapColour").style.backgroundColor = settings["snapColour"]
-        document.getElementById("helperGeometryColour").style.backgroundColor = settings["helperGeometryColour"]
-        document.getElementById("polarSnapColour").style.backgroundColor = settings["polarSnapColour"]
-        document.getElementById("gridColour").style.backgroundColor = settings["gridColour"]
+        document.getElementById("polarAngle").value = designCore.settings["polarAngle"]
+        document.getElementById("canvasBackgroundColour").style.backgroundColor = designCore.settings["canvasBackgroundColour"]
+        document.getElementById("selectedItemsColour").style.backgroundColor = designCore.settings["selectedItemsColour"]
+        document.getElementById("snapColour").style.backgroundColor = designCore.settings["snapColour"]
+        document.getElementById("helperGeometryColour").style.backgroundColor = designCore.settings["helperGeometryColour"]
+        document.getElementById("polarSnapColour").style.backgroundColor = designCore.settings["polarSnapColour"]
+        document.getElementById("gridColour").style.backgroundColor = designCore.settings["gridColour"]
     }
 
 
@@ -2015,7 +1992,7 @@
         }
 
         //set select value
-        //fontSelector.value = settings["font"]
+        //fontSelector.value = designCore.settings["font"]
     }
 
     function showSettings() {
