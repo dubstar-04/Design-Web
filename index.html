@@ -20,35 +20,67 @@
 
     <div role="main">
         <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
-                Your browser does not support the HTML5 canvas tag.
-            </canvas>
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
     </div>
-   
+
     <div class="toolbar">
         <input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
-        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
-        <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button> <span class="tooltiptext">Open File</span></div>
-        <div class="tooltip"><button class="tool" , onclick="saveFileClicked()"><img src="icons/save.svg"></button> <span class="tooltiptext">Save</span></div>
+        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img
+                    src="icons/design-small.svg"></button></div>
+        <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button>
+            <span class="tooltiptext">Open File</span>
+        </div>
+        <div class="tooltip"><button class="tool" , onclick="saveFileClicked()"><img src="icons/save.svg"></button>
+            <span class="tooltiptext">Save</span>
+        </div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['L'] )"><img src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button> <span class="tooltiptext">Polyline (PL)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['C'] )"><img src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['A'] )"><img src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['REC'] )"><img src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['L'] )"><img
+                    src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>
+            <span class="tooltiptext">Polyline (PL)</span>
+        </div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['C'] )"><img
+                    src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['A'] )"><img
+                    src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['REC'] )"><img
+                    src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
         <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button> <span class="tooltiptext">Text (DT)</span></div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button>
+            <span class="tooltiptext">Text (DT)</span>
+        </div>
         <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['M'] )"><img src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button> <span class="tooltiptext">Copy (CO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button> <span class="tooltiptext">Rotate (RO)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button> <span class="tooltiptext">Trim (TR)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button> <span class="tooltiptext">Extend (EX)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['E'] )"><img src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['M'] )"><img
+                    src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>
+            <span class="tooltiptext">Copy (CO)</span>
+        </div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>
+            <span class="tooltiptext">Rotate (RO)</span>
+        </div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>
+            <span class="tooltiptext">Trim (TR)</span>
+        </div>
+        <div class="tooltip"><button class="tool" ,
+                onclick="designCore.designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>
+            <span class="tooltiptext">Extend (EX)</span>
+        </div>
+        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['E'] )"><img
+                    src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
 
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
-        <div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>
+        <div class="tooltip"><button class="tool" , onclick="showHideLayerManager()"><img
+                    src="icons/layers.svg"></button><span class="tooltiptext">Layers</span></div>
+        <div class="tooltip"><button class="tool" , onclick="showHidePropertiesManager()"><img
+                    src="icons/properties.svg"></button><span class="tooltiptext">Properties</span></div>
     </div>
 </body>
 
@@ -65,9 +97,10 @@
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
 <script type="module">
-     import { Core } from "./Design-Core/Core.js"
-     import { Colours } from "./Design-Core/lib/colours.js"
+    import { Core } from "./Design-Core/Core.js"
+    import { Colours } from "./Design-Core/lib/colours.js"
     window.designCore = new Core();
+
     initdesignCore();
 </script>
 
@@ -78,73 +111,182 @@
     var cnvs = document.getElementById('designCanvas');
     cnvs.style.cursor = "crosshair";
 
-    function initdesignCore(){
+    function initdesignCore() {
         designCore.canvas.setCanvasWidget(cnvs);
+        designCore.commandLine.setUpdateFunction(commandLineUpdateCallback);
         initCanvas();
     }
 
-    function initCanvas(){
+    // callback passed to the core.commandline class to update this cmd_line value
+    function commandLineUpdateCallback(commandLineValue) {
+        cmd_Line.value = commandLineValue;
+    }
+
+    function initCanvas() {
 
         // Mouse Events
-        cnvs.addEventListener('mousedown', designCore.mouse.mouseDown.bind(designCore.mouse), false);
-        cnvs.addEventListener('mouseup', designCore.mouse.mouseUp.bind(designCore.mouse), false);
-        cnvs.addEventListener('dblclick', designCore.mouse.doubleClick.bind(designCore.mouse), false);
-        cnvs.addEventListener('mousewheel', designCore.mouse.wheel.bind(designCore.mouse), false);
-        cnvs.addEventListener('DOMMouseScroll', designCore.mouse.wheel.bind(designCore.mouse), false);
-        cnvs.addEventListener('mousemove', designCore.mouse.mouseMoved.bind(designCore.mouse), false);
-        cnvs.addEventListener('mousemove', writeCoordinatesLabel, false);
+        cnvs.addEventListener('mousedown', mouseDown, false);
+        cnvs.addEventListener('mouseup', mouseUp, false);
+        cnvs.addEventListener('DOMMouseScroll', wheel, false);
+        cnvs.addEventListener('mousemove', mouseMoved, false);
 
-        function writeCoordinatesLabel(){
+        //Keyboard Events
+        document.addEventListener('keydown', keypress, false);
+
+        function writeCoordinatesLabel() {
             coordinatesLabel.innerHTML = designCore.mouse.positionString()
         }
 
-        cnvs.addEventListener('contextmenu', function(e) {
+        function mouseMoved(event) {
+            //var rect = cnvs.getBoundingClientRect();
+            designCore.mouse.mouseMoved(event.clientX, event.clientY);
+            writeCoordinatesLabel();
+        }
+
+        function wheel(event) {
+            // delta = +/- 1 for zoom in / out
+            var delta = event.detail / 3;
+            designCore.mouse.wheel(delta);
+        }
+
+        function mouseDown(event) {
+            // button: 1 = left, 2 = wheel, 3 = right;
+            event.preventDefault();
+            designCore.mouse.mouseDown(event.button);
+        }
+
+        function mouseUp(event) {
+            // button: 1 = left, 2 = wheel, 3 = right;
+            event.preventDefault();
+            designCore.mouse.mouseUp(event.button);
+        }
+
+        function keypress(event) {
+            if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
+
+                var charCode = (event.charCode) ? event.charCode : event.keyCode;
+                console.log("char code", event.keyVal, event.keyCode)
+
+                var key;
+
+                switch (charCode) {
+                    case 8: //Backspace
+                        key = "Backspace";
+                        break;
+                    case 9: //Tab
+                        break;
+                    case 13: //Enter
+                        key = "Enter";
+                        break;
+                    case 16: // Shift
+                        break;
+                    case 17: // Ctrl
+                        break;
+                    case 27: // Escape
+                        key = "Escape";
+                        break;
+                    case 32: // space
+                        key = "Space";
+                        break;
+                    case 37: // Left-Arrow
+                        break;
+                    case 38: // Up-Arrow
+                        key = "Up-Arrow";
+                        break;
+                    case 39: // Right-Arrow
+                        break;
+                    case 40: // Down-Arrow
+                        key = "Down-Arrow";
+                        break;
+                    case 46: // Delete
+                        key = "Delete";
+                        break;
+                    case 112: // F1
+                        showSettings()
+                        changeTab(event, 'Help')
+                        break;
+                    case 113: // F2
+                        break;
+                    case 114: // F3
+                        //this.disableSnaps(e);
+                        break;
+                    case 115: // F4
+                        break;
+                    case 116: // F5
+                        break;
+                    case 117: // F6
+                        break;
+                    case 118: // F7
+                        toggleSnap('drawGrid')
+                        break;
+                    case 119: // F8
+                        toggleSnap('ortho')
+                        break;
+                    case 120: // F9
+                        break;
+                    case 121: // F10
+                        toggleSnap('polar');
+                        break;
+                    case 122: // F11
+                        break;
+                    case 123: // F12
+                        break;
+
+                    default:
+                        key = event.key
+                }
+
+                designCore.commandLine.handleKeys(key);
+            }
+        }
+
+        cnvs.addEventListener('contextmenu', function (e) {
             e.preventDefault()
             canvas_contextmenu()
         }, false);
-  
-       window.addEventListener('contextmenu', function(e) {
+
+        window.addEventListener('contextmenu', function (e) {
             e.preventDefault()
-       }, false);
+        }, false);
 
 
         //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
         window.addEventListener('resize', designCore.canvas.resizeCanvas.bind(designCore.canvas), false);
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             hideModals()
         }, false);
 
-        document.getElementById('fileupload').addEventListener("change", function() {
+        document.getElementById('fileupload').addEventListener("change", function () {
             console.log(document.getElementById('fileupload').files[0])
 
-            
-            
+
+
             var file = (document.getElementById('fileupload').files[0])
             console.log("open file:", file)
 
             var reader = new FileReader();
-            reader.onload = function() {
+            reader.onload = function () {
                 var text = reader.result;
                 //openFile(text);
                 designCore.openFile(text);
             };
 
             reader.readAsText(file);
-            
+
         });
     }
 
-    function selectFileClicked(){
+    function selectFileClicked() {
         document.getElementById('fileupload').click()
-        
+
     }
 
-    function saveFileClicked(){
+    function saveFileClicked() {
 
         var dxfData = designCore.saveFile()
 
         var blob = new Blob([dxfData], {
-        type: "text/plain;"
+            type: "text/plain;"
         });
         saveAs(blob, "design.dxf");
     }
@@ -160,19 +302,19 @@
 
         var listItems = [{
             name: "Enter",
-            action: function() {
+            action: function () {
                 designCore.scene.reset();
                 closePopover();
             }
         }, {
             name: "Mid Between 2 Points",
-            action: function() {
-                    closePopover();
-                }
-                //TODO: mid isn't functional
+            action: function () {
+                closePopover();
+            }
+            //TODO: mid isn't functional
         }, {
             name: "Settings",
-            action: function() {
+            action: function () {
                 showSettings();
                 closePopover();
             }
@@ -181,22 +323,10 @@
     }
 
     var lastDownTarget //, canvas;
-    window.onload = function() {
-        document.addEventListener('mousedown', function(event) {
+    window.onload = function () {
+        document.addEventListener('mousedown', function (event) {
             lastDownTarget = event.target;
             //alert('mousedown');
-        }, false);
-
-        document.addEventListener('keydown', function(event) {
-            if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
-                designCore.commandLine.handleKeys(event);
-
-                var charCode = (event.charCode) ? event.charCode : event.keyCode;
-                //if escape is pressed hide any popovers
-                if (charCode === 27) {
-                    hideModals()
-                }
-            }
         }, false);
 
         loadAllSettings();
@@ -253,7 +383,7 @@
             ACIColour.className = "Design-shape"
             ACIColour.style.backgroundColor = Colours.getHexColour(colours[i]);
             ACIColour.id = Colours.getHexColour(colours[i]);
-            ACIColour.onmousedown = function(e) {
+            ACIColour.onmousedown = function (e) {
                 //LM.layers[layerIndex].colour = this.id;
                 //console.log(" selected colour " + this.id);
 
@@ -324,7 +454,7 @@
     }
 
     // When the user clicks anywhere outside of the dialogs, close them
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == document.getElementById('ColourPickerWindow')) {
             console.log("Close Colour Picker")
             closeColourPicker()
@@ -497,7 +627,7 @@
      * Listens for keyup events.
      */
     function keyupListener() {
-        window.onkeyup = function(e) {
+        window.onkeyup = function (e) {
             if (e.keyCode === 27) {
                 toggleMenuOff();
             }
@@ -508,7 +638,7 @@
      * Window resize event listener
      */
     function resizeListener() {
-        window.onresize = function(e) {
+        window.onresize = function (e) {
             toggleMenuOff();
         };
     }
@@ -657,7 +787,7 @@
                 var layer = LM.getLayerByIndex(layer);
 
                 var detailsDiv = document.getElementById(elemID + "Details")
-                    //detailsDiv.innerHTML = '';
+                //detailsDiv.innerHTML = '';
 
                 var layerName = layer.name
 
@@ -720,7 +850,7 @@
             document.getElementById(elemID + "Details").style.display = "block";
             document.getElementById(elemID + "Details").style.height = "260px";
             showlayerDetails(elemID)
-                //console.log("Show Details")
+            //console.log("Show Details")
         }
     }
 
@@ -770,7 +900,7 @@
                         popover_table.appendChild(ACIColour);
                     }
                     popover_appendContent(popover_table)
-					**/
+                    **/
                 }
 
                 break;
@@ -783,21 +913,21 @@
                 //console.log("right");
                 var listItems = [{
                     name: "Rename",
-                    action: function() {
+                    action: function () {
                         console.log("Rename layer:", designCore.LM.getLayerByIndex(layerIndex).name);
                         closePopover();
                         var edit = document.getElementById(layerID)
                         var style = getComputedStyle(document.body);
                         var colour = style.getPropertyValue('--active-colour');
                         edit.style.outline = colour + " solid 1px"
-                            // set the focus on the text edit. timer needed as a hack
-                        window.setTimeout(function() {
+                        // set the focus on the text edit. timer needed as a hack
+                        window.setTimeout(function () {
                             edit.focus();
                         }, 0);
                     }
                 }, {
                     name: "Delete",
-                    action: function() {
+                    action: function () {
                         designCore.LM.deleteLayer(layerIndex);
                         closePopover();
                         loadLayers();
@@ -807,7 +937,7 @@
                 if (designCore.LM.getCLayer() + "-layer" !== layerID) {
                     listItems.push({
                         name: "Set Current",
-                        action: function() {
+                        action: function () {
                             console.log("Set Current clicked layer:", layerIndex)
                             designCore.LM.setCLayer(designCore.LM.getLayerByIndex(layerIndex).name);
                             closePopover();
@@ -852,7 +982,7 @@
             layerColour.id = layer.name
             layerColour.style.backgroundColor = layer.colour;
 
-            layerColour.onmousedown = function(e) {
+            layerColour.onmousedown = function (e) {
                 handleMouse(e, "colour", this.id, this.parentElement.getAttribute('id'))
             };
 
@@ -863,10 +993,10 @@
             layerNameDiv.type = "text"
             layerNameDiv.value = layer.name;
             layerNameDiv.id = layer.name + "-layer"
-            layerNameDiv.onmousedown = function(e) {
+            layerNameDiv.onmousedown = function (e) {
                 handleMouse(e, "name", this.id, this.parentElement.getAttribute('id'))
             };
-            layerNameDiv.onkeydown = function(e) {
+            layerNameDiv.onkeydown = function (e) {
                 var charCode = (e.charCode) ? e.charCode : e.keyCode;
                 //if enter or escape is pressed, save the layername
                 if (charCode === 13 || charCode === 27) {
@@ -875,7 +1005,7 @@
                 }
             };
 
-            layerNameDiv.onblur = function() {
+            layerNameDiv.onblur = function () {
                 if (this.value) {
                     this.style.outline = "none"
                     var layerIndex = this.parentElement.getAttribute('id');
@@ -896,7 +1026,7 @@
             toggle.type = "checkbox"
             toggle.id = layer.name + "-toggle"
             toggle.checked = layer.on
-            toggle.onclick = function() {
+            toggle.onclick = function () {
                 //console.log("Toggle Layer " + this.id + ": " + this.checked)
                 var index = this.parentElement.parentElement.parentElement.getAttribute('id')
                 designCore.LM.getLayerByIndex(index).on = this.checked;
@@ -958,7 +1088,7 @@
     function hexToRgb(hex) {
         // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
         var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
             return r + r + g + g + b + b;
         });
 
@@ -1140,7 +1270,7 @@
     }
 
     // When the user clicks anywhere outside of the dialogs, close them
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == document.getElementById('PopoverWindow')) {
             console.log("CLOSE CLOSE CLOSE CLOSE")
             document.getElementById('PopoverWindow').style.display = "none";
@@ -1224,7 +1354,7 @@
 
                 if (itemTypes.indexOf(itemType, 0) === -1) {
                     itemTypes.push(itemType)
-                        //console.log("ItemTypes: " + itemTypes.length)
+                    //console.log("ItemTypes: " + itemTypes.length)
                 }
             }
 
@@ -1280,9 +1410,9 @@
         }
 
         console.log("[propertiesManager.getItemProperyValue()]", propertiesValueList)
-        if (propertiesValueList.every(function(prop) {
-                return prop === propertiesValueList[0]
-            })) {
+        if (propertiesValueList.every(function (prop) {
+            return prop === propertiesValueList[0]
+        })) {
             return propertiesValueList[0]
         } else {
             return "varies"
@@ -1307,13 +1437,13 @@
             var ListItemDiv = document.createElement("div");
             ListItemDiv.className = "Design-sidebar-listitem";
             ListItemDiv.id = itemList[item];
-            ListItemDiv.onmousedown = function(e) {
+            ListItemDiv.onmousedown = function (e) {
                 showHideItemProperties(this.id)
             };
 
             //var nameNode = document.createElement("p")
             var type = document.createTextNode(itemList[item])
-                //console.log("[propertiesManager.loadPropertyList:] ", itemList[item])
+            //console.log("[propertiesManager.loadPropertyList:] ", itemList[item])
 
             var itemPropertiesDiv = document.createElement("div");
             itemPropertiesDiv.className = "layerManagerListItemDetails"
@@ -1332,7 +1462,7 @@
         var itemType = elemID;
         var propertiesList = getItemProperties(itemType)
         var detailsDiv = document.getElementById(elemID + "-itemProperties")
-            //console.log(propertiesList)
+        //console.log(propertiesList)
         var props = "";
         for (var property = 0; property < propertiesList.length; property++) {
             console.log("[propertiesManager.loadItemProperties()]: type:", itemType, " property: ", propertiesList[property])
@@ -1371,9 +1501,9 @@
                 case "layer":
 
                     props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designCore.LM.getCLayer() + '<ul class="dropdown"> '
-                        // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
-                        //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
-                        //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
+                    // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
+                    //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
+                    //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
 
                     for (var layerIndex = 0; layerIndex < designCore.LM.layerCount(); layerIndex++) {
                         if (designCore.LM.getLayerByIndex(layerIndex).name !== designCore.LM.getCLayer()) {
@@ -1383,12 +1513,12 @@
 
                     props += '</ul> \
                                     </div>'
-                        /* props += '<div class="Design-sidebar-listitem-child"><select>';
-                         for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
-                           props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
-                         }
-                         props += '</select></div>'; 
-                         */
+                    /* props += '<div class="Design-sidebar-listitem-child"><select>';
+                     for (var layerIndex = 0; layerIndex < LM.layerCount(); layerIndex++) {
+                       props +=  '<option>' + LM.getLayerByIndex(layerIndex).name + '</option>'; 
+                     }
+                     props += '</select></div>'; 
+                     */
                     break;
                 default:
                     props += '<div class="Design-sidebar-listitem-child"><p>' + propValue + '</p></div>'
@@ -1475,12 +1605,14 @@
                     <div class="column">
                         <ul>
                             <div class="Design-sidebar-listitem">
-                                <div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <div id="canvasBackgroundColour" class="Design-shape" onclick="changeColour(this.id)">
+                                </div>
                                 <p>Canvas Background Colour</p>
                                 <div></div>
                             </div>
                             <div class="Design-sidebar-listitem">
-                                <div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <div id="selectedItemsColour" class="Design-shape" onclick="changeColour(this.id)">
+                                </div>
                                 <p>Selected Items Colour</p>
                                 <div></div>
                             </div>
@@ -1490,7 +1622,8 @@
                                 <div></div>
                             </div>
                             <div class="Design-sidebar-listitem">
-                                <div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)"></div>
+                                <div id="helperGeometryColour" class="Design-shape" onclick="changeColour(this.id)">
+                                </div>
                                 <p>Helper Geometry Colour</p>
                                 <div></div>
                             </div>
@@ -1521,36 +1654,40 @@
                                 <img src="icons/snap-end.svg" style="width:32px;height:32px;">
                                 <p>End</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('endSnap')" checked=function(){designCore.settings["endSnap"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('endSnap')"
+                                        checked=function(){designCore.settings["endSnap"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                             <div id="Midsnap" class="Design-sidebar-listitem">
                                 <img src="icons/snap-mid.svg" style="width:32px;height:32px;">
                                 <p>Mid</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('midSnap')" checked=function(){designCore.settings["midSnap"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('midSnap')"
+                                        checked=function(){designCore.settings["midSnap"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                             <div id="Centresnap" class="Design-sidebar-listitem">
                                 <img src="icons/snap-centre.svg" style="width:32px;height:32px;">
                                 <p>Centre</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('centreSnap')" checked=function(){designCore.settings["centreSnap"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('centreSnap')"
+                                        checked=function(){designCore.settings["centreSnap"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                             <div id="Nearestsnap" class="Design-sidebar-listitem">
                                 <img src="icons/snap-nearest.svg" style="width:32px;height:32px;">
                                 <p>Nearest</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('nearestSnap')" checked=function(){designCore.settings["nearestSnap"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('nearestSnap')"
+                                        checked=function(){designCore.settings["nearestSnap"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
                         </ul>
                     </div>
@@ -1561,37 +1698,40 @@
                                 <img src="icons/polar.svg" style="width:32px;height:32px;">
                                 <p>Polar</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('polar')" checked=function(){designCore.settings["polar"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('polar')"
+                                        checked=function(){designCore.settings["polar"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                             <div id="PolarAngle" class="Design-sidebar-listitem">
                                 <p>Polar Angle</p>
                                 <select id="polarAngle" onchange="changePolarAngle(this.value)" ;>
-<option value="22.5">22.5</option>
-<option value="45">45</option>
-<option value="90">90</option>
-<option value="180">180</option>
-</select>
+                                    <option value="22.5">22.5</option>
+                                    <option value="45">45</option>
+                                    <option value="90">90</option>
+                                    <option value="180">180</option>
+                                </select>
                             </div>
 
                             <div id="Ortho" class="Design-sidebar-listitem">
                                 <img src="icons/ortho.svg" style="width:32px;height:32px;">
                                 <p>Ortho</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('ortho')" checked=function(){designCore.settings["ortho"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('ortho')"
+                                        checked=function(){designCore.settings["ortho"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                             <div id="Grid" class="Design-sidebar-listitem">
                                 <img src="icons/grid.svg" style="width:32px;height:32px;">
                                 <p>Show Grid</p>
                                 <label class="toggle">
-<input type="checkbox" onclick="toggleSnap('drawGrid')" checked=function(){designCore.settings["drawGrid"]};>
-<span class="slider"></span>
-</label>
+                                    <input type="checkbox" onclick="toggleSnap('drawGrid')"
+                                        checked=function(){designCore.settings["drawGrid"]};>
+                                    <span class="slider"></span>
+                                </label>
                             </div>
 
                         </ul>
@@ -1616,13 +1756,13 @@
                         <div id="font" class="Design-sidebar-listitem">
                             <p>Font</p>
                             <select id="fontSelect" onchange="updateStyle()" ;>
-</select>
+                            </select>
                         </div>
 
                         <div id="fontStyle" class="Design-sidebar-listitem">
                             <p>Font Style</p>
                             <select id="fontStyleSelect" onchange="updateStyle()" ;>
-</select>
+                            </select>
                         </div>
 
                         <div class="Design-sidebar-listitem">
@@ -1645,17 +1785,17 @@
                         <div id="styleUpsideDown" class="Design-sidebar-listitem">
                             <p>Upside Down</p>
                             <label class="toggle">
-<input type="checkbox" id="upsideDownToggle" onclick="updateStyle()";>
-<span class="slider"></span>
-</label>
+                                <input type="checkbox" id="upsideDownToggle" onclick="updateStyle()" ;>
+                                <span class="slider"></span>
+                            </label>
                         </div>
 
                         <div id="styleBackwards" class="Design-sidebar-listitem">
                             <p>Backwards</p>
                             <label class="toggle">
-<input type="checkbox" id="backwardsToggle" onclick="updateStyle()";>
-<span class="slider"></span>
-</label>
+                                <input type="checkbox" id="backwardsToggle" onclick="updateStyle()" ;>
+                                <span class="slider"></span>
+                            </label>
 
                         </div>
                     </div>
@@ -1675,15 +1815,18 @@
                 <h3>Help</h3>
                 <div class="row">
                     <div class="column" style="text-align: center;">
-                        <a href="https://design-app.readthedocs.io" target="_blank"><img src="icons/online-help.svg" height="100"></a>
+                        <a href="https://design-app.readthedocs.io" target="_blank"><img src="icons/online-help.svg"
+                                height="100"></a>
                         <h4>Online Help</h4>
                     </div>
                     <div class="column" style="text-align: center;">
-                        <a href="https://design-app.readthedocs.io/_/downloads/en/latest/pdf/" target="_blank"><img src="icons/pdf-file.svg" height="100"></a>
+                        <a href="https://design-app.readthedocs.io/_/downloads/en/latest/pdf/" target="_blank"><img
+                                src="icons/pdf-file.svg" height="100"></a>
                         <h4>Offline Help</h4>
                     </div>
                     <div class="column" style="text-align: center;">
-                        <a href="https://t.me/joinchat/BQHZRA1R0Ke297gkQEJEEQ" target="_blank"><img src="icons/telegram-logo.svg" height="100"></a>
+                        <a href="https://t.me/joinchat/BQHZRA1R0Ke297gkQEJEEQ" target="_blank"><img
+                                src="icons/telegram-logo.svg" height="100"></a>
                         <h4>Telegram Group</h4>
                     </div>
                 </div>
@@ -1695,7 +1838,9 @@
 
             <div id="About" class="tabcontent">
                 <h3>About</h3>
-                <p>Design is a 2D CAD application for the web. Design is a 2D computer aided design application (CAD), created to meet the needs of makers and designers, hobbyists and professionals that require a first class CAD application.</p>
+                <p>Design is a 2D CAD application for the web. Design is a 2D computer aided design application (CAD),
+                    created to meet the needs of makers and designers, hobbyists and professionals that require a first
+                    class CAD application.</p>
 
                 <h4>GitHub: <a href="https://github.com/dubstar-04/Design">https://github.com/dubstar-04/Design</a></h4>
                 <h4> Version:
@@ -1747,7 +1892,7 @@
             var ListItemDiv = document.createElement("div");
             ListItemDiv.className = "Design-sidebar-listitem";
             ListItemDiv.id = styles[item].name;
-            ListItemDiv.onmousedown = function(e) {
+            ListItemDiv.onmousedown = function (e) {
                 loadStyleData(this.id)
             };
 
@@ -1922,7 +2067,7 @@
 
     function getFonts() {
 
-        var fontDetector = function() {
+        var fontDetector = function () {
             // a font will be compared against all the three default fonts.
             // and if it doesn't match all 3 then that font is not available.
             var baseFonts = ['monospace', 'sans-serif', 'serif'];
@@ -2009,7 +2154,7 @@
     }
 
     // When the user clicks anywhere outside of the dialogs, close them
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == document.getElementById('SettingsWindow')) {
             closeSettings();
         }
@@ -2044,12 +2189,14 @@
                     <div class="slides fade">
                         <div class="image"><img src="icons/design-small.svg"></div>
                         <div class="title">Welcome To Design</div>
-                        <div class="text">Design is a 2D CAD application for makers, designer, hobbyists and Professionals.</div>
+                        <div class="text">Design is a 2D CAD application for makers, designer, hobbyists and
+                            Professionals.</div>
                         <br>
                         <br>
                         <div class="text">
                             <button id="cookieButton" , class="button" , style="width:25%" ;>Accept</button>
-                            <div id="cookieShape" , class="Design-shape" , style="background-Color:#38B44A; visibility:hidden" ;>
+                            <div id="cookieShape" , class="Design-shape" ,
+                                style="background-Color:#38B44A; visibility:hidden" ;>
                                 <div class="tick"></div>
                             </div>
 
@@ -2060,22 +2207,26 @@
                     <div class="slides fade">
                         <div class="image"><img src="icons/convergence.svg"></div>
                         <div class="title">Design Everywhere!</div>
-                        <div class="text">Design was created with cross browser compatability. Design works where you are. </div>
+                        <div class="text">Design was created with cross browser compatability. Design works where you
+                            are. </div>
                     </div>
 
                     <div class="slides fade">
                         <div class="image"><img src="icons/dxf-file.svg"></div>
                         <div class="title">Plays Well With Others...</div>
-                        <div class="text">Design uses industry standard DXF files for compatability and simplicity.</div>
+                        <div class="text">Design uses industry standard DXF files for compatability and simplicity.
+                        </div>
                     </div>
 
                     <div class="slides fade">
                         <div class="image"><img src="icons/design-small.svg"></div>
                         <div class="title">Learn, Create, Have Fun!</div>
-                        <div class="text">We love CAD and we want you to also. Check the help tab in settings for tips to get going with your designs. </div>
+                        <div class="text">We love CAD and we want you to also. Check the help tab in settings for tips
+                            to get going with your designs. </div>
                         <br>
                         <div class="text">
-                            <button class="button" , style="width:25%" , onclick="closeWelcomeWizzard()" ;>Get Started!</button>
+                            <button class="button" , style="width:25%" , onclick="closeWelcomeWizzard()" ;>Get
+                                Started!</button>
                         </div>
 
                     </div>
@@ -2105,7 +2256,7 @@
 <script>
     var cookieButton = document.getElementById("cookieButton");
 
-    cookieButton.onclick = function() {
+    cookieButton.onclick = function () {
         var cookieShape = document.getElementById("cookieShape");
 
         cookieButton.classList.add("disabledbutton");
