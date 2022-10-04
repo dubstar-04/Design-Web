@@ -97,7 +97,7 @@
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
 <script type="module">
-    import { Core } from "./Design-Core/Core.js"
+    import { Core } from "./Design-Core/core.js"
     import { Colours } from "./Design-Core/lib/colours.js"
     window.designCore = new Core();
 
@@ -114,6 +114,7 @@
     function initdesignCore() {
         designCore.canvas.setCanvasWidget(cnvs);
         designCore.commandLine.setUpdateFunction(commandLineUpdateCallback);
+        designCore.canvas.setExternalPaintCallbackFunction(paint);
         initCanvas();
     }
 
@@ -121,6 +122,26 @@
     function commandLineUpdateCallback(commandLineValue) {
         cmd_Line.value = commandLineValue;
     }
+
+    function paint(){
+        var cr = cnvs.getContext('2d');
+
+        cnvs.width = window.innerWidth;
+		cnvs.height = window.innerHeight;
+
+        // resize canvas to window
+        var width = cnvs.width;
+        var height = cnvs.height;
+
+        // Clear the canvas
+        cr.save();
+		cr.setTransform(1, 0, 0, 1, 0, 0);
+		cr.clearRect(0, 0, width, height);
+		cr.restore();
+
+
+        designCore.canvas.paint(cr, width, height);
+        }
 
     function initCanvas() {
 
@@ -138,7 +159,6 @@
         }
 
         function mouseMoved(event) {
-            //var rect = cnvs.getBoundingClientRect();
             designCore.mouse.mouseMoved(event.clientX, event.clientY);
             writeCoordinatesLabel();
         }
@@ -147,16 +167,17 @@
             // delta = +/- 1 for zoom in / out
             var delta = event.detail / 3;
             designCore.mouse.wheel(delta);
+            writeCoordinatesLabel();
         }
 
         function mouseDown(event) {
-            // button: 1 = left, 2 = wheel, 3 = right;
+            // button: 0 = left, 1 = wheel, 2 = right;
             event.preventDefault();
             designCore.mouse.mouseDown(event.button);
         }
 
         function mouseUp(event) {
-            // button: 1 = left, 2 = wheel, 3 = right;
+            // button: 0 = left, 1 = wheel, 2 = right;
             event.preventDefault();
             designCore.mouse.mouseUp(event.button);
         }
@@ -251,7 +272,7 @@
 
 
         //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
-        window.addEventListener('resize', designCore.canvas.resizeCanvas.bind(designCore.canvas), false);
+        //window.addEventListener('resize', designCore.canvas.resizeCanvas.bind(designCore.canvas), false);
         window.addEventListener('resize', function () {
             hideModals()
         }, false);
@@ -330,8 +351,9 @@
         }, false);
 
         loadAllSettings();
-        designCore.canvas.resizeCanvas();
+        //designCore.canvas.resizeCanvas();
         getCookieConsent();
+        paint();
 
     }
 </script>
