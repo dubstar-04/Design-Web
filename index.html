@@ -185,6 +185,8 @@
         function keypress(event) {
             if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
 
+                event.preventDefault()
+
                 var charCode = (event.charCode) ? event.charCode : event.keyCode;
                 console.log("char code", event.keyVal, event.keyCode)
 
