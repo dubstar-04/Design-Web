@@ -26,7 +26,8 @@
 
     <div class="toolbar">
         <input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
-        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
+        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img
+                    src="icons/design-small.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button>
             <span class="tooltiptext">Open File</span>
         </div>
@@ -98,7 +99,12 @@
 <script type="module">
     import { Core } from "./Design-Core/core.js"
     import { Colours } from "./Design-Core/lib/colours.js"
+
+    // instanciate Design Core
     window.designCore = new Core();
+
+    // provide access to the colours class
+    window.Colours = Colours;
 
     initdesignCore();
 </script>
@@ -119,9 +125,9 @@
     }
 
     // callback passed to the core.propertyManager class to update item selections and properties
-    function propertyCallback(){
+    function propertyCallback() {
         console.log("Index - Property Callback")
-        getProperties() 
+        getProperties()
     }
 
     // callback passed to the core.commandline class to update this cmd_line value
@@ -129,11 +135,11 @@
         cmd_Line.value = commandLineValue;
     }
 
-    function paint(){
+    function paint() {
         var cr = cnvs.getContext('2d');
 
         cnvs.width = window.innerWidth;
-		cnvs.height = window.innerHeight;
+        cnvs.height = window.innerHeight;
 
         // resize canvas to window
         var width = cnvs.width;
@@ -141,13 +147,13 @@
 
         // Clear the canvas
         cr.save();
-		cr.setTransform(1, 0, 0, 1, 0, 0);
-		cr.clearRect(0, 0, width, height);
-		cr.restore();
+        cr.setTransform(1, 0, 0, 1, 0, 0);
+        cr.clearRect(0, 0, width, height);
+        cr.restore();
 
 
         designCore.canvas.paint(cr, width, height);
-        }
+    }
 
     function initCanvas() {
 
@@ -401,7 +407,6 @@
         document.getElementById('ColourPickerWindow').style.display = "block";
         positionColourPicker(ev);
 
-
         var ColourPicker_table = document.createElement("div");
         ColourPicker_table.className = "ColourPicker-table";
         ColourPicker_table.id = "ColourPicker-table";
@@ -414,26 +419,20 @@
             ACIColour.style.backgroundColor = Colours.getHexColour(colours[i]);
             ACIColour.id = Colours.getHexColour(colours[i]);
             ACIColour.onmousedown = function (e) {
-                //LM.layers[layerIndex].colour = this.id;
-                //console.log(" selected colour " + this.id);
-
                 //return selected colour and redraw canvas
                 closeColourPicker()
                 designCore.canvas.requestPaint()
                 var selectedColour = this.id;
                 callback(selectedColour, caller);
-
             };
 
             ColourPicker_table.appendChild(ACIColour);
         }
 
-        ColourPicker_appendContent(ColourPicker_table)
-
+        ColourPicker_appendContent(ColourPicker_table);
     }
 
-
-
+    
     function closeColourPicker() {
         document.getElementById('ColourPickerWindow').style.display = "none";
     }
@@ -490,18 +489,12 @@
             closeColourPicker()
         }
     }
-
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#ColourPickerWindow");
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 
 <!---------------------------------------------------
 ------------------- colourPicker --------------------
 ---------------------------------------------------->
-
-
 
 <!---------------------------------------------------
 -------------------  contextMenu --------------------
@@ -523,29 +516,6 @@
 </div>
 
 <script>
-    /*   function clickInsideElement(e, className) {
-                            var el = e.srcElement || e.target;
-
-                            if (el.classList.contains(className)) {
-                                return el;
-                            } else {
-                                while (el = el.parentNode) {
-                                    if (el.classList && el.classList.contains(className)) {
-                                        return el;
-                                    }
-                                }
-                            }
-
-                            return false;
-                        }
-                        */
-
-    /**
-     * Get's exact position of event.
-     * 
-     * @param {Object} e The event passed in
-     * @return {Object} Returns the x and y position
-     */
     function getPosition(e) {
 
         console.log("get position of menu")
@@ -614,48 +584,7 @@
         resizeListener();
     }
 
-    /**
-     * Listens for contextmenu events.
-     */
-    /*
-    function contextListener() {
-        document.addEventListener("contextmenu", function(e) {
-            taskItemInContext = clickInsideElement(e, taskItemClassName);
 
-            if (taskItemInContext) {
-                e.preventDefault();
-                toggleMenuOn();
-                positionMenu(e);
-            } else {
-                taskItemInContext = null;
-                toggleMenuOff();
-            }
-        });
-    }
-
-    /**
-     * Listens for click events.
-     */
-    /*
-    function clickListener() {
-        document.addEventListener("click", function(e) {
-            var clickeElIsLink = clickInsideElement(e, contextMenuLinkClassName);
-
-            if (clickeElIsLink) {
-                e.preventDefault();
-                menuItemListener(clickeElIsLink);
-            } else {
-                var button = e.which || e.button;
-                if (button === 1) {
-                    toggleMenuOff();
-                }
-            }
-        });
-    }
-
-    /**
-     * Listens for keyup events.
-     */
     function keyupListener() {
         window.onkeyup = function (e) {
             if (e.keyCode === 27) {
@@ -664,18 +593,12 @@
         }
     }
 
-    /**
-     * Window resize event listener
-     */
     function resizeListener() {
         window.onresize = function (e) {
             toggleMenuOff();
         };
     }
 
-    /**
-     * Turns the custom context menu on.
-     */
     function toggleMenuOn() {
         menu.style.display = "none";
         console.log(menu.style.display);
@@ -690,9 +613,6 @@
         }
     }
 
-    /**
-     * Turns the custom context menu off.
-     */
     function toggleMenuOff() {
         if (menuState !== 0) {
             menuState = 0;
@@ -700,11 +620,6 @@
         }
     }
 
-    /**
-     * Positions the menu properly.
-     * 
-     * @param {Object} e The event
-     */
     function positionMenu(e) {
         clickCoords = getPosition(e);
         clickCoordsX = clickCoords.x;
@@ -735,25 +650,11 @@
         }
     }
 
-    /**
-     * Dummy action function that logs an action when a menu item link is clicked
-     * 
-     * @param {HTMLElement} link The link that was clicked
-     */
     function menuItemListener(link) {
         console.log("Task ID - " + taskItemInContext.getAttribute("data-id") + ", Task action - " + link.getAttribute("data-action"));
         toggleMenuOff();
     }
 
-    /**
-     * Run the app.
-     */
-    //init();
-
-    //import this document in to the Design.html Document
-    //var import2 = document.currentScript.ownerDocument.querySelector("#context-menu");
-
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import2, true));
 </script>
 
 <!---------------------------------------------------
@@ -783,6 +684,7 @@
 </div>
 
 <script>
+
     function showHideLayerManager() {
 
         var LM = document.getElementById("LayerManager");
@@ -797,10 +699,8 @@
     }
 
     function addNewLayer() {
-
         designCore.layerManager.newLayer()
         loadLayers();
-
     }
 
     /* Set the width of the side navigation to 0 */
@@ -810,11 +710,11 @@
 
     function showlayerDetails(elemID) {
 
-        for (var layer = 0; layer < LM.layerCount(); layer++) {
+        for (var layer = 0; layer < designCore.layerManager.layerCount(); layer++) {
             // if (layers[layer].name + "-layerDetails" === elemID + "Details") {
             {
 
-                var layer = LM.getLayerByIndex(layer);
+                var layer = designCore.layerManager.getLayerByIndex(layer);
 
                 var detailsDiv = document.getElementById(elemID + "Details")
                 //detailsDiv.innerHTML = '';
@@ -904,33 +804,7 @@
                     showHideLayerDetails(layerID)
                 }
                 if (elem === "colour") {
-
                     showColourPicker(null, layerColourChange, layerIndex)
-
-                    /**                var popover_table = document.createElement("div");
-                    popover_table.className = "Popover-table";
-                    popover_table.id = "Popover-table";
-
-                    var colours = [1, 2, 3, 4, 5, 6, 230, 30, 7, 8, 9, 256]
-
-                    for (var i = 0; i < colours.length; i++) {
-                        var ACIColour = document.createElement("div");
-                        ACIColour.className = "Design-shape"
-                        ACIColour.style.backgroundColor = getHexColour(colours[i]);
-                        ACIColour.id = Colours.getHexColour(colours[i]);
-                        ACIColour.onmousedown = function(e) {
-                            LM.layers[layerIndex].colour = this.id;
-                            console.log(this.id, " colour clicked " + layerIndex);
-                            loadLayers();
-                            closePopover()
-                            canvas.requestPaint()
-
-                        };
-
-                        popover_table.appendChild(ACIColour);
-                    }
-                    popover_appendContent(popover_table)
-                    **/
                 }
 
                 break;
@@ -990,8 +864,6 @@
             }
         }
     }
-
-
 
     function loadLayers() {
 
@@ -1081,7 +953,7 @@
 
                 layerNameDiv.style.fontWeight = "bold";
 
-                layerColourRGB = hexToRgb(layer.colour)
+                layerColourRGB = Colours.hexToRGB(layer.colour)
 
                 if ((layerColourRGB.r * 0.299 + layerColourRGB.g * 0.587 + layerColourRGB.b * 0.114) > 186) {
                     tick.style.borderColor = "#000000"
@@ -1093,15 +965,6 @@
             }
 
             ListItemDiv.appendChild(layerNameDiv);
-            //nameNode.appendChild(name);
-            //layerNameDiv.appendChild(nameNode);
-
-            /*
-            renameLayerDiv.appendChild(rename);
-            renameLayerDiv.appendChild(submit);
-            ListItemDiv.appendChild(renameLayerDiv);
-            */
-
             ListItemDiv.appendChild(layerToggleDiv);
             layerToggleDiv.appendChild(toggleLabel)
             toggleLabel.appendChild(toggle)
@@ -1115,32 +978,12 @@
         }
     }
 
-    function hexToRgb(hex) {
-        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-            return r + r + g + g + b + b;
-        });
-
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#LayerManager");
-
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 
 <!---------------------------------------------------
 ------------------- layermanager --------------------
 ---------------------------------------------------->
-
 
 <!---------------------------------------------------
 -------------------    notify    --------------------
@@ -1184,16 +1027,6 @@
         notificationContent = ""
     }
 
-    //    When the user clicks anywhere outside of the dialogs, close them
-    //   window.onclick = function(event) {
-    //        if (event.target == document.getElementById('NotifyPopup')) {
-    //            document.getElementById('NotifyPopup').style.display = "none";
-    //        }
-    //    }
-
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#NotifyPopup");
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
@@ -1307,9 +1140,6 @@
         }
     }
 
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#PopoverWindow");
-    // document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
@@ -1362,7 +1192,6 @@
             console.log("[PropertiesManager] - getProperties()")
             if (designCore.scene.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
-                //console.log("[PropertiesManager] - getProperties() items", selectionSet)
                 loadPropertyList(designCore.propertyManager.getItemTypes())
             } else {
                 clearPropertiesList()
@@ -1392,10 +1221,7 @@
                 showHideItemProperties(this.id)
             };
 
-            //var nameNode = document.createElement("p")
             var type = document.createTextNode(itemList[item])
-            //console.log("[propertiesManager.loadPropertyList:] ", itemList[item])
-
             var itemPropertiesDiv = document.createElement("div");
             itemPropertiesDiv.className = "layerManagerListItemDetails"
             itemPropertiesDiv.id = itemList[item] + "-itemProperties"
@@ -1507,12 +1333,6 @@
             elem.style.height = height.toString() + "px";
         }
     }
-
-
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#PropertiesManager");
-
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
@@ -2067,9 +1887,6 @@
         //var availableFonts = [];				
         d = new fontDetector();
         var fontSelector = document.getElementById('fontSelect')
-
-        //clear the drop down
-
         var fontSelectorLength = fontSelector.options.length
 
         for (i = fontSelectorLength; i >= 0; i--) {
@@ -2079,22 +1896,14 @@
 
         for (font = 0; font < fonts.length - 1; font++) {
             if (d.detect(fonts[font])) {
-                //availableFonts.push(fonts[font])
                 var fontOption = document.createElement("option");
                 fontOption.text = fonts[font]
                 fontSelector.options.add(fontOption);
-                //console.log("Testing Font: ", fonts[font], " Available: ", d.detect(fonts[font]))
             };
         }
-
-        //set select value
-        //fontSelector.value = designCore.settings["font"]
     }
 
     function showSettings() {
-        //block context menu for layer manager
-        //var SW = document.getElementById("SettingsWindow");
-        //SW.oncontextmenu =  function(e) {e.preventDefault()};
         document.getElementById('SettingsWindow').style.display = "block";
         document.getElementById("defaultOpen").click();
     }
@@ -2110,10 +1919,6 @@
             closeSettings();
         }
     }
-
-    //import this document in to the Design.html Document
-    //var import1 = document.currentScript.ownerDocument.querySelector("#SettingsWindow");
-    //document.body.appendChild(document.currentScript.ownerDocument.importNode(import1, true));
 </script>
 
 <!---------------------------------------------------
