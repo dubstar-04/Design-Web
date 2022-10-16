@@ -80,6 +80,7 @@ body {
 
 canvas {
     position: absolute;
+    border:0px;
 }
 
 canvasbottom {
@@ -87,26 +88,23 @@ canvasbottom {
     left: 0;
     right: 0;
     height: 30px;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    /*text-align: center;
-    margin: 0;
-    padding: 0.5em 5em;
-    background: rgba(240, 240, 240, 0.7)
-    */
+    background: #303030
 }
 
 #head {
     top: 0;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid var(--border-colour);
 }
 
 #foot {
     bottom: 0;
-    font-size: 85%;
-    border-top: 1px solid #999;
+    font-size: 105%;
+    border-top: 2px solid var(--border-colour);
     overflow: hidden;
 }
 
@@ -117,9 +115,12 @@ canvasbottom {
 }
 
 #coordLabel {
+    display:block;
+    color: #ffffff;
+    text-align:right;
     margin-left: 10px;
     margin-right: 10px;
-    min-width: 100px;
+    min-width: 300px;
 }
 
 .toolbar {
