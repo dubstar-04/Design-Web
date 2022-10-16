@@ -19,15 +19,14 @@
     <link rel="stylesheet" href="css/notification.css">
 
     <div role="main">
-        <canvas id="designCanvas" style="border:1px solid #c3c3c3;">
+        <canvas id="designCanvas">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
     </div>
 
     <div class="toolbar">
         <input type="file" style="display:none" name="fileupload" value="fileupload" id="fileupload">
-        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img
-                    src="icons/design-small.svg"></button></div>
+        <div class="tooltip"><button class="designicon" , onclick="showSettings()"><img src="icons/design-small.svg"></button></div>
         <div class="tooltip"><button class="tool" , onclick="selectFileClicked()"><img src="icons/open.svg"></button>
             <span class="tooltiptext">Open File</span>
         </div>
@@ -115,7 +114,14 @@
         designCore.canvas.setCanvasWidget(cnvs);
         designCore.commandLine.setUpdateFunction(commandLineUpdateCallback);
         designCore.canvas.setExternalPaintCallbackFunction(paint);
+        designCore.propertyManager.setPropertyCallbackFunction(propertyCallback)
         initCanvas();
+    }
+
+    // callback passed to the core.propertyManager class to update item selections and properties
+    function propertyCallback(){
+        console.log("Index - Property Callback")
+        getProperties() 
     }
 
     // callback passed to the core.commandline class to update this cmd_line value
@@ -792,7 +798,7 @@
 
     function addNewLayer() {
 
-        designCore.LM.newLayer()
+        designCore.layerManager.newLayer()
         loadLayers();
 
     }
@@ -880,7 +886,7 @@
 
     function layerColourChange(colour, layerIndex) {
         console.log("change ", layerIndex, " to: ", colour);
-        designCore.LM.layers[layerIndex].colour = colour;
+        designCore.layerManager.layers[layerIndex].colour = colour;
         loadLayers();
         //closePopover()
         designCore.canvas.requestPaint()
@@ -938,7 +944,7 @@
                 var listItems = [{
                     name: "Rename",
                     action: function () {
-                        console.log("Rename layer:", designCore.LM.getLayerByIndex(layerIndex).name);
+                        console.log("Rename layer:", designCore.layerManager.getLayerByIndex(layerIndex).name);
                         closePopover();
                         var edit = document.getElementById(layerID)
                         var style = getComputedStyle(document.body);
@@ -952,18 +958,18 @@
                 }, {
                     name: "Delete",
                     action: function () {
-                        designCore.LM.deleteLayer(layerIndex);
+                        designCore.layerManager.deleteLayer(layerIndex);
                         closePopover();
                         loadLayers();
                         designCore.canvas.requestPaint();
                     }
                 }];
-                if (designCore.LM.getCLayer() + "-layer" !== layerID) {
+                if (designCore.layerManager.getCLayer() + "-layer" !== layerID) {
                     listItems.push({
                         name: "Set Current",
                         action: function () {
                             console.log("Set Current clicked layer:", layerIndex)
-                            designCore.LM.setCLayer(designCore.LM.getLayerByIndex(layerIndex).name);
+                            designCore.layerManager.setCLayer(designCore.layerManager.getLayerByIndex(layerIndex).name);
                             closePopover();
                             loadLayers();
 
@@ -992,9 +998,9 @@
         var list = document.getElementById("LayerManagerList")
         list.innerHTML = '';
 
-        for (var layerIndex = 0; layerIndex < designCore.LM.layerCount(); layerIndex++) {
+        for (var layerIndex = 0; layerIndex < designCore.layerManager.layerCount(); layerIndex++) {
 
-            var layer = designCore.LM.getLayerByIndex(layerIndex);
+            var layer = designCore.layerManager.getLayerByIndex(layerIndex);
             var li = document.createElement("li");
 
             var ListItemDiv = document.createElement("div");
@@ -1034,7 +1040,7 @@
                     this.style.outline = "none"
                     var layerIndex = this.parentElement.getAttribute('id');
                     console.log("this value:", this.value)
-                    designCore.LM.renameLayer(layerIndex, this.value)
+                    designCore.layerManager.renameLayer(layerIndex, this.value)
                 }
 
                 loadLayers();
@@ -1053,7 +1059,7 @@
             toggle.onclick = function () {
                 //console.log("Toggle Layer " + this.id + ": " + this.checked)
                 var index = this.parentElement.parentElement.parentElement.getAttribute('id')
-                designCore.LM.getLayerByIndex(index).on = this.checked;
+                designCore.layerManager.getLayerByIndex(index).on = this.checked;
                 designCore.canvas.requestPaint();
 
             }
@@ -1071,7 +1077,7 @@
             li.appendChild(ListItemDiv)
             ListItemDiv.appendChild(layerColour);
 
-            if (layer.name === designCore.LM.getCLayer()) {
+            if (layer.name === designCore.layerManager.getCLayer()) {
 
                 layerNameDiv.style.fontWeight = "bold";
 
@@ -1357,89 +1363,11 @@
             if (designCore.scene.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
                 //console.log("[PropertiesManager] - getProperties() items", selectionSet)
-                loadPropertyList(getItemType())
+                loadPropertyList(designCore.propertyManager.getItemTypes())
             } else {
                 clearPropertiesList()
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "block";
             }
-        }
-    }
-
-    function getItemType() {
-
-        //Loop through the items and get a list of item types.
-        var itemTypes = [];
-
-        if (designCore.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
-
-                var itemType = designCore.scene.items[designCore.scene.selectionSet[i]].type;
-                //console.log(designCore.scene.items[designCore.scene.selectionSet[i]].type);
-
-                if (itemTypes.indexOf(itemType, 0) === -1) {
-                    itemTypes.push(itemType)
-                    //console.log("ItemTypes: " + itemTypes.length)
-                }
-            }
-
-            if (itemTypes.length > 1) {
-                itemTypes.unshift("All")
-            }
-        }
-
-        return itemTypes
-    }
-
-    function getItemProperties(itemType) {
-
-        //Loop through the items and get a list of common properties.
-        //console.log("Properties - Item Type: " + itemType)
-        var propertiesList = [];
-
-        if (designCore.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
-                //console.log("[propertiesManager.js - getItemProperties()] type:", items[selectionSet[i]].type)
-                if (designCore.scene.items[designCore.scene.selectionSet[i]].type === itemType) {
-                    var properties = designCore.scene.items[designCore.scene.selectionSet[i]]
-                    for (var prop in properties) {
-                        //console.log("Property: " + prop)
-                        if (propertiesList.indexOf(prop, 0) === -1) {
-                            if (typeof properties[prop] !== "function") {
-                                var excludeProps = ["type", "family", "minPoints", "limitPoints", "helper_geometry", "points", "alpha"];
-                                if (excludeProps.indexOf(prop) === -1) {
-                                    propertiesList.push(prop)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return propertiesList;
-        }
-    }
-
-
-    function getItemPropertyValue(itemType, property) {
-        //Loop through the items and get a list the property values
-        var propertiesValueList = [];
-        var propertyValue = ""
-        if (designCore.scene.selectionSet.length > 0) {
-            for (var i = 0; i < designCore.scene.selectionSet.length; i++) {
-                if (designCore.scene.items[designCore.scene.selectionSet[i]].type === itemType) {
-                    var prop = designCore.scene.items[designCore.scene.selectionSet[i]][property]
-                    propertiesValueList.push(prop)
-                }
-            }
-        }
-
-        console.log("[propertiesManager.getItemProperyValue()]", propertiesValueList)
-        if (propertiesValueList.every(function (prop) {
-            return prop === propertiesValueList[0]
-        })) {
-            return propertiesValueList[0]
-        } else {
-            return "varies"
         }
     }
 
@@ -1456,7 +1384,6 @@
         for (var item = 0; item < itemList.length; item++) {
 
             var li = document.createElement("li");
-
 
             var ListItemDiv = document.createElement("div");
             ListItemDiv.className = "Design-sidebar-listitem";
@@ -1484,14 +1411,14 @@
 
     function loadItemProperties(elemID) {
         var itemType = elemID;
-        var propertiesList = getItemProperties(itemType)
+        var propertiesList = designCore.propertyManager.getItemProperties(itemType)
         var detailsDiv = document.getElementById(elemID + "-itemProperties")
         //console.log(propertiesList)
         var props = "";
         for (var property = 0; property < propertiesList.length; property++) {
             console.log("[propertiesManager.loadItemProperties()]: type:", itemType, " property: ", propertiesList[property])
 
-            var propValue = getItemPropertyValue(itemType, propertiesList[property])
+            var propValue = designCore.propertyManager.getItemPropertyValue(itemType, propertiesList[property])
 
             props += '\
         <div class="Design-sidebar-listitem"> \
@@ -1524,14 +1451,14 @@
                     break;
                 case "layer":
 
-                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designCore.LM.getCLayer() + '<ul class="dropdown"> '
+                    props += '<div id="design-dropdown" onclick="showDD()" class="wrapper-dropdown-2">' + designCore.layerManager.getCLayer() + '<ul class="dropdown"> '
                     // <li><a href="#"><i class="icon-twitter icon-large"></i>Twitter</a></li> \
                     //    <li><a href="#"><i class="icon-github icon-large"></i>Github</a></li> \
                     //    <li><a href="#"><i class="icon-facebook icon-large"></i>Facebook</a></li> \
 
-                    for (var layerIndex = 0; layerIndex < designCore.LM.layerCount(); layerIndex++) {
-                        if (designCore.LM.getLayerByIndex(layerIndex).name !== designCore.LM.getCLayer()) {
-                            props += '<li style="border-left-color: #38B44A">' + designCore.LM.getLayerByIndex(layerIndex).name + '</li>';
+                    for (var layerIndex = 0; layerIndex < designCore.layerManager.layerCount(); layerIndex++) {
+                        if (designCore.layerManager.getLayerByIndex(layerIndex).name !== designCore.layerManager.getCLayer()) {
+                            props += '<li style="border-left-color: #38B44A">' + designCore.layerManager.getLayerByIndex(layerIndex).name + '</li>';
                         }
                     }
 
