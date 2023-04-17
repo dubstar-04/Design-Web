@@ -97,8 +97,13 @@
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
 <script type="module">
-    import { Core } from "./Design-Core/core/core.js"
-    import { Colours } from "./Design-Core/core/lib/colours.js"
+    // Local copy of design-core for development
+    //import { Core } from "./js/Design-Core/core/core.js"
+    //import { Colours } from "./js/Design-Core/core/lib/colours.js"
+    
+    // served copy of design-core for production
+    import { Core } from "http://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core.js"
+    import { Colours } from "http://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/lib/colours.js"
 
     // instanciate Design Core
     window.designCore = new Core();
