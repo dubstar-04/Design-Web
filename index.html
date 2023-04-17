@@ -35,45 +35,45 @@
             <span class="tooltiptext">Save</span>
         </div>
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['L'] )"><img
+        <div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('L')"><img
                     src="icons/line.svg"></button> <span class="tooltiptext">Line (L)</span></div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['PL'] )"><img src="icons/polyline.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('PL')"><img src="icons/polyline.svg"></button>
             <span class="tooltiptext">Polyline (PL)</span>
         </div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['C'] )"><img
+        <div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('C')"><img
                     src="icons/circle.svg"></button> <span class="tooltiptext">Circle (C)</span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['A'] )"><img
+        <div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('A')"><img
                     src="icons/arc.svg"></button> <span class="tooltiptext">Arc (A)</span></div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['REC'] )"><img
+                onclick="designCore.scene.inputManager.onCommand('REC')"><img
                     src="icons/rectangle.svg"></button> <span class="tooltiptext">Rectangle (REC)</span></div>
-        <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
+        <!--<div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('EL'] )"><img src="icons/ellipse.svg"></button>  <span class="tooltiptext">Ellipse (EL)</span></div>-->
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['DT'] )"><img src="icons/text.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('DT')"><img src="icons/text.svg"></button>
             <span class="tooltiptext">Text (DT)</span>
         </div>
-        <!--<div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
+        <!--<div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('DIM'] )"><img src="icons/dimension.svg"></button> <span class="tooltiptext">Dimension (DIM)</span></div>-->
         <div class="tooltip"><span class="separator"></span></div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['M'] )"><img
+        <div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('M')"><img
                     src="icons/move.svg"></button> <span class="tooltiptext">Move (M)</span></div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['CO'] )"><img src="icons/copy.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('CO')"><img src="icons/copy.svg"></button>
             <span class="tooltiptext">Copy (CO)</span>
         </div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['RO'] )"><img src="icons/rotate.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('RO')"><img src="icons/rotate.svg"></button>
             <span class="tooltiptext">Rotate (RO)</span>
         </div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['TR'] )"><img src="icons/trim.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('TR')"><img src="icons/trim.svg"></button>
             <span class="tooltiptext">Trim (TR)</span>
         </div>
         <div class="tooltip"><button class="tool" ,
-                onclick="designCore.designEngine.sceneControl('Enter', ['EX'] )"><img src="icons/extend.svg"></button>
+                onclick="designCore.scene.inputManager.onCommand('EX')"><img src="icons/extend.svg"></button>
             <span class="tooltiptext">Extend (EX)</span>
         </div>
-        <div class="tooltip"><button class="tool" , onclick="designCore.designEngine.sceneControl('Enter', ['E'] )"><img
+        <div class="tooltip"><button class="tool" , onclick="designCore.scene.inputManager.onCommand('E')"><img
                     src="icons/erase.svg"></button> <span class="tooltiptext">Erase (E)</span></div>
 
         <div class="tooltip"><span class="separator"></span></div>
@@ -1190,7 +1190,7 @@
         console.log(document.getElementById("PropertiesManager").style.width)
         if (document.getElementById("PropertiesManager").style.width > "0px") {
             console.log("[PropertiesManager] - getProperties()")
-            if (designCore.scene.selectionSet.length) {
+            if (designCore.scene.selection.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
                 loadPropertyList(designCore.propertyManager.getItemTypes())
             } else {
