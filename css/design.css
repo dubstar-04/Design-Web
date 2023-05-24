@@ -104,7 +104,7 @@ canvasbottom {
 #foot {
     bottom: 0;
     font-size: 90%;
-    border-top: 2px solid var(--border-colour);
+    /* border-top: 2px solid var(--border-colour); */
     overflow: hidden;
 }
 
@@ -112,6 +112,12 @@ canvasbottom {
     flex: 1;
     margin-left: 10px;
     margin-right: 10px;
+    padding-left: 10px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: var(--text-contrast-color);
+    border-radius: 5px;
 }
 
 #coordLabel {
