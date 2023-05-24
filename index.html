@@ -1195,7 +1195,7 @@
         console.log(document.getElementById("PropertiesManager").style.width)
         if (document.getElementById("PropertiesManager").style.width > "0px") {
             console.log("[PropertiesManager] - getProperties()")
-            if (designCore.scene.selection.selectionSet.length) {
+            if (designCore.scene.selectionManager.selectionSet.selectionSet.length) {
                 document.getElementById("PropertiesManagerPlaceHolder").style.display = "none";
                 loadPropertyList(designCore.propertyManager.getItemTypes())
             } else {
