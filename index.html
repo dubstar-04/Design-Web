@@ -696,7 +696,8 @@
                     showHideLayerDetails(layerID)
                 }
                 if (elem === "colour") {
-                    showColourPicker(null, layerColourChange, layerIndex)
+                    const cp = document.getElementById('colPick');
+                    cp.showColourPicker(e, layerColourChange, layerIndex);
                 }
 
                 break;
