@@ -71,7 +71,7 @@ class ColourPicker extends HTMLElement {
   }
 
   positionColourPicker(e) {
-    const clickCoords = getPosition(e);
+    const clickCoords = this.getPosition(e);
     const clickCoordsX = clickCoords.x;
     const clickCoordsY = clickCoords.y;
     const ColourPicker = document.getElementById('ColourPicker-body');
