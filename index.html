@@ -96,7 +96,9 @@
 <!-- used for saving file data -->
 <script type="text/javascript" src="js/FileSaver.min.js"></script>
 
+<!-- Load webcomponents-->
 <script type="module" src="./js/colourPicker.js"></script>
+
 <script type="module">
     // Local copy of design-core for development
     //import { Core } from "./js/Design-Core/core/core.js"
@@ -281,26 +283,17 @@
             }
         }
 
-        cnvs.addEventListener('contextmenu', function (e) {
-            e.preventDefault()
-            canvas_contextmenu()
-        }, false);
-
+        // prevent the browser context menu from appearing
         window.addEventListener('contextmenu', function (e) {
             e.preventDefault()
         }, false);
 
-
-        //window.addEventListener('keydown', commandLine.handleKeys.bind(commandLine), false);
-        //window.addEventListener('resize', designCore.canvas.resizeCanvas.bind(designCore.canvas), false);
         window.addEventListener('resize', function () {
             hideModals()
         }, false);
 
         document.getElementById('fileupload').addEventListener("change", function () {
             console.log(document.getElementById('fileupload').files[0])
-
-
 
             var file = (document.getElementById('fileupload').files[0])
             console.log("open file:", file)
@@ -337,7 +330,6 @@
         cp.hideColourPicker();
         //closeColourPicker();
         closePopover();
-        closeColourPicker();
         closeSettings();
     }
 
@@ -345,7 +337,6 @@
     window.onload = function () {
         document.addEventListener('mousedown', function (event) {
             lastDownTarget = event.target;
-            //alert('mousedown');
         }, false);
 
         loadAllSettings();
