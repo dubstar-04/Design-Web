@@ -333,6 +333,9 @@
     }
 
     function hideModals() {
+        const cp = document.getElementById('colPick');
+        cp.hideColourPicker();
+        //closeColourPicker();
         closePopover();
         closeColourPicker();
         closeSettings();
