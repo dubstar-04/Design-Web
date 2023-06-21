@@ -1,0 +1,47 @@
+:root {
+  /*
+This section holds the variables for the design of the css. 
+variables can be recalled using var(--var-name);
+*/
+  --mainbg-color: #06c;
+  --accent-color: #F78F3F;
+  --border-colour: #d3d3d3;
+  --shadow-colour: #888888;
+  --active-colour: #38B44A;
+  --alert-colour: #f44336;
+  --passive-colour: #008CBA;
+  --inactive-colour: #8a8a8a;
+  /* toolbar */
+  --toolbar-hover-colour: #dddddd;
+  /* dialog / popover */
+  --dialog-header-colour: #38B44A;
+  --dialog-bg-colour: #fefefe;
+  --dialog-hover-colour: #f7f7f7;
+  /* List  */
+  --list-bg-colour:#B3B3B3;
+  /* Text */
+  --titletext-colour: #ffffff;
+  --text-colour: #000000;
+--text-contrast-color: #ffffff;
+  /* Text Size */
+  --xs-text: 10px;
+  --small-text: 12px;
+  --medium-text: 16px;
+  --large-text: 22px;
+  --xl-text: 30px;
+  /* Layout */
+  --margin-size: 5px;
+  --padding: 10px;
+  --border-radius: 5px;
+}
+
+.DesignApp {
+  height: 100%;
+  width: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+

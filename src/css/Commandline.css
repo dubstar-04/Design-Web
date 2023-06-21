@@ -1,0 +1,12 @@
+.commandline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background: #29415e
+}
