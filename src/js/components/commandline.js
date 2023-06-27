@@ -111,6 +111,7 @@ export default class Commandline extends Component{
         className="cmdLine" onMouseDown={(e) => {e.preventDefault()}} ref={this.commandLineRef}
         tabIndex='-1'
       />
+      <label className="coordLabel">{this.props.mousePos}</label>
     </div>;
   };
   
