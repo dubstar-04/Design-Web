@@ -43,5 +43,6 @@ variables can be recalled using var(--var-name);
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
