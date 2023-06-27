@@ -1,7 +1,6 @@
   .toolbar {
     /*padding: 2px 16px;*/
-	background-color: #38B44A;
-    background-color: var(--dialog-header-colour);
+	background-color: var(--header-colour);
     color: white;
     display: flex;
     justify-content: space-around;
