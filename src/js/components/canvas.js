@@ -7,6 +7,7 @@ export default class Canvas extends Component{
 
     this.canvasRef = React.createRef();
     this.core = props.core
+    this.keydownEventAttached = false
   }
 
   componentDidMount() {
@@ -16,6 +17,19 @@ export default class Canvas extends Component{
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
     this.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
+
+    // add keydown eventlistener
+    if(!this.keydownEventAttached){
+      document.addEventListener("keydown", this.handleKeyPress.bind(this))
+      this.keydownEventAttached = true
+    }
+
+    // perform initial paint of the canvas
+    this.paint()
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress.bind(this))
   }
 
   paint() {
@@ -63,8 +77,93 @@ export default class Canvas extends Component{
   handleMouseMove(e){
     const canvas = this.canvasRef.current
     const rect = canvas.getBoundingClientRect();
-    this.core.mouse.mouseMoved(e.clientX - rect.left, e.clientY-rect.top);
+    const x = e.clientX - rect.left;
+    const y = e.clientY-rect.top;
+    this.core.mouse.mouseMoved(x, y);
+    this.props.mousePosCallback(this.core.mouse.positionString());
   }
+
+  handleKeyPress(event) {
+    //if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
+
+        event.preventDefault()
+
+        var charCode = (event.charCode) ? event.charCode : event.keyCode;
+        console.log("char code", event.keyVal, event.keyCode)
+
+        var key;
+
+        switch (charCode) {
+            case 8: //Backspace
+                key = "Backspace";
+                break;
+            case 9: //Tab
+                break;
+            case 13: //Enter
+                key = "Enter";
+                break;
+            case 16: // Shift
+                break;
+            case 17: // Ctrl
+                break;
+            case 27: // Escape
+                key = "Escape";
+                break;
+            case 32: // space
+                key = "Space";
+                break;
+            case 37: // Left-Arrow
+                break;
+            case 38: // Up-Arrow
+                key = "Up-Arrow";
+                break;
+            case 39: // Right-Arrow
+                break;
+            case 40: // Down-Arrow
+                key = "Down-Arrow";
+                break;
+            case 46: // Delete
+                key = "Delete";
+                break;
+            case 112: // F1
+                showSettings()
+                changeTab(event, 'Help')
+                break;
+            case 113: // F2
+                break;
+            case 114: // F3
+                //this.disableSnaps(e);
+                break;
+            case 115: // F4
+                break;
+            case 116: // F5
+                break;
+            case 117: // F6
+                break;
+            case 118: // F7
+                toggleSnap('drawGrid')
+                break;
+            case 119: // F8
+                toggleSnap('ortho')
+                break;
+            case 120: // F9
+                break;
+            case 121: // F10
+                toggleSnap('polar');
+                break;
+            case 122: // F11
+                break;
+            case 123: // F12
+                break;
+
+            default:
+                key = event.key
+        }
+        
+        console.log('key', key)
+        this.core.commandLine.handleKeys(key);
+    //}
+}
 
 
     render (){
@@ -73,7 +172,7 @@ export default class Canvas extends Component{
           className="canvas" 
           onContextMenu={this.handleContextMenu}
           onMouseDown={this.handleMouseDown.bind(this)} 
-          onMouseMove={this.handleMouseMove.bind(this)} 
+          onMouseMove={this.handleMouseMove.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)}
           onWheel={this.handleMouseWheel.bind(this)}
           ref={this.canvasRef}
