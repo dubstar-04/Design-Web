@@ -11,7 +11,7 @@ export default class Commandline extends Component{
     }
 
     componentDidMount() {
-        this.core.commandLine.setUpdateFunction(this.commandLineUpdateCallback);
+        this.core.commandLine.setUpdateFunction(this.commandLineUpdateCallback.bind(this));
     }
 
     // callback passed to the core.commandline class to update this cmd_line value
