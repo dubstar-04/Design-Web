@@ -107,6 +107,10 @@ export default class Commandline extends Component{
         
       <input className="cmdLine" ref={this.commandLineRef} />
       <label className="coordLabel">coordLabel</label>
+      <input
+        className="cmdLine" onMouseDown={(e) => {e.preventDefault()}} ref={this.commandLineRef}
+        tabIndex='-1'
+      />
     </div>;
   };
   
