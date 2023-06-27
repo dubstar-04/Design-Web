@@ -11,6 +11,8 @@ variables can be recalled using var(--var-name);
   --alert-colour: #f44336;
   --passive-colour: #008CBA;
   --inactive-colour: #8a8a8a;
+  --header-colour:#29415e;
+  --footer-colour:#29415e;
   /* toolbar */
   --toolbar-hover-colour: #dddddd;
   /* dialog / popover */
@@ -22,7 +24,7 @@ variables can be recalled using var(--var-name);
   /* Text */
   --titletext-colour: #ffffff;
   --text-colour: #000000;
---text-contrast-color: #ffffff;
+  --text-contrast-color: #ffffff;
   /* Text Size */
   --xs-text: 10px;
   --small-text: 12px;
