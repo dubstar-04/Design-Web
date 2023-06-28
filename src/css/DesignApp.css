@@ -14,7 +14,7 @@ variables can be recalled using var(--var-name);
   --header-colour:#29415e;
   --footer-colour:#29415e;
   /* toolbar */
-  --toolbar-hover-colour: #dddddd;
+  --toolbar-hover-colour: rgba(255, 255, 255, 0.15);
   /* dialog / popover */
   --dialog-header-colour: #38B44A;
   --dialog-bg-colour: #fefefe;
@@ -47,4 +47,3 @@ body {
   height: 100%;
   overflow: hidden;
 }
-

@@ -1,41 +1,18 @@
-  .toolbar {
-    /*padding: 2px 16px;*/
-	background-color: var(--header-colour);
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    height: 40px;
+.toolbar {
+  position: absolute;
+  width: 50px;
+  height: 300px;
+  top: calc(50% - 150px);
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
 }
 
-.toolbar-title {
-    flex: 1;
-    /*margin-left: 10px;*/
-    margin-right: 20px;
-    min-width: 10px;
+.left {
+  left: 10px
 }
 
-.toolbar-title h3 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: fade;
-	margin-left: 10px;
+.right{
+  right: 10px
 }
 
-.toolbar-icon {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.toolbar-icon img {
-    max-height: 15px;
-	max-width: 15px;
-
-}
-
-.toolbar-icon:hover {
-    /*background-color: var(--hover-colour);*/
-    opacity: 0.5;
-}
