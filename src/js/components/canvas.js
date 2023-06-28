@@ -11,11 +11,8 @@ export default class Canvas extends Component{
   }
 
   componentDidMount() {
-    const canvas = this.canvasRef.current
-    const ctx = canvas.getContext("2d")
-    ctx.fillStyle = '#000000'
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
+    // set the paint callback
     this.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
 
     // add keydown eventlistener
