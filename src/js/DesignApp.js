@@ -12,9 +12,17 @@ export default class DesignApp extends Component{
   constructor(){
     super()
     this.core = new Core()
-  }
+    this.state = {mousePos: ''}
 
-  
+  } 
+
+  /**
+   * Set the mouse position 
+   * @param {string} mousePos 
+   */
+  updateMousePos(mousePos){
+    this.setState({ mousePos: mousePos });
+  }
 
   render () {
     return <div className="DesignApp">
