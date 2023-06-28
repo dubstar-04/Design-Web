@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16px"
+   viewBox="0 0 16 16"
+   width="16px"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="menu-symbolic.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14">
+    <inkscape:path-effect
+       effect="join_type"
+       id="path-effect1212"
+       is_visible="true"
+       lpeversion="1"
+       linecap_type="butt"
+       line_width="2"
+       linejoin_type="extrp_arc"
+       miter_limit="100"
+       attempt_force_join="true" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="32"
+     inkscape:cx="13.53125"
+     inkscape:cy="6.875"
+     inkscape:window-width="1499"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg10">
+    <sodipodi:guide
+       position="0,16"
+       orientation="0,16"
+       id="guide1632"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="16,16"
+       orientation="16,0"
+       id="guide1634"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="16,0"
+       orientation="0,-16"
+       id="guide1636"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,0"
+       orientation="-16,0"
+       id="guide1638"
+       inkscape:locked="false" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid1640"
+       empspacing="2"
+       empcolor="#0099e5"
+       empopacity="0.50196078"
+       spacingx="0.5"
+       spacingy="0.5"
+       dotted="false" />
+  </sodipodi:namedview>
+  <g
+     inkscape:label="open menu primary three lines"
+     id="g130640"
+     transform="rotate(90,187.06949,23.933685)">
+    <title
+       id="title130626">open-menu</title>
+    <rect
+       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
+       id="rect130630"
+       width="14.000002"
+       height="2"
+       x="-210.00314"
+       y="165.13576"
+       transform="rotate(-90)" />
+    <rect
+       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
+       id="rect130632"
+       width="14"
+       height="2"
+       x="-210.00314"
+       y="170.13576"
+       transform="rotate(-90)" />
+    <rect
+       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
+       id="rect130634"
+       width="14.000002"
+       height="2"
+       x="-210.00314"
+       y="175.13576"
+       transform="rotate(-90)" />
+    <rect
+       y="195.00317"
+       x="163.1358"
+       height="16"
+       width="16"
+       id="rect130638"
+       style="fill:none;fill-opacity:1" />
+  </g>
+</svg>
