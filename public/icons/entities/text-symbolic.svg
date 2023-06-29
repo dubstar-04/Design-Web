@@ -20,11 +20,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="32"
-     inkscape:cx="10.671875"
+     inkscape:cx="10.734375"
      inkscape:cy="6.84375"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -64,7 +64,7 @@
   </sodipodi:namedview>
   <text
      xml:space="preserve"
-     style="font-size:19.3881px;fill:none;stroke:#222222;stroke-width:1.00021;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+     style="font-size:19.3881px;fill:none;stroke:#ffffff;stroke-width:1.00021;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
      x="1.4365299"
      y="15.764984"
      id="text2380"
@@ -73,5 +73,5 @@
        id="tspan2378"
        x="1.4365299"
        y="15.764984"
-       style="stroke:#222222;stroke-width:1.00021;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke">T</tspan></text>
+       style="stroke:#ffffff;stroke-width:1.00021;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke">T</tspan></text>
 </svg>

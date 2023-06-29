@@ -18,11 +18,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="45.254834"
-     inkscape:cx="5.6347572"
+     inkscape:cx="5.6899999"
      inkscape:cy="7.8665629"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -63,12 +63,12 @@
        attempt_force_join="true" />
   </defs>
   <path
-     style="color:#000000;fill:#222222;stroke-width:2.49999;-inkscape-stroke:none;paint-order:markers fill stroke"
+     style="color:#000000;fill:#ffffff;stroke-width:2.49999;-inkscape-stroke:none;paint-order:markers fill stroke;fill-opacity:1"
      d="m 6,1.5 c -1.6666666,1e-7 -3.3333331,4e-7 -5,4e-7 L 5.9999994,6.5 Z"
      id="rect398-7"
      sodipodi:nodetypes="cccc" />
   <path
-     style="fill:#222222;stroke:none;stroke-width:2.05807;stroke-dasharray:none;paint-order:markers fill stroke;fill-rule:nonzero"
+     style="fill:#ffffff;stroke:none;stroke-width:2.05807;stroke-dasharray:none;paint-order:markers fill stroke;fill-rule:nonzero;fill-opacity:1"
      id="path292"
      sodipodi:type="arc"
      sodipodi:cx="8.0010748"

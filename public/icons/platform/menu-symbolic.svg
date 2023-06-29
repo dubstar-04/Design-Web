@@ -31,11 +31,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="32"
-     inkscape:cx="13.53125"
+     inkscape:cx="6.125"
      inkscape:cy="6.875"
      inkscape:window-width="1499"
      inkscape:window-height="991"
@@ -73,42 +73,33 @@
        spacingy="0.5"
        dotted="false" />
   </sodipodi:namedview>
-  <g
-     inkscape:label="open menu primary three lines"
-     id="g130640"
-     transform="rotate(90,187.06949,23.933685)">
-    <title
-       id="title130626">open-menu</title>
-    <rect
-       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
-       id="rect130630"
-       width="14.000002"
-       height="2"
-       x="-210.00314"
-       y="165.13576"
-       transform="rotate(-90)" />
-    <rect
-       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
-       id="rect130632"
-       width="14"
-       height="2"
-       x="-210.00314"
-       y="170.13576"
-       transform="rotate(-90)" />
-    <rect
-       style="fill:#2e3436;fill-opacity:1;stroke-dasharray:8, 8"
-       id="rect130634"
-       width="14.000002"
-       height="2"
-       x="-210.00314"
-       y="175.13576"
-       transform="rotate(-90)" />
-    <rect
-       y="195.00317"
-       x="163.1358"
-       height="16"
-       width="16"
-       id="rect130638"
-       style="fill:none;fill-opacity:1" />
-  </g>
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke-dasharray:8, 8"
+     id="rect130630"
+     width="14.000002"
+     height="2"
+     x="0.99999905"
+     y="2" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke-dasharray:8, 8"
+     id="rect130632"
+     width="14"
+     height="2"
+     x="0.99999905"
+     y="7" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke-dasharray:8, 8"
+     id="rect130634"
+     width="14.000002"
+     height="2"
+     x="0.99999905"
+     y="12" />
+  <rect
+     y="-16.000002"
+     x="-1.7773438e-06"
+     height="16"
+     width="16"
+     id="rect130638"
+     style="fill:none;fill-opacity:1"
+     transform="rotate(90)" />
 </svg>

@@ -5,48 +5,71 @@
    width="16px"
    version="1.1"
    id="svg10"
+   sodipodi:docname="rectangle-symbolic.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="48.875"
+     inkscape:cx="8.0306905"
+     inkscape:cy="8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
   <defs
      id="defs14" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
+     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
      id="path3464-3-3"
      cx="13.5"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3"
      cx="2.5"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3-6"
      cx="2.5"
      cy="2.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3-6-3"
      cx="13.5"
      cy="2.5"
      r="1.0001574" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2"
+     style="fill:#ff0000;stroke:#ffffff;stroke-width:2;stroke-opacity:1"
      d="m 3.5,13.5 h 9"
      id="path1325" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2"
+     style="fill:#ff0000;stroke:#ffffff;stroke-width:2;stroke-opacity:1"
      d="m 3.5,2.5 h 9"
      id="path1325-6" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2"
+     style="fill:#ff0000;stroke:#ffffff;stroke-width:2;stroke-opacity:1"
      d="m 2.5,3.5 v 9"
      id="path1325-7" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2"
+     style="fill:#ff0000;stroke:#ffffff;stroke-width:2;stroke-opacity:1"
      d="m 13.5,3.5 v 9"
      id="path1325-7-5" />
 </svg>

@@ -35,7 +35,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="32"
-     inkscape:cx="13.484375"
+     inkscape:cx="13.515625"
      inkscape:cy="6.875"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -74,25 +74,25 @@
        dotted="false" />
   </sodipodi:namedview>
   <circle
-     style="fill:none;stroke:#222222;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
+     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
      id="path3464-3-3"
      cx="13.5"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3"
      cx="2.5"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3-6"
      cx="13.5"
      cy="2.5"
      r="1.0001574" />
   <path
-     style="fill:#222222;stroke:none;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;fill-rule:nonzero"
+     style="fill:#ffffff;stroke:none;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;fill-rule:nonzero;fill-opacity:1"
      d="m 3.5,12.5 c 0,-4.9460227 4.0539773,-9 9,-9 v -2 c -6.0539773,0 -11,4.9460227 -11,11 z"
      id="path5912"
      sodipodi:nodetypes="cc"

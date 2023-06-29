@@ -31,11 +31,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="32"
-     inkscape:cx="13.265625"
+     inkscape:cx="13.328125"
      inkscape:cy="6.875"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -74,30 +74,30 @@
        dotted="false" />
   </sodipodi:namedview>
   <circle
-     style="fill:none;stroke:#222222;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
+     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke;stroke-linecap:butt;stroke-linejoin:bevel"
      id="path3464-3-3"
      cx="13.5"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3"
      cx="8"
      cy="13.5"
      r="1.0001574" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3-6"
      cx="8"
      cy="2.5"
      r="1.0001574" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2"
+     style="fill:#ff0000;stroke:#ffffff;stroke-width:2;stroke-opacity:1"
      d="m 9,13.5 h 3.5"
      id="path1325"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:#222222;stroke:none;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;fill-rule:nonzero"
+     style="fill:#ffffff;stroke:none;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;fill-rule:nonzero;fill-opacity:1"
      d="m 7,12.5 c -5.1778846,0 -5.1778846,-9 0,-9 v -2 c -7.82211538,0 -7.82211538,13 0,13 z"
      id="path5912"
      sodipodi:nodetypes="cc"

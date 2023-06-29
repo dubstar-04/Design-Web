@@ -18,11 +18,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="48.875"
-     inkscape:cx="7.9795396"
+     inkscape:cx="8.0102302"
      inkscape:cy="8"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -62,23 +62,23 @@
   <defs
      id="defs14" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
      d="M 1.5,14.5 8,8"
      id="path3763"
      sodipodi:nodetypes="cc" />
   <circle
-     style="fill:none;stroke:#222222;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:none;stroke:#ffffff;stroke-width:0.999685;stroke-dasharray:none;stroke-opacity:1"
      id="path3464-3-3-3-6"
      cx="8"
      cy="8"
      r="1.0001574" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:1.5;stroke-dasharray:0.75,0.75;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:0.75, 0.75;stroke-dashoffset:0;stroke-opacity:1;fill-opacity:1"
      d="M 8,8 15,1"
      id="path3763-3"
      sodipodi:nodetypes="cc" />
   <path
-     style="fill:#ff0000;stroke:#222222;stroke-width:1;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;fill-opacity:1"
      d="m 6,6 4,4"
      id="path3763-3-6"
      sodipodi:nodetypes="cc" />

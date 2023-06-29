@@ -18,11 +18,11 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      showgrid="true"
      inkscape:zoom="45.254834"
-     inkscape:cx="6.3860581"
+     inkscape:cx="6.4192037"
      inkscape:cy="7.8665629"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -53,32 +53,32 @@
        attempt_force_join="true" />
   </defs>
   <path
-     style="fill:none;stroke:#222222;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers fill stroke"
+     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers fill stroke;stroke-opacity:1"
      d="M 8,3 V 13"
      id="path344"
      sodipodi:nodetypes="cc" />
   <path
-     style="color:#000000;fill:#222222;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke"
+     style="color:#000000;fill:#ffffff;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke;fill-opacity:1"
      d="m 8.0000001,1 c -0.8333333,0.8333333 -1.6666666,1.6666668 -2.5,2.5000004 H 10.5 Z"
      id="rect398"
      sodipodi:nodetypes="cccc" />
   <path
-     style="color:#000000;fill:#222222;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke"
+     style="color:#000000;fill:#ffffff;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke;fill-opacity:1"
      d="M 7.9999997,15 C 8.833332,14.166667 9.666666,13.333333 10.5,12.5 h -5 z"
      id="rect398-3"
      sodipodi:nodetypes="cccc" />
   <path
-     style="fill:none;stroke:#222222;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers fill stroke"
+     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers fill stroke;stroke-opacity:1"
      d="M 13,7.5 H 3"
      id="path344-6"
      sodipodi:nodetypes="cc" />
   <path
-     style="color:#000000;fill:#222222;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke"
+     style="color:#000000;fill:#ffffff;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke;fill-opacity:1"
      d="M 15,7.5 C 14.166667,6.6666667 13.333333,5.8333334 12.5,5 v 5 z"
      id="rect398-7"
      sodipodi:nodetypes="cccc" />
   <path
-     style="color:#000000;fill:#222222;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke"
+     style="color:#000000;fill:#ffffff;stroke-width:1.76777;-inkscape-stroke:none;paint-order:markers fill stroke;fill-opacity:1"
      d="M 1,7.4999997 C 1.8333333,8.333332 2.6666667,9.166666 3.5,10 V 5 Z"
      id="rect398-3-5"
      sodipodi:nodetypes="cccc" />
