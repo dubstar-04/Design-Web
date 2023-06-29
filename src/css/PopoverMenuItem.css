@@ -1,0 +1,17 @@
+.popovermenuitem {
+
+  margin: var(--margin-size);
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  border-radius: var(--border-radius);
+  color: var(--text-colour);
+  user-select: none;
+  padding-left: 10px;   
+
+}
+
+.popovermenuitem:hover {
+  background-color: #4c4c4c;
+
+}
