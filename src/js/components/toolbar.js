@@ -37,12 +37,14 @@ export default class Toolbar extends Component {
 
   render() {
     return (
-      <div className={this.props.style}>
+      <div className={`toolbar ${this.props.style}`}>
         {this.getCommands().map((element, index) =>
               ( <ToolbarButton
-                command={element.command} 
-                icon={this.getIcon(element)} key={index}
-                onClick={this.handleOnClick.bind(this)}
+                command={element.command}
+                icon={this.getIcon(element)} 
+                key={index} onClick={this.handleOnClick.bind(this)}
+                shortcut={element.shortcut}
+                style={this.props.style}
                 />
               )
           )}

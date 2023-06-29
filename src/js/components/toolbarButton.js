@@ -14,9 +14,12 @@ handleOnClick(){
 render(){
     return <button className="toolbarbutton" onClick={this.handleOnClick.bind(this)}>
       <img src={this.props.icon} />
-      <div className="tooltip">
-        <p>{this.props.command}</p>
-      </div>
+      { this.props.command ? 
+        <div className={`tooltip tooltip${this.props.style}`}>
+          <p>{`${this.props.command} (${this.props.shortcut})`}</p>
+        </div>
+      : <></>
+      }
     </button>;
   };
 
