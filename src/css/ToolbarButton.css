@@ -1,14 +1,9 @@
 .toolbarbutton {
     height: 50px;
     width: 50px;
-    vertical-align: middle;
     border: none;
     background-color: Transparent;
-    outline: none;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    margin: 0px;
-    float: left;
+    border-radius: 15px;
 }
 
 .toolbarbutton img {
@@ -22,6 +17,7 @@
 
 .toolbarbutton:hover .tooltip{
     visibility: visible;
+    transition-delay: 1s;
 }
 
 .toolbarbutton .tooltip {
@@ -29,23 +25,19 @@
     background-color: black;
     color: #fff;
     text-align: center;
-    /*padding: 5px 0;*/
+
     border-radius: var(--border-radius);
 
     position: absolute; 
-    /*
-    position: relative;
-    display: inline-block;
-    */
     z-index: 1;
 
-    width: 100px;
-    /*top: 100%;
-    left: 50%;
-    
-    margin-left: -60px;
-    
-    top: 40px;
-    left: 0px;
-    */
+    width: 120px;
+}
+
+.tooltipleft {
+    left: 20px;
+}
+
+.tooltipright {
+    right: 20px;
 }
