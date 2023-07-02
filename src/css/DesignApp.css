@@ -16,14 +16,14 @@ variables can be recalled using var(--var-name);
   /* toolbar */
   --toolbar-hover-colour: rgba(255, 255, 255, 0.15);
   /* dialog / popover */
-  --dialog-header-colour: #38B44A;
-  --dialog-bg-colour: #fefefe;
+  --dialog-header-colour: #29415e;
+  --dialog-bg-colour: #383838;
   --dialog-hover-colour: #f7f7f7;
   /* List  */
   --list-bg-colour:#B3B3B3;
   /* Text */
   --titletext-colour: #ffffff;
-  --text-colour: #000000;
+  --text-colour: #ffffff;
   --text-contrast-color: #ffffff;
   /* Text Size */
   --xs-text: 10px;

@@ -9,6 +9,13 @@ export default class Headerbar extends Component {
     this.state = {};
   }
 
+  /**
+   * onClick handler for menu button
+   */
+  handleOnClick(){
+    this.props.popover.current.toggleVisibility()
+  }
+
   render() {
     return (
       <div className="headerbar">
@@ -16,7 +23,7 @@ export default class Headerbar extends Component {
           <h3>Design</h3>
         </div>
         <div className="headerbar-menu">
-          <ToolbarButton icon="/icons/platform/menu-symbolic.svg" />
+          <ToolbarButton icon="/icons/platform/menu-symbolic.svg" onClick={this.handleOnClick.bind(this)} />
         </div>
       </div> 
     );

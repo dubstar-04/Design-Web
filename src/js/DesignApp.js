@@ -88,7 +88,7 @@ export default class DesignApp extends Component{
   render () {
     return <div className="DesignApp">
 
-      <LayersWindow ref={this.layersWindowRef} />
+      <LayersWindow core={this.core} ref={this.layersWindowRef} />
       <Popover ref={this.popoverRef} >
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />

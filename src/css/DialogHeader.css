@@ -1,0 +1,33 @@
+.dialogheader {
+  width: 100%;
+  height: 40px;
+  background-color: var(--dialog-header-colour);
+  user-select: none;
+  
+}
+
+.dialogtitle{
+  color: var(--text-colour);
+  font-size: var(--medium-text);
+  vertical-align: middle;
+  line-height: 40px;
+  text-align:center; 
+}
+
+.dialogclosebutton {
+  background-color: transparent;
+  border: none;
+  height: 40px;
+  width: 40px;
+  font-size: var(--large-text);
+  color: var(--text-colour);
+  position:absolute;
+  top:0;
+  right:0;
+  
+}
+
+.dialogclosebutton:hover {
+  background-color: var(--toolbar-hover-colour);
+}
+

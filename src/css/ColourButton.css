@@ -1,0 +1,13 @@
+.colourbutton{
+  width: 40px;
+  height: 40px;
+  /*background-color: red;*/
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.colourbutton:hover {
+  background-color: #4c4c4c;;
+}
+
+
