@@ -1,6 +1,7 @@
 
 *.db
 /node_modules
-*.json
 js/Design-Core/
 build/*
+.vscode/launch.json
+package-lock.json
