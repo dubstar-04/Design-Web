@@ -23,7 +23,7 @@ export default class Headerbar extends Component {
           <h3>Design</h3>
         </div>
         <div className="headerbar-menu">
-          <ToolbarButton icon="/icons/platform/menu-symbolic.svg" onClick={this.handleOnClick.bind(this)} />
+          <ToolbarButton icon={`${process.env.PUBLIC_URL}/icons/platform/menu-symbolic.svg`} onClick={this.handleOnClick.bind(this)} />
         </div>
       </div> 
     );
