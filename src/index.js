@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/Index.css';
-import DesignApp from './js/DesignApp';
+import DesignWeb from './js/DesignWeb';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DesignApp />
+    <DesignWeb />
   </React.StrictMode>
 );
 

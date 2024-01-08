@@ -1,22 +1,22 @@
-import '../css/DesignApp.css';
+import '../css/DesignWeb.css';
 import React, { Component } from 'react';
 
 // use local core build for development
-import {Core} from './Design-Core/core/core/core.js'
-//TODO: Move Design-Core to NODE
-//import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
+//import {Core} from './Design-Core/core/core/core.js'
+// Use CDN for production - Consider a npm package?
+import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
-import Headerbar from './components/headerbar';
-import Canvas from './components/canvas';
-import Commandline from './components/commandline';
-import Toolbar from './components/toolbar';
-import Popover from './components/popover';
-import PopoverMenuItem from './components/popoverMenuItem';
+import Headerbar from './components/headerbar.js';
+import Canvas from './components/canvas.js';
+import Commandline from './components/commandline.js';
+import Toolbar from './components/toolbar.js';
+import Popover from './components/popover.js';
+import PopoverMenuItem from './components/popoverMenuItem.js';
 
 import {saveAs} from './FileSaver.min.js'
-import LayersWindow from './components/layersWindow';
+import LayersWindow from './components/layersWindow.js';
 
-export default class DesignApp extends Component{
+export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = new Core()
@@ -88,7 +88,7 @@ export default class DesignApp extends Component{
   }
 
   render () {
-    return <div className="DesignApp">
+    return <div className="DesignWeb">
 
       <LayersWindow core={this.core} ref={this.layersWindowRef} />
       <Popover ref={this.popoverRef} >
