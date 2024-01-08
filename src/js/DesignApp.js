@@ -1,8 +1,10 @@
 import '../css/DesignApp.css';
 import React, { Component } from 'react';
 
+// use local core build for development
 import {Core} from './Design-Core/core/core/core.js'
-//import { Core } from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core.js"
+//TODO: Move Design-Core to NODE
+//import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
 import Headerbar from './components/headerbar';
 import Canvas from './components/canvas';
