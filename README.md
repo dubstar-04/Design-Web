@@ -1,8 +1,8 @@
+<img style="vertical-align: middle;" src="public/icons/design.svg" width="120" height="120" align="left">
 
-<img src="https://github.com/dubstar-04/Design/blob/master/icons/design.png?raw=true" width="64">
+# Design 
 
-# Design
-Design is a 2D CAD application for the web.
+2D CAD for the web 
 
 Design is a 2D computer aided design application (CAD), 
 created to meet the needs of makers and designers, 
