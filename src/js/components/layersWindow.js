@@ -18,14 +18,14 @@ export default class LayersWindow extends Component {
     this.baseWindowRef.current.close()
   }
 
-  getLayers(){
-    return this.props.core.layerManager.getLayers()
+  getStyles(){
+    return this.props.core.layerManager.getStyles()
   }
 
   render() {
     return (<DialogWindow ref={this.baseWindowRef} title="Layers">
       <div className="dialoglist"> 
-        {this.getLayers().map((layer, index) =>
+        {this.getStyles().map((layer, index) =>
               ( <DialogRow
                 active={layer.on} colour={layer.colour} key={index}
                 title={layer.name}
