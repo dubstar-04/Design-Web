@@ -1,0 +1,17 @@
+.toolbar {
+  position: absolute;
+  width: 50px;
+  height: 300px;
+  top: calc(50% - 150px);
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.left {
+  left: 10px
+}
+
+.right{
+  right: 10px
+}
+

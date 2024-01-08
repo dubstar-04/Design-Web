@@ -1,0 +1,21 @@
+.popover {
+  position: fixed;
+  width: 200px;
+  height: 300px;
+  right: 5px;
+  top: 50px;
+  background-color:var(--dialog-bg-colour);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.popover-arrow {
+	position: absolute;
+	top: -8px;
+	right: 10px;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid var(--dialog-bg-colour);
+  width: 0;
+  height: 0;
+}

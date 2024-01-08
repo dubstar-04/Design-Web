@@ -1,0 +1,43 @@
+.toolbarbutton {
+    height: 50px;
+    width: 50px;
+    border: none;
+    background-color: Transparent;
+    border-radius: 15px;
+}
+
+.toolbarbutton img {
+    height: 20px;
+	width: 20px;
+}
+
+.toolbarbutton:hover {
+    background-color: var(--toolbar-hover-colour);
+}
+
+.toolbarbutton:hover .tooltip{
+    visibility: visible;
+    transition-delay: 1s;
+}
+
+.toolbarbutton .tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+
+    border-radius: var(--border-radius);
+
+    position: absolute; 
+    z-index: 1;
+
+    width: 120px;
+}
+
+.tooltipleft {
+    left: 20px;
+}
+
+.tooltipright {
+    right: 20px;
+}

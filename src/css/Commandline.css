@@ -1,0 +1,34 @@
+.commandline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background: var(--footer-colour)
+}
+
+.cmdLine {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: var(--text-contrast-color);
+    border-radius: 5px;
+}
+
+.coordLabel {
+    display:block;
+    color: #ffffff;
+    text-align:right;
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 300px;
+}

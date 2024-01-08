@@ -1,0 +1,26 @@
+.layersbackground{
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+} 
+
+.layerswindow {
+  width: 500px;
+  height: 400px;
+
+  position: fixed;
+  top: 20%;
+  left: 50%;
+
+  margin-left: -250px;
+
+  background-color:var(--dialog-bg-colour);
+  z-index: 1;
+  border-radius: 10px;
+}

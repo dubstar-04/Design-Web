@@ -11,7 +11,7 @@ CAD application.
 _________________________________________________________________________________________________________________
 
 Design can be accessed at:
-https://www.design-app.co.uk
+https://www.design-web.uk
 
 Documention is available at:
 https://design-app.readthedocs.io/en/latest/index.html
@@ -24,12 +24,4 @@ ________________________________________________________________________________
 
 Screenshots: 
 
-<img src="/screenshots/Screenshot3.PNG?raw=true" width="1024">
-
-<img src="/screenshots/Screenshot.PNG?raw=true" width="1024">
-
-<img src="/screenshots/Screenshot2.PNG?raw=true" width="1024">
-
-<img src="/screenshots/Screenshot4.PNG?raw=true" width="1024">
-
-
+<img src="/screenshots/Screenshot.png?raw=true" width="1024">
