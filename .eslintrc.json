@@ -1,0 +1,65 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        // React
+        "react/forbid-prop-types": "error",
+        "react/no-multi-comp": [
+            "error",
+            {
+                "ignoreStateless": true
+            }
+        ],
+        "react/no-set-state": "off",
+        "react/no-string-refs": "error",
+        "react/prefer-es6-class": "error",
+        "react/prefer-stateless-function": "off",
+        "react/require-render-return": "error",
+        "react/self-closing-comp": "error",
+        "react/sort-comp": "error",
+        "react/sort-prop-types": "error",
+        "react/prop-types": "off",
+        // JSX
+        "react/jsx-boolean-value": "error",
+        "react/jsx-closing-bracket-location": "error",
+        "react/jsx-equals-spacing": "error",
+        "react/jsx-first-prop-new-line": "error",
+        "react/jsx-handler-names": "error",
+        "react/jsx-indent-props": [
+            "error",
+            2
+        ],
+        "react/jsx-indent": [
+            "error",
+            2
+        ],
+        "react/jsx-key": "error",
+        "react/jsx-max-props-per-line": [
+            "error",
+            {
+                "maximum": 3
+            }
+        ],
+        "react/jsx-no-literals": "off",
+        "react/jsx-no-target-blank": "error",
+        "react/jsx-pascal-case": "error",
+        "react/jsx-sort-props": "error",
+        //"react/jsx-space-before-closing": "error"
+        "react/jsx-space-before-closing" : "error"
+    }
+}
