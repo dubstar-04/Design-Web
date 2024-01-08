@@ -15,11 +15,11 @@ export default class Toolbar extends Component {
     let imagePath = ''
     
     if (element.type === "Entity") {
-      imagePath = `/icons/entities/${imageName}`;
+      imagePath = `${process.env.PUBLIC_URL}/icons/entities/${imageName}`;
     }
 
     if (element.type === "Tool") {
-      imagePath = `/icons/tools/${imageName}`;
+      imagePath = `${process.env.PUBLIC_URL}/icons/tools/${imageName}`;
     }
 
     return imagePath
