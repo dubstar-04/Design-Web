@@ -13,7 +13,7 @@ ________________________________________________________________________________
 Design can be accessed at:
 https://www.design-web.uk
 
-Documention is available at:
+Documentation is available at:
 https://design-app.readthedocs.io/en/latest/index.html
 _________________________________________________________________________________________________________________
 
@@ -29,5 +29,6 @@ Screenshots:
 _________________________________________________________________________________________________________________
 
 Testing: npm start
-Publishing: npm run deploy (updates publish branch)
+
+Publishing: npm run deploy (updates publish branch on github)
 _________________________________________________________________________________________________________________
