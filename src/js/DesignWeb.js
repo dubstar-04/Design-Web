@@ -1,8 +1,13 @@
 import '../css/DesignWeb.css';
 import React, { Component } from 'react';
 
-// use local core build for development
-//import {Core} from './Design-Core/core/core/core.js'
+// use local core npm for development
+// 1. clone design-core into js
+// 2. cd src/js 
+// 3. npm link ./Design-core
+// 4. npm unlink ./Design-core
+//import {Core} from '@design-core/core';
+
 // Use CDN for production - Consider a npm package?
 import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
@@ -13,7 +18,7 @@ import Toolbar from './components/toolbar.js';
 import Popover from './components/popover.js';
 import PopoverMenuItem from './components/popoverMenuItem.js';
 
-import {saveAs} from './FileSaver.min.js'
+import {saveAs} from 'file-saver'
 import LayersWindow from './components/layersWindow.js';
 
 export default class DesignWeb extends Component{
