@@ -19,7 +19,7 @@ export default class LayersWindow extends Component {
   }
 
   getStyles(){
-    return this.props.core.layerManager.getStyles()
+    return this.props.core.layerManager.getItems()
   }
 
   render() {
