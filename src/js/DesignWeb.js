@@ -6,10 +6,10 @@ import React, { Component } from 'react';
 // 2. cd src/js 
 // 3. npm link ./Design-core
 // 4. npm unlink ./Design-core
-import {Core} from '@design-core/core';
+//import {Core} from '@design-core/core';
 
 // Use CDN for production - Consider a npm package?
-//import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
+import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
 import Headerbar from './components/headerbar.js';
 import Canvas from './components/canvas.js';
