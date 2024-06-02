@@ -5,3 +5,4 @@ js/Design-Core/
 build/*
 .vscode/launch.json
 package-lock.json
+/src/js/Design-Core
