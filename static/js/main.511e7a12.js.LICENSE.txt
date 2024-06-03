@@ -1,5 +1,3 @@
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
 /**
  * @license React
  * react-dom.production.min.js
