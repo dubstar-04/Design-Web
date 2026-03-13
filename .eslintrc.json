@@ -17,6 +17,10 @@
         "react"
     ],
     "rules": {
+        "indent": [
+            "error",
+            2
+        ],
         // React
         "react/forbid-prop-types": "error",
         "react/no-multi-comp": [
@@ -60,6 +64,6 @@
         "react/jsx-pascal-case": "error",
         "react/jsx-sort-props": "error",
         //"react/jsx-space-before-closing": "error"
-        "react/jsx-space-before-closing" : "error"
+        "react/jsx-space-before-closing": "error"
     }
 }

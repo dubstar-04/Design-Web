@@ -44,7 +44,7 @@ export default class Canvas extends Component{
     cr.restore();
 
     this.core.canvas.paint(cr, width, height);
-}
+  }
 
   handleMouseDown(e){
     // button: 0 = left, 1 = wheel, 2 = right;
@@ -64,7 +64,7 @@ export default class Canvas extends Component{
 
   handleMouseWheel(e){
     // delta = +/- 1 for zoom in / out
-    const delta = Math.sign(e.deltaY)
+    const delta = Math.sign(e.deltaY*-1)
     this.core.mouse.wheel(delta);
   }
 
@@ -84,97 +84,134 @@ export default class Canvas extends Component{
       return;
     }
 
-        event.preventDefault()
+    event.preventDefault()
 
-        var charCode = (event.charCode) ? event.charCode : event.keyCode;
-        console.log("char code", event.keyVal, event.keyCode)
+    var charCode = (event.charCode) ? event.charCode : event.keyCode;
+    console.log("char code", event.keyVal, event.keyCode)
 
-        var key;
+    if (event.ctrlKey &&  event.key.toLowerCase() === 'z') {
+      this.core.scene.undo();
+      return;
+    }
 
-        switch (charCode) {
-            case 8: //Backspace
-                key = "Backspace";
-                break;
-            case 9: //Tab
-                break;
-            case 13: //Enter
-                key = "Enter";
-                break;
-            case 16: // Shift
-                break;
-            case 17: // Ctrl
-                break;
-            case 27: // Escape
-                key = "Escape";
-                break;
-            case 32: // space
-                key = "Space";
-                break;
-            case 37: // Left-Arrow
-                break;
-            case 38: // Up-Arrow
-                key = "Up-Arrow";
-                break;
-            case 39: // Right-Arrow
-                break;
-            case 40: // Down-Arrow
-                key = "Down-Arrow";
-                break;
-            case 46: // Delete
-                key = "Delete";
-                break;
-            case 112: // F1
-                showSettings()
-                changeTab(event, 'Help')
-                break;
-            case 113: // F2
-                break;
-            case 114: // F3
-                //this.disableSnaps(e);
-                break;
-            case 115: // F4
-                break;
-            case 116: // F5
-                break;
-            case 117: // F6
-                break;
-            case 118: // F7
-                toggleSnap('drawGrid')
-                break;
-            case 119: // F8
-                toggleSnap('ortho')
-                break;
-            case 120: // F9
-                break;
-            case 121: // F10
-                toggleSnap('polar');
-                break;
-            case 122: // F11
-                break;
-            case 123: // F12
-                break;
+    if (event.ctrlKey && event.key.toLowerCase() === 'y') {
+      this.core.scene.redo();
+      return;
+    }
 
-            default:
-                key = event.key
-        }
+    if (event.ctrlKey && event.key.toLowerCase() === 'a') {
+      this.core.scene.selectionManager.selectAll();
+      return;
+    }
 
-        console.log('key', key)
-        this.core.commandLine.handleKeys(key);
-    //}
-}
+    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copyclip`);
+      return;
+    }
+
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copybase`);
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'x') {
+      this.core.scene.inputManager.onCommand(`Cutclip`);
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'v') {
+      this.core.scene.inputManager.onCommand(`Pasteclip`);
+      return;
+    }
+
+    var key;
+
+    switch (charCode) {
+    case 8: //Backspace
+      key = "Backspace";
+      break;
+    case 9: //Tab
+      break;
+    case 13: //Enter
+      key = "Enter";
+      break;
+    case 16: // Shift
+      break;
+    case 17: // Ctrl
+      break;
+    case 20: // CapsLock
+      break;
+    case 27: // Escape
+      key = "Escape";
+      break;
+    case 32: // space
+      key = "Space";
+      break;
+    case 37: // Left-Arrow
+      break;
+    case 38: // Up-Arrow
+      key = "Up-Arrow";
+      break;
+    case 39: // Right-Arrow
+      break;
+    case 40: // Down-Arrow
+      key = "Down-Arrow";
+      break;
+    case 46: // Delete
+      key = "Delete";
+      break;
+    case 112: // F1
+      //showSettings()
+      //changeTab(event, 'Help')
+      break;
+    case 113: // F2
+      break;
+    case 114: // F3
+      //this.disableSnaps(e);
+      break;
+    case 115: // F4
+      break;
+    case 116: // F5
+      break;
+    case 117: // F6
+      break;
+    case 118: // F7
+      //toggleSnap('drawGrid')
+      break;
+    case 119: // F8
+      //toggleSnap('ortho')
+      break;
+    case 120: // F9
+      break;
+    case 121: // F10
+      //toggleSnap('polar');
+      break;
+    case 122: // F11
+      break;
+    case 123: // F12
+      break;
+
+    default:
+      key = event.key
+    }
+
+    console.log('key', key)
+    this.core.commandLine.handleKeys(key);
+
+  }
 
 
-    render (){
-      return (
-        <canvas
-          className="canvas"
-          onContextMenu={this.handleContextMenu}
-          onMouseDown={this.handleMouseDown.bind(this)}
-          onMouseMove={this.handleMouseMove.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)}
-          onWheel={this.handleMouseWheel.bind(this)}
-          ref={this.canvasRef}
-        />
-      )
+  render (){
+    return (
+      <canvas
+        className="canvas"
+        onContextMenu={this.handleContextMenu}
+        onMouseDown={this.handleMouseDown.bind(this)}
+        onMouseMove={this.handleMouseMove.bind(this)}
+        onMouseUp={this.handleMouseUp.bind(this)}
+        onWheel={this.handleMouseWheel.bind(this)}
+        ref={this.canvasRef}
+      />
+    )
   };
 }
