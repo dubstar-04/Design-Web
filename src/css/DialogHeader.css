@@ -3,31 +3,41 @@
   height: 40px;
   background-color: var(--dialog-header-colour);
   user-select: none;
-  
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dialogtitle{
+.dialogtitle {
   color: var(--text-colour);
   font-size: var(--medium-text);
   vertical-align: middle;
   line-height: 40px;
-  text-align:center; 
+  text-align: center;
 }
 
-.dialogclosebutton {
+.dialogclosebutton,
+.dialogaddbutton {
   background-color: transparent;
   border: none;
   height: 40px;
   width: 40px;
   font-size: var(--large-text);
   color: var(--text-colour);
-  position:absolute;
-  top:0;
-  right:0;
-  
+  position: absolute;
+  top: 0;
 }
 
-.dialogclosebutton:hover {
+.dialogclosebutton {
+  right: 0;
+}
+
+.dialogaddbutton {
+  left: 0;
+}
+
+.dialogclosebutton:hover,
+.dialogaddbutton:hover {
   background-color: var(--toolbar-hover-colour);
 }
-

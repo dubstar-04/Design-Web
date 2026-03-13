@@ -12,6 +12,22 @@ export default class DialogHeader extends Component {
 
   render() {
     return <div className="dialogheader">
+      {this.props.onBack && (
+        <button
+          className="dialogaddbutton"
+          onClick={this.props.onBack}
+          title="Back"
+          type="button"
+        >&#8592;</button>
+      )}
+      {!this.props.onBack && this.props.onAdd && (
+        <button
+          className="dialogaddbutton"
+          onClick={this.props.onAdd}
+          title="New"
+          type="button"
+        >+</button>
+      )}
       <div className="dialogtitle">{this.props.title}</div>
       <button
         className="dialogclosebutton"

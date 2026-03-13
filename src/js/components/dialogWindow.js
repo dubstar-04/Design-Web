@@ -8,7 +8,7 @@ export default class DialogWindow extends Component {
     this.state = {visible: false};
   }
 
-  toggleVisibility(){ 
+  toggleVisibility(){
     this.setState({visible: !this.state.visible});
   }
 
@@ -20,7 +20,10 @@ export default class DialogWindow extends Component {
      const component = this.state.visible ? (
        <div className="dialogbackground">
          <div className="dialogwindow">
-           <DialogHeader onClose={this.close.bind(this)} title={this.props.title} />
+           <DialogHeader
+             onAdd={this.props.onAdd} onBack={this.props.onBack} onClose={this.close.bind(this)}
+             title={this.props.title}
+           />
            {this.props.children}
          </div>
        </div>
