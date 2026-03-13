@@ -100,6 +100,19 @@ export default class Canvas extends Component{
         this.core.scene.redo();
         return;
         }
+
+        if (event.ctrlKey && event.key === 'c') {
+        console.log('Copy shortcut triggered')
+        this.core.scene.inputManager.onCommand(`Copyclip`);
+        return;
+        }
+
+        if (event.ctrlKey && event.key === 'v') {
+        console.log('Paste shortcut triggered')
+        this.core.scene.inputManager.onCommand(`Pasteclip`);
+        return;
+        }
+
         var key;
 
         switch (charCode) {
