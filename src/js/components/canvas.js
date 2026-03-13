@@ -89,6 +89,17 @@ export default class Canvas extends Component{
         var charCode = (event.charCode) ? event.charCode : event.keyCode;
         console.log("char code", event.keyVal, event.keyCode)
 
+        if (event.ctrlKey && event.key === 'z') {
+        console.log('Undo shortcut triggered')
+        this.core.scene.undo();
+        return;
+        }
+
+        if (event.ctrlKey && event.key === 'y') {
+        console.log('Redo shortcut triggered')
+        this.core.scene.redo();
+        return;
+        }
         var key;
 
         switch (charCode) {
