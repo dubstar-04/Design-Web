@@ -1,6 +1,6 @@
 :root {
   /*
-This section holds the variables for the design of the css. 
+This section holds the variables for the design of the css.
 variables can be recalled using var(--var-name);
 */
   --mainbg-color: #06c;
@@ -11,8 +11,10 @@ variables can be recalled using var(--var-name);
   --alert-colour: #f44336;
   --passive-colour: #008CBA;
   --inactive-colour: #8a8a8a;
-  --header-colour:#29415e;
-  --footer-colour:#29415e;
+  --header-colour: #29415e;
+  --footer-colour: #29415e;
+  /* blur */
+  --window-blur: 2px;
   /* toolbar */
   --toolbar-hover-colour: rgba(255, 255, 255, 0.15);
   /* dialog / popover */
@@ -20,7 +22,7 @@ variables can be recalled using var(--var-name);
   --dialog-bg-colour: #383838;
   --dialog-hover-colour: #f7f7f7;
   /* List  */
-  --list-bg-colour:#B3B3B3;
+  --list-bg-colour: #B3B3B3;
   /* Text */
   --titletext-colour: #ffffff;
   --text-colour: #ffffff;

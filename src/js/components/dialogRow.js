@@ -1,22 +1,36 @@
 import "../../css/DialogRow.css";
 import React, { Component } from "react";
 import ColourButton from "./colourButton";
-import Switch from "./switch";
 
 export default class DialogRow extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleOnClick(){
-    this.props.onClose();
-  }
-
   render() {
-    return <div className="dialogrow">
-      <ColourButton className="colourbutton" colour={this.props.colour} />
-      <div className="dialogrowtitle">{this.props.title}</div>
-      <Switch checked={this.props.active} />
-    </div>
+    const { variant = 'list', label, colour, onColourChange, badge, actions, isCurrent, checked, onChange, children } = this.props;
+    const className = `dialogrow dialogrow--${variant}${isCurrent ? ' dialogrow--current' : ''}`;
+    const LabelEl = variant === 'form' ? 'label' : 'div';
+    return (
+      <div className={className}>
+        {colour !== undefined && (
+          onColourChange
+            ? <input
+                className="dialogrow-colour-input"
+                onChange={onColourChange}
+                title="Change colour"
+                type="color"
+                value={colour}
+              />
+            : <ColourButton colour={colour} />
+        )}
+        {label && <LabelEl className="dialogrow-label">{label}</LabelEl>}
+        {children}
+        {checked !== undefined && (
+          <label className="switch">
+            <input checked={checked} onChange={onChange} type="checkbox" />
+            <span className="slider round" />
+          </label>
+        )}
+        {badge && <span className="dialogrow-badge">{badge}</span>}
+        {actions && <div className="dialogrow-actions">{actions}</div>}
+      </div>
+    );
   }
 }

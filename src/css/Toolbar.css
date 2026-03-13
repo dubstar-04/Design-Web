@@ -1,17 +1,23 @@
 .toolbar {
   position: absolute;
-  width: 50px;
-  height: 300px;
+  width: 44px;
+  height: auto;
   top: calc(50% - 150px);
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .left {
-  left: 10px
+  left: 10px;
 }
 
-.right{
-  right: 10px
+.right {
+  right: 10px;
 }
-
