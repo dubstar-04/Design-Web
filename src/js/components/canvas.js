@@ -200,5 +200,35 @@ export default class Canvas extends Component{
           ref={this.canvasRef}
         />
       )
+    if (event.ctrlKey && event.key.toLowerCase() === 'y') {
+      this.core.scene.redo();
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'a') {
+      this.core.scene.selectionManager.selectAll();
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copyclip`);
+      return;
+    }
+
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copybase`);
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'x') {
+      this.core.scene.inputManager.onCommand(`Cutclip`);
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'v') {
+      this.core.scene.inputManager.onCommand(`Pasteclip`);
+      return;
+    }
+
   };
 }
