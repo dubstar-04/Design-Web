@@ -10,9 +10,9 @@ export default class Switch extends Component {
     this.props.onClose();
   }
 
-handleOnChange(e){
-  console.log('check changed',e.target.checked)
-}
+  handleOnChange(e){
+    console.log('check changed',e.target.checked)
+  }
 
   render() {
     return <label className="switch">

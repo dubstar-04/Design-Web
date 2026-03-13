@@ -10,10 +10,10 @@ export default class Toolbar extends Component {
   }
 
   getIcon(element){
-  
+
     const imageName = `${element.command.toLowerCase()}-symbolic.svg`;
     let imagePath = ''
-    
+
     if (element.type === "Entity") {
       imagePath = `${process.env.PUBLIC_URL}/icons/entities/${imageName}`;
     }
@@ -39,15 +39,15 @@ export default class Toolbar extends Component {
     return (
       <div className={`toolbar ${this.props.style}`}>
         {this.getCommands().map((element, index) =>
-              ( <ToolbarButton
-                command={element.command}
-                icon={this.getIcon(element)} 
-                key={index} onClick={this.handleOnClick.bind(this)}
-                shortcut={element.shortcut}
-                style={this.props.style}
-                />
-              )
-          )}
+          ( <ToolbarButton
+            command={element.command}
+            icon={this.getIcon(element)}
+            key={index} onClick={this.handleOnClick.bind(this)}
+            shortcut={element.shortcut}
+            style={this.props.style}
+            />
+          )
+        )}
       </div>
     );
   }

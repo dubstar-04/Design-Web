@@ -11,8 +11,8 @@ export default class PopoverMenuItem extends Component {
   }
 
   render() {
-     return <div className="popovermenuitem" onClick={this.handleOnClick.bind(this)}>
-       {this.props.title}
-     </div>
+    return <div className="popovermenuitem" onClick={this.handleOnClick.bind(this)}>
+      {this.props.title}
+    </div>
   }
 }

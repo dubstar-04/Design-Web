@@ -17,16 +17,16 @@ export default class DialogWindow extends Component {
   }
 
   render() {
-     const component = this.state.visible ? (
-       <div className="dialogbackground">
-         <div className="dialogwindow">
-           <DialogHeader
-             onAdd={this.props.onAdd} onBack={this.props.onBack} onClose={this.close.bind(this)}
-             title={this.props.title}
-           />
-           {this.props.children}
-         </div>
-       </div>
+    const component = this.state.visible ? (
+      <div className="dialogbackground">
+        <div className="dialogwindow">
+          <DialogHeader
+            onAdd={this.props.onAdd} onBack={this.props.onBack} onClose={this.close.bind(this)}
+            title={this.props.title}
+          />
+          {this.props.children}
+        </div>
+      </div>
     ) : (<></>);
 
     return component

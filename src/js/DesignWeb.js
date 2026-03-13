@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // use local core npm for development
 // 1. clone design-core into js
-// 2. cd src/js 
+// 2. cd src/js
 // 3. npm link ./Design-core
 // 4. npm unlink ./Design-core
 //import {Core} from '@design-core/core';
@@ -30,11 +30,11 @@ export default class DesignWeb extends Component{
     this.popoverRef = React.createRef();
     this.layersWindowRef = React.createRef();
 
-  } 
+  }
 
   /**
-   * Set the mouse position 
-   * @param {string} mousePos 
+   * Set the mouse position
+   * @param {string} mousePos
    */
   updateMousePos(mousePos){
     this.setState({ mousePos: mousePos });
@@ -57,9 +57,9 @@ export default class DesignWeb extends Component{
 
     const reader = new FileReader();
     reader.onload = () => {
-        const text = reader.result;
-        console.log(text)
-        this.core.openFile(text);
+      const text = reader.result;
+      console.log(text)
+      this.core.openFile(text);
     };
 
     reader.readAsText(file);
@@ -76,7 +76,7 @@ export default class DesignWeb extends Component{
     console.log(dxfData)
 
     var blob = new Blob([dxfData], {
-        type: "text/plain;"
+      type: "text/plain;"
     });
 
     saveAs(blob, "design.dxf");
@@ -109,7 +109,6 @@ export default class DesignWeb extends Component{
       <Toolbar core={this.core} style="right" type='Tool' />
       <Commandline core={this.core} mousePos={this.state.mousePos} />
 
-      
     </div>
   };
 }
