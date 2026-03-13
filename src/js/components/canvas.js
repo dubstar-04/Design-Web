@@ -7,7 +7,7 @@ export default class Canvas extends Component{
 
     this.canvasRef = React.createRef();
     this.core = props.core
-    this.keydownEventAttached = false
+    this.boundHandleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentDidMount() {
@@ -16,17 +16,14 @@ export default class Canvas extends Component{
     this.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
 
     // add keydown eventlistener
-    if(!this.keydownEventAttached){
-      document.addEventListener("keydown", this.handleKeyPress.bind(this))
-      this.keydownEventAttached = true
-    }
+    document.addEventListener("keydown", this.boundHandleKeyPress)
 
     // perform initial paint of the canvas
     this.paint()
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress.bind(this))
+    document.removeEventListener("keydown", this.boundHandleKeyPress)
   }
 
   paint() {
@@ -81,7 +78,11 @@ export default class Canvas extends Component{
   }
 
   handleKeyPress(event) {
-    //if (lastDownTarget == cnvs || lastDownTarget == cmd_Line) {
+    // Don't intercept events when the user is typing in an input, textarea or select
+    const tag = event.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+      return;
+    }
 
         event.preventDefault()
 
@@ -156,7 +157,7 @@ export default class Canvas extends Component{
             default:
                 key = event.key
         }
-        
+
         console.log('key', key)
         this.core.commandLine.handleKeys(key);
     //}
@@ -166,9 +167,9 @@ export default class Canvas extends Component{
     render (){
       return (
         <canvas
-          className="canvas" 
+          className="canvas"
           onContextMenu={this.handleContextMenu}
-          onMouseDown={this.handleMouseDown.bind(this)} 
+          onMouseDown={this.handleMouseDown.bind(this)}
           onMouseMove={this.handleMouseMove.bind(this)}
           onMouseUp={this.handleMouseUp.bind(this)}
           onWheel={this.handleMouseWheel.bind(this)}
