@@ -64,7 +64,7 @@ export default class Canvas extends Component{
 
   handleMouseWheel(e){
     // delta = +/- 1 for zoom in / out
-    const delta = Math.sign(e.deltaY)
+    const delta = Math.sign(e.deltaY*-1)
     this.core.mouse.wheel(delta);
   }
 
