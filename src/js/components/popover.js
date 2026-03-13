@@ -7,7 +7,7 @@ export default class Popover extends Component {
     this.state = {visible: false};
   }
 
-  toggleVisibility(){ 
+  toggleVisibility(){
     this.setState({visible: !this.state.visible});
   }
 
@@ -16,11 +16,11 @@ export default class Popover extends Component {
   }
 
   render() {
-     const component = this.state.visible ? (
-       <div className="popover">
-         <div className="popover-arrow" />
-         {this.props.children}
-       </div>
+    const component = this.state.visible ? (
+      <div className="popover">
+        <div className="popover-arrow" />
+        {this.props.children}
+      </div>
     ) : (<></>);
 
     return component
