@@ -4,11 +4,11 @@ import ColourButton from "./colourButton";
 
 export default class DialogRow extends Component {
   render() {
-    const { variant = 'list', label, colour, onColourChange, badge, actions, isCurrent, checked, onChange, children } = this.props;
+    const { variant = 'list', label, colour, onColourChange, badge, actions, isCurrent, checked, onChange, onClick, children } = this.props;
     const className = `dialogrow dialogrow--${variant}${isCurrent ? ' dialogrow--current' : ''}`;
     const LabelEl = variant === 'form' ? 'label' : 'div';
     return (
-      <div className={className}>
+      <div className={className} onClick={onClick}>
         {colour !== undefined && (
           onColourChange
             ? <input
