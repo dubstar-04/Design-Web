@@ -30,6 +30,9 @@ export default class AboutWindow extends Component {
           />
           <h2 className="about-window-title">Design</h2>
           <p className="about-window-description">2D CAD for the web</p>
+          {process.env.REACT_APP_GIT_COMMIT && (
+            <p className="about-window-version">Version: {process.env.REACT_APP_GIT_COMMIT}</p>
+          )}
           <p className="about-window-author">By <strong>Daniel Wood</strong></p>
           <div className="about-window-links">
             <a
