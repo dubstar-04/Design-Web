@@ -37,25 +37,29 @@ export default class SettingsPanel extends Component {
 
   renderGroup(title, settings) {
     return (
-      <>
+      <React.Fragment key={title}>
         <div className="settings-group-header">{title}</div>
-        {settings.map(({ key, label }) => (
-          <DialogRow
-            key={key}
-            label={label}
-            suffix={<Switch checked={!!this.getSetting(key)} onChange={(e) => this.onToggle(key, e.target.checked)} />}
-            variant="form"
-          />
-        ))}
-      </>
+        <div className="sidekick-row-group">
+          {settings.map(({ key, label }) => (
+            <DialogRow
+              key={key}
+              label={label}
+              suffix={<Switch checked={!!this.getSetting(key)} onChange={(e) => this.onToggle(key, e.target.checked)} />}
+              variant="form"
+            />
+          ))}
+        </div>
+      </React.Fragment>
     );
   }
 
   render() {
     return (
       <SideKickContent>
-        {this.renderGroup('Snaps', SNAP_SETTINGS)}
-        {this.renderGroup('Canvas', CANVAS_SETTINGS)}
+        <div className="sidekick-content-list">
+          {this.renderGroup('Snaps', SNAP_SETTINGS)}
+          {this.renderGroup('Canvas', CANVAS_SETTINGS)}
+        </div>
       </SideKickContent>
     );
   }

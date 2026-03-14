@@ -11,30 +11,53 @@
 /* List variant */
 .dialogrow--list {
   height: 44px;
-  background-color: #2a2a2a;
-  border-bottom: solid 1px #1e1e1e;
-  gap: 8px;
-  padding: 0 8px;
+  background-color: var(--list-bg-colour);
+  margin-bottom: 1px;
+  gap: 12px;
+  padding: 0 12px;
+}
+
+.dialogrow--list:first-child {
+  border-radius: 12px 12px 0 0;
 }
 
 .dialogrow--list:last-child {
-  border-bottom: none;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 0;
+}
+
+.dialogrow--list:first-child:last-child {
+  border-radius: 12px;
 }
 
 .dialogrow--list:hover {
-  background-color: #363636;
+  background-color: var(--list-hover-colour);
 }
 
 .dialogrow--current {
-  background-color: rgba(53, 132, 228, 0.15);
+  background-color: var(--accent-tint);
 }
 
 /* Form variant */
 .dialogrow--form {
-  min-height: 36px;
-  border-bottom: 1px solid #272727;
-  padding: 0 12px 6px 12px;
+  height: 44px;
+  background-color: var(--list-bg-colour);
+  margin-bottom: 1px;
+  padding: 0 12px;
   justify-content: space-between;
+}
+
+.dialogrow--form:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.dialogrow--form:last-child {
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 0;
+}
+
+.dialogrow--form:first-child:last-child {
+  border-radius: 12px;
 }
 
 /* Label */
@@ -59,18 +82,33 @@
   width: 28px;
   height: 28px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0;
   cursor: pointer;
   background: none;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.dialogrow-colour-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.dialogrow-colour-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+.dialogrow-colour-input::-moz-color-swatch {
+  border: none;
+  border-radius: 6px;
 }
 
 /* Badge */
 .dialogrow-badge {
   font-size: var(--xs-text);
   color: var(--active-colour);
-  background-color: rgba(53, 132, 228, 0.18);
+  background-color: var(--accent-tint);
   border-radius: 4px;
   padding: 2px 6px;
   flex-shrink: 0;
@@ -85,11 +123,12 @@
 
 /* Form row input — shared by all panels */
 .dialogrow-input {
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-colour);
+  border-radius: 6px;
   color: var(--text-colour);
   font-size: var(--small-text);
+  font-family: inherit;
   padding: 4px 8px;
   margin-left: auto;
   min-width: 0;
@@ -123,7 +162,7 @@
 }
 
 .dialogrow-input--select option {
-  background-color: #242424;
+  background-color: var(--window-bg);
   color: var(--text-colour);
 }
 

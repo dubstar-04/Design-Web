@@ -12,8 +12,8 @@
     align-items: center;
     gap: 8px;
     padding: 6px 12px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: var(--subtle-bg);
+    border-bottom: 1px solid var(--border-colour);
 }
 
 .properties-filter-label {
@@ -26,4 +26,6 @@
 .properties-list {
     flex: 1;
     overflow-y: auto;
+    padding: 8px 12px;
+    box-sizing: border-box;
 }

@@ -1,11 +1,11 @@
 .sidekick {
-    width: 320px;
-    height: calc(100% - 40px);
+    width: 300px;
+    height: calc(100% - 46px);
     position: fixed;
-    top: 40px;
+    top: 46px;
     right: 0;
-    background-color: #1e1e1e;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--window-bg);
+    border-left: 1px solid var(--shadow-colour);
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -54,13 +54,24 @@
     flex: 1;
     overflow-y: auto;
     min-height: 0;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
+
+/* Wrapper for a discrete group of DialogRows — gives :first-child/:last-child border-radius */
+.sidekick-row-group {
+    margin-bottom: 8px;
+}
+
+.sidekick-row-group:last-child {
+    margin-bottom: 0;
 }
 
 /* Pinned detail / edit area at the bottom of a tab panel */
 .sidekick-content-detail {
     flex-shrink: 0;
-    border-top: 2px solid rgba(255, 255, 255, 0.12);
-    background-color: #1e1e1e;
+    border-top: 1px solid var(--separator-dark);
+    background-color: var(--view-bg);
     overflow-y: auto;
     max-height: 45%;
     padding: 8px 12px 12px;
@@ -71,7 +82,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 6px 0 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-colour);
     margin-bottom: 4px;
     flex-shrink: 0;
 }
@@ -90,16 +101,16 @@
 }
 
 .sidekick-tabs {
-    width: 36px;
+    width: 34px;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: #1e1e1e;
+    border-left: 1px solid var(--separator-dark);
+    background-color: var(--view-bg);
 }
 
 .sidekick-tab {
     flex-shrink: 0;
-    padding: 16px 0;
+    padding: 18px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,16 +121,19 @@
     font-size: var(--small-text);
     user-select: none;
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-colour);
+    border-right: 2px solid transparent;
     background: transparent;
+    transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .sidekick-tab--active {
     color: var(--accent-color);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--accent-tint);
+    border-right: 2px solid var(--accent-color);
 }
 
 .sidekick-tab:hover:not(.sidekick-tab--active) {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--hover-bg);
     color: var(--text-colour);
 }

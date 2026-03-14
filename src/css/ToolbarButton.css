@@ -17,12 +17,12 @@
 
 .toolbarbutton:hover img {
     opacity: 1;
-    filter: drop-shadow(0 0 5px rgba(53, 132, 228, 0.75));
+    filter: drop-shadow(0 0 5px var(--accent-shadow));
     transform: scale(1.1);
 }
 
 .toolbarbutton:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--strong-hover-bg);
 }
 
 .toolbarbutton:hover .tooltip {
@@ -32,11 +32,11 @@
 
 .toolbarbutton .tooltip {
     visibility: hidden;
-    background-color: #111;
-    color: #e8e8e8;
+    background-color: var(--tooltip-bg);
+    color: var(--text-colour);
     text-align: center;
     border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-colour);
     font-size: var(--small-text);
     position: absolute;
     z-index: 1;
