@@ -21,14 +21,30 @@ Design is a 2D computer-aided design (CAD) application built for the web, target
 
 ## Screenshots
 
-<table>
-  <tr>
-    <td><img src="screenshots/Screenshot-1.png" alt="Design canvas" width="500"></td>
-    <td><img src="screenshots/Screenshot-2.png" alt="Design layers panel" width="500"></td>
-    <td><img src="screenshots/Screenshot-3.png" alt="Design settings panel" width="500"></td>
-    <td><img src="screenshots/Screenshot-4.png" alt="Design properties panel" width="500"></td>
-  </tr>
-</table>
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="screenshots/Screenshot-1.png" alt="Canvas" width="460" style="border-radius:8px">
+        <br><sub>Canvas</sub>
+      </td>
+      <td align="center">
+        <img src="screenshots/Screenshot-2.png" alt="Layers panel" width="460" style="border-radius:8px">
+        <br><sub>Layers panel</sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="screenshots/Screenshot-3.png" alt="Settings panel" width="460" style="border-radius:8px">
+        <br><sub>Settings panel</sub>
+      </td>
+      <td align="center">
+        <img src="screenshots/Screenshot-4.png" alt="Properties panel" width="460" style="border-radius:8px">
+        <br><sub>Properties panel</sub>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## Getting Started
 
