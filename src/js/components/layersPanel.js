@@ -1,7 +1,6 @@
 import "../../css/LayersPanel.css";
 import React, { Component } from "react";
 import ConfirmationDialog from "./confirmationDialog";
-import DialogRowMenu from "./dialogRowMenu";
 import Row from "./dialogRow";
 
 export default class LayersPanel extends Component {
