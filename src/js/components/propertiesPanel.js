@@ -222,22 +222,18 @@ export default class PropertiesPanel extends Component {
     return (
       <SideKickContent>
         {types.length > 1 && (
-          <DialogRow
-            label="Type"
-            suffix={
-              <select
-                className="dialogrow-input dialogrow-input--select"
-                onChange={(e) => { this.setState({ selectedType: e.target.value }); e.target.blur(); }}
-
-                value={selectedType}
-              >
-                {types.filter(type => !!type).map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            }
-            variant="form"
-          />
+          <div className="properties-filter">
+            <span className="properties-filter-label">Filter</span>
+            <select
+              className="dialogrow-input dialogrow-input--select dialogrow-input--fill"
+              onChange={(e) => { this.setState({ selectedType: e.target.value }); e.target.blur(); }}
+              value={selectedType}
+            >
+              {types.filter(type => !!type).map(type => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </div>
         )}
         <div className="properties-list">
           {this.renderProperties()}

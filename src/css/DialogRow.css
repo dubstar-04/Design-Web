@@ -33,7 +33,7 @@
 .dialogrow--form {
   min-height: 40px;
   border-bottom: 1px solid #2e2e2e;
-  padding-bottom: 8px;
+  padding: 0 12px 8px 12px;
   justify-content: space-between;
 }
 
@@ -113,6 +113,13 @@
 .dialogrow-input--select {
   width: 120px;
   cursor: pointer;
+}
+
+.dialogrow-input--fill {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  font-family: inherit;
 }
 
 .dialogrow-input--select option {
