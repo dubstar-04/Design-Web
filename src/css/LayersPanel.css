@@ -4,7 +4,7 @@
     border-radius: 9999px;
     color: var(--text-colour);
     cursor: pointer;
-    font-size: 18px;
+    font-size: var(--large-text);
     width: 30px;
     height: 30px;
     display: flex;
@@ -25,7 +25,7 @@
     border-radius: 9999px;
     color: var(--alert-colour);
     cursor: pointer;
-    font-size: 18px;
+    font-size: var(--large-text);
     width: 30px;
     height: 30px;
     display: flex;
@@ -52,7 +52,7 @@
     border-radius: 9999px;
     color: var(--active-colour);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--medium-text);
     width: 30px;
     height: 30px;
     display: flex;
