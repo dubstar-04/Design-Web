@@ -1,16 +1,17 @@
 .popovermenuitem {
-  margin: var(--margin-size);
-  height: 30px;
-  line-height: 30px;
+  margin: 3px 6px;
+  height: 34px;
+  line-height: 34px;
   vertical-align: middle;
-  border-radius: var(--border-radius);
+  border-radius: 8px;
   color: var(--text-colour);
-  font-size: var(--small-text);
+  font-size: var(--medium-text);
   user-select: none;
-  padding-left: 10px;
+  padding-left: 12px;
   cursor: pointer;
+  transition: background-color 0.1s ease;
 }
 
 .popovermenuitem:hover {
-  background-color: #3e3e3e;
+  background-color: var(--hover-bg);
 }

@@ -4,15 +4,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #242424;
-    border-radius: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-colour);
+    border-radius: 16px;
     padding: 32px 24px 24px;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .about-window-icon {
@@ -57,11 +58,14 @@
     margin-top: 16px;
     padding: 8px 24px;
     background-color: var(--accent-color);
-    color: #ffffff;
+    color: var(--text-contrast-color);
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: 9999px;
     cursor: pointer;
     font-size: var(--medium-text);
+    font-family: inherit;
+    font-weight: 500;
+    transition: opacity 0.15s ease;
 }
 
 .about-window-close:hover {

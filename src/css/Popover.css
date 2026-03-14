@@ -1,26 +1,26 @@
 .popover {
   position: fixed;
-  width: 180px;
+  width: 200px;
   right: calc(8px + var(--sidekick-offset, 0px));
-  top: 52px;
-  background-color: #1c1c1c;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  top: 55px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-colour);
   z-index: 10;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-  padding: 4px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 14px 48px rgba(0, 0, 0, 0.5);
+  padding: 6px 0;
   overflow: hidden;
-  transition: right 0.3s ease;
+  transition: right 0.25s ease;
 }
 
 .popover-arrow {
   position: absolute;
   top: -5px;
-  right: 14px;
+  right: 16px;
   width: 10px;
   height: 10px;
-  background-color: #1c1c1c;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--card-bg);
+  border-left: 1px solid var(--border-colour);
+  border-top: 1px solid var(--border-colour);
   transform: rotate(45deg);
 }

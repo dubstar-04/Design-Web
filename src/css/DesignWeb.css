@@ -3,30 +3,32 @@
 This section holds the variables for the design of the css.
 variables can be recalled using var(--var-name);
 */
-  --mainbg-color: #06c;
+  /* Adw surface hierarchy: view < window < headerbar < card */
+  --view-bg: #1e1e1e;
+  --window-bg: #242424;
+  --card-bg: #383838;
+
   --accent-color: #3584e4;
   --border-colour: rgba(255, 255, 255, 0.1);
-  --shadow-colour: rgba(0, 0, 0, 0.4);
+  --shadow-colour: rgba(0, 0, 0, 0.5);
   --active-colour: #3584e4;
-  --alert-colour: #e84040;
-  --passive-colour: #008CBA;
-  --inactive-colour: #7a7a7a;
-  --header-colour: #14212f;
-  --footer-colour: #14212f;
+  --alert-colour: #e01b24;
+  --inactive-colour: rgba(255, 255, 255, 0.55);
+  --header-colour: #303030;
+  --footer-colour: #303030;
   /* blur */
   --window-blur: 4px;
   /* toolbar */
   --toolbar-hover-colour: rgba(255, 255, 255, 0.12);
-  /* dialog / popover */
-  --dialog-header-colour: #14212f;
-  --dialog-bg-colour: #262626;
-  --dialog-hover-colour: #3a3a3a;
+  /* dialog */
+  --dialog-header-colour: #303030;
   /* List  */
-  --list-bg-colour: #2e2e2e;
+  --list-bg-colour: #383838;
+  --list-hover-colour: #444444;
   /* Text */
-  --titletext-colour: #ffffff;
-  --text-colour: #e8e8e8;
+  --text-colour: #ffffff;
   --text-contrast-color: #ffffff;
+  --dim-text: rgba(255, 255, 255, 0.65);
   /* Text Size */
   --xs-text: 11px;
   --small-text: 12px;
@@ -34,9 +36,19 @@ variables can be recalled using var(--var-name);
   --large-text: 18px;
   --xl-text: 24px;
   /* Layout */
-  --margin-size: 5px;
-  --padding: 10px;
   --border-radius: 6px;
+  /* Interaction states */
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --strong-hover-bg: rgba(255, 255, 255, 0.2);
+  --subtle-bg: rgba(255, 255, 255, 0.05);
+  --input-bg: rgba(0, 0, 0, 0.25);
+  --separator-dark: rgba(0, 0, 0, 0.4);
+  /* Tints */
+  --accent-tint: rgba(53, 132, 228, 0.15);
+  --alert-tint: rgba(224, 27, 36, 0.15);
+  /* Components */
+  --tooltip-bg: #111111;
+  --accent-shadow: rgba(53, 132, 228, 0.75);
 }
 
 .DesignWeb {
@@ -46,7 +58,7 @@ variables can be recalled using var(--var-name);
 }
 
 .DesignWeb.sidekick-open {
-  --sidekick-offset: 320px;
+  --sidekick-offset: 300px;
 }
 
 html,

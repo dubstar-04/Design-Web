@@ -236,7 +236,9 @@ export default class PropertiesPanel extends Component {
           </div>
         )}
         <div className="properties-list">
-          {this.renderProperties()}
+          <div className="sidekick-row-group">
+            {this.renderProperties()}
+          </div>
         </div>
       </SideKickContent>
     );

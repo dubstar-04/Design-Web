@@ -1,8 +1,8 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 44px;
-  height: 24px;
+  width: 56px;
+  height: 28px;
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -21,8 +21,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #555;
-  border: 1px solid #666;
+  background-color: #5c5c5c;
+  border: none;
   border-radius: 9999px;
   transition: background-color 0.2s ease;
 }
@@ -30,25 +30,33 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 18px;
-  width: 18px;
+  height: 22px;
+  width: 22px;
   left: 3px;
-  bottom: 3px;
-  background-color: white;
+  top: 3px;
+  background-color: #ffffff;
   border-radius: 50%;
   transition: transform 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 input:checked+.slider {
-  background-color: var(--active-colour, #3584e4);
-}
-
-input:focus-visible+.slider {
-  outline: 2px solid var(--active-colour, #3584e4);
-  outline-offset: 2px;
+  background-color: var(--active-colour);
 }
 
 input:checked+.slider:before {
-  transform: translateX(20px);
+  transform: translateX(28px);
+}
+
+.slider:hover {
+  background-color: #6e6e6e;
+}
+
+input:checked+.slider:hover {
+  background-color: #4a7fc2;
+}
+
+input:focus-visible+.slider {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }

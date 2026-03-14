@@ -25,6 +25,8 @@ Design is a 2D computer-aided design (CAD) application built for the web, target
   <tr>
     <td><img src="screenshots/Screenshot-1.png" alt="Design canvas" width="500"></td>
     <td><img src="screenshots/Screenshot-2.png" alt="Design layers panel" width="500"></td>
+    <td><img src="screenshots/Screenshot-3.png" alt="Design settings panel" width="500"></td>
+    <td><img src="screenshots/Screenshot-4.png" alt="Design properties panel" width="500"></td>
   </tr>
 </table>
 

@@ -20,27 +20,31 @@
 }
 
 .confirmation-dialog-cancel-btn {
-    background-color: #555;
+    background-color: var(--hover-bg);
     color: var(--text-colour);
-    border: none;
-    border-radius: var(--border-radius);
+    border: 1px solid var(--toolbar-hover-colour);
+    border-radius: 9999px;
     padding: 8px 20px;
     cursor: pointer;
     font-size: var(--medium-text);
+    font-family: inherit;
+    transition: background-color 0.15s ease;
 }
 
 .confirmation-dialog-cancel-btn:hover {
-    background-color: #666;
+    background-color: var(--strong-hover-bg);
 }
 
 .confirmation-dialog-confirm-btn {
     background-color: var(--alert-colour);
-    color: #fff;
+    color: var(--text-contrast-color);
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: 9999px;
     padding: 8px 20px;
     cursor: pointer;
     font-size: var(--medium-text);
+    font-family: inherit;
+    transition: opacity 0.15s ease;
 }
 
 .confirmation-dialog-confirm-btn:hover {

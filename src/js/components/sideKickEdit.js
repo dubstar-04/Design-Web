@@ -12,7 +12,9 @@ export default class SideKickEdit extends Component {
             {toolbar && <div className="sidekick-content-detail-toolbar">{toolbar}</div>}
           </div>
         )}
-        {children}
+        <div className="sidekick-row-group">
+          {children}
+        </div>
       </div>
     );
   }

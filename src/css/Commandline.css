@@ -3,13 +3,13 @@
     left: 0;
     right: var(--sidekick-offset, 0px);
     bottom: 0;
-    height: 48px;
+    height: 46px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     background: var(--footer-colour);
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
     transition: right 0.25s ease;
     padding: 0 4px;
 }
@@ -20,16 +20,17 @@
     margin-right: 8px;
     padding: 0 12px;
     height: 32px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-colour);
     color: var(--text-contrast-color);
-    border-radius: 6px;
+    border-radius: 9999px;
     font-size: var(--medium-text);
+    font-family: inherit;
 }
 
 .coordLabel {
     display: block;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--dim-text);
     text-align: right;
     margin-left: 8px;
     margin-right: 12px;
