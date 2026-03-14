@@ -1,0 +1,29 @@
+.properties-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--inactive-colour);
+    font-size: var(--small-text);
+}
+
+.properties-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.properties-filter-label {
+    font-size: var(--small-text);
+    color: var(--inactive-colour);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.properties-list {
+    flex: 1;
+    overflow-y: auto;
+}

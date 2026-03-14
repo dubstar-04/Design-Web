@@ -22,6 +22,12 @@ export default class Canvas extends Component{
     this.paint()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.sideKickOpen !== this.props.sideKickOpen) {
+      this.paint();
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener("keydown", this.boundHandleKeyPress)
   }
@@ -31,8 +37,8 @@ export default class Canvas extends Component{
     const canvas = this.canvasRef.current
     const cr = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
     const width = cr.canvas.width;
     const height = cr.canvas.height;
@@ -49,6 +55,7 @@ export default class Canvas extends Component{
   handleMouseDown(e){
     // button: 0 = left, 1 = wheel, 2 = right;
     e.preventDefault();
+    this.canvasRef.current.focus();
     this.core.mouse.mouseDown(e.button);
   }
 
@@ -88,6 +95,16 @@ export default class Canvas extends Component{
 
     var charCode = (event.charCode) ? event.charCode : event.keyCode;
     console.log("char code", event.keyVal, event.keyCode)
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'l') {
+      if (this.props.onShortcut) this.props.onShortcut('layers');
+      return;
+    }
+
+    if (event.ctrlKey && event.key === '1') {
+      if (this.props.onShortcut) this.props.onShortcut('properties');
+      return;
+    }
 
     if (event.ctrlKey &&  event.key.toLowerCase() === 'z') {
       this.core.scene.undo();
@@ -211,6 +228,7 @@ export default class Canvas extends Component{
         onMouseUp={this.handleMouseUp.bind(this)}
         onWheel={this.handleMouseWheel.bind(this)}
         ref={this.canvasRef}
+        tabIndex={-1}
       />
     )
   };

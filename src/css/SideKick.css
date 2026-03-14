@@ -1,0 +1,125 @@
+.sidekick {
+    width: 320px;
+    height: calc(100% - 40px);
+    position: fixed;
+    top: 40px;
+    right: 0;
+    background-color: #242424;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.sidekick--open {
+    transform: translateX(0);
+}
+
+.sidekick-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.sidekick-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Scrollable main area — use inside any tab panel that wants a pinned footer */
+.sidekick-content-scroll {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* Full-height panel wrapper — root element of any tab panel component */
+.sidekick-content-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Scrollable item list inside a panel */
+.sidekick-content-list {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* Pinned detail / edit area at the bottom of a tab panel */
+.sidekick-content-detail {
+    flex-shrink: 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.12);
+    background-color: #1e1e1e;
+    overflow-y: auto;
+    max-height: 45%;
+    padding: 8px 12px 12px;
+}
+
+.sidekick-content-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.sidekick-content-detail-title {
+    color: var(--inactive-colour);
+    font-size: var(--xs-text);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.sidekick-content-detail-toolbar {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.sidekick-tabs {
+    width: 36px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1e1e1e;
+}
+
+.sidekick-tab {
+    flex-shrink: 0;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    cursor: pointer;
+    color: var(--inactive-colour);
+    font-size: var(--small-text);
+    user-select: none;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+}
+
+.sidekick-tab--active {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidekick-tab:hover:not(.sidekick-tab--active) {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-colour);
+}

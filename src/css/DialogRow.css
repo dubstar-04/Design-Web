@@ -33,7 +33,7 @@
 .dialogrow--form {
   min-height: 40px;
   border-bottom: 1px solid #2e2e2e;
-  padding-bottom: 8px;
+  padding: 0 12px 8px 12px;
   justify-content: space-between;
 }
 
@@ -81,4 +81,56 @@
   display: flex;
   gap: 4px;
   flex-shrink: 0;
+}
+
+/* Form row input — shared by all panels */
+.dialogrow-input {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: var(--text-colour);
+  font-size: var(--small-text);
+  padding: 4px 8px;
+  margin-left: auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.dialogrow-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.dialogrow-input--number {
+  width: 90px;
+  text-align: right;
+}
+
+.dialogrow-input--text {
+  width: 120px;
+}
+
+.dialogrow-input--select {
+  width: 120px;
+  cursor: pointer;
+}
+
+.dialogrow-input--fill {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  font-family: inherit;
+}
+
+.dialogrow-input--select option {
+  background-color: #242424;
+  color: var(--text-colour);
+}
+
+/* Read-only value */
+.dialogrow-value-readonly {
+  color: var(--inactive-colour);
+  font-size: var(--small-text);
+  margin-left: auto;
+  padding-right: 4px;
 }

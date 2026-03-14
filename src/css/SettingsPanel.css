@@ -1,0 +1,10 @@
+.settings-group-header {
+    padding: 10px 12px 4px 12px;
+    font-size: var(--xs-text);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--inactive-colour);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 4px;
+}
