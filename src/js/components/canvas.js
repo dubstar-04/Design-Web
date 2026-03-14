@@ -55,6 +55,7 @@ export default class Canvas extends Component{
   handleMouseDown(e){
     // button: 0 = left, 1 = wheel, 2 = right;
     e.preventDefault();
+    this.canvasRef.current.focus();
     this.core.mouse.mouseDown(e.button);
   }
 
@@ -217,6 +218,7 @@ export default class Canvas extends Component{
         onMouseUp={this.handleMouseUp.bind(this)}
         onWheel={this.handleMouseWheel.bind(this)}
         ref={this.canvasRef}
+        tabIndex={-1}
       />
     )
   };

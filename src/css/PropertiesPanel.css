@@ -7,15 +7,6 @@
     font-size: var(--small-text);
 }
 
-.properties-type-selector {
-    padding: 8px 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.properties-type-select {
-    width: 100%;
-}
-
 .properties-list {
     flex: 1;
     overflow-y: auto;

@@ -32,7 +32,7 @@ export default class PropertiesPanel extends Component {
 
   reload() {
     const types = this.getItemTypes();
-    this.setState({ selectedType: types.length === 1 ? types[0] : '' });
+    this.setState({ selectedType: types.length ? types[0] : '' });
   }
 
   getItemTypes() {
@@ -119,7 +119,7 @@ export default class PropertiesPanel extends Component {
           defaultValue={value}
           key={`${property}-${value}`}
           onBlur={(e) => this.onValueChanged(property, Number(e.target.value))}
-          onKeyDown={(e) => { if (e.key === 'Enter') this.onValueChanged(property, Number(e.target.value)); }}
+          onKeyDown={(e) => { if (e.key === 'Enter') { this.onValueChanged(property, Number(e.target.value)); e.target.blur(); } }}
           type="number"
         />
       );
@@ -155,6 +155,7 @@ export default class PropertiesPanel extends Component {
             if (item && item.value !== 'VARIES') {
               this.onValueChanged(property, item.value);
             }
+            e.target.blur();
           }}
         >
           {model.map(item => (
@@ -171,7 +172,7 @@ export default class PropertiesPanel extends Component {
           defaultValue={value}
           key={`${property}-${value}`}
           onBlur={(e) => this.onValueChanged(property, e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') this.onValueChanged(property, e.target.value); }}
+          onKeyDown={(e) => { if (e.key === 'Enter') { this.onValueChanged(property, e.target.value); e.target.blur(); } }}
           type="text"
         />
       );
@@ -221,18 +222,22 @@ export default class PropertiesPanel extends Component {
     return (
       <SideKickContent>
         {types.length > 1 && (
-          <div className="properties-type-selector">
-            <select
-              className="dialogrow-input dialogrow-input--select properties-type-select"
-              onChange={(e) => this.setState({ selectedType: e.target.value })}
-              value={selectedType}
-            >
-              <option value="">All</option>
-              {types.filter(type => !!type).map(type => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
-          </div>
+          <DialogRow
+            label="Type"
+            suffix={
+              <select
+                className="dialogrow-input dialogrow-input--select"
+                onChange={(e) => { this.setState({ selectedType: e.target.value }); e.target.blur(); }}
+
+                value={selectedType}
+              >
+                {types.filter(type => !!type).map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            }
+            variant="form"
+          />
         )}
         <div className="properties-list">
           {this.renderProperties()}

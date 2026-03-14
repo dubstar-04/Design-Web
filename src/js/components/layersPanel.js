@@ -201,7 +201,7 @@ export default class LayersPanel extends Component {
           suffix={
             <select
               className="dialogrow-input dialogrow-input--select"
-              onChange={e => this.onToggleChange('editLineType', e.target.value)}
+              onChange={e => { this.onToggleChange('editLineType', e.target.value); e.target.blur(); }}
               value={editLineType}
             >
               {lineTypes.map(lt => <option key={lt} value={lt}>{lt}</option>)}
