@@ -1,10 +1,7 @@
 
 - Update background and grid colours
 - Fix issue with text extents
-- Reverse Mouse scroll direction
-- Add clipboard shortcuts
-- Layers Window
 - Properties window
 - Settings Window
 - Add window shortcuts (Layers, Props)
-- Show about window with version number
+
