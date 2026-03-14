@@ -1,7 +1,8 @@
 import "../../css/LayersPanel.css";
 import React, { Component } from "react";
 import ConfirmationDialog from "./confirmationDialog";
-import Row from "./dialogRow";
+import DialogRow from "./dialogRow";
+import { SideKickContent, SideKickEdit } from "./sideKick";
 
 export default class LayersPanel extends Component {
   constructor(props) {
@@ -130,59 +131,95 @@ export default class LayersPanel extends Component {
     return `#${toHex(colour.r)}${toHex(colour.g)}${toHex(colour.b)}`;
   }
 
+  renderSwitch(checked, onChange) {
+    return (
+      <label className="switch">
+        <input checked={checked} onChange={onChange} type="checkbox" />
+        <span className="slider round" />
+      </label>
+    );
+  }
+
   renderEditPanel() {
-    const { editName, editOn, editFrozen, editLocked, editLineType, editLineWeight, editPlotting } = this.state;
+    const { editName, editOn, editFrozen, editLocked, editLineType, editLineWeight, editPlotting, selectedLayer } = this.state;
+    const currentLayer = this.getCurrentLayer();
+    const indelibleLayers = this.props.core.layerManager.indelibleItems;
+    const isIndelible = !selectedLayer || indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
     const lineTypes = this.getLineTypes();
     return (
-      <div className="layers-panel-edit">
-        <div className="layers-panel-edit-title">Layer Properties</div>
-        <Row label="Name" variant="form">
-          <input
-            className="layers-edit-input"
-            onBlur={this.onNameBlur.bind(this)}
-            onChange={e => this.setState({ editName: e.target.value })}
-            onKeyDown={this.onNameKeyDown.bind(this)}
-            type="text"
-            value={editName}
-          />
-        </Row>
-        <Row
-          checked={editOn}
+      <SideKickEdit
+        title="Layer Properties"
+        toolbar={
+          <>
+            <button className="layers-panel-add-btn" onClick={this.onNewLayer.bind(this)} title="New Layer">+</button>
+            <button
+              className="layers-panel-delete-btn"
+              disabled={!selectedLayer || isIndelible}
+              onClick={() => this.onConfirmDelete(selectedLayer)}
+              title="Delete Selected Layer"
+            >−</button>
+            <button
+              className="layers-panel-setcurrent-btn"
+              disabled={!selectedLayer || selectedLayer.name === currentLayer}
+              onClick={() => this.onSetCurrentLayer(selectedLayer)}
+              title="Set as Current Layer"
+            >✓</button>
+          </>
+        }
+      >
+        <DialogRow
+          label="Name"
+          suffix={
+            <input
+              className="dialogrow-input dialogrow-input--text"
+              onBlur={this.onNameBlur.bind(this)}
+              onChange={e => this.setState({ editName: e.target.value })}
+              onKeyDown={this.onNameKeyDown.bind(this)}
+              type="text"
+              value={editName}
+            />
+          }
+          variant="form"
+        />
+        <DialogRow
           label="Visible"
-          onChange={e => this.onToggleChange('editOn', e.target.checked)}
+          suffix={this.renderSwitch(editOn, e => this.onToggleChange('editOn', e.target.checked))}
           variant="form"
         />
-        <Row
-          checked={editFrozen}
+        <DialogRow
           label="Frozen"
-          onChange={e => this.onToggleChange('editFrozen', e.target.checked)}
+          suffix={this.renderSwitch(editFrozen, e => this.onToggleChange('editFrozen', e.target.checked))}
           variant="form"
         />
-        <Row
-          checked={editLocked}
+        <DialogRow
           label="Locked"
-          onChange={e => this.onToggleChange('editLocked', e.target.checked)}
+          suffix={this.renderSwitch(editLocked, e => this.onToggleChange('editLocked', e.target.checked))}
           variant="form"
         />
-        <Row label="Line Type" variant="form">
-          <select
-            className="layers-edit-select"
-            onChange={e => this.onToggleChange('editLineType', e.target.value)}
-            value={editLineType}
-          >
-            {lineTypes.map(lt => <option key={lt} value={lt}>{lt}</option>)}
-          </select>
-        </Row>
-        <Row label="Line Weight" variant="form">
-          <span className="layers-edit-value">{String(editLineWeight)}</span>
-        </Row>
-        <Row
-          checked={editPlotting}
+        <DialogRow
+          label="Line Type"
+          suffix={
+            <select
+              className="dialogrow-input dialogrow-input--select"
+              onChange={e => this.onToggleChange('editLineType', e.target.value)}
+              value={editLineType}
+            >
+              {lineTypes.map(lt => <option key={lt} value={lt}>{lt}</option>)}
+            </select>
+          }
+          variant="form"
+        />
+        <DialogRow
+          label="Line Weight"
+          suffix={<span className="dialogrow-value-readonly">{String(editLineWeight)}</span>}
+          variant="form"
+        />
+        <DialogRow
           label="Plotting"
-          onChange={e => this.onToggleChange('editPlotting', e.target.checked)}
+          suffix={this.renderSwitch(editPlotting, e => this.onToggleChange('editPlotting', e.target.checked))}
           variant="form"
         />
-      </div>
+      </SideKickEdit>
     );
   }
 
@@ -191,38 +228,33 @@ export default class LayersPanel extends Component {
     const currentLayer = this.getCurrentLayer();
     const indelibleLayers = this.props.core.layerManager.indelibleItems;
     const { selectedLayer, confirmDeleteLayer } = this.state;
-    const isIndelible = selectedLayer && indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
+    const isIndelible = !selectedLayer || indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
 
     return (
-      <div className="layers-panel">
-        <div className="layers-panel-toolbar">
-          <button className="layers-panel-add-btn" onClick={this.onNewLayer.bind(this)} title="New Layer">+</button>
-          <button
-            className="layers-panel-delete-btn"
-            disabled={!selectedLayer || isIndelible}
-            onClick={() => this.onConfirmDelete(selectedLayer)}
-            title="Delete Selected Layer"
-          >−</button>
-          <button
-            className="layers-panel-setcurrent-btn"
-            disabled={!selectedLayer || selectedLayer.name === currentLayer}
-            onClick={() => this.onSetCurrentLayer(selectedLayer)}
-            title="Set as Current Layer"
-          >✓</button>
-        </div>
-        <div className="layers-panel-list">
-          {layers.map((layer, index) => (
-            <Row
-              badge={layer.name === currentLayer ? 'current' : undefined}
-              colour={this.colourToHex(layer.colour)}
-              isCurrent={layer.name === selectedLayer?.name}
-              key={index}
-              label={layer.name}
-              onClick={() => this.onSelectLayer(layer)}
-              onColourChange={e => this.onColourChange(layer, e)}
-            />
-          ))}
-        </div>
+      <div className="sidekick-content-panel">
+        <SideKickContent>
+          <div className="sidekick-content-list">
+            {layers.map((layer, index) => (
+              <DialogRow
+                isCurrent={layer.name === selectedLayer?.name}
+                key={index}
+                label={layer.name}
+                onClick={() => this.onSelectLayer(layer)}
+                prefix={
+                  <input
+                    className="dialogrow-colour-input"
+                    onChange={e => this.onColourChange(layer, e)}
+                    onClick={e => e.stopPropagation()}
+                    title="Change colour"
+                    type="color"
+                    value={this.colourToHex(layer.colour)}
+                  />
+                }
+                suffix={layer.name === currentLayer ? <span className="dialogrow-badge">current</span> : undefined}
+              />
+            ))}
+          </div>
+        </SideKickContent>
         {this.renderEditPanel()}
         <ConfirmationDialog
           cancelLabel="Cancel"

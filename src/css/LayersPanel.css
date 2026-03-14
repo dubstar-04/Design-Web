@@ -1,44 +1,3 @@
-.layers-panel {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-}
-
-.layers-edit-input,
-.layers-edit-select {
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
-    color: var(--text-colour);
-    font-size: var(--small-text);
-    padding: 4px 8px;
-    margin-left: auto;
-    min-width: 0;
-    width: 120px;
-    box-sizing: border-box;
-}
-
-.layers-edit-input:focus,
-.layers-edit-select:focus {
-    outline: none;
-    border-color: var(--accent-color);
-}
-
-.layers-edit-value {
-    color: var(--inactive-colour);
-    font-size: var(--small-text);
-    margin-left: auto;
-}
-
-.layers-panel-toolbar {
-    display: flex;
-    justify-content: flex-end;
-    padding: 6px 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    flex-shrink: 0;
-}
-
 .layers-panel-add-btn {
     background: none;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -112,27 +71,4 @@
 .layers-panel-setcurrent-btn:disabled {
     opacity: 0.3;
     cursor: default;
-}
-
-.layers-panel-list {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-}
-
-.layers-panel-edit {
-    flex-shrink: 0;
-    border-top: 2px solid rgba(255, 255, 255, 0.12);
-    padding: 8px 12px 12px;
-    background-color: #1e1e1e;
-    overflow-y: auto;
-    max-height: 50%;
-}
-
-.layers-panel-edit-title {
-    color: var(--inactive-colour);
-    font-size: var(--xs-text);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 4px 0 8px;
 }

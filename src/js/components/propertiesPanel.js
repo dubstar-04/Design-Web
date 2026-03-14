@@ -1,6 +1,7 @@
 import "../../css/PropertiesPanel.css";
 import React, { Component } from "react";
 import DialogRow from "./dialogRow";
+import { SideKickContent } from "./sideKick";
 
 const NUMERIC_PROPERTIES = [
   'height', 'rotation', 'radius', 'width', 'lineWidth', 'scale', 'angle',
@@ -114,7 +115,7 @@ export default class PropertiesPanel extends Component {
     if (NUMERIC_PROPERTIES.includes(property)) {
       return (
         <input
-          className="properties-input properties-input--number"
+          className="dialogrow-input dialogrow-input--number"
           defaultValue={value}
           key={`${property}-${value}`}
           onBlur={(e) => this.onValueChanged(property, Number(e.target.value))}
@@ -146,7 +147,7 @@ export default class PropertiesPanel extends Component {
       const selectedIndex = model.findIndex(item => item.value === value);
       return (
         <select
-          className="properties-input properties-input--select"
+          className="dialogrow-input dialogrow-input--select"
           defaultValue={selectedIndex >= 0 ? value : ''}
           key={`${property}-${value}`}
           onChange={(e) => {
@@ -166,7 +167,7 @@ export default class PropertiesPanel extends Component {
     if (STRING_PROPERTIES.includes(property)) {
       return (
         <input
-          className="properties-input properties-input--text"
+          className="dialogrow-input dialogrow-input--text"
           defaultValue={value}
           key={`${property}-${value}`}
           onBlur={(e) => this.onValueChanged(property, e.target.value)}
@@ -177,7 +178,7 @@ export default class PropertiesPanel extends Component {
     }
 
     // Read-only fallback
-    return <span className="properties-value-readonly">{String(value)}</span>;
+    return <span className="dialogrow-value-readonly">{String(value)}</span>;
   }
 
   renderProperties() {
@@ -194,9 +195,12 @@ export default class PropertiesPanel extends Component {
         const input = this.renderInput(property, value);
         if (input === null) return null;
         return (
-          <DialogRow key={property} label={this.formatDisplayName(property)} variant="form">
-            {input}
-          </DialogRow>
+          <DialogRow
+            key={property}
+            label={this.formatDisplayName(property)}
+            suffix={input}
+            variant="form"
+          />
         );
       });
   }
@@ -215,11 +219,11 @@ export default class PropertiesPanel extends Component {
     const { selectedType } = this.state;
 
     return (
-      <div className="properties-panel">
+      <SideKickContent>
         {types.length > 1 && (
           <div className="properties-type-selector">
             <select
-              className="properties-input properties-input--select properties-type-select"
+              className="dialogrow-input dialogrow-input--select properties-type-select"
               onChange={(e) => this.setState({ selectedType: e.target.value })}
               value={selectedType}
             >
@@ -233,7 +237,7 @@ export default class PropertiesPanel extends Component {
         <div className="properties-list">
           {this.renderProperties()}
         </div>
-      </div>
+      </SideKickContent>
     );
   }
 }

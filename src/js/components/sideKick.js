@@ -81,3 +81,29 @@ export default class SideKick extends Component {
     );
   }
 }
+
+export class SideKickContent extends Component {
+  render() {
+    const { className, children } = this.props;
+    const cls = `sidekick-content-scroll${className ? ` ${className}` : ''}`;
+    return <div className={cls}>{children}</div>;
+  }
+}
+
+export class SideKickEdit extends Component {
+  render() {
+    const { title, toolbar, className, children } = this.props;
+    const cls = `sidekick-content-detail${className ? ` ${className}` : ''}`;
+    return (
+      <div className={cls}>
+        {(title || toolbar) && (
+          <div className="sidekick-content-detail-header">
+            {title && <div className="sidekick-content-detail-title">{title}</div>}
+            {toolbar && <div className="sidekick-content-detail-toolbar">{toolbar}</div>}
+          </div>
+        )}
+        {children}
+      </div>
+    );
+  }
+}
