@@ -65,7 +65,7 @@
 }
 
 .layers-panel-setcurrent-btn:hover:not(:disabled) {
-    background-color: rgba(56, 180, 74, 0.15);
+    background-color: rgba(53, 132, 228, 0.15);
 }
 
 .layers-panel-setcurrent-btn:disabled {
