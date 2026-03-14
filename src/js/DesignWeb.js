@@ -20,6 +20,7 @@ import PopoverMenuItem from './components/popoverMenuItem.js';
 
 import {saveAs} from 'file-saver'
 import LayersWindow from './components/layersWindow.js';
+import AboutWindow from './components/aboutWindow.js';
 
 export default class DesignWeb extends Component{
   constructor(){
@@ -29,6 +30,7 @@ export default class DesignWeb extends Component{
 
     this.popoverRef = React.createRef();
     this.layersWindowRef = React.createRef();
+    this.aboutWindowRef = React.createRef();
 
   }
 
@@ -92,15 +94,22 @@ export default class DesignWeb extends Component{
     this.layersWindowRef.current.toggleVisibility()
   }
 
+  showAboutWindow(){
+    this.popoverRef.current.close()
+    this.aboutWindowRef.current.toggleVisibility()
+  }
+
   render () {
     return <div className="DesignWeb">
 
       <LayersWindow core={this.core} ref={this.layersWindowRef} />
+      <AboutWindow ref={this.aboutWindowRef} />
       <Popover ref={this.popoverRef} >
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" />
         <PopoverMenuItem action={this.showLayersWindow.bind(this)} title="Layers" />
+        <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
       <Headerbar core={this.core} popover={this.popoverRef} />
