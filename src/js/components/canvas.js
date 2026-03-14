@@ -96,6 +96,16 @@ export default class Canvas extends Component{
     var charCode = (event.charCode) ? event.charCode : event.keyCode;
     console.log("char code", event.keyVal, event.keyCode)
 
+    if (event.ctrlKey && event.key.toLowerCase() === 'l') {
+      if (this.props.onShortcut) this.props.onShortcut('layers');
+      return;
+    }
+
+    if (event.ctrlKey && event.key === '1') {
+      if (this.props.onShortcut) this.props.onShortcut('properties');
+      return;
+    }
+
     if (event.ctrlKey &&  event.key.toLowerCase() === 'z') {
       this.core.scene.undo();
       return;

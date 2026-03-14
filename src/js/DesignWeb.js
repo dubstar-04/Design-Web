@@ -139,6 +139,7 @@ export default class DesignWeb extends Component{
       <Canvas
         core={this.core}
         mousePosCallback={this.updateMousePos.bind(this)}
+        onShortcut={(tab) => this.sideKickRef.current.openTab(tab)}
         sideKickOpen={this.state.sideKickOpen}
       />
       <Toolbar core={this.core} style="left" type='Entity' />

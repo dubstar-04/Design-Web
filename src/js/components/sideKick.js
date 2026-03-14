@@ -43,6 +43,17 @@ export default class SideKick extends Component {
     this.setState({ activeTab: id });
   }
 
+  openTab(id) {
+    if (!this.state.visible) {
+      if (this.props.onOpenChange) this.props.onOpenChange(true);
+      this.setState({ visible: true, activeTab: id }, () => {
+        requestAnimationFrame(() => this.setState({ open: true }));
+      });
+    } else {
+      this.setState({ activeTab: id });
+    }
+  }
+
   render() {
     if (!this.state.visible) {
       return <></>;
