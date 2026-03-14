@@ -41,11 +41,11 @@
 }
 
 input:checked+.slider {
-  background-color: var(--active-colour, #38b44a);
+  background-color: var(--active-colour, #3584e4);
 }
 
 input:focus-visible+.slider {
-  outline: 2px solid var(--active-colour, #38b44a);
+  outline: 2px solid var(--active-colour, #3584e4);
   outline-offset: 2px;
 }
 

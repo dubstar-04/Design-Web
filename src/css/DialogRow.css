@@ -10,9 +10,9 @@
 
 /* List variant */
 .dialogrow--list {
-  height: 50px;
-  background-color: #363636;
-  border-bottom: solid 1px #242424;
+  height: 44px;
+  background-color: #2a2a2a;
+  border-bottom: solid 1px #1e1e1e;
   gap: 8px;
   padding: 0 8px;
 }
@@ -22,18 +22,18 @@
 }
 
 .dialogrow--list:hover {
-  background-color: #4c4c4c;
+  background-color: #363636;
 }
 
 .dialogrow--current {
-  background-color: rgba(56, 180, 74, 0.15);
+  background-color: rgba(53, 132, 228, 0.15);
 }
 
 /* Form variant */
 .dialogrow--form {
-  min-height: 40px;
-  border-bottom: 1px solid #2e2e2e;
-  padding: 0 12px 8px 12px;
+  min-height: 36px;
+  border-bottom: 1px solid #272727;
+  padding: 0 12px 6px 12px;
   justify-content: space-between;
 }
 
@@ -70,7 +70,7 @@
 .dialogrow-badge {
   font-size: var(--xs-text);
   color: var(--active-colour);
-  background-color: rgba(56, 180, 74, 0.2);
+  background-color: rgba(53, 132, 228, 0.18);
   border-radius: 4px;
   padding: 2px 6px;
   flex-shrink: 0;

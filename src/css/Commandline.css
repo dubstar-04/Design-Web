@@ -3,31 +3,38 @@
     left: 0;
     right: var(--sidekick-offset, 0px);
     bottom: 0;
-    height: 40px;
+    height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    background: var(--footer-colour)
+    background: var(--footer-colour);
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    transition: right 0.25s ease;
+    padding: 0 4px;
 }
 
 .cmdLine {
     flex: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 10px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: none;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 0 12px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--text-contrast-color);
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: var(--medium-text);
 }
 
 .coordLabel {
     display: block;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.65);
     text-align: right;
-    margin-left: 10px;
-    margin-right: 10px;
-    min-width: 300px;
+    margin-left: 8px;
+    margin-right: 12px;
+    min-width: 260px;
+    font-size: var(--medium-text);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
 }

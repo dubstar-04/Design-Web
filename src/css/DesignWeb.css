@@ -4,39 +4,39 @@ This section holds the variables for the design of the css.
 variables can be recalled using var(--var-name);
 */
   --mainbg-color: #06c;
-  --accent-color: #F78F3F;
-  --border-colour: #d3d3d3;
-  --shadow-colour: #888888;
-  --active-colour: #38B44A;
-  --alert-colour: #f44336;
+  --accent-color: #3584e4;
+  --border-colour: rgba(255, 255, 255, 0.1);
+  --shadow-colour: rgba(0, 0, 0, 0.4);
+  --active-colour: #3584e4;
+  --alert-colour: #e84040;
   --passive-colour: #008CBA;
-  --inactive-colour: #8a8a8a;
-  --header-colour: #29415e;
-  --footer-colour: #29415e;
+  --inactive-colour: #7a7a7a;
+  --header-colour: #14212f;
+  --footer-colour: #14212f;
   /* blur */
-  --window-blur: 2px;
+  --window-blur: 4px;
   /* toolbar */
-  --toolbar-hover-colour: rgba(255, 255, 255, 0.15);
+  --toolbar-hover-colour: rgba(255, 255, 255, 0.12);
   /* dialog / popover */
-  --dialog-header-colour: #29415e;
-  --dialog-bg-colour: #383838;
-  --dialog-hover-colour: #f7f7f7;
+  --dialog-header-colour: #14212f;
+  --dialog-bg-colour: #262626;
+  --dialog-hover-colour: #3a3a3a;
   /* List  */
-  --list-bg-colour: #B3B3B3;
+  --list-bg-colour: #2e2e2e;
   /* Text */
   --titletext-colour: #ffffff;
-  --text-colour: #ffffff;
+  --text-colour: #e8e8e8;
   --text-contrast-color: #ffffff;
   /* Text Size */
-  --xs-text: 10px;
+  --xs-text: 11px;
   --small-text: 12px;
-  --medium-text: 16px;
-  --large-text: 22px;
-  --xl-text: 30px;
+  --medium-text: 13px;
+  --large-text: 18px;
+  --xl-text: 24px;
   /* Layout */
   --margin-size: 5px;
   --padding: 10px;
-  --border-radius: 5px;
+  --border-radius: 6px;
 }
 
 .DesignWeb {
