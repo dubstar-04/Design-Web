@@ -50,8 +50,6 @@ export default class Canvas extends Component{
     cr.restore();
 
     this.core.canvas.paint(cr, width, height);
-
-    if (this.props.onPaint) this.props.onPaint();
   }
 
   handleMouseDown(e){

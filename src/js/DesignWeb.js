@@ -34,8 +34,8 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this._propertiesPanelContent = null;
-    this._paintDebounceTimer = null;
 
+    this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
   }
 
   /**
@@ -107,13 +107,10 @@ export default class DesignWeb extends Component{
     this.setState({ sideKickOpen: isOpen })
   }
 
-  handleCanvasPaint(){
-    clearTimeout(this._paintDebounceTimer);
-    this._paintDebounceTimer = setTimeout(() => {
-      if (this.state.sideKickOpen && this._propertiesPanelContent) {
-        this._propertiesPanelContent.reload();
-      }
-    }, 150);
+  handlePropertyChange(){
+    if (this._propertiesPanelContent) {
+      this._propertiesPanelContent.reload();
+    }
   }
 
   render () {
@@ -141,7 +138,6 @@ export default class DesignWeb extends Component{
       <Canvas
         core={this.core}
         mousePosCallback={this.updateMousePos.bind(this)}
-        onPaint={this.handleCanvasPaint.bind(this)}
         sideKickOpen={this.state.sideKickOpen}
       />
       <Toolbar core={this.core} style="left" type='Entity' />
