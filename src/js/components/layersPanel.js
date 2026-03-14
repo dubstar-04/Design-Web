@@ -192,24 +192,28 @@ export default class LayersPanel extends Component {
     const currentLayer = this.getCurrentLayer();
     const indelibleLayers = this.props.core.layerManager.indelibleItems;
     const { selectedLayer, confirmDeleteLayer } = this.state;
+    const isIndelible = selectedLayer && indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
 
     return (
       <div className="layers-panel">
         <div className="layers-panel-toolbar">
           <button className="layers-panel-add-btn" onClick={this.onNewLayer.bind(this)} title="New Layer">+</button>
+          <button
+            className="layers-panel-delete-btn"
+            disabled={!selectedLayer || isIndelible}
+            onClick={() => this.onConfirmDelete(selectedLayer)}
+            title="Delete Selected Layer"
+          >−</button>
+          <button
+            className="layers-panel-setcurrent-btn"
+            disabled={!selectedLayer || selectedLayer.name === currentLayer}
+            onClick={() => this.onSetCurrentLayer(selectedLayer)}
+            title="Set as Current Layer"
+          >✓</button>
         </div>
         <div className="layers-panel-list">
           {layers.map((layer, index) => (
             <Row
-              actions={
-                <DialogRowMenu
-                  isCurrent={layer.name === currentLayer}
-                  isIndelible={indelibleLayers.some(i => i.toUpperCase() === layer.name.toUpperCase())}
-                  onDelete={() => this.onConfirmDelete(layer)}
-                  onEdit={() => this.onSelectLayer(layer)}
-                  onSetCurrent={() => this.onSetCurrentLayer(layer)}
-                />
-              }
               badge={layer.name === currentLayer ? 'current' : undefined}
               colour={this.colourToHex(layer.colour)}
               isCurrent={layer.name === selectedLayer?.name}
