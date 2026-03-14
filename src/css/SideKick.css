@@ -1,4 +1,4 @@
-.sidepanel {
+.sidekick {
     width: 320px;
     height: 100%;
     position: fixed;
@@ -14,24 +14,24 @@
     transition: transform 0.3s ease;
 }
 
-.sidepanel--open {
+.sidekick--open {
     transform: translateX(0);
 }
 
-.sidepanel-layout {
+.sidekick-layout {
     flex: 1;
     display: flex;
     flex-direction: row;
     overflow: hidden;
 }
 
-.sidepanel-content {
+.sidekick-content {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.sidepanel-tabs {
+.sidekick-tabs {
     width: 36px;
     display: flex;
     flex-direction: column;
@@ -39,7 +39,7 @@
     background-color: #1e1e1e;
 }
 
-.sidepanel-tab {
+.sidekick-tab {
     flex-shrink: 0;
     padding: 16px 0;
     display: flex;
@@ -56,12 +56,12 @@
     background: transparent;
 }
 
-.sidepanel-tab--active {
+.sidekick-tab--active {
     color: var(--accent-color);
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-.sidepanel-tab:hover:not(.sidepanel-tab--active) {
+.sidekick-tab:hover:not(.sidekick-tab--active) {
     background-color: rgba(255, 255, 255, 0.08);
     color: var(--text-colour);
 }

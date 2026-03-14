@@ -1,7 +1,7 @@
 .popover {
   position: fixed;
   width: 180px;
-  right: calc(8px + var(--sidepanel-offset, 0px));
+  right: calc(8px + var(--sidekick-offset, 0px));
   top: 52px;
   background-color: #1c1c1c;
   border: 1px solid rgba(255, 255, 255, 0.1);

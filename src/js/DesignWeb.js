@@ -20,7 +20,7 @@ import PopoverMenuItem from './components/popoverMenuItem.js';
 
 import {saveAs} from 'file-saver'
 import AboutWindow from './components/aboutWindow.js';
-import SidePanel from './components/sidePanel.js';
+import SideKick from './components/sideKick.js';
 import PropertiesPanel from './components/propertiesPanel.js';
 import LayersPanel from './components/layersPanel.js';
 
@@ -28,11 +28,11 @@ export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = new Core()
-    this.state = {mousePos: '', sidePanelOpen: false}
+    this.state = {mousePos: '', sideKickOpen: false}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
-    this.sidePanelRef = React.createRef();
+    this.sideKickRef = React.createRef();
     this._propertiesPanelContent = null;
     this._paintDebounceTimer = null;
 
@@ -98,31 +98,31 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef.current.toggleVisibility()
   }
 
-  showSidePanel(){
+  showSideKick(){
     this.popoverRef.current.close()
-    this.sidePanelRef.current.toggleVisibility()
+    this.sideKickRef.current.toggleVisibility()
   }
 
-  onPanelOpenChange(isOpen){
-    this.setState({ sidePanelOpen: isOpen })
+  onSideKickOpenChange(isOpen){
+    this.setState({ sideKickOpen: isOpen })
   }
 
   handleCanvasPaint(){
     clearTimeout(this._paintDebounceTimer);
     this._paintDebounceTimer = setTimeout(() => {
-      if (this.state.sidePanelOpen && this._propertiesPanelContent) {
+      if (this.state.sideKickOpen && this._propertiesPanelContent) {
         this._propertiesPanelContent.reload();
       }
     }, 150);
   }
 
   render () {
-    return <div className={`DesignWeb${this.state.sidePanelOpen ? ' sidepanel-open' : ''}`}>
+    return <div className={`DesignWeb${this.state.sideKickOpen ? ' sidekick-open' : ''}`}>
 
       <AboutWindow ref={this.aboutWindowRef} />
-      <SidePanel
-        onOpenChange={this.onPanelOpenChange.bind(this)}
-        ref={this.sidePanelRef}
+      <SideKick
+        onOpenChange={this.onSideKickOpenChange.bind(this)}
+        ref={this.sideKickRef}
         tabs={[
           { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this._propertiesPanelContent = el; }} /> },
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
@@ -133,7 +133,7 @@ export default class DesignWeb extends Component{
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         {/* <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" /> */}
-        <PopoverMenuItem action={this.showSidePanel.bind(this)} title="Side Panel" />
+        <PopoverMenuItem action={this.showSideKick.bind(this)} title="Side Kick" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
@@ -142,7 +142,7 @@ export default class DesignWeb extends Component{
         core={this.core}
         mousePosCallback={this.updateMousePos.bind(this)}
         onPaint={this.handleCanvasPaint.bind(this)}
-        sidePanelOpen={this.state.sidePanelOpen}
+        sideKickOpen={this.state.sideKickOpen}
       />
       <Toolbar core={this.core} style="left" type='Entity' />
       <Toolbar core={this.core} style="right" type='Tool' />

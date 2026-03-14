@@ -1,7 +1,7 @@
 .commandline {
     position: absolute;
     left: 0;
-    right: var(--sidepanel-offset, 0px);
+    right: var(--sidekick-offset, 0px);
     bottom: 0;
     height: 40px;
     display: flex;

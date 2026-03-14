@@ -1,4 +1,4 @@
-import "../../css/SidePanel.css";
+import "../../css/SideKick.css";
 import React, { Component } from "react";
 import DialogHeader from "./dialogHeader";
 
@@ -8,7 +8,7 @@ const DEFAULT_TABS = [
   { id: 'settings', label: 'Settings' },
 ];
 
-export default class SidePanel extends Component {
+export default class SideKick extends Component {
   constructor(props) {
     super(props);
     const tabs = props.tabs || DEFAULT_TABS;
@@ -53,7 +53,7 @@ export default class SidePanel extends Component {
 
     return (
       <div
-        className={`sidepanel ${this.state.open ? "sidepanel--open" : ""}`}
+        className={`sidekick ${this.state.open ? "sidekick--open" : ""}`}
         onTransitionEnd={this.handleTransitionEnd}
       >
         <DialogHeader
@@ -61,14 +61,14 @@ export default class SidePanel extends Component {
           onClose={this.close.bind(this)}
           title={activeTab.label}
         />
-        <div className="sidepanel-layout">
-          <div className="sidepanel-content">
+        <div className="sidekick-layout">
+          <div className="sidekick-content">
             {activeTab.content}
           </div>
-          <div className="sidepanel-tabs">
+          <div className="sidekick-tabs">
             {tabs.map(tab => (
               <button
-                className={`sidepanel-tab${tab.id === this.state.activeTab ? " sidepanel-tab--active" : ""}`}
+                className={`sidekick-tab${tab.id === this.state.activeTab ? " sidekick-tab--active" : ""}`}
                 key={tab.id}
                 onClick={() => this.setActiveTab(tab.id)}
               >

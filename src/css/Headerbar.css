@@ -6,7 +6,7 @@
       align-items: center;
       flex-direction: row;
       position: relative;
-      width: calc(100% - var(--sidepanel-offset, 0px));
+      width: calc(100% - var(--sidekick-offset, 0px));
       height: 40px;
       transition: width 0.3s ease;
   }

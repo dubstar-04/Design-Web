@@ -23,7 +23,7 @@ export default class Canvas extends Component{
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.sidePanelOpen !== this.props.sidePanelOpen) {
+    if (prevProps.sideKickOpen !== this.props.sideKickOpen) {
       this.paint();
     }
   }
