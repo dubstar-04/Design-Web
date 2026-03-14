@@ -1,34 +1,42 @@
-<img style="vertical-align: middle;" src="public/icons/design.svg" width="120" height="120" align="left">
+<div align="center">
+  <img src="public/icons/design.svg" width="120" height="120" alt="Design logo">
+  <h1>Design</h1>
+  <p><strong>2D CAD for the web</strong></p>
+  <p>
+    <a href="https://www.design-web.uk">Live App</a> ·
+    <a href="https://design-app.readthedocs.io/en/latest/index.html">Documentation</a>
+  </p>
+</div>
 
-# Design 
+---
 
-2D CAD for the web 
+## About
 
-Design is a 2D computer aided design application (CAD), 
-created to meet the needs of makers and designers, 
-hobbyists and professionals that require a first class 
-CAD application. 
-_________________________________________________________________________________________________________________
+Design is a 2D computer-aided design (CAD) application built for the web, created to meet the needs of makers and designers — hobbyists and professionals alike — who require a first-class CAD experience in the browser.
 
-Design can be accessed at:
-https://www.design-web.uk
+## Screenshot
 
-Documentation is available at:
-https://design-app.readthedocs.io/en/latest/index.html
-_________________________________________________________________________________________________________________
+<img src="/screenshots/Screenshot.png?raw=true" alt="Design screenshot" width="1024">
 
-Raspberry PI Schematics available from:
-https://www.raspberrypi.org/documentation/hardware/raspberrypi/mechanical/README.md
-_________________________________________________________________________________________________________________
+## Getting Started
 
+```bash
+# Install dependencies
+npm install
 
-Screenshots: 
+# Start development server
+npm start
+```
 
-<img src="/screenshots/Screenshot.png?raw=true" width="1024">
+## Deployment
 
-_________________________________________________________________________________________________________________
+```bash
+# Build and deploy to the production branch on GitHub Pages
+npm run deploy
+```
 
-Testing: npm start
+## Links
 
-Publishing: npm run deploy (updates publish branch on github)
-_________________________________________________________________________________________________________________
+- **Live application**: https://www.design-web.uk
+- **Documentation**: https://design-app.readthedocs.io/en/latest/index.html
+- **Raspberry Pi schematics**: https://www.raspberrypi.org/documentation/hardware/raspberrypi/mechanical/README.md
