@@ -2,6 +2,7 @@ import "../../css/LayersPanel.css";
 import React, { Component } from "react";
 import ConfirmationDialog from "./confirmationDialog";
 import DialogRow from "./dialogRow";
+import Switch from "./switch";
 import { SideKickContent, SideKickEdit } from "./sideKick";
 
 export default class LayersPanel extends Component {
@@ -131,15 +132,6 @@ export default class LayersPanel extends Component {
     return `#${toHex(colour.r)}${toHex(colour.g)}${toHex(colour.b)}`;
   }
 
-  renderSwitch(checked, onChange) {
-    return (
-      <label className="switch">
-        <input checked={checked} onChange={onChange} type="checkbox" />
-        <span className="slider round" />
-      </label>
-    );
-  }
-
   renderEditPanel() {
     const { editName, editOn, editFrozen, editLocked, editLineType, editLineWeight, editPlotting, selectedLayer } = this.state;
     const currentLayer = this.getCurrentLayer();
@@ -183,17 +175,17 @@ export default class LayersPanel extends Component {
         />
         <DialogRow
           label="Visible"
-          suffix={this.renderSwitch(editOn, e => this.onToggleChange('editOn', e.target.checked))}
+          suffix={<Switch checked={editOn} onChange={e => this.onToggleChange('editOn', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
           label="Frozen"
-          suffix={this.renderSwitch(editFrozen, e => this.onToggleChange('editFrozen', e.target.checked))}
+          suffix={<Switch checked={editFrozen} onChange={e => this.onToggleChange('editFrozen', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
           label="Locked"
-          suffix={this.renderSwitch(editLocked, e => this.onToggleChange('editLocked', e.target.checked))}
+          suffix={<Switch checked={editLocked} onChange={e => this.onToggleChange('editLocked', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
@@ -216,7 +208,7 @@ export default class LayersPanel extends Component {
         />
         <DialogRow
           label="Plotting"
-          suffix={this.renderSwitch(editPlotting, e => this.onToggleChange('editPlotting', e.target.checked))}
+          suffix={<Switch checked={editPlotting} onChange={e => this.onToggleChange('editPlotting', e.target.checked)} />}
           variant="form"
         />
       </SideKickEdit>

@@ -23,6 +23,7 @@ import AboutWindow from './components/aboutWindow.js';
 import SideKick from './components/sideKick.js';
 import PropertiesPanel from './components/propertiesPanel.js';
 import LayersPanel from './components/layersPanel.js';
+import SettingsPanel from './components/settingsPanel.js';
 
 export default class DesignWeb extends Component{
   constructor(){
@@ -123,7 +124,7 @@ export default class DesignWeb extends Component{
         tabs={[
           { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this._propertiesPanelContent = el; }} /> },
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
-          { id: 'settings', label: 'Settings', content: null },
+          { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
         ]}
       />
       <Popover ref={this.popoverRef} >
