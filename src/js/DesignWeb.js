@@ -22,6 +22,7 @@ import {saveAs} from 'file-saver'
 import LayersWindow from './components/layersWindow.js';
 import AboutWindow from './components/aboutWindow.js';
 import SidePanel from './components/sidePanel.js';
+import PropertiesPanel from './components/propertiesPanel.js';
 
 export default class DesignWeb extends Component{
   constructor(){
@@ -110,6 +111,15 @@ export default class DesignWeb extends Component{
 
   onPanelOpenChange(isOpen){
     this.setState({ sidePanelOpen: isOpen })
+  }
+
+  handleCanvasPaint(){
+    clearTimeout(this._paintDebounceTimer);
+    this._paintDebounceTimer = setTimeout(() => {
+      if (this.state.sidePanelOpen && this._propertiesPanelContent) {
+        this._propertiesPanelContent.reload();
+      }
+    }, 150);
   }
 
   render () {
