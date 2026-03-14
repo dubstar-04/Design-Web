@@ -19,5 +19,5 @@
 }
 
 .right {
-  right: 10px;
+  right: calc(10px + var(--sidepanel-offset, 0px));
 }

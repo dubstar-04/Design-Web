@@ -21,16 +21,20 @@ import PopoverMenuItem from './components/popoverMenuItem.js';
 import {saveAs} from 'file-saver'
 import LayersWindow from './components/layersWindow.js';
 import AboutWindow from './components/aboutWindow.js';
+import SidePanel from './components/sidePanel.js';
 
 export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = new Core()
-    this.state = {mousePos: ''}
+    this.state = {mousePos: '', sidePanelOpen: false}
 
     this.popoverRef = React.createRef();
     this.layersWindowRef = React.createRef();
     this.aboutWindowRef = React.createRef();
+    this.propertiesPanelRef = React.createRef();
+    this._propertiesPanelContent = null;
+    this._paintDebounceTimer = null;
 
   }
 
@@ -99,21 +103,45 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef.current.toggleVisibility()
   }
 
+  showPropertiesPanel(){
+    this.popoverRef.current.close()
+    this.propertiesPanelRef.current.toggleVisibility()
+  }
+
+  onPanelOpenChange(isOpen){
+    this.setState({ sidePanelOpen: isOpen })
+  }
+
   render () {
-    return <div className="DesignWeb">
+    return <div className={`DesignWeb${this.state.sidePanelOpen ? ' sidepanel-open' : ''}`}>
 
       <LayersWindow core={this.core} ref={this.layersWindowRef} />
       <AboutWindow ref={this.aboutWindowRef} />
+      <SidePanel
+        onOpenChange={this.onPanelOpenChange.bind(this)}
+        ref={this.propertiesPanelRef}
+        tabs={[
+          { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this._propertiesPanelContent = el; }} /> },
+          { id: 'layers', label: 'Layers', content: null },
+          { id: 'settings', label: 'Settings', content: null },
+        ]}
+      />
       <Popover ref={this.popoverRef} >
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" />
         <PopoverMenuItem action={this.showLayersWindow.bind(this)} title="Layers" />
+        <PopoverMenuItem action={this.showPropertiesPanel.bind(this)} title="Properties" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
       <Headerbar core={this.core} popover={this.popoverRef} />
-      <Canvas core={this.core} mousePosCallback={this.updateMousePos.bind(this)} />
+      <Canvas
+        core={this.core}
+        mousePosCallback={this.updateMousePos.bind(this)}
+        onPaint={this.handleCanvasPaint.bind(this)}
+        sidePanelOpen={this.state.sidePanelOpen}
+      />
       <Toolbar core={this.core} style="left" type='Entity' />
       <Toolbar core={this.core} style="right" type='Tool' />
       <Commandline core={this.core} mousePos={this.state.mousePos} />

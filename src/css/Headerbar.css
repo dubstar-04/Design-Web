@@ -1,20 +1,21 @@
   .headerbar {
-	background-color: var(--header-colour);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    height: 40px;
-}
+      background-color: var(--header-colour);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      position: relative;
+      width: calc(100% - var(--sidepanel-offset, 0px));
+      height: 40px;
+      transition: width 0.3s ease;
+  }
 
-.headerbar-title {
-    position: absolute;
-}
+  .headerbar-title {
+      position: absolute;
+  }
 
-.headerbar-menu {
-    position: absolute;
-    right: 0px;
-}
-
+  .headerbar-menu {
+      position: absolute;
+      right: 0px;
+  }

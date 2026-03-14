@@ -1,10 +1,9 @@
 .commandline {
     position: absolute;
     left: 0;
-    right: 0;
+    right: var(--sidepanel-offset, 0px);
     bottom: 0;
     height: 40px;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,9 +24,9 @@
 }
 
 .coordLabel {
-    display:block;
+    display: block;
     color: #ffffff;
-    text-align:right;
+    text-align: right;
     margin-left: 10px;
     margin-right: 10px;
     min-width: 300px;

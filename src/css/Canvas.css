@@ -1,7 +1,7 @@
 canvas {
     height: 100%;
-    width: 100%;
     position: absolute;
-    /* border:0px; */
+    left: 0;
+    right: var(--sidepanel-offset, 0px);
     cursor: crosshair;
 }

@@ -22,6 +22,12 @@ export default class Canvas extends Component{
     this.paint()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.sidePanelOpen !== this.props.sidePanelOpen) {
+      this.paint();
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener("keydown", this.boundHandleKeyPress)
   }
@@ -31,8 +37,8 @@ export default class Canvas extends Component{
     const canvas = this.canvasRef.current
     const cr = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
     const width = cr.canvas.width;
     const height = cr.canvas.height;
@@ -44,6 +50,8 @@ export default class Canvas extends Component{
     cr.restore();
 
     this.core.canvas.paint(cr, width, height);
+
+    if (this.props.onPaint) this.props.onPaint();
   }
 
   handleMouseDown(e){

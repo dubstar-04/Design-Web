@@ -1,7 +1,7 @@
 .popover {
   position: fixed;
   width: 180px;
-  right: 8px;
+  right: calc(8px + var(--sidepanel-offset, 0px));
   top: 52px;
   background-color: #1c1c1c;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -10,6 +10,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 4px 0;
   overflow: hidden;
+  transition: right 0.3s ease;
 }
 
 .popover-arrow {

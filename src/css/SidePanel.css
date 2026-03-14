@@ -1,0 +1,67 @@
+.sidepanel {
+    width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #242424;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.sidepanel--open {
+    transform: translateX(0);
+}
+
+.sidepanel-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.sidepanel-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidepanel-tabs {
+    width: 36px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1e1e1e;
+}
+
+.sidepanel-tab {
+    flex-shrink: 0;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    cursor: pointer;
+    color: var(--inactive-colour);
+    font-size: var(--small-text);
+    user-select: none;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+}
+
+.sidepanel-tab--active {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidepanel-tab:hover:not(.sidepanel-tab--active) {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-colour);
+}
