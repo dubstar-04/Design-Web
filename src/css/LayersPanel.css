@@ -27,7 +27,7 @@
 
 .layers-panel-delete-btn {
     background-color: var(--alert-colour);
-    color: #ffffff;
+    color: var(--text-colour);
     font-size: var(--xl-text);
     border-color: transparent;
 }
@@ -43,7 +43,7 @@
 
 .layers-panel-setcurrent-btn {
     background-color: var(--active-colour);
-    color: #ffffff;
+    color: var(--text-colour);
     font-size: var(--xl-text);
     border-color: transparent;
 }
