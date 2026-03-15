@@ -94,6 +94,11 @@ export default class DesignWeb extends Component{
     console.log('Export File');
   }
 
+  handleOpenHelp(){
+    this.popoverRef.current.close()
+    window.open('https://design-app.readthedocs.io/en/latest/index.html', '_blank', 'noopener,noreferrer')
+  }
+
   showAboutWindow(){
     this.popoverRef.current.close()
     this.aboutWindowRef.current.toggleVisibility()
@@ -132,6 +137,7 @@ export default class DesignWeb extends Component{
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         {/* <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" /> */}
         <PopoverMenuItem action={this.showSideKick.bind(this)} title="Side Kick" />
+        <PopoverMenuItem action={this.handleOpenHelp.bind(this)} title="Help" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
