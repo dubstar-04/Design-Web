@@ -1,7 +1,7 @@
 .popover {
   position: fixed;
   width: 200px;
-  right: calc(8px + var(--sidekick-offset, 0px));
+  right: 8px;
   top: 55px;
   background-color: var(--card-bg);
   border: 1px solid var(--border-colour);
@@ -10,7 +10,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 14px 48px rgba(0, 0, 0, 0.5);
   padding: 6px 0;
   overflow: hidden;
-  transition: right 0.25s ease;
 }
 
 .popover-arrow {
