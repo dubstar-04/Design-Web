@@ -178,8 +178,7 @@ export default class Canvas extends Component{
       key = "Delete";
       break;
     case 112: // F1
-      //showSettings()
-      //changeTab(event, 'Help')
+      if (this.props.onHelp) this.props.onHelp();
       break;
     case 113: // F2
       break;
