@@ -93,6 +93,9 @@ export default class Canvas extends Component{
 
     event.preventDefault()
 
+    // Ignore Alt-modified keys — no Alt shortcuts are defined
+    if (event.altKey) return;
+
     var charCode = (event.charCode) ? event.charCode : event.keyCode;
     console.log("char code", event.keyVal, event.keyCode)
 
@@ -121,13 +124,13 @@ export default class Canvas extends Component{
       return;
     }
 
-    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copyclip`);
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copybase`);
       return;
     }
 
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copybase`);
+    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copyclip`);
       return;
     }
 
@@ -208,7 +211,10 @@ export default class Canvas extends Component{
       break;
 
     default:
-      key = event.key
+      // Only forward printable / known keys — skip modifier and media keys
+      if (event.key.length === 1 || event.key === 'Dead') {
+        key = event.key;
+      }
     }
 
     console.log('key', key)
