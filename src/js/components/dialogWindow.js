@@ -1,5 +1,6 @@
 import "../../css/DialogWindow.css";
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import DialogHeader from "./dialogHeader";
 
 export default class DialogWindow extends Component {
@@ -17,18 +18,21 @@ export default class DialogWindow extends Component {
   }
 
   render() {
-    const component = this.state.visible ? (
+    if (!this.state.visible) {
+      return <></>;
+    }
+
+    return ReactDOM.createPortal(
       <div className="dialogbackground">
-        <div className="dialogwindow">
+        <div className={`dialogwindow${this.props.className ? ` ${this.props.className}` : ''}`}>
           <DialogHeader
             onAdd={this.props.onAdd} onBack={this.props.onBack} onClose={this.close.bind(this)}
             title={this.props.title}
           />
           {this.props.children}
         </div>
-      </div>
-    ) : (<></>);
-
-    return component
+      </div>,
+      document.body
+    );
   }
 }
