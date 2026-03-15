@@ -124,13 +124,13 @@ export default class Canvas extends Component{
       return;
     }
 
-    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copyclip`);
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copybase`);
       return;
     }
 
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copybase`);
+    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
+      this.core.scene.inputManager.onCommand(`Copyclip`);
       return;
     }
 
