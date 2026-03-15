@@ -20,9 +20,9 @@
 }
 
 .confirmation-dialog-cancel-btn {
-    background-color: var(--hover-bg);
+    background-color: var(--button-bg);
     color: var(--text-colour);
-    border: 1px solid var(--toolbar-hover-colour);
+    border: 1px solid var(--strong-hover-bg);
     border-radius: 9999px;
     padding: 8px 20px;
     cursor: pointer;
@@ -32,7 +32,7 @@
 }
 
 .confirmation-dialog-cancel-btn:hover {
-    background-color: var(--strong-hover-bg);
+    background-color: var(--button-bg-hover);
 }
 
 .confirmation-dialog-confirm-btn {
