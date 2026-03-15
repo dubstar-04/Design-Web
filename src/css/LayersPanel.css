@@ -1,44 +1,39 @@
-.layers-panel-add-btn {
-    background: none;
-    border: none;
+.layers-panel-add-btn,
+.layers-panel-delete-btn,
+.layers-panel-setcurrent-btn {
+    border: 1px solid var(--border-colour);
     border-radius: 9999px;
-    color: var(--text-colour);
     cursor: pointer;
-    font-size: var(--large-text);
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     line-height: 1;
+    font-family: inherit;
     transition: background-color 150ms ease;
+}
+
+.layers-panel-add-btn {
+    background-color: var(--button-bg);
+    color: var(--text-colour);
+    font-size: var(--xl-text);
 }
 
 .layers-panel-add-btn:hover {
-    background-color: var(--hover-bg);
+    background-color: var(--button-bg-hover);
 }
 
 .layers-panel-delete-btn {
-    background: none;
-    border: none;
-    border-radius: 9999px;
-    color: var(--alert-colour);
-    cursor: pointer;
-    font-size: var(--large-text);
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    line-height: 1;
-    margin-left: 4px;
-    transition: background-color 150ms ease;
+    background-color: var(--alert-colour);
+    color: var(--text-colour);
+    font-size: var(--xl-text);
+    border-color: transparent;
 }
 
 .layers-panel-delete-btn:hover:not(:disabled) {
-    background-color: var(--alert-tint);
+    opacity: 0.85;
 }
 
 .layers-panel-delete-btn:disabled {
@@ -47,25 +42,14 @@
 }
 
 .layers-panel-setcurrent-btn {
-    background: none;
-    border: none;
-    border-radius: 9999px;
-    color: var(--active-colour);
-    cursor: pointer;
-    font-size: var(--medium-text);
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    line-height: 1;
-    margin-left: 4px;
-    transition: background-color 150ms ease;
+    background-color: var(--active-colour);
+    color: var(--text-colour);
+    font-size: var(--xl-text);
+    border-color: transparent;
 }
 
 .layers-panel-setcurrent-btn:hover:not(:disabled) {
-    background-color: var(--accent-tint);
+    opacity: 0.85;
 }
 
 .layers-panel-setcurrent-btn:disabled {
