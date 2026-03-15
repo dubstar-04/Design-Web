@@ -8,6 +8,7 @@
     <a href="https://www.design-web.uk"><img alt="Live App" src="https://img.shields.io/badge/live%20app-design--web.uk-3584e4?style=flat-square&logo=googlechrome&logoColor=white"></a>
     <a href="https://design-app.readthedocs.io/en/latest/index.html"><img alt="Docs" src="https://img.shields.io/badge/docs-readthedocs-3584e4?style=flat-square&logo=readthedocs&logoColor=white"></a>
     <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-3584e4?style=flat-square"></a>
+    <a href="https://github.com/dubstar-04/Design-Web/actions/workflows/test.yml"><img alt="Tests" src="https://github.com/dubstar-04/Design-Web/actions/workflows/test.yml/badge.svg"></a>
   </p>
 </div>
 
