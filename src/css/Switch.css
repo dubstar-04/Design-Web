@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #5c5c5c;
+  background-color: var(--switch-track-off);
   border: none;
   border-radius: 9999px;
   transition: background-color 0.2s ease;
@@ -34,10 +34,10 @@
   width: 22px;
   left: 3px;
   top: 3px;
-  background-color: #ffffff;
+  background-color: var(--switch-thumb);
   border-radius: 50%;
   transition: transform 0.2s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 4px var(--shadow-colour);
 }
 
 input:checked+.slider {
@@ -49,11 +49,11 @@ input:checked+.slider:before {
 }
 
 .slider:hover {
-  background-color: #6e6e6e;
+  background-color: var(--switch-track-hover);
 }
 
 input:checked+.slider:hover {
-  background-color: #4a7fc2;
+  background-color: var(--switch-track-on-hover);
 }
 
 input:focus-visible+.slider {

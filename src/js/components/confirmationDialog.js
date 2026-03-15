@@ -30,7 +30,7 @@ export default class ConfirmationDialog extends Component {
     };
 
     return (
-      <DialogWindow ref={this.dialogRef} title={title}>
+      <DialogWindow className="dialogwindow--narrow" ref={this.dialogRef} title={title}>
         <div className="confirmation-dialog">
           <p className="confirmation-dialog-text">{message}</p>
           <div className="confirmation-dialog-buttons">

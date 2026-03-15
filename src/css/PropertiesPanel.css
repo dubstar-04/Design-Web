@@ -29,3 +29,14 @@
     padding: 8px 12px;
     box-sizing: border-box;
 }
+
+/* Hide number input spinners */
+.properties-list input[type="number"]::-webkit-outer-spin-button,
+.properties-list input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.properties-list input[type="number"] {
+    -moz-appearance: textfield;
+}

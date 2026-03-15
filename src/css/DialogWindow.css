@@ -1,6 +1,6 @@
 .dialogbackground {
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
@@ -12,18 +12,18 @@
 
 .dialogwindow {
   width: 480px;
-  height: 60vh;
+  height: auto;
   max-height: 80vh;
   min-height: 100px;
 
   position: fixed;
-  top: 10%;
+  top: 50%;
   left: 50%;
 
-  margin-left: -240px;
+  transform: translate(-50%, -50%);
 
   background-color: var(--card-bg);
-  z-index: 1;
+  z-index: 101;
   border-radius: 12px;
   border: 1px solid var(--border-colour);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -37,4 +37,8 @@
   overflow: hidden;
   margin: 12px;
   border-radius: 10px;
+}
+
+.dialogwindow--narrow {
+  width: 320px;
 }

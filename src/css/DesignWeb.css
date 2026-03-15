@@ -49,6 +49,14 @@ variables can be recalled using var(--var-name);
   /* Components */
   --tooltip-bg: #111111;
   --accent-shadow: rgba(53, 132, 228, 0.75);
+  /* Button */
+  --button-bg: #5a5a5a;
+  --button-bg-hover: #6a6a6a;
+  /* Switch */
+  --switch-track-off: #5c5c5c;
+  --switch-track-hover: #6e6e6e;
+  --switch-track-on-hover: #4a7fc2;
+  --switch-thumb: #ffffff;
 }
 
 .DesignWeb {
