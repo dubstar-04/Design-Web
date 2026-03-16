@@ -138,6 +138,12 @@ export default class Canvas extends Component{
       return;
     }
 
+    if (event.ctrlKey && event.key.toLowerCase() === 'g') {
+      const current = this.core.settings.getSetting('drawgrid');
+      this.core.settings.setSetting('drawgrid', !current);
+      return;
+    }
+
     if (event.ctrlKey && event.key.toLowerCase() === 'v') {
       this.core.scene.inputManager.onCommand(`Pasteclip`);
       return;
@@ -194,15 +200,16 @@ export default class Canvas extends Component{
     case 117: // F6
       break;
     case 118: // F7
-      //toggleSnap('drawGrid')
       break;
-    case 119: // F8
-      //toggleSnap('ortho')
+    case 119: // F8 - Toggle Ortho
+      this.core.settings.setSetting('ortho', !this.core.settings.getSetting('ortho'));
       break;
-    case 120: // F9
+    case 120: // F9 - Toggle Snaps
+      { const anySnap = ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].some(k => this.core.settings.getSetting(k));
+        ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].forEach(k => this.core.settings.setSetting(k, !anySnap)); }
       break;
-    case 121: // F10
-      //toggleSnap('polar');
+    case 121: // F10 - Toggle Polar
+      this.core.settings.setSetting('polar', !this.core.settings.getSetting('polar'));
       break;
     case 122: // F11
       break;
