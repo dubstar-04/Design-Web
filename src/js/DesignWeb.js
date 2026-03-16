@@ -25,12 +25,13 @@ import PropertiesPanel from './components/propertiesPanel.js';
 import LayersPanel from './components/layersPanel.js';
 import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
+import Toast from './components/toast.js';
 
 export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = new Core()
-    this.state = {mousePos: '', sideKickOpen: false}
+    this.state = {mousePos: '', sideKickOpen: false, toasts: []}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -38,6 +39,7 @@ export default class DesignWeb extends Component{
     this._propertiesPanelContent = null;
 
     this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
+    this.core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
 
     // Set the canvas background and grid colours
     this.core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
@@ -52,6 +54,14 @@ export default class DesignWeb extends Component{
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
+  }
+
+  showToast(message) {
+    const id = Date.now();
+    this.setState((prev) => ({ toasts: [...prev.toasts, { id, message }] }));
+    setTimeout(() => {
+      this.setState((prev) => ({ toasts: prev.toasts.filter((t) => t.id !== id) }));
+    }, 3000);
   }
 
   handleBeforeUnload(e) {
@@ -174,6 +184,7 @@ export default class DesignWeb extends Component{
       <Toolbar core={this.core} style="left" type='Entity' />
       <Toolbar core={this.core} style="right" type='Tool' />
       <Commandline core={this.core} mousePos={this.state.mousePos} />
+      <Toast toasts={this.state.toasts} />
 
     </div>
   };
