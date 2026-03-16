@@ -42,6 +42,22 @@ export default class DesignWeb extends Component{
     // Set the canvas background and grid colours
     this.core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
     this.core.settings.gridcolour = { r: 120, g: 120, b: 120 };
+
+    this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.boundBeforeUnload);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.boundBeforeUnload);
+  }
+
+  handleBeforeUnload(e) {
+    if (this.core.scene.stateManager.isModified) {
+      e.preventDefault();
+    }
   }
 
   /**
