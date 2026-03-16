@@ -79,27 +79,41 @@ export default class Canvas extends Component{
     if (!contextMenu) return null;
 
     const active = this.core.scene.inputManager.activeCommand !== undefined;
-    const selectedItems = this.core.scene.selectionManager.selectedItems.length > 0;
+    const hasSelection = this.core.scene.selectionManager.selectedItems.length > 0;
     const validClipboard = this.core.clipboard.isValid;
     const run = (fn) => { this.closeContextMenu(); fn(); };
     const { x, y } = contextMenu;
-    const flipX = x > window.innerWidth / 2;
-    const flipY = y > window.innerHeight / 2;
+    const transform = `translate(${x > window.innerWidth / 2 ? '-100%' : '0'}, ${y > window.innerHeight / 2 ? '-100%' : '0'})`;
+
+    const items = [
+      { label: 'Enter', action: () => this.core.commandLine.handleKeys('Enter') },
+      { label: 'Cancel', action: () => this.core.commandLine.handleKeys('Escape'), disabled: !active },
+      null, // separator
+      { label: 'Cut', action: () => this.core.scene.inputManager.onCommand('Cutclip'), disabled: active || !hasSelection },
+      { label: 'Copy', action: () => this.core.scene.inputManager.onCommand('Copyclip'), disabled: active || !hasSelection },
+      { label: 'Copy with Base Point', action: () => this.core.scene.inputManager.onCommand('Copybase'), disabled: active || !hasSelection },
+      { label: 'Paste', action: () => this.core.scene.inputManager.onCommand('Pasteclip'), disabled: !validClipboard },
+      null, // separator
+      { label: 'Pan', action: () => this.core.scene.inputManager.onCommand('Pan'), disabled: active },
+      { label: 'Zoom Extents', action: () => this.core.canvas.zoomExtents(), disabled: active },
+    ];
+
+    const stopContext = e => e.preventDefault();
 
     return (
       <>
-        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={e => e.preventDefault()} />
-        <div className="canvas-context-menu" onContextMenu={e => e.preventDefault()} style={{ left: x, top: y, transform: `translate(${flipX ? '-100%' : '0'}, ${flipY ? '-100%' : '0'})` }}>
-          <button className="canvas-context-item" onClick={() => run(() => this.core.commandLine.handleKeys('Enter'))}>Enter</button>
-          <button className="canvas-context-item" disabled={!active} onClick={() => run(() => this.core.commandLine.handleKeys('Escape'))}>Cancel</button>
-          <div className="canvas-context-separator" />
-          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Cutclip'))}>Cut</button>
-          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Copyclip'))}>Copy</button>
-          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Copybase'))}>Copy with Base Point</button>
-          <button className="canvas-context-item" disabled={!validClipboard} onClick={() => run(() => this.core.scene.inputManager.onCommand('Pasteclip'))}>Paste</button>
-          <div className="canvas-context-separator" />
-          <button className="canvas-context-item" disabled={active} onClick={() => run(() => this.core.scene.inputManager.onCommand('Pan'))}>Pan</button>
-          <button className="canvas-context-item" disabled={active} onClick={() => run(() => this.core.canvas.zoomExtents())}>Zoom Extents</button>
+        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={stopContext} />
+        <div className="canvas-context-menu" onContextMenu={stopContext} style={{ left: x, top: y, transform }}>
+          {items.map((item, i) =>
+            item === null
+              ? <div className="canvas-context-separator" key={i} />
+              : <button
+                  className="canvas-context-item"
+                  disabled={item.disabled}
+                  key={i}
+                  onClick={() => run(item.action)}
+                >{item.label}</button>
+          )}
         </div>
       </>
     );
