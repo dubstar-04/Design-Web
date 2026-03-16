@@ -60,13 +60,13 @@ variables can be recalled using var(--var-name);
 }
 
 .DesignWeb {
-  --sidekick-offset: 0px;
+  --sidekick-width: 0px;
   position: fixed;
   inset: 0;
 }
 
 .DesignWeb.sidekick-open {
-  --sidekick-offset: 300px;
+  --sidekick-width: 360px;
 }
 
 html,
