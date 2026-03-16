@@ -174,14 +174,32 @@ export default class TextStylePanel extends Component {
         <DialogRow
           label="Font"
           suffix={
-            <input
-              className="dialogrow-input dialogrow-input--text"
-              onBlur={this.onFontBlur.bind(this)}
-              onChange={e => this.setState({ editFont: e.target.value })}
-              onKeyDown={this.onFontKeyDown.bind(this)}
-              type="text"
-              value={editFont}
-            />
+            <>
+              <input
+                className="dialogrow-input dialogrow-input--text"
+                list="text-style-panel-fonts"
+                onBlur={this.onFontBlur.bind(this)}
+                onChange={e => this.setState({ editFont: e.target.value })}
+                onKeyDown={this.onFontKeyDown.bind(this)}
+                type="text"
+                value={editFont}
+              />
+              <datalist id="text-style-panel-fonts">
+                <option value="Arial" />
+                <option value="Arial Black" />
+                <option value="Comic Sans MS" />
+                <option value="Courier New" />
+                <option value="Georgia" />
+                <option value="Impact" />
+                <option value="Lucida Console" />
+                <option value="Lucida Sans Unicode" />
+                <option value="Palatino Linotype" />
+                <option value="Tahoma" />
+                <option value="Times New Roman" />
+                <option value="Trebuchet MS" />
+                <option value="Verdana" />
+              </datalist>
+            </>
           }
           variant="form"
         />
