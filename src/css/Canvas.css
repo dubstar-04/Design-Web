@@ -1,3 +1,50 @@
+/* Context menu */
+.canvas-context-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+}
+
+.canvas-context-menu {
+    position: fixed;
+    z-index: 100;
+    min-width: 200px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-colour);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 14px 48px rgba(0, 0, 0, 0.5);
+    padding: 6px 0;
+    overflow: hidden;
+}
+
+.canvas-context-item {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-colour);
+    font-size: var(--medium-text);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.canvas-context-item:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+}
+
+.canvas-context-item:disabled {
+    color: var(--inactive-colour);
+    cursor: default;
+}
+
+.canvas-context-separator {
+    height: 1px;
+    background-color: var(--border-colour);
+    margin: 4px 0;
+}
+
 canvas {
     position: absolute;
     top: var(--headerbar-height);

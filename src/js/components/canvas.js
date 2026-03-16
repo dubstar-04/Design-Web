@@ -8,6 +8,7 @@ export default class Canvas extends Component{
     this.canvasRef = React.createRef();
     this.core = props.core
     this.boundHandleKeyPress = this.handleKeyPress.bind(this)
+    this.state = { contextMenu: null };
   }
 
   componentDidMount() {
@@ -66,6 +67,42 @@ export default class Canvas extends Component{
 
   handleContextMenu(e){
     e.preventDefault();
+    this.setState({ contextMenu: { x: e.clientX, y: e.clientY } });
+  }
+
+  closeContextMenu() {
+    this.setState({ contextMenu: null });
+  }
+
+  renderContextMenu() {
+    const { contextMenu } = this.state;
+    if (!contextMenu) return null;
+
+    const active = this.core.scene.inputManager.activeCommand !== undefined;
+    const selectedItems = this.core.scene.selectionManager.selectedItems.length > 0;
+    const validClipboard = this.core.clipboard.isValid;
+    const run = (fn) => { this.closeContextMenu(); fn(); };
+    const { x, y } = contextMenu;
+    const flipX = x > window.innerWidth / 2;
+    const flipY = y > window.innerHeight / 2;
+
+    return (
+      <>
+        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} />
+        <div className="canvas-context-menu" style={{ left: x, top: y, transform: `translate(${flipX ? '-100%' : '0'}, ${flipY ? '-100%' : '0'})` }}>
+          <button className="canvas-context-item" onClick={() => run(() => this.core.commandLine.handleKeys('Enter'))}>Enter</button>
+          <button className="canvas-context-item" disabled={!active} onClick={() => run(() => this.core.commandLine.handleKeys('Escape'))}>Cancel</button>
+          <div className="canvas-context-separator" />
+          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Cutclip'))}>Cut</button>
+          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Copyclip'))}>Copy</button>
+          <button className="canvas-context-item" disabled={active || !selectedItems} onClick={() => run(() => this.core.scene.inputManager.onCommand('Copybase'))}>Copy with Base Point</button>
+          <button className="canvas-context-item" disabled={!validClipboard} onClick={() => run(() => this.core.scene.inputManager.onCommand('Pasteclip'))}>Paste</button>
+          <div className="canvas-context-separator" />
+          <button className="canvas-context-item" disabled={active} onClick={() => run(() => this.core.scene.inputManager.onCommand('Pan'))}>Pan</button>
+          <button className="canvas-context-item" disabled={active} onClick={() => run(() => this.core.canvas.zoomExtents())}>Zoom Extents</button>
+        </div>
+      </>
+    );
   }
 
   handleMouseWheel(e){
@@ -231,16 +268,19 @@ export default class Canvas extends Component{
 
   render (){
     return (
-      <canvas
-        className="canvas"
-        onContextMenu={this.handleContextMenu}
-        onMouseDown={this.handleMouseDown.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this)}
-        onMouseUp={this.handleMouseUp.bind(this)}
-        onWheel={this.handleMouseWheel.bind(this)}
-        ref={this.canvasRef}
-        tabIndex={-1}
-      />
+      <>
+        <canvas
+          className="canvas"
+          onContextMenu={this.handleContextMenu.bind(this)}
+          onMouseDown={this.handleMouseDown.bind(this)}
+          onMouseMove={this.handleMouseMove.bind(this)}
+          onMouseUp={this.handleMouseUp.bind(this)}
+          onWheel={this.handleMouseWheel.bind(this)}
+          ref={this.canvasRef}
+          tabIndex={-1}
+        />
+        {this.renderContextMenu()}
+      </>
     )
   };
 }
