@@ -38,6 +38,10 @@ export default class DesignWeb extends Component{
     this._propertiesPanelContent = null;
 
     this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
+
+    // Set the canvas background and grid colours
+    this.core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
+    this.core.settings.gridcolour = { r: 120, g: 120, b: 120 };
   }
 
   /**
