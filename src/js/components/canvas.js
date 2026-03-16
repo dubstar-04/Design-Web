@@ -8,6 +8,7 @@ export default class Canvas extends Component{
     this.canvasRef = React.createRef();
     this.core = props.core
     this.boundHandleKeyPress = this.handleKeyPress.bind(this)
+    this.state = { contextMenu: null };
   }
 
   componentDidMount() {
@@ -66,6 +67,56 @@ export default class Canvas extends Component{
 
   handleContextMenu(e){
     e.preventDefault();
+    this.setState({ contextMenu: { x: e.clientX, y: e.clientY } });
+  }
+
+  closeContextMenu() {
+    this.setState({ contextMenu: null });
+  }
+
+  renderContextMenu() {
+    const { contextMenu } = this.state;
+    if (!contextMenu) return null;
+
+    const active = this.core.scene.inputManager.activeCommand !== undefined;
+    const hasSelection = this.core.scene.selectionManager.selectedItems.length > 0;
+    const validClipboard = this.core.clipboard.isValid;
+    const run = (fn) => { this.closeContextMenu(); fn(); };
+    const { x, y } = contextMenu;
+    const transform = `translate(${x > window.innerWidth / 2 ? '-100%' : '0'}, ${y > window.innerHeight / 2 ? '-100%' : '0'})`;
+
+    const items = [
+      { label: 'Enter', action: () => this.core.commandLine.handleKeys('Enter') },
+      { label: 'Cancel', action: () => this.core.commandLine.handleKeys('Escape'), disabled: !active },
+      null, // separator
+      { label: 'Cut', action: () => this.core.scene.inputManager.onCommand('Cutclip'), disabled: active || !hasSelection },
+      { label: 'Copy', action: () => this.core.scene.inputManager.onCommand('Copyclip'), disabled: active || !hasSelection },
+      { label: 'Copy with Base Point', action: () => this.core.scene.inputManager.onCommand('Copybase'), disabled: active || !hasSelection },
+      { label: 'Paste', action: () => this.core.scene.inputManager.onCommand('Pasteclip'), disabled: !validClipboard },
+      null, // separator
+      { label: 'Pan', action: () => this.core.scene.inputManager.onCommand('Pan'), disabled: active },
+      { label: 'Zoom Extents', action: () => this.core.canvas.zoomExtents(), disabled: active },
+    ];
+
+    const stopContext = e => e.preventDefault();
+
+    return (
+      <>
+        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={stopContext} />
+        <div className="canvas-context-menu" onContextMenu={stopContext} style={{ left: x, top: y, transform }}>
+          {items.map((item, i) =>
+            item === null
+              ? <div className="canvas-context-separator" key={i} />
+              : <button
+                  className="canvas-context-item"
+                  disabled={item.disabled}
+                  key={i}
+                  onClick={() => run(item.action)}
+                >{item.label}</button>
+          )}
+        </div>
+      </>
+    );
   }
 
   handleMouseWheel(e){
@@ -231,16 +282,19 @@ export default class Canvas extends Component{
 
   render (){
     return (
-      <canvas
-        className="canvas"
-        onContextMenu={this.handleContextMenu}
-        onMouseDown={this.handleMouseDown.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this)}
-        onMouseUp={this.handleMouseUp.bind(this)}
-        onWheel={this.handleMouseWheel.bind(this)}
-        ref={this.canvasRef}
-        tabIndex={-1}
-      />
+      <>
+        <canvas
+          className="canvas"
+          onContextMenu={this.handleContextMenu.bind(this)}
+          onMouseDown={this.handleMouseDown.bind(this)}
+          onMouseMove={this.handleMouseMove.bind(this)}
+          onMouseUp={this.handleMouseUp.bind(this)}
+          onWheel={this.handleMouseWheel.bind(this)}
+          ref={this.canvasRef}
+          tabIndex={-1}
+        />
+        {this.renderContextMenu()}
+      </>
     )
   };
 }
