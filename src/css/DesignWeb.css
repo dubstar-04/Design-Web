@@ -37,6 +37,8 @@ variables can be recalled using var(--var-name);
   --xl-text: 24px;
   /* Layout */
   --border-radius: 6px;
+  --headerbar-height: 46px;
+  --commandline-height: 46px;
   /* Interaction states */
   --hover-bg: rgba(255, 255, 255, 0.1);
   --strong-hover-bg: rgba(255, 255, 255, 0.2);
