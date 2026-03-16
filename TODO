@@ -1,3 +1,20 @@
 - Update background and grid colours
 - Fix issue with text extents
+- site is very dull / gray - more style?
+- version string is black in edge and white on FF
+- Sidekick shows over canvas - Notible from zoom all
+- draggable divider between the content and edit on side kick
+- Dark / Light toggle?
+- No items selected text too small on properties
+- side kick edit title is hard to read an all caps
+- sort file structure
+    - sidekick
+        - panels
+    dialog
+        - dialogrow
+
+- Menu string update
+    - Open Design
+    - Download Design
+    - Open Help
 
