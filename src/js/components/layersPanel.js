@@ -1,4 +1,3 @@
-import "../../css/LayersPanel.css";
 import React, { Component } from "react";
 import ConfirmationDialog from "./confirmationDialog";
 import DialogRow from "./dialogRow";
@@ -143,15 +142,15 @@ export default class LayersPanel extends Component {
         title="Layer Properties"
         toolbar={
           <>
-            <button className="layers-panel-add-btn" onClick={this.onNewLayer.bind(this)} title="New Layer">+</button>
+            <button className="panel-add-btn" onClick={this.onNewLayer.bind(this)} title="New Layer">+</button>
             <button
-              className="layers-panel-delete-btn"
+              className="panel-delete-btn"
               disabled={!selectedLayer || isIndelible}
               onClick={() => this.onConfirmDelete(selectedLayer)}
               title="Delete Selected Layer"
             >−</button>
             <button
-              className="layers-panel-setcurrent-btn"
+              className="panel-setcurrent-btn"
               disabled={!selectedLayer || selectedLayer.name === currentLayer}
               onClick={() => this.onSetCurrentLayer(selectedLayer)}
               title="Set as Current Layer"
