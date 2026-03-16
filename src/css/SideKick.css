@@ -1,5 +1,5 @@
 .sidekick {
-    width: 300px;
+    width: var(--sidekick-width);
     height: calc(100% - 46px);
     position: fixed;
     top: 46px;

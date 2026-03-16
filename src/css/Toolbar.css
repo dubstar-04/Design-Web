@@ -19,5 +19,5 @@
 }
 
 .right {
-  right: calc(10px + var(--sidekick-offset, 0px));
+  right: calc(10px + var(--sidekick-width, 0px));
 }
