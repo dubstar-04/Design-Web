@@ -83,12 +83,14 @@ export default class LayersPanel extends Component {
   }
 
   onDeleteLayer() {
-    const { confirmDeleteLayer, selectedLayer } = this.state;
+    const { confirmDeleteLayer } = this.state;
     if (confirmDeleteLayer) {
       const index = this.props.core.layerManager.getItemIndex(confirmDeleteLayer.name);
       this.props.core.layerManager.deleteStyle(index);
-      const nextSelected = selectedLayer && selectedLayer.name === confirmDeleteLayer.name ? null : selectedLayer;
-      this.setState({ confirmDeleteLayer: null, selectedLayer: nextSelected });
+      this.setState({ confirmDeleteLayer: null }, () => {
+        const first = this.getLayers()[0];
+        if (first) this.onSelectLayer(first);
+      });
     }
   }
 
