@@ -88,8 +88,8 @@ export default class Canvas extends Component{
 
     return (
       <>
-        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} />
-        <div className="canvas-context-menu" style={{ left: x, top: y, transform: `translate(${flipX ? '-100%' : '0'}, ${flipY ? '-100%' : '0'})` }}>
+        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={e => e.preventDefault()} />
+        <div className="canvas-context-menu" onContextMenu={e => e.preventDefault()} style={{ left: x, top: y, transform: `translate(${flipX ? '-100%' : '0'}, ${flipY ? '-100%' : '0'})` }}>
           <button className="canvas-context-item" onClick={() => run(() => this.core.commandLine.handleKeys('Enter'))}>Enter</button>
           <button className="canvas-context-item" disabled={!active} onClick={() => run(() => this.core.commandLine.handleKeys('Escape'))}>Cancel</button>
           <div className="canvas-context-separator" />
