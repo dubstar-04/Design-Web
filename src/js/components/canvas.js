@@ -19,7 +19,7 @@ export default class Canvas extends Component{
     document.addEventListener("keydown", this.boundHandleKeyPress)
 
     // Repaint whenever the canvas element is resized (covers window resize and sidekick open/close)
-    this.resizeObserver = new ResizeObserver(() => this.paint());
+    this.resizeObserver = new ResizeObserver(() => requestAnimationFrame(() => this.paint()));
     this.resizeObserver.observe(this.canvasRef.current);
 
     // perform initial paint of the canvas
