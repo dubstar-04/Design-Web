@@ -1,0 +1,36 @@
+.toast-container {
+  bottom: calc(var(--commandline-height) + 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  left: 50%;
+  pointer-events: none;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 200;
+}
+
+.toast {
+  animation: toast-in 0.2s ease;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-colour);
+  border-radius: 24px;
+  box-shadow: 0 4px 12px var(--shadow-colour);
+  color: var(--text-colour);
+  font-size: var(--medium-text);
+  padding: 8px 20px;
+  white-space: nowrap;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
