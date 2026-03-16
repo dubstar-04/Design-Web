@@ -2,6 +2,6 @@ canvas {
     height: 100%;
     position: absolute;
     left: 0;
-    right: var(--sidekick-width, 0px);
+    width: calc(100% - var(--sidekick-width, 0px));
     cursor: crosshair;
 }
