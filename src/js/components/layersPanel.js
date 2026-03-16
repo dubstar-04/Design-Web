@@ -47,7 +47,10 @@ export default class LayersPanel extends Component {
 
   onNewLayer() {
     this.props.core.layerManager.newItem();
-    this.forceUpdate();
+    const layers = this.getLayers();
+    const newLayer = layers[layers.length - 1];
+    if (newLayer) this.onSelectLayer(newLayer);
+    else this.forceUpdate();
   }
 
   onSelectLayer(layer) {

@@ -37,7 +37,10 @@ export default class TextStylePanel extends Component {
 
   onNewStyle() {
     this.props.core.styleManager.newItem();
-    this.forceUpdate();
+    const styles = this.getStyles();
+    const newStyle = styles[styles.length - 1];
+    if (newStyle) this.onSelectStyle(newStyle);
+    else this.forceUpdate();
   }
 
   onSelectStyle(style) {
