@@ -3,7 +3,7 @@
     left: 0;
     right: var(--sidekick-width, 0px);
     bottom: 0;
-    height: 46px;
+    height: var(--commandline-height);
     display: flex;
     justify-content: space-between;
     align-items: center;

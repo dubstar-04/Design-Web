@@ -1,7 +1,8 @@
 canvas {
-    height: 100%;
     position: absolute;
+    top: var(--headerbar-height);
+    height: calc(100% - var(--headerbar-height) - var(--commandline-height));
     left: 0;
-    right: var(--sidekick-width, 0px);
+    width: calc(100% - var(--sidekick-width, 0px));
     cursor: crosshair;
 }

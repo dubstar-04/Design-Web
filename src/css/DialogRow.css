@@ -8,26 +8,34 @@
   user-select: none;
 }
 
-/* List variant */
-.dialogrow--list {
+/* Shared list + form properties */
+.dialogrow--list,
+.dialogrow--form {
   height: 44px;
   background-color: var(--list-bg-colour);
   margin-bottom: 1px;
-  gap: 12px;
   padding: 0 12px;
 }
 
-.dialogrow--list:first-child {
+.dialogrow--list:first-child,
+.dialogrow--form:first-child {
   border-radius: 12px 12px 0 0;
 }
 
-.dialogrow--list:last-child {
+.dialogrow--list:last-child,
+.dialogrow--form:last-child {
   border-radius: 0 0 12px 12px;
   margin-bottom: 0;
 }
 
-.dialogrow--list:first-child:last-child {
+.dialogrow--list:first-child:last-child,
+.dialogrow--form:first-child:last-child {
   border-radius: 12px;
+}
+
+/* List variant */
+.dialogrow--list {
+  gap: 12px;
 }
 
 .dialogrow--list:hover {
@@ -40,24 +48,7 @@
 
 /* Form variant */
 .dialogrow--form {
-  height: 44px;
-  background-color: var(--list-bg-colour);
-  margin-bottom: 1px;
-  padding: 0 12px;
   justify-content: space-between;
-}
-
-.dialogrow--form:first-child {
-  border-radius: 12px 12px 0 0;
-}
-
-.dialogrow--form:last-child {
-  border-radius: 0 0 12px 12px;
-  margin-bottom: 0;
-}
-
-.dialogrow--form:first-child:last-child {
-  border-radius: 12px;
 }
 
 /* Label */
@@ -127,7 +118,7 @@
   border: 1px solid var(--border-colour);
   border-radius: 6px;
   color: var(--text-colour);
-  font-size: var(--small-text);
+  font-size: var(--medium-text);
   font-family: inherit;
   padding: 4px 8px;
   margin-left: auto;
@@ -176,7 +167,7 @@
 /* Read-only value */
 .dialogrow-value-readonly {
   color: var(--inactive-colour);
-  font-size: var(--small-text);
+  font-size: var(--medium-text);
   margin-left: auto;
   padding-right: 4px;
 }
