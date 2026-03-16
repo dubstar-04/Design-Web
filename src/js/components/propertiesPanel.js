@@ -1,4 +1,3 @@
-import "../../css/PropertiesPanel.css";
 import React, { Component } from "react";
 import DialogRow from "./dialogRow";
 import { SideKickContent } from "./sideKick";
@@ -211,7 +210,7 @@ export default class PropertiesPanel extends Component {
 
     if (!types.length) {
       return (
-        <div className="properties-empty">
+        <div className="panel-empty">
           <p>No items selected</p>
         </div>
       );
@@ -222,8 +221,8 @@ export default class PropertiesPanel extends Component {
     return (
       <SideKickContent>
         {types.length > 1 && (
-          <div className="properties-filter">
-            <span className="properties-filter-label">Filter</span>
+          <div className="panel-filter">
+            <span className="panel-filter-label">Filter</span>
             <select
               className="dialogrow-input dialogrow-input--select dialogrow-input--fill"
               onChange={(e) => { this.setState({ selectedType: e.target.value }); e.target.blur(); }}
@@ -235,7 +234,7 @@ export default class PropertiesPanel extends Component {
             </select>
           </div>
         )}
-        <div className="properties-list">
+        <div className="sidekick-content-list">
           <div className="sidekick-row-group">
             {this.renderProperties()}
           </div>

@@ -1,4 +1,3 @@
-import "../../css/SettingsPanel.css";
 import React, { Component } from "react";
 import DialogRow from "./dialogRow";
 import Switch from "./switch";

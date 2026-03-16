@@ -1,8 +1,8 @@
 .sidekick {
     width: var(--sidekick-width);
-    height: calc(100% - 46px);
+    height: calc(100% - var(--headerbar-height));
     position: fixed;
-    top: 46px;
+    top: var(--headerbar-height);
     right: 0;
     background-color: var(--window-bg);
     border-left: 1px solid var(--shadow-colour);
@@ -47,6 +47,33 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
+}
+
+/* Empty state placeholder */
+.panel-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--inactive-colour);
+    font-size: var(--medium-text);
+}
+
+/* Filter bar at the top of a panel */
+.panel-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: var(--subtle-bg);
+    border-bottom: 1px solid var(--border-colour);
+}
+
+.panel-filter-label {
+    font-size: var(--medium-text);
+    color: var(--inactive-colour);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Scrollable item list inside a panel */
@@ -128,11 +155,17 @@
     flex-shrink: 0;
 }
 
-.sidekick-content-detail-title {
+.sidekick-content-detail-title,
+.settings-group-header {
     color: var(--inactive-colour);
     font-size: var(--xs-text);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+}
+
+.settings-group-header {
+    padding: 4px 0 6px 0;
 }
 
 .sidekick-content-detail-toolbar {
@@ -159,7 +192,7 @@
     transform: rotate(180deg);
     cursor: pointer;
     color: var(--inactive-colour);
-    font-size: var(--small-text);
+    font-size: var(--medium-text);
     user-select: none;
     border: none;
     border-top: 1px solid var(--border-colour);
