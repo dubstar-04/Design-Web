@@ -61,8 +61,8 @@ variables can be recalled using var(--var-name);
 
 .DesignWeb {
   --sidekick-offset: 0px;
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  inset: 0;
 }
 
 .DesignWeb.sidekick-open {
