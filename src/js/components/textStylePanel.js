@@ -37,7 +37,10 @@ export default class TextStylePanel extends Component {
 
   onNewStyle() {
     this.props.core.styleManager.newItem();
-    this.forceUpdate();
+    const styles = this.getStyles();
+    const newStyle = styles[styles.length - 1];
+    if (newStyle) this.onSelectStyle(newStyle);
+    else this.forceUpdate();
   }
 
   onSelectStyle(style) {
@@ -68,12 +71,14 @@ export default class TextStylePanel extends Component {
   }
 
   onDeleteStyle() {
-    const { confirmDeleteStyle, selectedStyle } = this.state;
+    const { confirmDeleteStyle } = this.state;
     if (confirmDeleteStyle) {
       const index = this.props.core.styleManager.getItemIndex(confirmDeleteStyle.name);
       this.props.core.styleManager.deleteStyle(index);
-      const nextSelected = selectedStyle && selectedStyle.name === confirmDeleteStyle.name ? null : selectedStyle;
-      this.setState({ confirmDeleteStyle: null, selectedStyle: nextSelected });
+      this.setState({ confirmDeleteStyle: null }, () => {
+        const first = this.getStyles()[0];
+        if (first) this.onSelectStyle(first);
+      });
     }
   }
 
