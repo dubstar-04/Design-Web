@@ -52,18 +52,6 @@ export default class Canvas extends Component{
     this.core.canvas.paint(cr, width, height);
   }
 
-  handleMouseDown(e){
-    // button: 0 = left, 1 = wheel, 2 = right;
-    e.preventDefault();
-    this.canvasRef.current.focus();
-    this.core.mouse.mouseDown(e.button);
-  }
-
-  handleMouseUp(e){
-    // button: 0 = left, 1 = wheel, 2 = right;
-    e.preventDefault();
-    this.core.mouse.mouseUp(e.button);
-  }
 
   handleContextMenu(e){
     e.preventDefault();
@@ -117,6 +105,21 @@ export default class Canvas extends Component{
         </div>
       </>
     );
+  }
+
+  handleMouseDown(e){
+    // button: 0 = left, 1 = wheel, 2 = right;
+    e.preventDefault();
+    this.canvasRef.current.focus();
+    if (e.button === 2) return;
+    this.core.mouse.mouseDown(e.button);
+  }
+
+  handleMouseUp(e){
+    // button: 0 = left, 1 = wheel, 2 = right;
+    e.preventDefault();
+    if (e.button === 2) return;
+    this.core.mouse.mouseUp(e.button);
   }
 
   handleMouseWheel(e){
