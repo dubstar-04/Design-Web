@@ -1,6 +1,6 @@
 .toolbar {
   position: absolute;
-  width: 36px;
+  width: var(--toolbar-width);
   height: auto;
   top: calc(50% - 150px);
   border-radius: 12px;
@@ -20,4 +20,5 @@
 
 .right {
   right: calc(10px + var(--sidekick-width, 0px));
+  transition: right 0.25s ease;
 }
