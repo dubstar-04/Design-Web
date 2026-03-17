@@ -4,10 +4,11 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  left: 50%;
+  left: 0;
+  right: var(--sidekick-width, 0px);
   pointer-events: none;
   position: fixed;
-  transform: translateX(-50%);
+  transition: right 0.25s ease;
   z-index: 200;
 }
 
