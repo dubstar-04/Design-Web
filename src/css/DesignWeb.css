@@ -39,6 +39,9 @@ variables can be recalled using var(--var-name);
   --border-radius: 6px;
   --headerbar-height: 46px;
   --commandline-height: 46px;
+  --toolbar-width: 36px;
+  --sidekick-tabs-width: 34px;
+  --sidekick-panel-width: 326px;
   /* Interaction states */
   --hover-bg: rgba(255, 255, 255, 0.1);
   --strong-hover-bg: rgba(255, 255, 255, 0.2);
@@ -62,14 +65,14 @@ variables can be recalled using var(--var-name);
 }
 
 .DesignWeb {
-  --sidekick-width: 34px;
+  --sidekick-width: var(--sidekick-tabs-width);
   background-color: var(--view-bg);
   position: fixed;
   inset: 0;
 }
 
 .DesignWeb.sidekick-open {
-  --sidekick-width: 360px;
+  --sidekick-width: calc(var(--sidekick-tabs-width) + var(--sidekick-panel-width));
 }
 
 html,

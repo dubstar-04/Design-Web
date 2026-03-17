@@ -1,9 +1,9 @@
 .sidekick {
-    width: 326px;
+    width: var(--sidekick-panel-width);
     height: calc(100% - var(--headerbar-height));
     position: fixed;
     top: var(--headerbar-height);
-    right: 34px;
+    right: var(--sidekick-tabs-width);
     background-color: var(--window-bg);
     border-left: 1px solid var(--shadow-colour);
     z-index: 2;
@@ -172,7 +172,7 @@
     top: var(--headerbar-height);
     right: 0;
     height: calc(100% - var(--headerbar-height));
-    width: 34px;
+    width: var(--sidekick-tabs-width);
     display: flex;
     flex-direction: column;
     border-left: 1px solid var(--separator-dark);

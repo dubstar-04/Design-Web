@@ -1,6 +1,6 @@
 .toolbar {
   position: absolute;
-  width: 36px;
+  width: var(--toolbar-width);
   height: auto;
   top: calc(50% - 150px);
   border-radius: 12px;
