@@ -52,4 +52,5 @@ canvas {
     left: 0;
     width: calc(100% - var(--sidekick-width, 0px));
     cursor: crosshair;
+    transition: width 0.25s ease;
 }

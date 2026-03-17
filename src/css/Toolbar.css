@@ -20,4 +20,5 @@
 
 .right {
   right: calc(10px + var(--sidekick-width, 0px));
+  transition: right 0.25s ease;
 }
