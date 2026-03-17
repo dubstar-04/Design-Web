@@ -62,7 +62,7 @@ variables can be recalled using var(--var-name);
 }
 
 .DesignWeb {
-  --sidekick-width: 0px;
+  --sidekick-width: 34px;
   position: fixed;
   inset: 0;
 }
