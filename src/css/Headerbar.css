@@ -18,6 +18,17 @@
       font-weight: 600;
       letter-spacing: 0.01em;
       color: var(--text-colour);
+      align-items: center;
+      display: flex;
+      gap: 8px;
+  }
+
+  .headerbar-modified-dot {
+      background-color: white;
+      border-radius: 50%;
+      display: inline-block;
+      height: 8px;
+      width: 8px;
   }
 
   .headerbar-menu {

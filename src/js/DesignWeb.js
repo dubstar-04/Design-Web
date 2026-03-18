@@ -33,7 +33,7 @@ export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = this.createCore();
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null}
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -57,6 +57,9 @@ export default class DesignWeb extends Component{
     const core = new Core();
     core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
     core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
+    core.scene.stateManager.setStateCallbackFunction(() => {
+      this.setState({ isModified: core.scene.stateManager.isModified });
+    });
     core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
     core.settings.gridcolour = { r: 120, g: 120, b: 120 };
     return core;
@@ -109,7 +112,7 @@ export default class DesignWeb extends Component{
     reader.onload = () => {
       const name = file.name.replace(/\.dxf$/i, '');
       this.core = this.createCore();
-      this.setState({ currentFilename: name }, () => {
+      this.setState({ currentFilename: name, isModified: false }, () => {
         this.core.openFile(reader.result);
       });
     };
@@ -120,6 +123,8 @@ export default class DesignWeb extends Component{
   downloadDxf(filename) {
     const blob = new Blob([this.core.saveFile()], { type: 'text/plain;' });
     saveAs(blob, filename);
+    this.core.scene.stateManager.stateChanged(false);
+    this.core.notify('File Saved');
     // Remember the stem (without extension) for next save
     this.setState({ currentFilename: filename.replace(/\.dxf$/i, '') });
   }
@@ -201,7 +206,7 @@ export default class DesignWeb extends Component{
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
-      <Headerbar core={this.core} popover={this.popoverRef} />
+      <Headerbar core={this.core} isModified={this.state.isModified} popover={this.popoverRef} />
       <Canvas
         core={this.core}
         mousePosCallback={this.updateMousePos.bind(this)}
