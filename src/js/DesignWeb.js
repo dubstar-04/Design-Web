@@ -31,21 +31,13 @@ import SaveDialog from './components/saveDialog.js';
 export default class DesignWeb extends Component{
   constructor(){
     super()
-    this.core = new Core()
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null}
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, core: this.createCore()}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this.saveDialogRef = React.createRef();
     this._propertiesPanelContent = null;
-
-    this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
-    this.core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
-
-    // Set the canvas background and grid colours
-    this.core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
-    this.core.settings.gridcolour = { r: 120, g: 120, b: 120 };
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
   }
@@ -56,6 +48,19 @@ export default class DesignWeb extends Component{
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
+  }
+
+  get core() {
+    return this.state.core;
+  }
+
+  createCore() {
+    const core = new Core();
+    core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
+    core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
+    core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
+    core.settings.gridcolour = { r: 120, g: 120, b: 120 };
+    return core;
   }
 
   showToast(message) {
@@ -97,10 +102,11 @@ export default class DesignWeb extends Component{
 
     const reader = new FileReader();
     reader.onload = () => {
-      // Store filename without extension for use when saving
       const name = file.name.replace(/\.dxf$/i, '');
-      this.setState({ currentFilename: name });
-      this.core.openFile(reader.result);
+      const core = this.createCore();
+      this.setState({ currentFilename: name, core }, () => {
+        core.openFile(reader.result);
+      });
     };
 
     reader.readAsText(file);
