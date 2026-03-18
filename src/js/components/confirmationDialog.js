@@ -1,3 +1,4 @@
+import "../../css/Dialog.css";
 import "../../css/ConfirmationDialog.css";
 import React, { Component } from "react";
 import DialogWindow from "./dialogWindow";
@@ -31,11 +32,11 @@ export default class ConfirmationDialog extends Component {
 
     return (
       <DialogWindow className="dialogwindow--narrow" ref={this.dialogRef} title={title}>
-        <div className="confirmation-dialog">
+        <div className="dialog">
           <p className="confirmation-dialog-text">{message}</p>
-          <div className="confirmation-dialog-buttons">
-            <button className="confirmation-dialog-cancel-btn" onClick={handleCancel} type="button">{cancelLabel}</button>
-            <button className="confirmation-dialog-confirm-btn" onClick={handleConfirm} type="button">{confirmLabel}</button>
+          <div className="dialog-buttons">
+            <button className="dialog-btn dialog-cancel-btn" onClick={handleCancel} type="button">{cancelLabel}</button>
+            <button className="dialog-btn dialog-action-btn dialog-action-btn--confirm" onClick={handleConfirm} type="button">{confirmLabel}</button>
           </div>
         </div>
       </DialogWindow>

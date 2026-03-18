@@ -1,52 +1,5 @@
-.confirmation-dialog {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    gap: 20px;
-    padding: 20px;
-}
-
 .confirmation-dialog-text {
     color: var(--text-colour);
     font-size: var(--medium-text);
     text-align: center;
-}
-
-.confirmation-dialog-buttons {
-    display: flex;
-    gap: 16px;
-}
-
-.confirmation-dialog-cancel-btn {
-    background-color: var(--button-bg);
-    color: var(--text-colour);
-    border: 1px solid var(--strong-hover-bg);
-    border-radius: 9999px;
-    padding: 8px 20px;
-    cursor: pointer;
-    font-size: var(--medium-text);
-    font-family: inherit;
-    transition: background-color 0.15s ease;
-}
-
-.confirmation-dialog-cancel-btn:hover {
-    background-color: var(--button-bg-hover);
-}
-
-.confirmation-dialog-confirm-btn {
-    background-color: var(--alert-colour);
-    color: var(--text-contrast-color);
-    border: none;
-    border-radius: 9999px;
-    padding: 8px 20px;
-    cursor: pointer;
-    font-size: var(--medium-text);
-    font-family: inherit;
-    transition: opacity 0.15s ease;
-}
-
-.confirmation-dialog-confirm-btn:hover {
-    opacity: 0.85;
 }

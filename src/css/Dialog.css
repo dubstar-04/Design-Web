@@ -1,0 +1,59 @@
+.dialog {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.dialog-buttons {
+    align-self: stretch;
+    display: flex;
+    gap: 16px;
+}
+
+.dialog-buttons>* {
+    flex: 1;
+}
+
+.dialog-btn {
+    border-radius: 9999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--medium-text);
+    padding: 8px 20px;
+}
+
+.dialog-cancel-btn {
+    background-color: var(--button-bg);
+    border: 1px solid var(--strong-hover-bg);
+    color: var(--text-colour);
+    transition: background-color 0.15s ease;
+}
+
+.dialog-cancel-btn:hover {
+    background-color: var(--button-bg-hover);
+}
+
+.dialog-action-btn {
+    border: none;
+    color: var(--text-contrast-color);
+}
+
+.dialog-action-btn--confirm {
+    background-color: var(--alert-colour);
+    transition: opacity 0.15s ease;
+}
+
+.dialog-action-btn--confirm:hover {
+    opacity: 0.85;
+}
+
+.dialog-action-btn--save {
+    background-color: var(--accent-color);
+    transition: background-color 0.15s ease;
+}
+
+.dialog-action-btn--save:hover {
+    background-color: var(--accent-shadow);
+}
