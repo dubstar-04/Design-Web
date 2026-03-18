@@ -1,0 +1,18 @@
+.save-dialog-input {
+    align-self: stretch;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-colour);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    color: var(--text-colour);
+    flex: 1;
+    font-family: inherit;
+    font-size: var(--medium-text);
+    outline: none;
+    padding: 8px 12px;
+}
+
+.save-dialog-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--accent-tint);
+}

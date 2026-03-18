@@ -17,9 +17,11 @@ export default class Headerbar extends Component {
   }
 
   render() {
+    const { isModified } = this.props;
     return (
       <div className="headerbar">
         <div className="headerbar-title">
+          {isModified && <span className="headerbar-modified-dot" title="Unsaved changes" />}
           <h3>Design</h3>
         </div>
         <div className="headerbar-menu">

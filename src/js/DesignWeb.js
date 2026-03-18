@@ -26,24 +26,21 @@ import LayersPanel from './components/layersPanel.js';
 import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
 import Toast from './components/toast.js';
+import SaveDialog from './components/saveDialog.js';
+import ConfirmationDialog from './components/confirmationDialog.js';
 
 export default class DesignWeb extends Component{
   constructor(){
     super()
-    this.core = new Core()
-    this.state = {mousePos: '', sideKickOpen: false, toasts: []}
+    this.core = this.createCore();
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
-    this._propertiesPanelContent = null;
-
-    this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
-    this.core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
-
-    // Set the canvas background and grid colours
-    this.core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
-    this.core.settings.gridcolour = { r: 120, g: 120, b: 120 };
+    this.saveDialogRef = React.createRef();
+    this.confirmOpenRef = React.createRef();
+    this.propertiesPanelContent = null;
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
   }
@@ -54,6 +51,18 @@ export default class DesignWeb extends Component{
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
+  }
+
+  createCore() {
+    const core = new Core();
+    core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
+    core.setExternalNotifyCallbackFunction(this.showToast.bind(this));
+    core.scene.stateManager.setStateCallbackFunction(() => {
+      this.setState({ isModified: core.scene.stateManager.isModified });
+    });
+    core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
+    core.settings.gridcolour = { r: 120, g: 120, b: 120 };
+    return core;
   }
 
   showToast(message) {
@@ -78,46 +87,69 @@ export default class DesignWeb extends Component{
     this.setState({ mousePos: mousePos });
   }
 
-  handleOpenFile(e){
-    this.popoverRef.current.close()
-
-    const fileSelector = document.createElement('input');
-    fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
-    fileSelector.addEventListener('change', this.openFile.bind(this))
-    fileSelector.click();
-
+  confirmOrRun(action) {
+    if (this.core.scene.stateManager.isModified) {
+      this.confirmAction = action;
+      this.confirmOpenRef.current.show();
+    } else {
+      action();
+    }
   }
 
-  openFile(e){
-    const fileSelector = e.target
-    const file = fileSelector.files && fileSelector.files[0]
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const text = reader.result;
-      console.log(text)
-      this.core.openFile(text);
-    };
-
-    reader.readAsText(file);
-  }
-
-  /**
-   * save current canvas as dxf file
-   */
-  handleSaveFile(){
-    this.popoverRef.current.close()
-    console.log('Save File');
-    const dxfData = this.core.saveFile()
-
-    console.log(dxfData)
-
-    var blob = new Blob([dxfData], {
-      type: "text/plain;"
+  handleNewFile() {
+    this.popoverRef.current.close();
+    this.confirmOrRun(() => {
+      this.core = this.createCore();
+      this.setState({ currentFilename: null, isModified: false });
+      this.core.notify('New Design Created');
     });
+  }
 
-    saveAs(blob, "design.dxf");
+  handleOpenFile() {
+    this.popoverRef.current.close();
+    this.confirmOrRun(() => {
+      const fileSelector = document.createElement('input');
+      fileSelector.setAttribute('type', 'file');
+      fileSelector.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const name = file.name.replace(/\.dxf$/i, '');
+          this.core = this.createCore();
+          this.setState({ currentFilename: name, isModified: false }, () => {
+            this.core.openFile(reader.result);
+          });
+        };
+        reader.readAsText(file);
+      });
+      fileSelector.click();
+    });
+  }
+
+  downloadDxf(filename) {
+    const blob = new Blob([this.core.saveFile()], { type: 'text/plain;' });
+    saveAs(blob, filename);
+    this.core.scene.stateManager.stateChanged(false);
+    this.core.notify('File Saved');
+    // Remember the stem (without extension) for next save
+    this.setState({ currentFilename: filename.replace(/\.dxf$/i, '') });
+  }
+
+  handleSaveFile(){
+    this.popoverRef.current.close();
+    if (this.state.currentFilename) {
+      // Filename already known — download directly
+      this.downloadDxf(`${this.state.currentFilename}.dxf`);
+    } else {
+      // No filename yet — prompt the user
+      this.saveDialogRef.current.show(null);
+    }
+  }
+
+  handleSaveAsFile(){
+    this.popoverRef.current.close();
+    // Always prompt, pre-populated with the current filename
+    this.saveDialogRef.current.show(this.state.currentFilename);
   }
 
   handleExportFile(){
@@ -145,8 +177,8 @@ export default class DesignWeb extends Component{
   }
 
   handlePropertyChange(){
-    if (this._propertiesPanelContent) {
-      this._propertiesPanelContent.reload();
+    if (this.propertiesPanelContent) {
+      this.propertiesPanelContent.reload();
     }
   }
 
@@ -154,29 +186,41 @@ export default class DesignWeb extends Component{
     return <div className={`DesignWeb${this.state.sideKickOpen ? ' sidekick-open' : ''}`}>
 
       <AboutWindow ref={this.aboutWindowRef} />
+      <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
+      <ConfirmationDialog
+        confirmLabel="Continue"
+        message="Unsaved changes will be permanently lost."
+        onConfirm={() => this.confirmAction?.()}
+        ref={this.confirmOpenRef}
+        title="Unsaved Changes"
+      />
       <SideKick
         onOpenChange={this.onSideKickOpenChange.bind(this)}
         ref={this.sideKickRef}
         tabs={[
-          { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this._propertiesPanelContent = el; }} /> },
+          { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this.propertiesPanelContent = el; }} /> },
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
           { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} /> },
           { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
         ]}
       />
       <Popover ref={this.popoverRef} >
+        <PopoverMenuItem action={this.handleNewFile.bind(this)} title="New" />
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
-        {/* <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" /> */}
+        <PopoverMenuItem action={this.handleSaveAsFile.bind(this)} title="Save As" />
         <PopoverMenuItem action={this.handleOpenHelp.bind(this)} title="Help" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
-      <Headerbar core={this.core} popover={this.popoverRef} />
+      <Headerbar core={this.core} isModified={this.state.isModified} popover={this.popoverRef} />
       <Canvas
         core={this.core}
         mousePosCallback={this.updateMousePos.bind(this)}
         onHelp={this.handleOpenHelp.bind(this)}
+        //onNew={this.handleNewFile.bind(this)}
+        onSave={this.handleSaveFile.bind(this)}
+        onSaveAs={this.handleSaveAsFile.bind(this)}
         onShortcut={(tab) => this.sideKickRef.current.openTab(tab)}
         sideKickOpen={this.state.sideKickOpen}
       />

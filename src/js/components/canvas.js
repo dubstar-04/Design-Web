@@ -6,7 +6,6 @@ export default class Canvas extends Component{
     super(props)
 
     this.canvasRef = React.createRef();
-    this.core = props.core
     this.boundHandleKeyPress = this.handleKeyPress.bind(this)
     this.state = { contextMenu: null };
   }
@@ -14,7 +13,7 @@ export default class Canvas extends Component{
   componentDidMount() {
 
     // set the paint callback
-    this.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
+    this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
 
     // add keydown eventlistener
     document.addEventListener("keydown", this.boundHandleKeyPress)
@@ -25,6 +24,13 @@ export default class Canvas extends Component{
 
     // perform initial paint of the canvas
     this.paint()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.core !== this.props.core) {
+      this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this));
+      this.paint();
+    }
   }
 
   componentWillUnmount() {
@@ -49,7 +55,7 @@ export default class Canvas extends Component{
     cr.clearRect(0, 0, width, height);
     cr.restore();
 
-    this.core.canvas.paint(cr, width, height);
+    this.props.core.canvas.paint(cr, width, height);
   }
 
 
@@ -66,24 +72,24 @@ export default class Canvas extends Component{
     const { contextMenu } = this.state;
     if (!contextMenu) return null;
 
-    const active = this.core.scene.inputManager.activeCommand !== undefined;
-    const hasSelection = this.core.scene.selectionManager.selectedItems.length > 0;
-    const validClipboard = this.core.clipboard.isValid;
+    const active = this.props.core.scene.inputManager.activeCommand !== undefined;
+    const hasSelection = this.props.core.scene.selectionManager.selectedItems.length > 0;
+    const validClipboard = this.props.core.clipboard.isValid;
     const run = (fn) => { this.closeContextMenu(); fn(); };
     const { x, y } = contextMenu;
     const transform = `translate(${x > window.innerWidth / 2 ? '-100%' : '0'}, ${y > window.innerHeight / 2 ? '-100%' : '0'})`;
 
     const items = [
-      { label: 'Enter', action: () => this.core.commandLine.handleKeys('Enter') },
-      { label: 'Cancel', action: () => this.core.commandLine.handleKeys('Escape'), disabled: !active },
+      { label: 'Enter', action: () => this.props.core.commandLine.handleKeys('Enter') },
+      { label: 'Cancel', action: () => this.props.core.commandLine.handleKeys('Escape'), disabled: !active },
       null, // separator
-      { label: 'Cut', action: () => this.core.scene.inputManager.onCommand('Cutclip'), disabled: active || !hasSelection },
-      { label: 'Copy', action: () => this.core.scene.inputManager.onCommand('Copyclip'), disabled: active || !hasSelection },
-      { label: 'Copy with Base Point', action: () => this.core.scene.inputManager.onCommand('Copybase'), disabled: active || !hasSelection },
-      { label: 'Paste', action: () => this.core.scene.inputManager.onCommand('Pasteclip'), disabled: !validClipboard },
+      { label: 'Cut', action: () => this.props.core.scene.inputManager.onCommand('Cutclip'), disabled: active || !hasSelection },
+      { label: 'Copy', action: () => this.props.core.scene.inputManager.onCommand('Copyclip'), disabled: active || !hasSelection },
+      { label: 'Copy with Base Point', action: () => this.props.core.scene.inputManager.onCommand('Copybase'), disabled: active || !hasSelection },
+      { label: 'Paste', action: () => this.props.core.scene.inputManager.onCommand('Pasteclip'), disabled: !validClipboard },
       null, // separator
-      { label: 'Pan', action: () => this.core.scene.inputManager.onCommand('Pan'), disabled: active },
-      { label: 'Zoom Extents', action: () => this.core.canvas.zoomExtents(), disabled: active },
+      { label: 'Pan', action: () => this.props.core.scene.inputManager.onCommand('Pan'), disabled: active },
+      { label: 'Zoom Extents', action: () => this.props.core.canvas.zoomExtents(), disabled: active },
     ];
 
     const stopContext = e => e.preventDefault();
@@ -112,20 +118,20 @@ export default class Canvas extends Component{
     e.preventDefault();
     this.canvasRef.current.focus();
     if (e.button === 2) return;
-    this.core.mouse.mouseDown(e.button);
+    this.props.core.mouse.mouseDown(e.button);
   }
 
   handleMouseUp(e){
     // button: 0 = left, 1 = wheel, 2 = right;
     e.preventDefault();
     if (e.button === 2) return;
-    this.core.mouse.mouseUp(e.button);
+    this.props.core.mouse.mouseUp(e.button);
   }
 
   handleMouseWheel(e){
     // delta = +/- 1 for zoom in / out
     const delta = Math.sign(e.deltaY*-1)
-    this.core.mouse.wheel(delta);
+    this.props.core.mouse.wheel(delta);
   }
 
   handleMouseMove(e){
@@ -133,153 +139,77 @@ export default class Canvas extends Component{
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY-rect.top;
-    this.core.mouse.mouseMoved(x, y);
-    this.props.mousePosCallback(this.core.mouse.positionString());
+    this.props.core.mouse.mouseMoved(x, y);
+    this.props.mousePosCallback(this.props.core.mouse.positionString());
   }
 
   handleKeyPress(event) {
-    // Don't intercept events when the user is typing in an input, textarea or select
     const tag = event.target.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
-      return;
-    }
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
-    event.preventDefault()
-
-    // Ignore Alt-modified keys — no Alt shortcuts are defined
+    event.preventDefault();
     if (event.altKey) return;
 
-    var charCode = (event.charCode) ? event.charCode : event.keyCode;
-    console.log("char code", event.keyVal, event.keyCode)
+    const { core } = this.props;
+    const key = event.key.toLowerCase();
 
-    if (event.ctrlKey && event.key.toLowerCase() === 'l') {
-      if (this.props.onShortcut) this.props.onShortcut('layers');
+    // Ctrl+Shift shortcuts
+    if (event.ctrlKey && event.shiftKey) {
+      const shortcuts = {
+        's': () => this.props.onSaveAs?.(),
+        'c': () => core.scene.inputManager.onCommand('Copybase'),
+      };
+      if (shortcuts[key]) { shortcuts[key](); return; }
+    }
+
+    // Ctrl shortcuts
+    if (event.ctrlKey) {
+      const shortcuts = {
+        //'n': () => this.props.onNew?.(), -- IGNORED TO AVOID INTERFERENCE WITH BROWSERS DEFAULT SHORTCUT
+        'l': () => this.props.onShortcut?.('layers'),
+        '1': () => this.props.onShortcut?.('properties'),
+        's': () => this.props.onSave?.(),
+        'z': () => core.scene.undo(),
+        'y': () => core.scene.redo(),
+        'a': () => core.scene.selectionManager.selectAll(),
+        'c': () => core.scene.inputManager.onCommand('Copyclip'),
+        'x': () => core.scene.inputManager.onCommand('Cutclip'),
+        'v': () => core.scene.inputManager.onCommand('Pasteclip'),
+        'g': () => core.settings.setSetting('drawgrid', !core.settings.getSetting('drawgrid')),
+      };
+      if (shortcuts[key]) { shortcuts[key](); return; }
+    }
+
+    // Special keys — mapped to core key strings or handlers
+    const specialKeys = {
+      'Backspace':  'Backspace',
+      'Enter':      'Enter',
+      'Escape':     'Escape',
+      ' ':          'Space',
+      'ArrowUp':    'Up-Arrow',
+      'ArrowDown':  'Down-Arrow',
+      'Delete':     'Delete',
+      'F1':  () => this.props.onHelp?.(),
+      'F8':  () => core.settings.setSetting('ortho', !core.settings.getSetting('ortho')),
+      'F9':  () => {
+        const snaps = ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'];
+        const anySnap = snaps.some(k => core.settings.getSetting(k));
+        snaps.forEach(k => core.settings.setSetting(k, !anySnap));
+      },
+      'F10': () => core.settings.setSetting('polar', !core.settings.getSetting('polar')),
+    };
+
+    if (event.key in specialKeys) {
+      const handler = specialKeys[event.key];
+      if (typeof handler === 'function') { handler(); return; }
+      core.commandLine.handleKeys(handler);
       return;
     }
 
-    if (event.ctrlKey && event.key === '1') {
-      if (this.props.onShortcut) this.props.onShortcut('properties');
-      return;
+    // Forward printable characters to the command line
+    if (event.key.length === 1 || event.key === 'Dead') {
+      core.commandLine.handleKeys(event.key);
     }
-
-    if (event.ctrlKey &&  event.key.toLowerCase() === 'z') {
-      this.core.scene.undo();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'y') {
-      this.core.scene.redo();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'a') {
-      this.core.scene.selectionManager.selectAll();
-      return;
-    }
-
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copybase`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
-      this.core.scene.inputManager.onCommand(`Copyclip`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'x') {
-      this.core.scene.inputManager.onCommand(`Cutclip`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'g') {
-      const current = this.core.settings.getSetting('drawgrid');
-      this.core.settings.setSetting('drawgrid', !current);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'v') {
-      this.core.scene.inputManager.onCommand(`Pasteclip`);
-      return;
-    }
-
-    var key;
-
-    switch (charCode) {
-    case 8: //Backspace
-      key = "Backspace";
-      break;
-    case 9: //Tab
-      break;
-    case 13: //Enter
-      key = "Enter";
-      break;
-    case 16: // Shift
-      break;
-    case 17: // Ctrl
-      break;
-    case 20: // CapsLock
-      break;
-    case 27: // Escape
-      key = "Escape";
-      break;
-    case 32: // space
-      key = "Space";
-      break;
-    case 37: // Left-Arrow
-      break;
-    case 38: // Up-Arrow
-      key = "Up-Arrow";
-      break;
-    case 39: // Right-Arrow
-      break;
-    case 40: // Down-Arrow
-      key = "Down-Arrow";
-      break;
-    case 46: // Delete
-      key = "Delete";
-      break;
-    case 112: // F1
-      if (this.props.onHelp) this.props.onHelp();
-      break;
-    case 113: // F2
-      break;
-    case 114: // F3
-      //this.disableSnaps(e);
-      break;
-    case 115: // F4
-      break;
-    case 116: // F5
-      break;
-    case 117: // F6
-      break;
-    case 118: // F7
-      break;
-    case 119: // F8 - Toggle Ortho
-      this.core.settings.setSetting('ortho', !this.core.settings.getSetting('ortho'));
-      break;
-    case 120: // F9 - Toggle Snaps
-      { const anySnap = ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].some(k => this.core.settings.getSetting(k));
-        ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].forEach(k => this.core.settings.setSetting(k, !anySnap)); }
-      break;
-    case 121: // F10 - Toggle Polar
-      this.core.settings.setSetting('polar', !this.core.settings.getSetting('polar'));
-      break;
-    case 122: // F11
-      break;
-    case 123: // F12
-      break;
-
-    default:
-      // Only forward printable / known keys — skip modifier and media keys
-      if (event.key.length === 1 || event.key === 'Dead') {
-        key = event.key;
-      }
-    }
-
-    console.log('key', key)
-    this.core.commandLine.handleKeys(key);
-
   }
 
 
