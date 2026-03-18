@@ -31,7 +31,7 @@ export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = new Core()
-    this.state = {mousePos: '', sideKickOpen: false, toasts: []}
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
