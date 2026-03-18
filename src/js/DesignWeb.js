@@ -87,37 +87,42 @@ export default class DesignWeb extends Component{
     this.setState({ mousePos: mousePos });
   }
 
-  pickFile() {
-    const fileSelector = document.createElement('input');
-    fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
-    fileSelector.addEventListener('change', this.openFile.bind(this));
-    fileSelector.click();
-  }
-
-  handleOpenFile(e){
-    this.popoverRef.current.close();
+  confirmOrRun(action) {
     if (this.core.scene.stateManager.isModified) {
+      this.confirmAction = action;
       this.confirmOpenRef.current.show();
     } else {
-      this.pickFile();
+      action();
     }
   }
 
-  openFile(e){
-    const fileSelector = e.target
-    const file = fileSelector.files && fileSelector.files[0]
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const name = file.name.replace(/\.dxf$/i, '');
+  handleNewFile() {
+    this.popoverRef.current.close();
+    this.confirmOrRun(() => {
       this.core = this.createCore();
-      this.setState({ currentFilename: name, isModified: false }, () => {
-        this.core.openFile(reader.result);
-      });
-    };
+      this.setState({ currentFilename: null, isModified: false });
+    });
+  }
 
-    reader.readAsText(file);
+  handleOpenFile() {
+    this.popoverRef.current.close();
+    this.confirmOrRun(() => {
+      const fileSelector = document.createElement('input');
+      fileSelector.setAttribute('type', 'file');
+      fileSelector.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          const name = file.name.replace(/\.dxf$/i, '');
+          this.core = this.createCore();
+          this.setState({ currentFilename: name, isModified: false }, () => {
+            this.core.openFile(reader.result);
+          });
+        };
+        reader.readAsText(file);
+      });
+      fileSelector.click();
+    });
   }
 
   downloadDxf(filename) {
@@ -182,9 +187,9 @@ export default class DesignWeb extends Component{
       <AboutWindow ref={this.aboutWindowRef} />
       <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
       <ConfirmationDialog
-        confirmLabel="Open"
+        confirmLabel="Continue"
         message="Unsaved changes will be permanently lost."
-        onConfirm={this.pickFile.bind(this)}
+        onConfirm={() => this.confirmAction?.()}
         ref={this.confirmOpenRef}
         title="Unsaved Changes"
       />
@@ -199,6 +204,7 @@ export default class DesignWeb extends Component{
         ]}
       />
       <Popover ref={this.popoverRef} >
+        <PopoverMenuItem action={this.handleNewFile.bind(this)} title="New" />
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         <PopoverMenuItem action={this.handleSaveAsFile.bind(this)} title="Save As" />
