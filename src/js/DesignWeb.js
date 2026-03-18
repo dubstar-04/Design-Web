@@ -95,9 +95,10 @@ export default class DesignWeb extends Component{
 
     const reader = new FileReader();
     reader.onload = () => {
-      const text = reader.result;
-      console.log(text)
-      this.core.openFile(text);
+      // Store filename without extension for use when saving
+      const name = file.name.replace(/\.dxf$/i, '');
+      this.setState({ currentFilename: name });
+      this.core.openFile(reader.result);
     };
 
     reader.readAsText(file);
