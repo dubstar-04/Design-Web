@@ -101,6 +101,7 @@ export default class DesignWeb extends Component{
     this.confirmOrRun(() => {
       this.core = this.createCore();
       this.setState({ currentFilename: null, isModified: false });
+      this.core.notify('New Design Created');
     });
   }
 
