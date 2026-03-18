@@ -219,6 +219,7 @@ export default class DesignWeb extends Component{
         mousePosCallback={this.updateMousePos.bind(this)}
         onHelp={this.handleOpenHelp.bind(this)}
         //onNew={this.handleNewFile.bind(this)}
+        onOpen={this.handleOpenFile.bind(this)}
         onSave={this.handleSaveFile.bind(this)}
         onSaveAs={this.handleSaveAsFile.bind(this)}
         onShortcut={(tab) => this.sideKickRef.current.openTab(tab)}

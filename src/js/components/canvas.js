@@ -166,6 +166,7 @@ export default class Canvas extends Component{
     if (event.ctrlKey) {
       const shortcuts = {
         //'n': () => this.props.onNew?.(), -- IGNORED TO AVOID INTERFERENCE WITH BROWSERS DEFAULT SHORTCUT
+        'o': () => this.props.onOpen?.(),
         'l': () => this.props.onShortcut?.('layers'),
         '1': () => this.props.onShortcut?.('properties'),
         's': () => this.props.onSave?.(),
