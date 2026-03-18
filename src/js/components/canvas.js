@@ -168,7 +168,17 @@ export default class Canvas extends Component{
       return;
     }
 
-    if (event.ctrlKey &&  event.key.toLowerCase() === 'z') {
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
+      if (this.props.onSaveAs) this.props.onSaveAs();
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 's') {
+      if (this.props.onSave) this.props.onSave();
+      return;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === 'z') {
       this.props.core.scene.undo();
       return;
     }
