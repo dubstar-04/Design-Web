@@ -26,6 +26,7 @@ import LayersPanel from './components/layersPanel.js';
 import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
 import Toast from './components/toast.js';
+import SaveDialog from './components/saveDialog.js';
 
 export default class DesignWeb extends Component{
   constructor(){
@@ -36,6 +37,7 @@ export default class DesignWeb extends Component{
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
+    this.saveDialogRef = React.createRef();
     this._propertiesPanelContent = null;
 
     this.core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));
@@ -104,21 +106,28 @@ export default class DesignWeb extends Component{
     reader.readAsText(file);
   }
 
-  /**
-   * save current canvas as dxf file
-   */
+  downloadDxf(filename) {
+    const blob = new Blob([this.core.saveFile()], { type: 'text/plain;' });
+    saveAs(blob, filename);
+    // Remember the stem (without extension) for next save
+    this.setState({ currentFilename: filename.replace(/\.dxf$/i, '') });
+  }
+
   handleSaveFile(){
-    this.popoverRef.current.close()
-    console.log('Save File');
-    const dxfData = this.core.saveFile()
+    this.popoverRef.current.close();
+    if (this.state.currentFilename) {
+      // Filename already known — download directly
+      this.downloadDxf(`${this.state.currentFilename}.dxf`);
+    } else {
+      // No filename yet — prompt the user
+      this.saveDialogRef.current.show(null);
+    }
+  }
 
-    console.log(dxfData)
-
-    var blob = new Blob([dxfData], {
-      type: "text/plain;"
-    });
-
-    saveAs(blob, "design.dxf");
+  handleSaveAsFile(){
+    this.popoverRef.current.close();
+    // Always prompt, pre-populated with the current filename
+    this.saveDialogRef.current.show(this.state.currentFilename);
   }
 
   handleExportFile(){
@@ -155,6 +164,7 @@ export default class DesignWeb extends Component{
     return <div className={`DesignWeb${this.state.sideKickOpen ? ' sidekick-open' : ''}`}>
 
       <AboutWindow ref={this.aboutWindowRef} />
+      <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
       <SideKick
         onOpenChange={this.onSideKickOpenChange.bind(this)}
         ref={this.sideKickRef}
