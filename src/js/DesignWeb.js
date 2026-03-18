@@ -167,7 +167,7 @@ export default class DesignWeb extends Component{
       <Popover ref={this.popoverRef} >
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
-        {/* <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Export" /> */}
+        <PopoverMenuItem action={this.handleSaveAsFile.bind(this)} title="Save As" />
         <PopoverMenuItem action={this.handleOpenHelp.bind(this)} title="Help" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
