@@ -144,158 +144,71 @@ export default class Canvas extends Component{
   }
 
   handleKeyPress(event) {
-    // Don't intercept events when the user is typing in an input, textarea or select
     const tag = event.target.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
-      return;
-    }
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
-    event.preventDefault()
-
-    // Ignore Alt-modified keys — no Alt shortcuts are defined
+    event.preventDefault();
     if (event.altKey) return;
 
-    var charCode = (event.charCode) ? event.charCode : event.keyCode;
-    console.log("char code", event.keyVal, event.keyCode)
+    const { core } = this.props;
+    const key = event.key.toLowerCase();
 
-    if (event.ctrlKey && event.key.toLowerCase() === 'l') {
-      if (this.props.onShortcut) this.props.onShortcut('layers');
+    // Ctrl+Shift shortcuts
+    if (event.ctrlKey && event.shiftKey) {
+      const shortcuts = {
+        's': () => this.props.onSaveAs?.(),
+        'c': () => core.scene.inputManager.onCommand('Copybase'),
+      };
+      if (shortcuts[key]) { shortcuts[key](); return; }
+    }
+
+    // Ctrl shortcuts
+    if (event.ctrlKey) {
+      const shortcuts = {
+        'l': () => this.props.onShortcut?.('layers'),
+        '1': () => this.props.onShortcut?.('properties'),
+        's': () => this.props.onSave?.(),
+        'z': () => core.scene.undo(),
+        'y': () => core.scene.redo(),
+        'a': () => core.scene.selectionManager.selectAll(),
+        'c': () => core.scene.inputManager.onCommand('Copyclip'),
+        'x': () => core.scene.inputManager.onCommand('Cutclip'),
+        'v': () => core.scene.inputManager.onCommand('Pasteclip'),
+        'g': () => core.settings.setSetting('drawgrid', !core.settings.getSetting('drawgrid')),
+      };
+      if (shortcuts[key]) { shortcuts[key](); return; }
+    }
+
+    // Special keys — mapped to core key strings or handlers
+    const specialKeys = {
+      'Backspace':  'Backspace',
+      'Enter':      'Enter',
+      'Escape':     'Escape',
+      ' ':          'Space',
+      'ArrowUp':    'Up-Arrow',
+      'ArrowDown':  'Down-Arrow',
+      'Delete':     'Delete',
+      'F1':  () => this.props.onHelp?.(),
+      'F8':  () => core.settings.setSetting('ortho', !core.settings.getSetting('ortho')),
+      'F9':  () => {
+        const snaps = ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'];
+        const anySnap = snaps.some(k => core.settings.getSetting(k));
+        snaps.forEach(k => core.settings.setSetting(k, !anySnap));
+      },
+      'F10': () => core.settings.setSetting('polar', !core.settings.getSetting('polar')),
+    };
+
+    if (event.key in specialKeys) {
+      const handler = specialKeys[event.key];
+      if (typeof handler === 'function') { handler(); return; }
+      core.commandLine.handleKeys(handler);
       return;
     }
 
-    if (event.ctrlKey && event.key === '1') {
-      if (this.props.onShortcut) this.props.onShortcut('properties');
-      return;
+    // Forward printable characters to the command line
+    if (event.key.length === 1 || event.key === 'Dead') {
+      core.commandLine.handleKeys(event.key);
     }
-
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
-      if (this.props.onSaveAs) this.props.onSaveAs();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 's') {
-      if (this.props.onSave) this.props.onSave();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'z') {
-      this.props.core.scene.undo();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'y') {
-      this.props.core.scene.redo();
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'a') {
-      this.props.core.scene.selectionManager.selectAll();
-      return;
-    }
-
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'c') {
-      this.props.core.scene.inputManager.onCommand(`Copybase`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'c') {
-      this.props.core.scene.inputManager.onCommand(`Copyclip`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'x') {
-      this.props.core.scene.inputManager.onCommand(`Cutclip`);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'g') {
-      const current = this.props.core.settings.getSetting('drawgrid');
-      this.props.core.settings.setSetting('drawgrid', !current);
-      return;
-    }
-
-    if (event.ctrlKey && event.key.toLowerCase() === 'v') {
-      this.props.core.scene.inputManager.onCommand(`Pasteclip`);
-      return;
-    }
-
-    var key;
-
-    switch (charCode) {
-    case 8: //Backspace
-      key = "Backspace";
-      break;
-    case 9: //Tab
-      break;
-    case 13: //Enter
-      key = "Enter";
-      break;
-    case 16: // Shift
-      break;
-    case 17: // Ctrl
-      break;
-    case 20: // CapsLock
-      break;
-    case 27: // Escape
-      key = "Escape";
-      break;
-    case 32: // space
-      key = "Space";
-      break;
-    case 37: // Left-Arrow
-      break;
-    case 38: // Up-Arrow
-      key = "Up-Arrow";
-      break;
-    case 39: // Right-Arrow
-      break;
-    case 40: // Down-Arrow
-      key = "Down-Arrow";
-      break;
-    case 46: // Delete
-      key = "Delete";
-      break;
-    case 112: // F1
-      if (this.props.onHelp) this.props.onHelp();
-      break;
-    case 113: // F2
-      break;
-    case 114: // F3
-      //this.disableSnaps(e);
-      break;
-    case 115: // F4
-      break;
-    case 116: // F5
-      break;
-    case 117: // F6
-      break;
-    case 118: // F7
-      break;
-    case 119: // F8 - Toggle Ortho
-      this.props.core.settings.setSetting('ortho', !this.props.core.settings.getSetting('ortho'));
-      break;
-    case 120: // F9 - Toggle Snaps
-      { const anySnap = ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].some(k => this.props.core.settings.getSetting(k));
-        ['endsnap', 'midsnap', 'centresnap', 'nearestsnap'].forEach(k => this.props.core.settings.setSetting(k, !anySnap)); }
-      break;
-    case 121: // F10 - Toggle Polar
-      this.props.core.settings.setSetting('polar', !this.props.core.settings.getSetting('polar'));
-      break;
-    case 122: // F11
-      break;
-    case 123: // F12
-      break;
-
-    default:
-      // Only forward printable / known keys — skip modifier and media keys
-      if (event.key.length === 1 || event.key === 'Dead') {
-        key = event.key;
-      }
-    }
-
-    console.log('key', key)
-    this.props.core.commandLine.handleKeys(key);
-
   }
 
 
