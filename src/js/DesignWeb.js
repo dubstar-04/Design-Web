@@ -27,6 +27,7 @@ import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
 import Toast from './components/toast.js';
 import SaveDialog from './components/saveDialog.js';
+import ConfirmationDialog from './components/confirmationDialog.js';
 
 export default class DesignWeb extends Component{
   constructor(){
@@ -38,6 +39,7 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this.saveDialogRef = React.createRef();
+    this.confirmOpenRef = React.createRef();
     this.propertiesPanelContent = null;
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
@@ -82,15 +84,21 @@ export default class DesignWeb extends Component{
     this.setState({ mousePos: mousePos });
   }
 
-  handleOpenFile(e){
-    this.popoverRef.current.close()
-
+  pickFile() {
     const fileSelector = document.createElement('input');
     fileSelector.setAttribute('type', 'file');
     fileSelector.setAttribute('multiple', 'multiple');
-    fileSelector.addEventListener('change', this.openFile.bind(this))
+    fileSelector.addEventListener('change', this.openFile.bind(this));
     fileSelector.click();
+  }
 
+  handleOpenFile(e){
+    this.popoverRef.current.close();
+    if (this.core.scene.stateManager.isModified) {
+      this.confirmOpenRef.current.show();
+    } else {
+      this.pickFile();
+    }
   }
 
   openFile(e){
@@ -168,6 +176,13 @@ export default class DesignWeb extends Component{
 
       <AboutWindow ref={this.aboutWindowRef} />
       <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
+      <ConfirmationDialog
+        confirmLabel="Open"
+        message="Unsaved changes will be permanently lost."
+        onConfirm={this.pickFile.bind(this)}
+        ref={this.confirmOpenRef}
+        title="Unsaved Changes"
+      />
       <SideKick
         onOpenChange={this.onSideKickOpenChange.bind(this)}
         ref={this.sideKickRef}
