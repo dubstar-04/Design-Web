@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DialogRow from "./dialogRow";
 import { SideKickContent } from "./sideKick";
+import { Patterns } from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/lib/patterns.js";
 
 const NUMERIC_PROPERTIES = [
   'height', 'rotation', 'radius', 'width', 'lineWidth', 'scale', 'angle',
@@ -88,6 +89,9 @@ export default class PropertiesPanel extends Component {
         return core.ltypeManager.getItems()
           .filter(s => !['BYLAYER', 'BYBLOCK'].includes(s.name.toUpperCase()))
           .map(s => ({ display: s.name, value: s.name }));
+      case 'patternName':
+        return Object.keys(Patterns.hatch_patterns)
+          .map(name => ({ display: name, value: name }));
       case 'horizontalAlignment':
         return [{ display: 'Left', value: 0 }, { display: 'Center', value: 1 }, { display: 'Right', value: 2 }];
       case 'verticalAlignment':
