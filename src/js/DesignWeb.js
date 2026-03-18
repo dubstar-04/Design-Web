@@ -31,7 +31,8 @@ import SaveDialog from './components/saveDialog.js';
 export default class DesignWeb extends Component{
   constructor(){
     super()
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, core: this.createCore()}
+    this.core = this.createCore();
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -48,10 +49,6 @@ export default class DesignWeb extends Component{
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
-  }
-
-  get core() {
-    return this.state.core;
   }
 
   createCore() {
@@ -103,9 +100,9 @@ export default class DesignWeb extends Component{
     const reader = new FileReader();
     reader.onload = () => {
       const name = file.name.replace(/\.dxf$/i, '');
-      const core = this.createCore();
-      this.setState({ currentFilename: name, core }, () => {
-        core.openFile(reader.result);
+      this.core = this.createCore();
+      this.setState({ currentFilename: name }, () => {
+        this.core.openFile(reader.result);
       });
     };
 
