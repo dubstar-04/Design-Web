@@ -37,7 +37,7 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this.saveDialogRef = React.createRef();
-    this._propertiesPanelContent = null;
+    this.propertiesPanelContent = null;
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
   }
@@ -161,8 +161,8 @@ export default class DesignWeb extends Component{
   }
 
   handlePropertyChange(){
-    if (this._propertiesPanelContent) {
-      this._propertiesPanelContent.reload();
+    if (this.propertiesPanelContent) {
+      this.propertiesPanelContent.reload();
     }
   }
 
@@ -175,7 +175,7 @@ export default class DesignWeb extends Component{
         onOpenChange={this.onSideKickOpenChange.bind(this)}
         ref={this.sideKickRef}
         tabs={[
-          { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this._propertiesPanelContent = el; }} /> },
+          { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this.propertiesPanelContent = el; }} /> },
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
           { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} /> },
           { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
