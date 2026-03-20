@@ -43,14 +43,20 @@ export default class DesignWeb extends Component{
     this.propertiesPanelContent = null;
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
+    this.boundVisibilityChange = this.handleVisibilityChange.bind(this);
+
+    // Restore drawing from sessionStorage if available (e.g. after tab discard)
+    this.restoreSession();
   }
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.boundBeforeUnload);
+    document.addEventListener('visibilitychange', this.boundVisibilityChange);
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
+    document.removeEventListener('visibilitychange', this.boundVisibilityChange);
   }
 
   createCore() {
@@ -74,8 +80,54 @@ export default class DesignWeb extends Component{
   }
 
   handleBeforeUnload(e) {
+    this.saveSession();
     if (this.core.scene.stateManager.isModified) {
       e.preventDefault();
+    }
+  }
+
+  handleVisibilityChange() {
+    if (document.visibilityState === 'hidden') {
+      this.saveSession();
+    }
+  }
+
+  saveSession() {
+    try {
+      const dxf = this.core.saveFile();
+      sessionStorage.setItem('design-session-dxf', dxf);
+      sessionStorage.setItem('design-session-filename', this.state.currentFilename || '');
+      sessionStorage.setItem('design-session-modified', this.core.scene.stateManager.isModified ? '1' : '0');
+    } catch {
+      // sessionStorage may be full or unavailable
+    }
+  }
+
+  restoreSession() {
+    try {
+      const dxf = sessionStorage.getItem('design-session-dxf');
+      if (!dxf) return;
+
+      const filename = sessionStorage.getItem('design-session-filename') || null;
+      const wasModified = sessionStorage.getItem('design-session-modified') === '1';
+
+      this.core.openFile(dxf);
+
+      // Update initial state (called from constructor, before mount)
+      Object.assign(this.state, {
+        currentFilename: filename || null,
+        isModified: wasModified,
+      });
+
+      if (wasModified) {
+        this.core.scene.stateManager.stateChanged(true);
+      }
+
+      sessionStorage.removeItem('design-session-dxf');
+      sessionStorage.removeItem('design-session-filename');
+      sessionStorage.removeItem('design-session-modified');
+    } catch {
+      // restore failed — start fresh
     }
   }
 
