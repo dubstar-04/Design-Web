@@ -42,3 +42,8 @@
 .dialogwindow--narrow {
   width: 320px;
 }
+
+.dialogwindow--wide {
+  width: 840px;
+  max-width: 92vw;
+}
