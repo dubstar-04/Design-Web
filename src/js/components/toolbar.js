@@ -32,7 +32,7 @@ export default class Toolbar extends Component {
   }
 
   handleOnClick(command){
-    this.props.core.scene.inputManager.onCommand(`${command}`);
+    this.props.core.scene.inputManager.onCommandButton(`${command}`);
   }
 
   render() {
