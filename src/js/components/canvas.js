@@ -177,6 +177,7 @@ export default class Canvas extends Component{
         'x': () => core.scene.inputManager.onCommand('Cutclip'),
         'v': () => core.scene.inputManager.onCommand('Pasteclip'),
         'g': () => core.settings.setSetting('drawgrid', !core.settings.getSetting('drawgrid')),
+        '?': () => this.props.onShortcuts?.(),
       };
       if (shortcuts[key]) { shortcuts[key](); return; }
     }

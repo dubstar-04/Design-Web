@@ -20,6 +20,7 @@ import PopoverMenuItem from './components/popoverMenuItem.js';
 
 import {saveAs} from 'file-saver'
 import AboutWindow from './components/aboutWindow.js';
+import ShortcutsWindow from './components/shortcutsWindow.js';
 import SideKick from './components/sideKick.js';
 import PropertiesPanel from './components/propertiesPanel.js';
 import LayersPanel from './components/layersPanel.js';
@@ -37,6 +38,7 @@ export default class DesignWeb extends Component{
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
+    this.shortcutsWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this.saveDialogRef = React.createRef();
     this.confirmOpenRef = React.createRef();
@@ -219,6 +221,11 @@ export default class DesignWeb extends Component{
     this.aboutWindowRef.current.toggleVisibility()
   }
 
+  showShortcutsWindow(){
+    this.popoverRef.current.close()
+    this.shortcutsWindowRef.current.toggleVisibility()
+  }
+
   showSideKick(){
     this.popoverRef.current.close()
     this.sideKickRef.current.toggleVisibility()
@@ -238,6 +245,7 @@ export default class DesignWeb extends Component{
     return <div className={`DesignWeb${this.state.sideKickOpen ? ' sidekick-open' : ''}`}>
 
       <AboutWindow ref={this.aboutWindowRef} />
+      <ShortcutsWindow ref={this.shortcutsWindowRef} />
       <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
       <ConfirmationDialog
         confirmLabel="Continue"
@@ -262,6 +270,7 @@ export default class DesignWeb extends Component{
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         <PopoverMenuItem action={this.handleSaveAsFile.bind(this)} title="Save As" />
         <PopoverMenuItem action={this.handleOpenHelp.bind(this)} title="Help" />
+        <PopoverMenuItem action={this.showShortcutsWindow.bind(this)} title="Shortcuts" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
       </Popover>
 
@@ -275,6 +284,7 @@ export default class DesignWeb extends Component{
         onSave={this.handleSaveFile.bind(this)}
         onSaveAs={this.handleSaveAsFile.bind(this)}
         onShortcut={(tab) => this.sideKickRef.current.openTab(tab)}
+        onShortcuts={this.showShortcutsWindow.bind(this)}
         sideKickOpen={this.state.sideKickOpen}
       />
       <Toolbar core={this.core} style="left" type='Entity' />
