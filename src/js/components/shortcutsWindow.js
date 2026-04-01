@@ -6,7 +6,7 @@ const SECTIONS = [
   {
     title: "Documents",
     items: [
-      { title: "New Design",          keys: [["Ctrl", "N"]] },
+      //{ title: "New Design",          keys: [["Ctrl", "N"]] },
       { title: "Open",                keys: [["Ctrl", "O"]] },
       { title: "Save",                keys: [["Ctrl", "S"]] },
       { title: "Save As",             keys: [["Ctrl", "Shift", "S"]] },
