@@ -122,6 +122,7 @@
   font-family: inherit;
   padding: 4px 8px;
   margin-left: auto;
+  width: 125px;
   min-width: 0;
   box-sizing: border-box;
 }
@@ -132,7 +133,6 @@
 }
 
 .dialogrow-input--number {
-  width: 120px;
   text-align: right;
   -moz-appearance: textfield;
 }
@@ -143,12 +143,9 @@
   margin: 0;
 }
 
-.dialogrow-input--text {
-  width: 120px;
-}
+.dialogrow-input--text {}
 
 .dialogrow-input--select {
-  width: 120px;
   cursor: pointer;
 }
 
