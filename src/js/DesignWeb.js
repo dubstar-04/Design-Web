@@ -8,6 +8,9 @@ import React, { Component } from 'react';
 // 4. npm unlink ./Design-core
 //import {Core} from '@design-core/core';
 
+// use local core for development
+//import {Core} from '../js/Design-Core/core/core/core.js';
+
 // Use CDN for production - Consider a npm package?
 import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
