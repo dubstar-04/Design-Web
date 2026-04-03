@@ -46,7 +46,7 @@ variables can be recalled using var(--var-name);
   --hover-bg: rgba(255, 255, 255, 0.1);
   --strong-hover-bg: rgba(255, 255, 255, 0.2);
   --subtle-bg: rgba(255, 255, 255, 0.05);
-  --input-bg: rgba(0, 0, 0, 0.25);
+  --input-bg: rgba(255, 255, 255, 0.08);
   --separator-dark: rgba(0, 0, 0, 0.4);
   /* Tints */
   --accent-tint: rgba(53, 132, 228, 0.15);
