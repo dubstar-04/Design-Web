@@ -32,7 +32,7 @@ variables can be recalled using var(--var-name);
   /* Text Size */
   --xs-text: 11px;
   --small-text: 12px;
-  --medium-text: 13px;
+  --medium-text: 14px;
   --large-text: 18px;
   --xl-text: 24px;
   /* Layout */
