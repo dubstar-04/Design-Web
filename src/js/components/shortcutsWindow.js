@@ -71,7 +71,7 @@ const SECTIONS = [
       { title: "Move",                keys: [["M"]] },
       { title: "MatchProp",           keys: [["MA"]] },
       { title: "Mirror",              keys: [["MI"]] },
-      // { title: "Offset",              keys: [["O"]] },
+      { title: "Offset",              keys: [["O"]] },
       { title: "Pan",                 keys: [["P"]] },
       { title: "Purge",               keys: [["PU"]] },
       { title: "Rotate",              keys: [["RO"]] },
