@@ -31,6 +31,7 @@ export default class Canvas extends Component{
 
   componentDidUpdate(prevProps) {
     if (prevProps.core !== this.props.core) {
+      prevProps.core.canvas.setCursorCallbackFunction(undefined);
       this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this));
       this.props.core.canvas.setCursorCallbackFunction(this.onCursorChange.bind(this));
       this.paint();
