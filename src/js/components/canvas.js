@@ -15,6 +15,9 @@ export default class Canvas extends Component{
     // set the paint callback
     this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
 
+    // set the cursor callback
+    this.props.core.canvas.setCursorCallbackFunction(this.onCursorChange.bind(this))
+
     // add keydown eventlistener
     document.addEventListener("keydown", this.boundHandleKeyPress)
 
@@ -29,6 +32,7 @@ export default class Canvas extends Component{
   componentDidUpdate(prevProps) {
     if (prevProps.core !== this.props.core) {
       this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this));
+      this.props.core.canvas.setCursorCallbackFunction(this.onCursorChange.bind(this));
       this.paint();
     }
   }
@@ -36,6 +40,17 @@ export default class Canvas extends Component{
   componentWillUnmount() {
     document.removeEventListener("keydown", this.boundHandleKeyPress)
     this.resizeObserver.disconnect();
+    this.props.core.canvas.setCursorCallbackFunction(undefined);
+  }
+
+  onCursorChange(state) {
+    const cursors = {
+      DEFAULT: 'crosshair',
+      GRAB: 'grab',
+      GRABBING: 'grabbing',
+      SELECTION: 'cell',
+    };
+    this.canvasRef.current.style.cursor = cursors[state] ?? 'crosshair';
   }
 
   paint() {
