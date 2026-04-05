@@ -7,6 +7,7 @@ export default class Canvas extends Component{
 
     this.canvasRef = React.createRef();
     this.boundHandleKeyPress = this.handleKeyPress.bind(this)
+    this.boundOnCursorChange = this.onCursorChange.bind(this)
     this.state = { contextMenu: null };
   }
 
@@ -14,6 +15,9 @@ export default class Canvas extends Component{
 
     // set the paint callback
     this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this))
+
+    // set the cursor callback
+    this.props.core.canvas.setCursorCallbackFunction(this.boundOnCursorChange)
 
     // add keydown eventlistener
     document.addEventListener("keydown", this.boundHandleKeyPress)
@@ -28,7 +32,9 @@ export default class Canvas extends Component{
 
   componentDidUpdate(prevProps) {
     if (prevProps.core !== this.props.core) {
+      prevProps.core.canvas.setCursorCallbackFunction(undefined);
       this.props.core.canvas.setExternalPaintCallbackFunction(this.paint.bind(this));
+      this.props.core.canvas.setCursorCallbackFunction(this.boundOnCursorChange);
       this.paint();
     }
   }
@@ -36,6 +42,18 @@ export default class Canvas extends Component{
   componentWillUnmount() {
     document.removeEventListener("keydown", this.boundHandleKeyPress)
     this.resizeObserver.disconnect();
+    this.props.core.canvas.setCursorCallbackFunction(undefined);
+  }
+
+  onCursorChange(state) {
+    if (!this.canvasRef.current) return;
+    const cursors = {
+      DEFAULT: 'crosshair',
+      GRAB: 'grab',
+      GRABBING: 'grabbing',
+      SELECTION: 'cell',
+    };
+    this.canvasRef.current.style.cursor = cursors[state] ?? 'crosshair';
   }
 
   paint() {
