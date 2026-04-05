@@ -46,6 +46,7 @@ export default class Canvas extends Component{
   }
 
   onCursorChange(state) {
+    if (!this.canvasRef.current) return;
     const cursors = {
       DEFAULT: 'crosshair',
       GRAB: 'grab',
