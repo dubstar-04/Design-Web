@@ -4,22 +4,17 @@
   "homepage": "https://design-web.uk",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@design-core/core": "^0.0.4",
     "file-saver": "^2.0.5",
-    "gh-pages": "^6.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "serve": "^14.2.1",
-    "web-vitals": "^2.1.4"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b production -d build",
-    "start": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) react-scripts start",
-    "build": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) react-scripts build",
+    "start": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) REACT_APP_CORE_VERSION=$(node -p \"require('./node_modules/@design-core/core/package.json').version\") react-scripts start",
+    "build": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) REACT_APP_CORE_VERSION=$(node -p \"require('./node_modules/@design-core/core/package.json').version\") react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,7 +37,12 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.57.1",
-    "eslint-config-google": "^0.14.0"
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "eslint": "^10.2.0",
+    "eslint-config-google": "^0.14.0",
+    "gh-pages": "^6.3.0",
+    "serve": "^14.2.6"
   }
 }

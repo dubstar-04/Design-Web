@@ -1,18 +1,13 @@
 import '../css/DesignWeb.css';
 import React, { Component } from 'react';
-
-// use local core npm for development
-// 1. clone design-core into js
-// 2. cd src/js
-// 3. npm link ./Design-core
-// 4. npm unlink ./Design-core
-//import {Core} from '@design-core/core';
+// import core from npm package
+import {Core} from '@design-core/core';
 
 // use local core for development
 //import {Core} from '../js/Design-Core/core/core/core.js';
 
-// Use CDN for production - Consider a npm package?
-import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
+// Previously used CDN
+//import {Core} from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/core/core.js"
 
 import Headerbar from './components/headerbar.js';
 import Canvas from './components/canvas.js';
