@@ -1,6 +1,5 @@
 import "../../css/AboutWindow.css";
 import React, { Component } from "react";
-import pkg from '../../../package.json';
 
 export default class AboutWindow extends Component {
   constructor(props) {
@@ -34,8 +33,8 @@ export default class AboutWindow extends Component {
           {process.env.REACT_APP_GIT_COMMIT && (
             <p className="about-window-version">Version: {process.env.REACT_APP_GIT_COMMIT}</p>
           )}
-          {pkg.dependencies?.['@design-core/core'] && (
-            <p className="about-window-version">Core: {pkg.dependencies['@design-core/core'].replace(/^[\^~>=]+/, '')}</p>
+          {process.env.REACT_APP_CORE_VERSION && (
+            <p className="about-window-version">Core: {process.env.REACT_APP_CORE_VERSION}</p>
           )}
           <p className="about-window-author">By <strong>Daniel Wood</strong></p>
           <div className="about-window-links">
