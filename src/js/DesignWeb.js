@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 // import core from npm package
 import {Core} from '@design-core/core';
 
+// package and test core locally via npm link:
+// npm run link-core   — links local Design-Core into this project
+// npm run unlink-core — restores the published npm package
+
 // use local core for development
 //import {Core} from '../js/Design-Core/core/core/core.js';
 
