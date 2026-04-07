@@ -1,6 +1,18 @@
 import "../../css/Canvas.css";
 import React, { Component } from "react";
 
+const SNAP_OVERRIDES = [
+  { label: 'None',          type: 'none' },
+  { label: 'Endpoint',      type: 'end' },
+  { label: 'Midpoint',      type: 'mid' },
+  { label: 'Centre',        type: 'centre' },
+  { label: 'Quadrant',      type: 'quadrant' },
+  { label: 'Nearest',       type: 'nearest' },
+  { label: 'Tangent',       type: 'tangent' },
+  { label: 'Node',          type: 'node' },
+  { label: 'Perpendicular', type: 'perpendicular' },
+];
+
 export default class Canvas extends Component{
   constructor(props){
     super(props)
@@ -8,7 +20,7 @@ export default class Canvas extends Component{
     this.canvasRef = React.createRef();
     this.boundHandleKeyPress = this.handleKeyPress.bind(this)
     this.boundOnCursorChange = this.onCursorChange.bind(this)
-    this.state = { contextMenu: null };
+    this.state = { contextMenu: null, submenu: null };
   }
 
   componentDidMount() {
@@ -83,11 +95,11 @@ export default class Canvas extends Component{
   }
 
   closeContextMenu() {
-    this.setState({ contextMenu: null });
+    this.setState({ contextMenu: null, submenu: null });
   }
 
   renderContextMenu() {
-    const { contextMenu } = this.state;
+    const { contextMenu, submenu } = this.state;
     if (!contextMenu) return null;
 
     const active = this.props.core.scene.inputManager.activeCommand !== undefined;
@@ -96,27 +108,62 @@ export default class Canvas extends Component{
     const run = (fn) => { this.closeContextMenu(); fn(); };
     const { x, y } = contextMenu;
     const transform = `translate(${x > window.innerWidth / 2 ? '-100%' : '0'}, ${y > window.innerHeight / 2 ? '-100%' : '0'})`;
+    const stopContext = e => e.preventDefault();
+    const back = (label) => (
+      <>
+        <button className="canvas-context-item canvas-context-item--back" onClick={() => this.setState({ submenu: null })}>← {label}</button>
+        <div className="canvas-context-separator" />
+      </>
+    );
 
-    const items = [
-      { label: 'Enter', action: () => this.props.core.commandLine.handleKeys('Enter') },
-      { label: 'Cancel', action: () => this.props.core.commandLine.handleKeys('Escape'), disabled: !active },
-      null, // separator
+    const clipboardItems = [
       { label: 'Cut', action: () => this.props.core.scene.inputManager.onCommand('Cutclip'), disabled: active || !hasSelection },
       { label: 'Copy', action: () => this.props.core.scene.inputManager.onCommand('Copyclip'), disabled: active || !hasSelection },
       { label: 'Copy with Base Point', action: () => this.props.core.scene.inputManager.onCommand('Copybase'), disabled: active || !hasSelection },
       { label: 'Paste', action: () => this.props.core.scene.inputManager.onCommand('Pasteclip'), disabled: !validClipboard },
-      null, // separator
+    ];
+    const clipboardEnabled = !active && (hasSelection || validClipboard);
+
+    const mainItems = [
+      { label: 'Enter', action: () => this.props.core.commandLine.handleKeys('Enter') },
+      { label: 'Cancel', action: () => this.props.core.commandLine.handleKeys('Escape'), disabled: !active },
+      null,
       { label: 'Pan', action: () => this.props.core.scene.inputManager.onCommand('Pan'), disabled: active },
       { label: 'Zoom Extents', action: () => this.props.core.canvas.zoomExtents(), disabled: active },
     ];
 
-    const stopContext = e => e.preventDefault();
-
-    return (
-      <>
-        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={stopContext} />
-        <div className="canvas-context-menu" onContextMenu={stopContext} style={{ left: x, top: y, transform }}>
-          {items.map((item, i) =>
+    let content;
+    if (submenu === 'clipboard') {
+      content = (
+        <>
+          {back('Clipboard')}
+          {clipboardItems.map((item) => (
+            <button
+              className="canvas-context-item"
+              disabled={item.disabled}
+              key={item.label}
+              onClick={() => run(item.action)}
+            >{item.label}</button>
+          ))}
+        </>
+      );
+    } else if (submenu === 'snap') {
+      content = (
+        <>
+          {back('Snap Override')}
+          {SNAP_OVERRIDES.map((override) => (
+            <button
+              className="canvas-context-item"
+              key={override.type}
+              onClick={() => run(() => this.props.core.scene.inputManager.snapping.setSnapOverride(override.type))}
+            >{override.label}</button>
+          ))}
+        </>
+      );
+    } else {
+      content = (
+        <>
+          {mainItems.map((item, i) =>
             item === null
               ? <div className="canvas-context-separator" key={i} />
               : <button
@@ -126,6 +173,26 @@ export default class Canvas extends Component{
                   onClick={() => run(item.action)}
                 >{item.label}</button>
           )}
+          <div className="canvas-context-separator" />
+          <button
+            className="canvas-context-item canvas-context-item--submenu"
+            disabled={!clipboardEnabled}
+            onClick={() => this.setState({ submenu: 'clipboard' })}
+          ><span>Clipboard</span><span>&gt;</span></button>
+          <button
+            className="canvas-context-item canvas-context-item--submenu"
+            disabled={!active}
+            onClick={() => this.setState({ submenu: 'snap' })}
+          ><span>Snap Override</span><span>&gt;</span></button>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <div className="canvas-context-overlay" onClick={this.closeContextMenu.bind(this)} onContextMenu={stopContext} />
+        <div className="canvas-context-menu" onContextMenu={stopContext} style={{ left: x, top: y, transform }}>
+          {content}
         </div>
       </>
     );

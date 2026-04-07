@@ -45,6 +45,17 @@
     margin: 4px 0;
 }
 
+.canvas-context-item--submenu {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.canvas-context-item--back {
+    color: var(--accent-colour, var(--text-colour));
+}
+
 canvas {
     position: absolute;
     top: var(--headerbar-height);
