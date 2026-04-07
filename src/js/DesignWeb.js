@@ -68,6 +68,18 @@ export default class DesignWeb extends Component{
     });
     core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
     core.settings.gridcolour = { r: 120, g: 120, b: 120 };
+
+    // Set snap tracking colour to match the CSS accent color
+    const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+    const accentMatch = accentHex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+    if (accentMatch) {
+      core.settings.snaptrackingcolour = {
+        r: parseInt(accentMatch[1], 16),
+        g: parseInt(accentMatch[2], 16),
+        b: parseInt(accentMatch[3], 16),
+      };
+    }
+
     return core;
   }
 
