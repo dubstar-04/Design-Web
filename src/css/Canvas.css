@@ -53,7 +53,7 @@
 }
 
 .canvas-context-item--back {
-    color: var(--accent-colour, var(--text-colour));
+    color: var(--accent-color, var(--text-colour));
 }
 
 canvas {
