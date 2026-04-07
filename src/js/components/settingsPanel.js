@@ -31,7 +31,7 @@ export default class SettingsPanel extends Component {
     try {
       return this.props.core.settings.getSetting(key);
     } catch {
-      return false;
+      return undefined;
     }
   }
 
@@ -67,7 +67,7 @@ export default class SettingsPanel extends Component {
                   <select
                     className="dialogrow-input dialogrow-input--select"
                     onChange={(e) => this.onSelectChange(key, e.target.value)}
-                    value={this.getSetting(key) ?? options[0]?.value}
+                    value={(() => { const v = this.getSetting(key); return options.some((o) => o.value === v) ? v : options[0]?.value; })()}
                   >
                     {options.map((opt) => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
