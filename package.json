@@ -16,7 +16,9 @@
     "start": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) REACT_APP_CORE_VERSION=$(node -p \"require('./node_modules/@design-core/core/package.json').version\") react-scripts start",
     "build": "REACT_APP_GIT_COMMIT=$(git rev-parse --short HEAD) REACT_APP_CORE_VERSION=$(node -p \"require('./node_modules/@design-core/core/package.json').version\") react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "link-core": "(cd ../Design/src/Design-Core && sudo npm link) && npm link @design-core/core",
+    "unlink-core": "npm unlink @design-core/core && npm install"
   },
   "eslintConfig": {
     "extends": [
