@@ -79,9 +79,10 @@ export default class DesignWeb extends Component{
   showToast(message) {
     const id = Date.now();
     this.setState((prev) => ({ toasts: [...prev.toasts, { id, message }] }));
-    setTimeout(() => {
-      this.setState((prev) => ({ toasts: prev.toasts.filter((t) => t.id !== id) }));
-    }, 3000);
+  }
+
+  removeToast(id) {
+    this.setState((prev) => ({ toasts: prev.toasts.filter((t) => t.id !== id) }));
   }
 
   handleBeforeUnload(e) {
@@ -293,7 +294,7 @@ export default class DesignWeb extends Component{
       <Toolbar core={this.core} style="left" type='Entity' />
       <Toolbar core={this.core} style="right" type='Tool' />
       <Commandline core={this.core} mousePos={this.state.mousePos} />
-      <Toast toasts={this.state.toasts} />
+      <Toast removeToast={this.removeToast.bind(this)} toasts={this.state.toasts} />
 
     </div>
   };
