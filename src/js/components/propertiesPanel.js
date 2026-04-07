@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DialogRow from "./dialogRow";
 import { SideKickContent } from "./sideKick";
-import { Patterns } from "https://cdn.jsdelivr.net/gh/dubstar-04/Design-Core/core/lib/patterns.js";
+import {Patterns} from '@design-core/core';
 
 const NUMERIC_PROPERTIES = [
   'height', 'rotation', 'radius', 'width', 'lineWidth', 'scale', 'angle',
