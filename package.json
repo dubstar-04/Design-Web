@@ -4,7 +4,7 @@
   "homepage": "https://design-web.uk",
   "private": true,
   "dependencies": {
-    "@design-core/core": "^0.0.4",
+    "@design-core/core": "^0.0.5",
     "file-saver": "^2.0.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
