@@ -77,7 +77,7 @@ export default class DesignWeb extends Component{
     const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
     const accentMatch = accentHex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
     if (accentMatch) {
-      core.settings.snaptrackingcolour = {
+      core.settings.accentcolour = {
         r: parseInt(accentMatch[1], 16),
         g: parseInt(accentMatch[2], 16),
         b: parseInt(accentMatch[3], 16),
