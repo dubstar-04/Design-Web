@@ -79,9 +79,6 @@ npm run deploy
 
 Full documentation is available at [design-app.readthedocs.io](https://design-app.readthedocs.io/en/latest/index.html), covering commands, entities, and dimension styles.
 
-## Contributing
-
-Contributions are welcome. Please read [Contributing.md](Contributing.md) before opening a pull request.
 
 ## License
 
