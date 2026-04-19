@@ -45,6 +45,7 @@
     "eslint": "^10.2.0",
     "eslint-config-google": "^0.14.0",
     "gh-pages": "^6.3.0",
+    "jest-canvas-mock": "^2.5.2",
     "serve": "^14.2.6"
   }
 }
