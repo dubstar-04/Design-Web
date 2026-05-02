@@ -1,10 +1,10 @@
 import { act, render, fireEvent } from '@testing-library/react';
 import React from 'react';
 
-jest.mock('@design-core/core', () => ({ CanvasRenderer: class MockCanvasRenderer {} }));
+jest.mock('@design-core/core/canvasRenderer.js', () => ({ CanvasRenderer: class MockCanvasRenderer {} }));
 
 import Canvas from '../js/components/canvas';
-import { CanvasRenderer } from '@design-core/core';
+import { CanvasRenderer } from '@design-core/core/canvasRenderer.js';
 
 // paint() accesses cr.canvas.width which jest-canvas-mock does not wire in jsdom.
 // Stub it out so lifecycle tests are not coupled to rendering internals.
