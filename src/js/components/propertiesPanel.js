@@ -98,10 +98,11 @@ export default class PropertiesPanel extends Component {
       if (String(value).toUpperCase() === 'VARIES') {
         options = [{ display: 'Varies', value: 'VARIES' }, ...options];
       }
+      const selectedOption = options.find(item => String(item.value) === String(value));
       return (
         <select
           className="dialogrow-input dialogrow-input--select"
-          defaultValue={value}
+          defaultValue={selectedOption ? value : ''}
           key={`${property}-${value}`}
           onChange={(e) => {
             const item = options.find(m => String(m.value) === e.target.value);
