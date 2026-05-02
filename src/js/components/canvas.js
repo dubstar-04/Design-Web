@@ -1,6 +1,6 @@
 import "../../css/Canvas.css";
 import React, { Component } from "react";
-import { CanvasRenderer } from '@design-core/core';
+import { CanvasRenderer } from '@design-core/core/canvasRenderer.js';
 
 const SNAP_OVERRIDES = [
   { label: 'None',          type: 'none' },
