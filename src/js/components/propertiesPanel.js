@@ -14,29 +14,29 @@ export default class PropertiesPanel extends Component {
   }
 
   reload() {
-    const types = this.getItemTypes();
+    const types = this.getEntityTypes();
     this.setState({ selectedType: types.length ? types[0] : '' });
   }
 
-  getItemTypes() {
+  getEntityTypes() {
     try {
-      return this.props.core.propertyManager.getItemTypes() || [];
+      return this.props.core.propertyManager.getEntityTypes() || [];
     } catch {
       return [];
     }
   }
 
-  getItemProperties(type) {
+  getEntityProperties(type) {
     try {
-      return this.props.core.propertyManager.getItemProperties(type) || [];
+      return this.props.core.propertyManager.getEntityProperties(type) || [];
     } catch {
       return [];
     }
   }
 
-  getItemPropertyValue(type, property) {
+  getEntityPropertyValue(type, property) {
     try {
-      return this.props.core.propertyManager.getItemPropertyValue(type, property);
+      return this.props.core.propertyManager.getEntityPropertyValue(type, property);
     } catch {
       return '';
     }
@@ -45,7 +45,7 @@ export default class PropertiesPanel extends Component {
   onValueChanged(property, value) {
     const { selectedType } = this.state;
     try {
-      this.props.core.propertyManager.setItemProperties(property, value, selectedType);
+      this.props.core.propertyManager.setEntityProperties(property, value, selectedType);
       this.forceUpdate();
     } catch {
       // property update failed
@@ -58,9 +58,9 @@ export default class PropertiesPanel extends Component {
     return formatted;
   }
 
-  getItemPropertyDefinition(type, property) {
+  getEntityPropertyDefinition(type, property) {
     try {
-      return this.props.core.propertyManager.getItemPropertyDefinition(type, property);
+      return this.props.core.propertyManager.getEntityPropertyDefinition(type, property);
     } catch {
       return undefined;
     }
@@ -145,12 +145,12 @@ export default class PropertiesPanel extends Component {
     const { selectedType } = this.state;
     if (!selectedType) return null;
 
-    const properties = this.getItemProperties(selectedType);
+    const properties = this.getEntityProperties(selectedType);
     if (!properties.length) return null;
 
     return properties.map(property => {
-      const value = this.getItemPropertyValue(selectedType, property);
-      const definition = this.getItemPropertyDefinition(selectedType, property);
+      const value = this.getEntityPropertyValue(selectedType, property);
+      const definition = this.getEntityPropertyDefinition(selectedType, property);
       const input = this.renderInput(property, value, definition);
       if (input === null) return null;
       return (
@@ -165,7 +165,7 @@ export default class PropertiesPanel extends Component {
   }
 
   render() {
-    const types = this.getItemTypes();
+    const types = this.getEntityTypes();
 
     if (!types.length) {
       return (
