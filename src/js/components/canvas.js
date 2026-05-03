@@ -112,7 +112,7 @@ export default class Canvas extends Component{
     if (!contextMenu) return null;
 
     const active = this.props.core.scene.inputManager.activeCommand !== undefined;
-    const hasSelection = this.props.core.scene.selectionManager.selectedItems.length > 0;
+    const hasSelection = this.props.core.scene.selectionManager.selectedEntities.length > 0;
     const validClipboard = this.props.core.clipboard.isValid;
     const run = (fn) => { this.closeContextMenu(); fn(); };
     const { x, y } = contextMenu;

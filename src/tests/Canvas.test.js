@@ -39,7 +39,7 @@ function makeCore() {
         onCommand: jest.fn(),
         snapping: { setSnapOverride: jest.fn() },
       },
-      selectionManager: { selectedItems: [], selectAll: jest.fn() },
+      selectionManager: { selectedEntities: [], selectAll: jest.fn() },
       undo: jest.fn(),
       redo: jest.fn(),
     },
