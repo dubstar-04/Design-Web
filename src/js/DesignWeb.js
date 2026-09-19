@@ -193,6 +193,7 @@ export default class DesignWeb extends Component{
     this.popoverRef.current.close();
     this.confirmOrRun(() => {
       this.core = this.createCore();
+      this.applyStyle(this.state.style);
       this.setState({ currentFilename: null, isModified: false });
       this.core.notify('New Design Created');
     });
@@ -209,6 +210,7 @@ export default class DesignWeb extends Component{
         reader.onload = () => {
           const name = file.name.replace(/\.dxf$/i, '');
           this.core = this.createCore();
+          this.applyStyle(this.state.style);
           this.setState({ currentFilename: name, isModified: false }, () => {
             this.core.openFile(reader.result);
           });
