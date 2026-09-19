@@ -4,7 +4,8 @@ This section holds the variables for the design of the css.
 variables can be recalled using var(--var-name);
 Colours use light-dark(light-value, dark-value); color-scheme below picks which one applies.
 */
-  color-scheme: dark;
+  color-scheme: light dark;
+  /* default: follow the OS/user-agent preference */
 
   /* Adw surface hierarchy: view < window < headerbar < card */
   --view-bg: light-dark(#ffffff, #1e1e1e);
@@ -67,9 +68,14 @@ Colours use light-dark(light-value, dark-value); color-scheme below picks which 
   --switch-thumb: #ffffff;
 }
 
-/* Light theme — forces color-scheme so light-dark() above resolves to the light values */
+/* Light style — forces color-scheme so light-dark() above resolves to the light values */
 :root[data-theme="light"] {
   color-scheme: light;
+}
+
+/* Dark style — forces color-scheme so light-dark() above resolves to the dark values */
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 .DesignWeb {
