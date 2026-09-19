@@ -63,6 +63,26 @@ export default class DesignWeb extends Component{
     document.removeEventListener('visibilitychange', this.boundVisibilityChange);
   }
 
+  // Sync the CSS style and the canvas colours (which CSS can't reach) together
+  applyStyle(style) {
+    if (style === 'system') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', style);
+    }
+    localStorage.setItem('design-web-theme', style);
+
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = style === 'dark' || (style === 'system' && prefersDark);
+    this.core.settings.canvasbackgroundcolour = isDark ? { r: 30, g: 30, b: 30 } : { r: 250, g: 250, b: 250 };
+    this.core.settings.gridcolour = isDark ? { r: 120, g: 120, b: 120 } : { r: 190, g: 190, b: 190 };
+    this.core.canvas.requestPaint();
+  }
+
+  setStyle(style) {
+    this.setState({ style }, () => this.applyStyle(style));
+  }
+
   createCore() {
     const core = new Core();
     core.propertyManager.setPropertyCallbackFunction(this.handlePropertyChange.bind(this));

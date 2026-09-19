@@ -23,3 +23,9 @@
   border-top: 1px solid var(--border-colour);
   transform: rotate(45deg);
 }
+
+.popover-separator {
+  height: 1px;
+  margin: 4px 0;
+  background-color: var(--border-colour);
+}
