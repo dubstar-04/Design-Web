@@ -1,10 +1,10 @@
 {
   "name": "design-web",
-  "version": "0.0.1",
+  "version": "51.0.0",
   "homepage": "https://design-web.uk",
   "private": true,
   "dependencies": {
-    "@design-core/core": "^50.1.0",
+    "@design-core/core": "^51.1.0",
     "file-saver": "^2.0.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
