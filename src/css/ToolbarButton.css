@@ -8,14 +8,23 @@
     transition: background-color 0.15s ease;
 }
 
-.toolbarbutton img {
+/* Icon is masked so it can be recoloured to match the current theme instead of using a fixed fill colour baked into the SVG */
+.toolbarbutton .toolbaricon {
+    display: inline-block;
     height: 18px;
     width: 18px;
+    background-color: var(--text-colour);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
     opacity: 0.85;
     transition: opacity 0.15s ease, filter 0.15s ease, transform 0.15s ease;
 }
 
-.toolbarbutton:hover img {
+.toolbarbutton:hover .toolbaricon {
     opacity: 1;
     filter: drop-shadow(0 0 5px var(--accent-shadow));
     transform: scale(1.1);

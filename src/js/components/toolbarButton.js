@@ -13,7 +13,7 @@ export default class ToolbarButton extends Component{
 
   render(){
     return <button className="toolbarbutton" onClick={this.handleOnClick.bind(this)}>
-      <img src={this.props.icon} />
+      <span className="toolbaricon" style={{ WebkitMaskImage: `url(${this.props.icon})`, maskImage: `url(${this.props.icon})` }} />
       { this.props.command ?
         <div className={`tooltip tooltip${this.props.style}`}>
           <p>{`${this.props.command} (${this.props.shortcut})`}</p>
