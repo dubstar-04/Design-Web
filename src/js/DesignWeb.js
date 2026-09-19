@@ -19,6 +19,7 @@ import Commandline from './components/commandline.js';
 import Toolbar from './components/toolbar.js';
 import Popover from './components/popover.js';
 import PopoverMenuItem from './components/popoverMenuItem.js';
+import StyleSwitcher from './components/styleSwitcher.js';
 
 import {saveAs} from 'file-saver'
 import AboutWindow from './components/aboutWindow.js';
@@ -36,7 +37,10 @@ export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = this.createCore();
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false}
+    // Resolve initial style from a previous choice, defaulting to following the OS preference
+    const storedStyle = localStorage.getItem('design-web-theme');
+    const initialStyle = storedStyle || 'system';
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false, style: initialStyle}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -51,6 +55,8 @@ export default class DesignWeb extends Component{
 
     // Restore drawing from sessionStorage if available (e.g. after tab discard)
     this.restoreSession();
+
+    this.applyStyle(initialStyle);
   }
 
   componentDidMount() {
@@ -90,8 +96,6 @@ export default class DesignWeb extends Component{
     core.scene.stateManager.setStateCallbackFunction(() => {
       this.setState({ isModified: core.scene.stateManager.isModified });
     });
-    core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
-    core.settings.gridcolour = { r: 120, g: 120, b: 120 };
 
     // Set snap tracking colour to match the CSS accent color
     const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
@@ -300,6 +304,8 @@ export default class DesignWeb extends Component{
         ]}
       />
       <Popover ref={this.popoverRef} >
+        <StyleSwitcher onChange={this.setStyle.bind(this)} style={this.state.style} />
+        <div className="popover-separator" />
         <PopoverMenuItem action={this.handleNewFile.bind(this)} title="New" />
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
