@@ -2,33 +2,37 @@
   /*
 This section holds the variables for the design of the css.
 variables can be recalled using var(--var-name);
+Colours use light-dark(light-value, dark-value); color-scheme below picks which one applies.
 */
+  color-scheme: light dark;
+  /* default: follow the OS/user-agent preference */
+
   /* Adw surface hierarchy: view < window < headerbar < card */
-  --view-bg: #1e1e1e;
-  --window-bg: #242424;
-  --card-bg: #383838;
+  --view-bg: light-dark(#ffffff, #1e1e1e);
+  --window-bg: light-dark(#fafafa, #242424);
+  --card-bg: light-dark(#ffffff, #383838);
 
   --accent-color: #3584e4;
-  --border-colour: rgba(255, 255, 255, 0.1);
-  --shadow-colour: rgba(0, 0, 0, 0.5);
+  --border-colour: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+  --shadow-colour: light-dark(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
   --active-colour: #3584e4;
   --alert-colour: #e01b24;
-  --inactive-colour: rgba(255, 255, 255, 0.55);
-  --header-colour: #303030;
-  --footer-colour: #303030;
+  --inactive-colour: light-dark(rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0.55));
+  --header-colour: light-dark(#ebebeb, #303030);
+  --footer-colour: light-dark(#ebebeb, #303030);
   /* blur */
   --window-blur: 4px;
   /* toolbar */
-  --toolbar-hover-colour: rgba(255, 255, 255, 0.12);
+  --toolbar-hover-colour: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.12));
   /* dialog */
-  --dialog-header-colour: #303030;
+  --dialog-header-colour: light-dark(#ebebeb, #303030);
   /* List  */
-  --list-bg-colour: #383838;
-  --list-hover-colour: #444444;
+  --list-bg-colour: light-dark(#ffffff, #383838);
+  --list-hover-colour: light-dark(#eeeeee, #444444);
   /* Text */
-  --text-colour: #ffffff;
-  --text-contrast-color: #ffffff;
-  --dim-text: rgba(255, 255, 255, 0.65);
+  --text-colour: light-dark(#1e1e1e, #ffffff);
+  --text-contrast-color: light-dark(#000000, #ffffff);
+  --dim-text: light-dark(rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0.65));
   /* Text Size */
   --xs-text: 11px;
   --small-text: 12px;
@@ -43,25 +47,35 @@ variables can be recalled using var(--var-name);
   --sidekick-tabs-width: 34px;
   --sidekick-panel-width: 326px;
   /* Interaction states */
-  --hover-bg: rgba(255, 255, 255, 0.1);
-  --strong-hover-bg: rgba(255, 255, 255, 0.2);
-  --subtle-bg: rgba(255, 255, 255, 0.05);
-  --input-bg: rgba(255, 255, 255, 0.08);
-  --separator-dark: rgba(0, 0, 0, 0.4);
+  --hover-bg: light-dark(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.1));
+  --strong-hover-bg: light-dark(rgba(0, 0, 0, 0.14), rgba(255, 255, 255, 0.2));
+  --subtle-bg: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
+  --input-bg: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.08));
+  --separator-dark: light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.4));
   /* Tints */
-  --accent-tint: rgba(53, 132, 228, 0.15);
-  --alert-tint: rgba(224, 27, 36, 0.15);
+  --accent-tint: light-dark(rgba(53, 132, 228, 0.12), rgba(53, 132, 228, 0.15));
+  --alert-tint: light-dark(rgba(224, 27, 36, 0.12), rgba(224, 27, 36, 0.15));
   /* Components */
   --tooltip-bg: #111111;
-  --accent-shadow: rgba(53, 132, 228, 0.75);
+  --accent-shadow: light-dark(rgba(53, 132, 228, 0.5), rgba(53, 132, 228, 0.75));
   /* Button */
-  --button-bg: #5a5a5a;
-  --button-bg-hover: #6a6a6a;
+  --button-bg: light-dark(#e0e0e0, #5a5a5a);
+  --button-bg-hover: light-dark(#d0d0d0, #6a6a6a);
   /* Switch */
-  --switch-track-off: #5c5c5c;
-  --switch-track-hover: #6e6e6e;
+  --switch-track-off: light-dark(#c8c8c8, #5c5c5c);
+  --switch-track-hover: light-dark(#b5b5b5, #6e6e6e);
   --switch-track-on-hover: #4a7fc2;
   --switch-thumb: #ffffff;
+}
+
+/* Light style — forces color-scheme so light-dark() above resolves to the light values */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Dark style — forces color-scheme so light-dark() above resolves to the dark values */
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 .DesignWeb {

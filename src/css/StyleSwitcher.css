@@ -1,0 +1,39 @@
+.style-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    padding: 14px 8px;
+}
+
+.style-swatch {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    /* fixed opaque neutral border so it reads the same colour on every part of the ring, regardless of what's behind it */
+    border: 2px solid #8a8a8a;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+}
+
+.style-swatch:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.style-swatch--system {
+    background: linear-gradient(135deg, #ffffff 50%, #1e1e1e 50%);
+}
+
+.style-swatch--light {
+    background-color: #ffffff;
+}
+
+.style-swatch--dark {
+    background-color: #1e1e1e;
+}
+
+.style-swatch.selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+}

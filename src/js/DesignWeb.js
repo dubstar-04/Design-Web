@@ -19,6 +19,7 @@ import Commandline from './components/commandline.js';
 import Toolbar from './components/toolbar.js';
 import Popover from './components/popover.js';
 import PopoverMenuItem from './components/popoverMenuItem.js';
+import StyleSwitcher from './components/styleSwitcher.js';
 
 import {saveAs} from 'file-saver'
 import AboutWindow from './components/aboutWindow.js';
@@ -36,7 +37,10 @@ export default class DesignWeb extends Component{
   constructor(){
     super()
     this.core = this.createCore();
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false}
+    // Resolve initial style from a previous choice, defaulting to following the OS preference
+    const storedStyle = localStorage.getItem('design-web-theme');
+    const initialStyle = storedStyle || 'system';
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false, style: initialStyle}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -48,19 +52,53 @@ export default class DesignWeb extends Component{
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
     this.boundVisibilityChange = this.handleVisibilityChange.bind(this);
+    this.boundSystemStyleChange = this.handleSystemStyleChange.bind(this);
+    this.systemStyleQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
 
     // Restore drawing from sessionStorage if available (e.g. after tab discard)
     this.restoreSession();
+
+    this.applyStyle(initialStyle);
   }
 
   componentDidMount() {
     window.addEventListener('beforeunload', this.boundBeforeUnload);
     document.addEventListener('visibilitychange', this.boundVisibilityChange);
+    this.systemStyleQuery?.addEventListener('change', this.boundSystemStyleChange);
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
     document.removeEventListener('visibilitychange', this.boundVisibilityChange);
+    this.systemStyleQuery?.removeEventListener('change', this.boundSystemStyleChange);
+  }
+
+  // Re-sync the canvas colours when the OS preference changes while following the system style
+  // (CSS elements already update automatically via light-dark(), but canvas colours are plain JS values)
+  handleSystemStyleChange() {
+    if (this.state.style === 'system') {
+      this.applyStyle('system');
+    }
+  }
+
+  // Sync the CSS style and the canvas colours (which CSS can't reach) together
+  applyStyle(style) {
+    if (style === 'system') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', style);
+    }
+    localStorage.setItem('design-web-theme', style);
+
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = style === 'dark' || (style === 'system' && prefersDark);
+    this.core.settings.canvasbackgroundcolour = isDark ? { r: 30, g: 30, b: 30 } : { r: 250, g: 250, b: 250 };
+    this.core.settings.gridcolour = isDark ? { r: 120, g: 120, b: 120 } : { r: 190, g: 190, b: 190 };
+    this.core.canvas.requestPaint();
+  }
+
+  setStyle(style) {
+    this.setState({ style }, () => this.applyStyle(style));
   }
 
   createCore() {
@@ -70,8 +108,6 @@ export default class DesignWeb extends Component{
     core.scene.stateManager.setStateCallbackFunction(() => {
       this.setState({ isModified: core.scene.stateManager.isModified });
     });
-    core.settings.canvasbackgroundcolour = { r: 30, g: 30, b: 30 };
-    core.settings.gridcolour = { r: 120, g: 120, b: 120 };
 
     // Set snap tracking colour to match the CSS accent color
     const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
@@ -169,6 +205,7 @@ export default class DesignWeb extends Component{
     this.popoverRef.current.close();
     this.confirmOrRun(() => {
       this.core = this.createCore();
+      this.applyStyle(this.state.style);
       this.setState({ currentFilename: null, isModified: false });
       this.core.notify('New Design Created');
     });
@@ -185,6 +222,7 @@ export default class DesignWeb extends Component{
         reader.onload = () => {
           const name = file.name.replace(/\.dxf$/i, '');
           this.core = this.createCore();
+          this.applyStyle(this.state.style);
           this.setState({ currentFilename: name, isModified: false }, () => {
             this.core.openFile(reader.result);
           });
@@ -280,6 +318,8 @@ export default class DesignWeb extends Component{
         ]}
       />
       <Popover ref={this.popoverRef} >
+        <StyleSwitcher onChange={this.setStyle.bind(this)} style={this.state.style} />
+        <div className="popover-separator" />
         <PopoverMenuItem action={this.handleNewFile.bind(this)} title="New" />
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />

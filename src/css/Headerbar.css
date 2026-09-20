@@ -8,7 +8,7 @@
       position: relative;
       width: 100%;
       height: var(--headerbar-height);
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 1px 0 var(--shadow-colour);
       z-index: 3;
   }
 
@@ -24,7 +24,7 @@
   }
 
   .headerbar-modified-dot {
-      background-color: white;
+      background-color: var(--text-colour);
       border-radius: 50%;
       display: inline-block;
       height: 8px;
