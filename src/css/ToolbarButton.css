@@ -42,7 +42,8 @@
 .toolbarbutton .tooltip {
     visibility: hidden;
     background-color: var(--tooltip-bg);
-    color: var(--text-colour);
+    /* tooltip background is always dark regardless of style, so its text must stay a fixed light colour too */
+    color: #ffffff;
     text-align: center;
     border-radius: var(--border-radius);
     border: 1px solid var(--border-colour);
