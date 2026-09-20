@@ -52,6 +52,8 @@ export default class DesignWeb extends Component{
 
     this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
     this.boundVisibilityChange = this.handleVisibilityChange.bind(this);
+    this.boundSystemStyleChange = this.handleSystemStyleChange.bind(this);
+    this.systemStyleQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
 
     // Restore drawing from sessionStorage if available (e.g. after tab discard)
     this.restoreSession();
@@ -62,11 +64,21 @@ export default class DesignWeb extends Component{
   componentDidMount() {
     window.addEventListener('beforeunload', this.boundBeforeUnload);
     document.addEventListener('visibilitychange', this.boundVisibilityChange);
+    this.systemStyleQuery?.addEventListener('change', this.boundSystemStyleChange);
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.boundBeforeUnload);
     document.removeEventListener('visibilitychange', this.boundVisibilityChange);
+    this.systemStyleQuery?.removeEventListener('change', this.boundSystemStyleChange);
+  }
+
+  // Re-sync the canvas colours when the OS preference changes while following the system style
+  // (CSS elements already update automatically via light-dark(), but canvas colours are plain JS values)
+  handleSystemStyleChange() {
+    if (this.state.style === 'system') {
+      this.applyStyle('system');
+    }
   }
 
   // Sync the CSS style and the canvas colours (which CSS can't reach) together
