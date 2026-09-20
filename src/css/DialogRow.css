@@ -72,7 +72,8 @@
 .dialogrow-colour-input {
   width: 28px;
   height: 28px;
-  border: none;
+  /* the border sits outside the swatch's own content box (default box-sizing), so it blends with the row background, not the selected colour — keeps it visible without being harsh */
+  border: 1px solid var(--border-colour);
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
@@ -87,12 +88,12 @@
 
 .dialogrow-colour-input::-webkit-color-swatch {
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .dialogrow-colour-input::-moz-color-swatch {
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 /* Badge */
