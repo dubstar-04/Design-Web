@@ -31,6 +31,7 @@ import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
 import Toast from './components/toast.js';
 import SaveDialog from './components/saveDialog.js';
+import PlotDialog from './components/plotDialog.js';
 import ConfirmationDialog from './components/confirmationDialog.js';
 
 export default class DesignWeb extends Component{
@@ -47,6 +48,7 @@ export default class DesignWeb extends Component{
     this.shortcutsWindowRef = React.createRef();
     this.sideKickRef = React.createRef();
     this.saveDialogRef = React.createRef();
+    this.plotDialogRef = React.createRef();
     this.confirmOpenRef = React.createRef();
     this.propertiesPanelContent = null;
 
@@ -261,7 +263,7 @@ export default class DesignWeb extends Component{
 
   handleExportFile(){
     this.popoverRef.current.close()
-    console.log('Export File');
+    this.plotDialogRef.current.show(this.state.currentFilename);
   }
 
   handleOpenHelp(){
@@ -300,6 +302,7 @@ export default class DesignWeb extends Component{
       <AboutWindow ref={this.aboutWindowRef} />
       <ShortcutsWindow ref={this.shortcutsWindowRef} />
       <SaveDialog onSave={this.downloadDxf.bind(this)} ref={this.saveDialogRef} />
+      <PlotDialog core={this.core} ref={this.plotDialogRef} />
       <ConfirmationDialog
         confirmLabel="Continue"
         message="Unsaved changes will be permanently lost."
@@ -324,6 +327,7 @@ export default class DesignWeb extends Component{
         <PopoverMenuItem action={this.handleOpenFile.bind(this)} title="Open" />
         <PopoverMenuItem action={this.handleSaveFile.bind(this)} title="Save" />
         <PopoverMenuItem action={this.handleSaveAsFile.bind(this)} title="Save As" />
+        <PopoverMenuItem action={this.handleExportFile.bind(this)} title="Plot" />
         <PopoverMenuItem action={this.handleOpenHelp.bind(this)} title="Help" />
         <PopoverMenuItem action={this.showShortcutsWindow.bind(this)} title="Shortcuts" />
         <PopoverMenuItem action={this.showAboutWindow.bind(this)} title="About" />
