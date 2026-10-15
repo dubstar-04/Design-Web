@@ -30,6 +30,7 @@ import LayersPanel from './components/layersPanel.js';
 import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
 import DimStylePanel from './components/dimStylePanel.js';
+import LineStylePanel from './components/lineStylePanel.js';
 import Toast from './components/toast.js';
 import SaveDialog from './components/saveDialog.js';
 import PlotDialog from './components/plotDialog.js';
@@ -321,6 +322,7 @@ export default class DesignWeb extends Component{
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} revision={this.state.docRevision} /> },
           { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} revision={this.state.docRevision} /> },
           { id: 'dimstyles', label: 'Dim Styles', content: <DimStylePanel core={this.core} revision={this.state.docRevision} /> },
+          { id: 'linestyles', label: 'Line Styles', content: <LineStylePanel core={this.core} /> },
           { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
         ]}
       />

@@ -69,6 +69,20 @@
 }
 
 /* Colour input */
+.dialogrow-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dialogrow-subtitle {
+  color: var(--inactive-colour);
+  font-size: var(--xs-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .dialogrow-colour-input {
   width: 28px;
   height: 28px;
