@@ -30,7 +30,14 @@ export default class LineStylePanel extends Component {
                   key={style.name}
                   label={style.name}
                   subtitle={style.description}
-                  suffix={<Switch checked={loaded} disabled={loaded} onChange={() => this.onLoad(style)} />}
+                  suffix={
+                    <Switch
+                      aria-label={style.name}
+                      checked={loaded}
+                      disabled={loaded}
+                      onChange={() => this.onLoad(style)}
+                    />
+                  }
                   variant="form"
                 />
               );
