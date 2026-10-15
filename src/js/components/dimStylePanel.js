@@ -309,24 +309,28 @@ export default class DimStylePanel extends Component {
           </>
         }
       >
-        <DialogRow
-          label="Name"
-          suffix={
-            <input
-              className="dialogrow-input dialogrow-input--text"
-              onBlur={this.onNameBlur.bind(this)}
-              onChange={e => this.setState({ editName: e.target.value })}
-              onKeyDown={this.onEnterBlur.bind(this)}
-              type="text"
-              value={editName}
-            />
-          }
-          variant="form"
-        />
+        <div className="sidekick-row-group">
+          <DialogRow
+            label="Name"
+            suffix={
+              <input
+                className="dialogrow-input dialogrow-input--text"
+                onBlur={this.onNameBlur.bind(this)}
+                onChange={e => this.setState({ editName: e.target.value })}
+                onKeyDown={this.onEnterBlur.bind(this)}
+                type="text"
+                value={editName}
+              />
+            }
+            variant="form"
+          />
+        </div>
         {selectedStyle && GROUPS.map(group => (
           <React.Fragment key={group.title}>
             <div className="settings-group-header">{group.title}</div>
-            {group.fields.map(field => this.renderField(field))}
+            <div className="sidekick-row-group">
+              {group.fields.map(field => this.renderField(field))}
+            </div>
           </React.Fragment>
         ))}
       </SideKickEdit>
