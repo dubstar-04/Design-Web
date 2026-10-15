@@ -11,6 +11,7 @@ export default class LineStylePanel extends Component {
   // Loaded line types cannot be unloaded, matching the desktop preferences page
   onLoad(style) {
     this.getManager().addItem(style);
+    this.props.core.scene.stateManager.stateChanged(true);
     this.forceUpdate();
   }
 
