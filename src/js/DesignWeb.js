@@ -29,6 +29,7 @@ import PropertiesPanel from './components/propertiesPanel.js';
 import LayersPanel from './components/layersPanel.js';
 import SettingsPanel from './components/settingsPanel.js';
 import TextStylePanel from './components/textStylePanel.js';
+import DimStylePanel from './components/dimStylePanel.js';
 import Toast from './components/toast.js';
 import SaveDialog from './components/saveDialog.js';
 import PlotDialog from './components/plotDialog.js';
@@ -317,6 +318,7 @@ export default class DesignWeb extends Component{
           { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this.propertiesPanelContent = el; }} /> },
           { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
           { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} /> },
+          { id: 'dimstyles', label: 'Dim Styles', content: <DimStylePanel core={this.core} /> },
           { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
         ]}
       />
