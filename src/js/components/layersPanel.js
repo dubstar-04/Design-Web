@@ -8,26 +8,30 @@ export default class LayersPanel extends Component {
   constructor(props) {
     super(props);
     this.confirmDialogRef = React.createRef();
-    this.state = {
-      selectedLayer: null,
-      selectedLayerName: '',
-      confirmDeleteLayer: null,
-      editName: '',
-      editOn: true,
-      editFrozen: false,
-      editLocked: false,
-      editLineType: 'CONTINUOUS',
-      editLineWeight: 'DEFAULT',
-      editPlotting: true,
+    this.state = this.getInitialState();
+  }
+
+  // Only in-progress edits are buffered; the selected layer is resolved from the active manager on render.
+  getInitialState() {
+    return {
+      selectedName: null,
+      confirmDeleteName: null,
+      editName: null,
     };
   }
 
-  componentDidMount() {
-    // Pre-select the current layer so the edit panel is always populated
-    const currentName = this.getCurrentLayer();
+  componentDidUpdate(prevProps) {
+    if (prevProps.core !== this.props.core || prevProps.revision !== this.props.revision) {
+      this.setState(this.getInitialState());
+    }
+  }
+
+  getSelectedLayer() {
     const layers = this.getLayers();
-    const current = layers.find(l => l.name === currentName) || layers[0];
-    if (current) this.onSelectLayer(current);
+    const current = this.getCurrentLayer();
+    return layers.find(l => l.name === this.state.selectedName) ||
+      layers.find(l => l.name === current) ||
+      layers[0];
   }
 
   getLayers() {
@@ -49,22 +53,11 @@ export default class LayersPanel extends Component {
     this.props.core.layerManager.newItem();
     const layers = this.getLayers();
     const newLayer = layers[layers.length - 1];
-    if (newLayer) this.onSelectLayer(newLayer);
-    else this.forceUpdate();
+    this.setState({ selectedName: newLayer?.name ?? null, editName: null });
   }
 
   onSelectLayer(layer) {
-    this.setState({
-      selectedLayer: layer,
-      selectedLayerName: layer.name,
-      editName: layer.name,
-      editOn: layer.on,
-      editFrozen: layer.frozen,
-      editLocked: layer.locked,
-      editLineType: layer.lineType,
-      editLineWeight: layer.lineWeight,
-      editPlotting: layer.plotting,
-    });
+    this.setState({ selectedName: layer.name, editName: null });
   }
 
   onSetCurrentLayer(layer) {
@@ -73,24 +66,21 @@ export default class LayersPanel extends Component {
   }
 
   onConfirmDelete(layer) {
-    this.setState({ confirmDeleteLayer: layer }, () => {
+    this.setState({ confirmDeleteName: layer.name }, () => {
       this.confirmDialogRef.current.show();
     });
   }
 
   onCancelDelete() {
-    this.setState({ confirmDeleteLayer: null });
+    this.setState({ confirmDeleteName: null });
   }
 
   onDeleteLayer() {
-    const { confirmDeleteLayer } = this.state;
-    if (confirmDeleteLayer) {
-      const index = this.props.core.layerManager.getItemIndex(confirmDeleteLayer.name);
-      this.props.core.layerManager.deleteStyle(index);
-      this.setState({ confirmDeleteLayer: null }, () => {
-        const first = this.getLayers()[0];
-        if (first) this.onSelectLayer(first);
-      });
+    const { confirmDeleteName } = this.state;
+    if (confirmDeleteName) {
+      const index = this.props.core.layerManager.getItemIndex(confirmDeleteName);
+      if (index >= 0) this.props.core.layerManager.deleteStyle(index);
+      this.setState({ confirmDeleteName: null, selectedName: null, editName: null });
     }
   }
 
@@ -104,13 +94,13 @@ export default class LayersPanel extends Component {
   }
 
   onNameBlur() {
-    const { selectedLayerName, editName } = this.state;
-    if (!selectedLayerName) return;
-    const index = this.props.core.layerManager.getItemIndex(selectedLayerName);
+    const { editName } = this.state;
+    const layer = this.getSelectedLayer();
+    if (!layer || editName === null) return;
+    const index = this.props.core.layerManager.getItemIndex(layer.name);
     if (index >= 0) {
       this.props.core.layerManager.renameStyle(index, editName);
-      const actualName = this.props.core.layerManager.getItemByIndex(index).name;
-      this.setState({ selectedLayerName: actualName, editName: actualName });
+      this.setState({ selectedName: this.props.core.layerManager.getItemByIndex(index).name, editName: null });
     }
   }
 
@@ -118,16 +108,11 @@ export default class LayersPanel extends Component {
     if (e.key === 'Enter') e.target.blur();
   }
 
-  onToggleChange(field, value) {
-    const { selectedLayer } = this.state;
-    if (!selectedLayer) return;
-    this.setState({ [field]: value }, () => {
-      if (field === 'editOn') selectedLayer.on = value;
-      if (field === 'editFrozen') selectedLayer.frozen = value;
-      if (field === 'editLocked') selectedLayer.locked = value;
-      if (field === 'editPlotting') selectedLayer.plotting = value;
-      if (field === 'editLineType') selectedLayer.lineType = value;
-    });
+  setLayerValue(prop, value) {
+    const layer = this.getSelectedLayer();
+    if (!layer) return;
+    layer[prop] = value;
+    this.forceUpdate();
   }
 
   colourToHex(colour) {
@@ -137,7 +122,8 @@ export default class LayersPanel extends Component {
   }
 
   renderEditPanel() {
-    const { editName, editOn, editFrozen, editLocked, editLineType, editLineWeight, editPlotting, selectedLayer } = this.state;
+    const { editName } = this.state;
+    const selectedLayer = this.getSelectedLayer();
     const currentLayer = this.getCurrentLayer();
     const indelibleLayers = this.props.core.layerManager.indelibleItems;
     const isIndelible = !selectedLayer || indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
@@ -172,24 +158,24 @@ export default class LayersPanel extends Component {
               onChange={e => this.setState({ editName: e.target.value })}
               onKeyDown={this.onNameKeyDown.bind(this)}
               type="text"
-              value={editName}
+              value={editName ?? selectedLayer?.name ?? ''}
             />
           }
           variant="form"
         />
         <DialogRow
           label="Visible"
-          suffix={<Switch checked={editOn} onChange={e => this.onToggleChange('editOn', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedLayer?.on} onChange={e => this.setLayerValue('on', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
           label="Frozen"
-          suffix={<Switch checked={editFrozen} onChange={e => this.onToggleChange('editFrozen', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedLayer?.frozen} onChange={e => this.setLayerValue('frozen', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
           label="Locked"
-          suffix={<Switch checked={editLocked} onChange={e => this.onToggleChange('editLocked', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedLayer?.locked} onChange={e => this.setLayerValue('locked', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
@@ -197,8 +183,8 @@ export default class LayersPanel extends Component {
           suffix={
             <select
               className="dialogrow-input dialogrow-input--select"
-              onChange={e => { this.onToggleChange('editLineType', e.target.value); e.target.blur(); }}
-              value={editLineType}
+              onChange={e => { this.setLayerValue('lineType', e.target.value); e.target.blur(); }}
+              value={selectedLayer?.lineType}
             >
               {lineTypes.map(lt => <option key={lt} value={lt}>{lt}</option>)}
             </select>
@@ -207,12 +193,12 @@ export default class LayersPanel extends Component {
         />
         <DialogRow
           label="Line Weight"
-          suffix={<span className="dialogrow-value-readonly">{String(editLineWeight)}</span>}
+          suffix={<span className="dialogrow-value-readonly">{String(selectedLayer?.lineWeight)}</span>}
           variant="form"
         />
         <DialogRow
           label="Plotting"
-          suffix={<Switch checked={editPlotting} onChange={e => this.onToggleChange('editPlotting', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedLayer?.plotting} onChange={e => this.setLayerValue('plotting', e.target.checked)} />}
           variant="form"
         />
       </SideKickEdit>
@@ -222,9 +208,8 @@ export default class LayersPanel extends Component {
   render() {
     const layers = this.getLayers();
     const currentLayer = this.getCurrentLayer();
-    const indelibleLayers = this.props.core.layerManager.indelibleItems;
-    const { selectedLayer, confirmDeleteLayer } = this.state;
-    const isIndelible = !selectedLayer || indelibleLayers.some(i => i.toUpperCase() === selectedLayer.name.toUpperCase());
+    const { confirmDeleteName } = this.state;
+    const selectedLayer = this.getSelectedLayer();
 
     return (
       <div className="sidekick-content-panel">
@@ -255,7 +240,7 @@ export default class LayersPanel extends Component {
         <ConfirmationDialog
           cancelLabel="Cancel"
           confirmLabel="Delete"
-          message={confirmDeleteLayer ? `Delete layer "${confirmDeleteLayer.name}"?` : ''}
+          message={confirmDeleteName ? `Delete layer "${confirmDeleteName}"?` : ''}
           onCancel={this.onCancelDelete.bind(this)}
           onConfirm={this.onDeleteLayer.bind(this)}
           ref={this.confirmDialogRef}

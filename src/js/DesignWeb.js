@@ -42,7 +42,7 @@ export default class DesignWeb extends Component{
     // Resolve initial style from a previous choice, defaulting to following the OS preference
     const storedStyle = localStorage.getItem('design-web-theme');
     const initialStyle = storedStyle || 'system';
-    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false, style: initialStyle}
+    this.state = {mousePos: '', sideKickOpen: false, toasts: [], currentFilename: null, isModified: false, style: initialStyle, docRevision: 0}
 
     this.popoverRef = React.createRef();
     this.aboutWindowRef = React.createRef();
@@ -228,6 +228,8 @@ export default class DesignWeb extends Component{
           this.applyStyle(this.state.style);
           this.setState({ currentFilename: name, isModified: false }, () => {
             this.core.openFile(reader.result);
+            // Panels holding document state must reset once loading has finished
+            this.setState(prev => ({ docRevision: prev.docRevision + 1 }));
           });
         };
         reader.readAsText(file);
@@ -316,9 +318,9 @@ export default class DesignWeb extends Component{
         ref={this.sideKickRef}
         tabs={[
           { id: 'properties', label: 'Properties', content: <PropertiesPanel core={this.core} ref={(el) => { this.propertiesPanelContent = el; }} /> },
-          { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} /> },
-          { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} /> },
-          { id: 'dimstyles', label: 'Dim Styles', content: <DimStylePanel core={this.core} /> },
+          { id: 'layers', label: 'Layers', content: <LayersPanel core={this.core} revision={this.state.docRevision} /> },
+          { id: 'styles', label: 'Text Styles', content: <TextStylePanel core={this.core} revision={this.state.docRevision} /> },
+          { id: 'dimstyles', label: 'Dim Styles', content: <DimStylePanel core={this.core} revision={this.state.docRevision} /> },
           { id: 'settings', label: 'Settings', content: <SettingsPanel core={this.core} /> },
         ]}
       />

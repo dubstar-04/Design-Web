@@ -8,23 +8,32 @@ export default class TextStylePanel extends Component {
   constructor(props) {
     super(props);
     this.confirmDialogRef = React.createRef();
-    this.state = {
-      selectedStyle: null,
-      selectedStyleName: '',
-      confirmDeleteStyle: null,
-      editName: '',
-      editFont: '',
-      editTextHeight: 2.5,
-      editUpsideDown: false,
-      editBackwards: false,
+    this.state = this.getInitialState();
+  }
+
+  // Only in-progress edits are buffered; the selected style is resolved from the active manager on render.
+  getInitialState() {
+    return {
+      selectedName: null,
+      confirmDeleteName: null,
+      editName: null,
+      editFont: null,
+      editTextHeight: null,
     };
   }
 
-  componentDidMount() {
-    const currentName = this.getCurrentStyle();
+  componentDidUpdate(prevProps) {
+    if (prevProps.core !== this.props.core || prevProps.revision !== this.props.revision) {
+      this.setState(this.getInitialState());
+    }
+  }
+
+  getSelectedStyle() {
     const styles = this.getStyles();
-    const current = styles.find(s => s.name === currentName) || styles[0];
-    if (current) this.onSelectStyle(current);
+    const current = this.getCurrentStyle();
+    return styles.find(s => s.name === this.state.selectedName) ||
+      styles.find(s => s.name === current) ||
+      styles[0];
   }
 
   getStyles() {
@@ -39,20 +48,11 @@ export default class TextStylePanel extends Component {
     this.props.core.styleManager.newItem();
     const styles = this.getStyles();
     const newStyle = styles[styles.length - 1];
-    if (newStyle) this.onSelectStyle(newStyle);
-    else this.forceUpdate();
+    this.setState({ selectedName: newStyle?.name ?? null, editName: null, editFont: null, editTextHeight: null });
   }
 
   onSelectStyle(style) {
-    this.setState({
-      selectedStyle: style,
-      selectedStyleName: style.name,
-      editName: style.name,
-      editFont: style.font,
-      editTextHeight: style.textHeight,
-      editUpsideDown: style.upsideDown,
-      editBackwards: style.backwards,
-    });
+    this.setState({ selectedName: style.name, editName: null, editFont: null, editTextHeight: null });
   }
 
   onSetCurrentStyle(style) {
@@ -61,35 +61,32 @@ export default class TextStylePanel extends Component {
   }
 
   onConfirmDelete(style) {
-    this.setState({ confirmDeleteStyle: style }, () => {
+    this.setState({ confirmDeleteName: style.name }, () => {
       this.confirmDialogRef.current.show();
     });
   }
 
   onCancelDelete() {
-    this.setState({ confirmDeleteStyle: null });
+    this.setState({ confirmDeleteName: null });
   }
 
   onDeleteStyle() {
-    const { confirmDeleteStyle } = this.state;
-    if (confirmDeleteStyle) {
-      const index = this.props.core.styleManager.getItemIndex(confirmDeleteStyle.name);
-      this.props.core.styleManager.deleteStyle(index);
-      this.setState({ confirmDeleteStyle: null }, () => {
-        const first = this.getStyles()[0];
-        if (first) this.onSelectStyle(first);
-      });
+    const { confirmDeleteName } = this.state;
+    if (confirmDeleteName) {
+      const index = this.props.core.styleManager.getItemIndex(confirmDeleteName);
+      if (index >= 0) this.props.core.styleManager.deleteStyle(index);
+      this.setState({ confirmDeleteName: null, selectedName: null, editName: null, editFont: null, editTextHeight: null });
     }
   }
 
   onNameBlur() {
-    const { selectedStyleName, editName } = this.state;
-    if (!selectedStyleName) return;
-    const index = this.props.core.styleManager.getItemIndex(selectedStyleName);
+    const { editName } = this.state;
+    const style = this.getSelectedStyle();
+    if (!style || editName === null) return;
+    const index = this.props.core.styleManager.getItemIndex(style.name);
     if (index >= 0) {
       this.props.core.styleManager.renameStyle(index, editName);
-      const actualName = this.props.core.styleManager.getItemByIndex(index).name;
-      this.setState({ selectedStyleName: actualName, editName: actualName });
+      this.setState({ selectedName: this.props.core.styleManager.getItemByIndex(index).name, editName: null });
     }
   }
 
@@ -98,9 +95,11 @@ export default class TextStylePanel extends Component {
   }
 
   onFontBlur() {
-    const { selectedStyle, editFont } = this.state;
-    if (!selectedStyle) return;
-    const index = this.props.core.styleManager.getItemIndex(selectedStyle.name);
+    const { editFont } = this.state;
+    const style = this.getSelectedStyle();
+    this.setState({ editFont: null });
+    if (!style || editFont === null) return;
+    const index = this.props.core.styleManager.getItemIndex(style.name);
     if (index >= 0) {
       this.props.core.styleManager.updateItem(index, 'font', editFont);
     }
@@ -111,14 +110,15 @@ export default class TextStylePanel extends Component {
   }
 
   onTextHeightBlur() {
-    const { selectedStyle, editTextHeight } = this.state;
-    if (!selectedStyle) return;
+    const { editTextHeight } = this.state;
+    const style = this.getSelectedStyle();
+    this.setState({ editTextHeight: null });
+    if (!style || editTextHeight === null) return;
     const value = parseFloat(editTextHeight);
     if (isNaN(value) || value < 0) return;
-    const index = this.props.core.styleManager.getItemIndex(selectedStyle.name);
+    const index = this.props.core.styleManager.getItemIndex(style.name);
     if (index >= 0) {
       this.props.core.styleManager.updateItem(index, 'textHeight', value);
-      this.setState({ editTextHeight: value });
     }
   }
 
@@ -126,17 +126,16 @@ export default class TextStylePanel extends Component {
     if (e.key === 'Enter') e.target.blur();
   }
 
-  onToggleChange(field, value) {
-    const { selectedStyle } = this.state;
-    if (!selectedStyle) return;
-    this.setState({ [field]: value }, () => {
-      if (field === 'editUpsideDown') selectedStyle.upsideDown = value;
-      if (field === 'editBackwards') selectedStyle.backwards = value;
-    });
+  setStyleValue(prop, value) {
+    const style = this.getSelectedStyle();
+    if (!style) return;
+    style[prop] = value;
+    this.forceUpdate();
   }
 
   renderEditPanel() {
-    const { editName, editFont, editTextHeight, editUpsideDown, editBackwards, selectedStyle } = this.state;
+    const { editName, editFont, editTextHeight } = this.state;
+    const selectedStyle = this.getSelectedStyle();
     const currentStyle = this.getCurrentStyle();
     const indelibleStyles = this.props.core.styleManager.indelibleItems;
     const isIndelible = !selectedStyle || indelibleStyles.some(i => i.toUpperCase() === selectedStyle.name.toUpperCase());
@@ -171,7 +170,7 @@ export default class TextStylePanel extends Component {
               onChange={e => this.setState({ editName: e.target.value })}
               onKeyDown={this.onNameKeyDown.bind(this)}
               type="text"
-              value={editName}
+              value={editName ?? selectedStyle?.name ?? ''}
             />
           }
           variant="form"
@@ -187,7 +186,7 @@ export default class TextStylePanel extends Component {
                 onChange={e => this.setState({ editFont: e.target.value })}
                 onKeyDown={this.onFontKeyDown.bind(this)}
                 type="text"
-                value={editFont}
+                value={editFont ?? selectedStyle?.font ?? ''}
               />
               <datalist id="text-style-panel-fonts">
                 <option value="Arial" />
@@ -219,19 +218,19 @@ export default class TextStylePanel extends Component {
               onKeyDown={this.onTextHeightKeyDown.bind(this)}
               step="0.1"
               type="number"
-              value={editTextHeight}
+              value={editTextHeight ?? selectedStyle?.textHeight ?? ''}
             />
           }
           variant="form"
         />
         <DialogRow
           label="Upside Down"
-          suffix={<Switch checked={editUpsideDown} onChange={e => this.onToggleChange('editUpsideDown', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedStyle?.upsideDown} onChange={e => this.setStyleValue('upsideDown', e.target.checked)} />}
           variant="form"
         />
         <DialogRow
           label="Backwards"
-          suffix={<Switch checked={editBackwards} onChange={e => this.onToggleChange('editBackwards', e.target.checked)} />}
+          suffix={<Switch checked={!!selectedStyle?.backwards} onChange={e => this.setStyleValue('backwards', e.target.checked)} />}
           variant="form"
         />
       </SideKickEdit>
@@ -241,8 +240,8 @@ export default class TextStylePanel extends Component {
   render() {
     const styles = this.getStyles();
     const currentStyle = this.getCurrentStyle();
-    const indelibleStyles = this.props.core.styleManager.indelibleItems;
-    const { selectedStyle, confirmDeleteStyle } = this.state;
+    const { confirmDeleteName } = this.state;
+    const selectedStyle = this.getSelectedStyle();
 
     return (
       <div className="sidekick-content-panel">
@@ -263,7 +262,7 @@ export default class TextStylePanel extends Component {
         <ConfirmationDialog
           cancelLabel="Cancel"
           confirmLabel="Delete"
-          message={confirmDeleteStyle ? `Delete text style "${confirmDeleteStyle.name}"?` : ''}
+          message={confirmDeleteName ? `Delete text style "${confirmDeleteName}"?` : ''}
           onCancel={this.onCancelDelete.bind(this)}
           onConfirm={this.onDeleteStyle.bind(this)}
           ref={this.confirmDialogRef}

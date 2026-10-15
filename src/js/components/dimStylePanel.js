@@ -95,20 +95,31 @@ export default class DimStylePanel extends Component {
   constructor(props) {
     super(props);
     this.confirmDialogRef = React.createRef();
-    this.state = {
-      selectedStyle: null,
-      selectedStyleName: '',
-      confirmDeleteStyle: null,
-      editName: '',
+    this.state = this.getInitialState();
+  }
+
+  // Only in-progress edits are buffered; the selected style is resolved from the active manager on render.
+  getInitialState() {
+    return {
+      selectedName: null,
+      confirmDeleteName: null,
+      editName: null,
       editValues: {},
     };
   }
 
-  componentDidMount() {
-    const currentName = this.getCurrentStyle();
+  componentDidUpdate(prevProps) {
+    if (prevProps.core !== this.props.core || prevProps.revision !== this.props.revision) {
+      this.setState(this.getInitialState());
+    }
+  }
+
+  getSelectedStyle() {
     const styles = this.getStyles();
-    const current = styles.find(s => s.name === currentName) || styles[0];
-    if (current) this.onSelectStyle(current);
+    const current = this.getCurrentStyle();
+    return styles.find(s => s.name === this.state.selectedName) ||
+      styles.find(s => s.name === current) ||
+      styles[0];
   }
 
   getManager() {
@@ -137,29 +148,15 @@ export default class DimStylePanel extends Component {
     return style.getValue(field.key);
   }
 
-  readEditValues(style) {
-    const editValues = {};
-    GROUPS.forEach(group => group.fields.forEach(field => {
-      if (field.type === 'number') editValues[field.key] = style.getValue(field.key);
-    }));
-    return editValues;
-  }
-
   onNewStyle() {
     this.getManager().newItem();
     const styles = this.getStyles();
     const newStyle = styles[styles.length - 1];
-    if (newStyle) this.onSelectStyle(newStyle);
-    else this.forceUpdate();
+    this.setState({ selectedName: newStyle?.name ?? null, editName: null, editValues: {} });
   }
 
   onSelectStyle(style) {
-    this.setState({
-      selectedStyle: style,
-      selectedStyleName: style.name,
-      editName: style.name,
-      editValues: this.readEditValues(style),
-    });
+    this.setState({ selectedName: style.name, editName: null, editValues: {} });
   }
 
   onSetCurrentStyle(style) {
@@ -168,37 +165,36 @@ export default class DimStylePanel extends Component {
   }
 
   onConfirmDelete(style) {
-    this.setState({ confirmDeleteStyle: style }, () => {
+    this.setState({ confirmDeleteName: style.name }, () => {
       this.confirmDialogRef.current.show();
     });
   }
 
   onCancelDelete() {
-    this.setState({ confirmDeleteStyle: null });
+    this.setState({ confirmDeleteName: null });
   }
 
   onDeleteStyle() {
-    const { confirmDeleteStyle } = this.state;
-    if (confirmDeleteStyle) {
-      const index = this.getManager().getItemIndex(confirmDeleteStyle.name);
-      this.getManager().deleteStyle(index);
-      this.props.core.canvas.requestPaint();
-      this.setState({ confirmDeleteStyle: null }, () => {
-        const first = this.getStyles()[0];
-        if (first) this.onSelectStyle(first);
-      });
+    const { confirmDeleteName } = this.state;
+    if (confirmDeleteName) {
+      const index = this.getManager().getItemIndex(confirmDeleteName);
+      if (index >= 0) {
+        this.getManager().deleteStyle(index);
+        this.props.core.canvas.requestPaint();
+      }
+      this.setState({ confirmDeleteName: null, selectedName: null, editName: null, editValues: {} });
     }
   }
 
   onNameBlur() {
-    const { selectedStyleName, editName } = this.state;
-    if (!selectedStyleName) return;
+    const { editName } = this.state;
+    const style = this.getSelectedStyle();
+    if (!style || editName === null) return;
     const manager = this.getManager();
-    const index = manager.getItemIndex(selectedStyleName);
+    const index = manager.getItemIndex(style.name);
     if (index >= 0) {
       manager.renameStyle(index, editName);
-      const actualName = manager.getItemByIndex(index).name;
-      this.setState({ selectedStyleName: actualName, editName: actualName });
+      this.setState({ selectedName: manager.getItemByIndex(index).name, editName: null });
     }
   }
 
@@ -207,23 +203,20 @@ export default class DimStylePanel extends Component {
   }
 
   setStyleValue(key, value) {
-    const { selectedStyle } = this.state;
-    if (!selectedStyle) return;
-    selectedStyle.setValue(key, value);
+    const style = this.getSelectedStyle();
+    if (!style) return;
+    style.setValue(key, value);
     this.props.core.canvas.requestPaint();
     this.forceUpdate();
   }
 
   onNumberBlur(field) {
-    const { selectedStyle, editValues } = this.state;
-    if (!selectedStyle) return;
-    const value = field.integer ? parseInt(editValues[field.key], 10) : parseFloat(editValues[field.key]);
-    if (isNaN(value)) {
-      this.setState({ editValues: { ...editValues, [field.key]: selectedStyle.getValue(field.key) } });
-      return;
-    }
-    this.setStyleValue(field.key, value);
-    this.setState({ editValues: { ...editValues, [field.key]: value } });
+    const { editValues } = this.state;
+    const { [field.key]: raw, ...rest } = editValues;
+    this.setState({ editValues: rest });
+    if (raw === undefined) return;
+    const value = field.integer ? parseInt(raw, 10) : parseFloat(raw);
+    if (!isNaN(value)) this.setStyleValue(field.key, value);
   }
 
   onSelectChange(field, raw) {
@@ -236,7 +229,8 @@ export default class DimStylePanel extends Component {
   }
 
   renderField(field) {
-    const { selectedStyle, editValues } = this.state;
+    const { editValues } = this.state;
+    const selectedStyle = this.getSelectedStyle();
     const value = this.getFieldValue(selectedStyle, field);
     let suffix;
 
@@ -251,7 +245,7 @@ export default class DimStylePanel extends Component {
           onKeyDown={this.onEnterBlur.bind(this)}
           step={field.integer ? '1' : '0.1'}
           type="number"
-          value={editValues[field.key] ?? ''}
+          value={editValues[field.key] ?? value}
         />
       );
     } else {
@@ -283,7 +277,8 @@ export default class DimStylePanel extends Component {
   }
 
   renderEditPanel() {
-    const { editName, selectedStyle } = this.state;
+    const { editName } = this.state;
+    const selectedStyle = this.getSelectedStyle();
     const currentStyle = this.getCurrentStyle();
     const indelibleStyles = this.getManager().indelibleItems;
     const isIndelible = !selectedStyle || indelibleStyles.some(i => i.toUpperCase() === selectedStyle.name.toUpperCase());
@@ -319,7 +314,7 @@ export default class DimStylePanel extends Component {
                 onChange={e => this.setState({ editName: e.target.value })}
                 onKeyDown={this.onEnterBlur.bind(this)}
                 type="text"
-                value={editName}
+                value={editName ?? selectedStyle?.name ?? ''}
               />
             }
             variant="form"
@@ -340,7 +335,8 @@ export default class DimStylePanel extends Component {
   render() {
     const styles = this.getStyles();
     const currentStyle = this.getCurrentStyle();
-    const { selectedStyle, confirmDeleteStyle } = this.state;
+    const { confirmDeleteName } = this.state;
+    const selectedStyle = this.getSelectedStyle();
 
     return (
       <div className="sidekick-content-panel">
@@ -361,7 +357,7 @@ export default class DimStylePanel extends Component {
         <ConfirmationDialog
           cancelLabel="Cancel"
           confirmLabel="Delete"
-          message={confirmDeleteStyle ? `Delete dimension style "${confirmDeleteStyle.name}"? Dimensions using it will also be deleted.` : ''}
+          message={confirmDeleteName ? `Delete dimension style "${confirmDeleteName}"? Dimensions using it will also be deleted.` : ''}
           onCancel={this.onCancelDelete.bind(this)}
           onConfirm={this.onDeleteStyle.bind(this)}
           ref={this.confirmDialogRef}
