@@ -8,6 +8,14 @@
 }
 
 /* Hide default HTML checkbox */
+.switch--disabled {
+  opacity: 0.5;
+}
+
+.switch--disabled .slider {
+  cursor: default;
+}
+
 .switch input {
   opacity: 0;
   width: 0;
