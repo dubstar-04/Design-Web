@@ -1,10 +1,10 @@
 {
   "name": "design-web",
-  "version": "52.0.0",
+  "version": "52.2.0",
   "homepage": "https://design-web.uk",
   "private": true,
   "dependencies": {
-    "@design-core/core": "^52.0.0",
+    "@design-core/core": "^52.2.0",
     "file-saver": "^2.0.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -48,7 +48,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "eslint": "^10.2.0",
+    "eslint": "^8.57.1",
     "eslint-config-google": "^0.14.0",
     "gh-pages": "^6.3.0",
     "jest-canvas-mock": "^2.5.2",
